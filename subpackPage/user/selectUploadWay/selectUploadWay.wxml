@@ -1,0 +1,41 @@
+<view class="selectUploadWayBox">
+  <view class="selectUploadWayBox-content">
+    <scroll-view scroll-y="{{true}}" class="content-scrollView">
+      <view class="scrollView_title">简历建议上传PDF文件，大小不超过20M</view>
+      <view class="wayList">
+        <van-uploader accept="file" max-count="1" bind:after-read="uploadBefore">
+          <view class="wayItem">
+            <view class="wayItem-left">
+              <image src="{{baseImageUrl}}/my/wayWxUpload.png" mode="" />
+            </view>
+            <view class="wayItem-center">
+              <view class="topTitle">微信上传</view>
+              <view class="buttomText">微信文件传输助手</view>
+            </view>
+            <view class="wayItem-right">
+              <van-icon name="arrow" />
+            </view>
+          </view>
+        </van-uploader>
+        <view class="wayItem" bind:tap="gotoTemplateList" data-mywallet="attachmentResumeTransfer">
+          <view class="wayItem-left">
+            <image src="{{baseImageUrl}}/my/wayResume.png" mode="" />
+            <view class="newTag" wx:if="{{newNoticeTagObj.attachmentResumeTransfer}}"></view>
+          </view>
+          <view class="wayItem-center">
+            <view class="topTitle">在线简历转附件简历上传</view>
+            <view class="buttomText">将在线简历一键转化附件简历</view>
+          </view>
+          <view class="wayItem-right">
+            <van-icon name="arrow" />
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+
+  <view class="selectUploadWayBox-footer">
+    附件简历在HR向你索取且您同意后，或您主动发给HR时，才会提供给对方。
+  </view>
+</view>

@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "van-icon": "@vant/weapp/icon/index",
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText":""
+}

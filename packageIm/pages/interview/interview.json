@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "van-steps":"@vant/weapp/steps/index"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText": "面试"
+}

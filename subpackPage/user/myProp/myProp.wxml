@@ -1,0 +1,73 @@
+<view class="box">
+    <van-sticky>
+        <view class="top_tabs">
+            <van-tabs active="{{ active }}" bind:change="changeTabs" title-active-color="#FE0201" color="#FE0201">
+                <van-tab title="未使用"></van-tab>
+                <!-- <van-tab title="使用中"></van-tab> -->
+                <van-tab title="已使用/过期"></van-tab>
+            </van-tabs>
+        </view>
+    </van-sticky>
+    <swiper style="height: {{windowHeight - 50}}px;padding-bottom: 40rpx;box-sizing: border-box;" bindchange="tabChange">
+        <swiper-item>
+            <scroll-view style="height:100%;" scroll-y>
+                <block wx:if="{{propList.length != 0}}">
+                    <view class="no_use_box">
+                        <view class="no_use_item" wx:for="{{propList}}" wx:key="index">
+                            <!-- <view class="{{item.status=='expired' || item.status=='done'?'opt':''}}"></view> -->
+                            <view class="img">
+                                <image src="{{imageUrl}}/my/myprop.png" mode=""/>
+                            </view>
+                            <view class="items">
+                                <view class="items_left">
+                                    <view class="items_left_left" wx:if="{{item.num > 0}}">
+                                        <view class="items_left_left_top">{{item.num}}</view>
+                                        <view class="items_left_left_bot" wx:if="{{item.propType==9 || item.propType==7}}">张</view>
+                                        <view class="items_left_left_bot" wx:else>次</view>
+                                    </view>
+                                    <view class="items_left_right">
+                                        <view class="items_left_right_top">
+                                          <text wx:if="{{item.propType==1}}">简历刷新卡</text>
+                                          <text wx:if="{{item.propType==5}}">简历置顶卡</text>
+                                          <text wx:if="{{item.propType==7}}">AI帮写</text>
+                                          <text wx:if="{{item.propType==9}}">虚拟电话</text>
+                                          <text style="font-size: 24rpx;color:#999;">*{{item.name}}</text>
+                                        </view>
+                                        <!-- wx:if="{{active===0}}" -->
+                                        <view class="items_left_right_middle" wx:if="{{item.propType==1}}">刷新后简历优先展示，曝光翻倍</view>
+                                        <view class="items_left_right_middle" wx:if="{{item.propType==5}}">简历置顶展示，让企业快速发现你</view>
+                                        <view class="items_left_right_middle" wx:if="{{item.propType==7}}">自动完善信息，为求职加速</view>
+                                        <view class="items_left_right_middle" wx:if="{{item.propType==9}}">及时沟通，个人隐私安全有保障</view>
+                                        <view class="items_left_right_bottom" wx:if="{{active===0 && item.expireTime}}">请在 {{item.expireTime || ''}}前激活</view>
+                                        <view class="items_left_right_bottom"  wx:if="{{active===0 && !item.expireTime}}">请激活使用</view>
+                                        <!-- <view class="items_left_right_middle" wx:if="{{active===1}}">使用1次</view> -->
+                                        <view class="items_left_right_bottom" wx:if="{{active===1}}">
+                                          <text wx:if="{{item.status=='using' || item.status=='done'}}">使用时间 {{item.startTime}}</text>
+                                          <text wx:if="{{item.status=='expired'}}">过期时间 {{item.endTime}}</text>
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="items_right"  wx:if="{{item.status!='expired' && (item.propType==9 || item.propType==7)}}">
+                                    <view wx:if="{{active == 0}}" class="right_btns" data-id="{{item.id}}" data-type="{{item.propType}}" bindtap="goActive">激活</view>
+                                    <view wx:else  data-type="{{item.propType}}" class="right_btns" data-id="{{item.id}}" data-status="{{item.status}}" bindtap="goEcharts">查看</view>
+                                </view>
+                                <view class="items_right"  wx:elif="{{item.status!='expired' && item.propType!=9}}">
+                                    <view wx:if="{{active == 0}}" class="right_btns" data-id="{{item.id}}" data-type="{{item.propType}}" bindtap="goUsing">去使用</view>
+                                    <view wx:else  data-type="{{item.propType}}" class="right_btns" data-id="{{item.id}}" data-status="{{item.status}}" bindtap="goEcharts">查看</view>
+                                </view>
+                                <view wx:else>
+                                  <view class="right_btns greyBtns">已过期</view>
+                                </view>
+                            </view>
+                            <view class="despItems">
+                              说明：<text wx:if="{{item.source==1}}">线上购买</text><text wx:if="{{item.source==2}}">权益分配</text><text wx:if="{{item.source==3}}">线上活动</text><text wx:if="{{item.source==4}}">线下会员权益</text><text wx:if="{{item.source==5}}">线上会员权益</text></view>
+                        </view> 
+                    </view>
+                </block>
+                <noData wx:else></noData>
+            </scroll-view>
+        </swiper-item>
+    </swiper>
+</view>
+<modelPopup show="{{ outShow }}" custom-style="margin-top:-30%" zIndex="200" bind:confirm="identifyHandle" bind:cancel="cloneShow" refresherType="default" releaseText="{{outShowMsg}}">
+</modelPopup>

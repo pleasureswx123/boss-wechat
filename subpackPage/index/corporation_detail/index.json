@@ -1,0 +1,13 @@
+{
+    "usingComponents": {
+        "van-cell": "@vant/weapp/cell/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "component-info": "/components/infomationList/infomationList",
+        "popup-treatment":"/components/popup-treatment/popup-treatment",
+        "ocean-search": "/components/ocean-search/index"
+    },
+    "navigationBarTitleText": "公司简介",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+}

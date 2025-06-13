@@ -1,0 +1,424 @@
+<!-- scroll-y="true"  -->
+<scroll-view id="container" scroll-y="{{firstLook == 1}}" class="page-class" bind:tap="doubleEvent">
+  <!-- 急聘 -->
+  <view class="content_urgent_cont" wx:if="{{token && postDetailInfo.urgent==1 && (postDetailInfo.deleted ==1 || postDetailInfo.sattus !== 0)}}">
+    <view class="content_urgent_left">
+      <image src="{{baseImageUrl}}/shandian.png" mode="" style="width: 28rpx;height: 36rpx;margin-bottom: 2rpx;" />
+      <view class="urgent_cont">该岗位为“急聘”职位，您可直接投递简历</view>
+    </view>
+    <view class="urgent_button" catch:tap="tipsFn" wx:if="{{deliver==1}}">已投递</view>
+    <view class="urgent_button" wx:else catch:tap="goTouJl">一键投递</view>
+  </view>
+  <!-- 岗位信息 全职展示-->
+  <view class="content_job" wx:if="{{postDetailInfo.personal == 0}}">
+    <view class="content_job_left">
+      <text class="content_job_job">{{postDetailInfo.title}}</text>
+    </view>
+    <view class="content_job_right" wx:if="{{postDetailInfo.deleted==1 || postDetailInfo.sattus == 0 || postDetailInfo.sattus==2}}">
+      <text class="content_job_right_money">停止招聘</text>
+    </view>
+    <view class="content_job_right" wx:else>
+      <view class="content_job_right_money" wx:if="{{postDetailInfo.type==1 || postDetailInfo.type==3}}">
+        {{postDetailInfo.lowestMoney || 0}}-{{postDetailInfo.maximumMoney || 0}} {{clearing[postDetailInfo.settlementUnit-1].name}}
+      </view>
+      <view class="content_job_right_money" wx:else>
+        <text wx:if="{{postDetailInfo.moneyType == 1 || postDetailInfo.lowestMoney<=0}}">面议</text>
+        <!-- 经典版 -->
+        <block wx:else>
+          <block wx:if="{{postDetailInfo.lowestMoney > 0}}">
+            <text wx:if="{{versions==1}}">{{postDetailInfo.lowestMoney || 0}}-{{postDetailInfo.maximumMoney || 0}}K</text>
+            <text wx:else>
+              <text wx:if="{{postDetailInfo.maximumMoney > 0 && postDetailInfo.maximumMoney < 10}}">{{postDetailInfo.lowestMoney * 1000}}-{{postDetailInfo.maximumMoney * 1000}}元</text>
+              <text wx:else>{{postDetailInfo.lowestMoney / 10}}-{{postDetailInfo.maximumMoney / 10}}万</text>
+            </text>
+          </block>
+        </block>
+        <text class="content_job_right_money" wx:if="{{postDetailInfo.monthMoney > 12}}">·{{postDetailInfo.monthMoney}}薪</text>
+      </view>
+    </view>
+  </view>
+  <!-- 岗位信息 兼职展示 -->
+  <view class="content_job-partTime column" wx:if="{{postDetailInfo.personal == 1}}">
+    <view class="tit">{{postDetailInfo.title}}</view>
+    <view class="content_job_right_money" wx:if="{{postDetailInfo.type==1 || postDetailInfo.type==3}}">
+      {{postDetailInfo.lowestMoney || 0}}-{{postDetailInfo.maximumMoney || 0}} {{clearing[postDetailInfo.settlementUnit-1].name}}
+    </view>
+    <view class="content_job_right_money" wx:else>
+      <text wx:if="{{postDetailInfo.moneyType == 1 || postDetailInfo.lowestMoney<=0}}">面议</text>
+      <!-- 经典版 -->
+      <block wx:else>
+        <block wx:if="{{postDetailInfo.lowestMoney > 0}}">
+          <text wx:if="{{versions==1}}">{{postDetailInfo.lowestMoney || 0}}-{{postDetailInfo.maximumMoney || 0}}K</text>
+          <text wx:else>
+            <text wx:if="{{postDetailInfo.maximumMoney > 0 && postDetailInfo.maximumMoney < 10}}">{{postDetailInfo.lowestMoney * 1000}}-{{postDetailInfo.maximumMoney * 1000}}元</text>
+            <text wx:else>{{postDetailInfo.lowestMoney / 10}}-{{postDetailInfo.maximumMoney / 10}}万</text>
+          </text>
+        </block>
+      </block>
+      <text class="content_job_right_money" wx:if="{{postDetailInfo.monthMoney > 12}}">·{{postDetailInfo.monthMoney}}薪</text>
+    </view>
+  </view>
+  <!-- 地址 -->
+  <view class="content_condition" wx:if="{{postDetailInfo.personal == 0}}">
+    <view class="content_condition_left" style="align-items: center;" wx:if="{{postDetailInfo.province}}">
+      <!-- <image src="{{baseImageUrl + '/index_img/dingwei.png'}}" mode="" style="width: 31rpx;height: 31rpx;"></image> -->
+      <image src="{{baseImageUrl}}/newImg/anchor.svg" mode="" style="width: 20rpx;height: 26rpx;margin-bottom: 2rpx;" />
+      <text>{{ postDetailInfo.province }}{{postDetailInfo.city}}</text>
+    </view>
+    <view class="content_condition_center">
+      <!-- <image src="{{baseImageUrl + '/index_img/jobtime.png'}}" mode=""></image> -->
+      <image src="{{baseImageUrl}}/newImg/experience_year.svg" mode="" style="width: 26rpx;height: 28rpx;margin-top: 4rpx;" />
+      <text>{{ experienceList[postDetailInfo.experience].name }}</text>
+    </view>
+    <view class="content_condition_right" wx:if="{{postDetailInfo.background}}">
+      <!-- <image src="{{baseImageUrl + '/index_img/xueli.png'}}" mode=""></image> -->
+      <image src="{{baseImageUrl}}/newImg/edu_bg_icon.svg" mode="" style="width: 30rpx;height: 30rpx;" />
+      <text>{{ educationList[postDetailInfo.background-1].name }}</text>
+    </view>
+  </view>
+  <!-- 面试红包 -->
+  <view class="tipLine">
+    <view class="content_redPacket" wx:if="{{postDetailInfo.packetMoney && (postDetailInfo.deleted ==1 || postDetailInfo.sattus !== 0)}}">
+      <image class="hbdh" src="{{baseImageUrl + '/index_img/red_packet_gold.png'}}" mode="" wx:if="{{postDetailInfo.bigRedPacket}}"></image>
+      <image class="hbdh" src="{{imageUrl + '/yp/tip_redPacket.png'}}" mode="" wx:else></image>
+      <text>面试签到后有神秘红包</text>
+    </view>
+    <view class="content_redPacket" wx:if="{{activitySubsidy==1}}">
+      <image src="{{baseImageUrl + '/index_img/car.png'}}" mode="" class="carStyle"></image>
+      <text>享平台面试路费补贴</text>
+    </view>
+  </view>
+  <!-- 知城核验 -->
+  <view class="content_verification" wx:if="{{checkTags.length > 0 && versions==2}}">
+    <view class="content_verification-box {{postDetailInfo.packetMoney && (postDetailInfo.deleted ==1 || postDetailInfo.sattus !== 0) || activitySubsidy==1 ? '' : 'noRedOrcar'}}">
+      <view class="box-head">
+        <!-- <image src="{{baseImageUrl}}/versions/heyan.png" mode="" /> -->
+        <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/shield_icon.png" mode="" class="shield_icon" />
+        <text>知城核验</text>
+      </view>
+
+      <view class="content_verification-list">
+        <view class="item" wx:for="{{checkTags}}" wx:key="index">
+          <image src="/image/versions/success.png" mode="" />
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 公司头像以及名称 -->
+  <view class="content_Recruiter" data-belonger="{{postDetailInfo.belonger}}" bindtap="urlPostDetail">
+    <view class="content_Recruiter_left">
+      <image src="{{postDetailInfo.avatar}}" mode="aspectFill" wx:if="{{postDetailInfo.avatar}}" />
+      <image src="{{baseImageUrl + '/default-avatar.png'}}" mode="aspectFill" wx:else />
+      <view class="onlineCircle" wx:if="{{activation=='在线中'}}"></view>
+    </view>
+    <view class="content_Recruiter_center column">
+      <view class="content_Recruiter_center_top">
+        <text>{{ postDetailInfo.outName || '' }} </text>
+        <text>{{activation}}</text>
+        <!-- 活跃度 -->
+      </view>
+      <view class="content_Recruiter_center_bottom" wx:if="{{postDetailInfo.personal == 0}}">
+        <text>{{ postDetailInfo.corporationName || '' }}<text wx:if="{{postDetailInfo.corporationName && postDetailInfo.outPost}}">·</text><text wx:if="{{postDetailInfo.outPost}}">{{ postDetailInfo.outPost || '' }}</text></text>
+      </view>
+    </view>
+    <view class="content_Recruiter_right">
+      <image src="{{baseImageUrl + '/index_img/goToPage.png'}}" mode=""></image>
+    </view>
+  </view>
+  <!-- 职位详情 -->
+  <view class="content_describe" wx:if="{{postDetailInfo.deleted==1 || postDetailInfo.sattus==0 || postDetailInfo.sattus==2}}" style="border:none">
+    <view class="content_describe_text">
+      <text>职位详情</text>
+    </view>
+    <view class="postClose">该职位已关闭</view>
+    <view class="qiye-wx-entry-bg" catch:tap="handleToEntryPage">
+      <image mode="aspectFit" src="{{baseImageUrl}}/qiwei-entry2.png" />
+    </view>
+  </view>
+  <block wx:else>
+    <!-- 企业实探 -->
+    <view class="exploration" wx:if="{{mediasList.length > 0}}">
+      <view class="exploration_box">
+        <!-- 实探视频照片 -->
+        <scroll-view class="exploration_box-button" scroll-x="true" enable-flex>
+          <view class="content_scroll">
+            <view class="content_scroll-image" data-playUrl="{{item.url}}" data-type="{{item.type}}" bindtap="explorationPlay" wx:for="{{mediasList}}" wx:key="index">
+              <image src="{{item.url}}" mode="aspectFill" />
+              <!-- 蒙层 -->
+              <view class="content_scroll-image-mask" wx:if="{{item.type == 2}}">
+                <image class="content_scroll-image-playIcon" src="{{baseImageUrl + '/index_img/play1.png'}}" mode="aspectFit" />
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <view class="qiye-wx-entry-bg" catch:tap="handleToEntryPage">
+      <image mode="aspectFit" src="{{baseImageUrl}}/qiwei-entry2.png" />
+    </view>
+    <!-- 知城核验 -->
+    <!-- <view class="content_verification" wx:if="{{checkTags.length > 0 && versions==2}}">
+      <view class="content_verification-box">
+        <view class="box-head">
+          <image src="{{baseImageUrl}}/versions/heyan.png" mode="" />
+          <text>知城核验</text>
+        </view>
+
+        <view class="content_verification-list">
+          <view class="item" wx:for="{{checkTags}}" wx:key="index">
+            <image src="/image/versions/success.png" mode="" />
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view> -->
+    <!-- 职位信息 -->
+    <view class="content_describe">
+      <!-- 兼职信息 -->
+      <view class="jianzhi" wx:if="{{postDetailInfo.type==1 || postDetailInfo.type==3}}">
+        <view class="content_describe_text">
+          <!-- <text>{{qzArray[postDetailInfo.type].name}}信息</text> -->
+          <text>兼职信息</text>
+        </view>
+        <view class="stitle mg10" wx:if="{{postDetailInfo.workDays}}"><text>工作日期：</text>{{postDetailInfo.workDays}}</view>
+        <view class="stitle" wx:if="{{postDetailInfo.workTimes}}"><text>工作时间：</text>{{postDetailInfo.workTimes}}</view>
+        <view class="stitle" wx:if="{{postDetailInfo.settlementMethod}}"><text>结算方式：</text>{{jsfsArr[postDetailInfo.settlementMethod-1].name}}</view>
+        <view class="stitle" wx:if="{{postDetailInfo.endTime}}"><text>截止招聘：</text>{{postDetailInfo.endTime}}</view>
+      </view>
+      <view class="content_describe_text">
+        <text>职位详情</text>
+      </view>
+      <view class="content_describe_category">
+        <view class="content_describe_category_container" wx:for="{{tagList}}" wx:key="index">
+          {{item}}
+        </view>
+      </view>
+      <!-- 岗位描述 -->
+      <view class="content_describe_detail">
+        <!-- <view class="content_describe_detail_view" wx:for="{{postDuty}}" wx:key="index"> -->
+        <view class="content_describe_detail_view">
+          <rich-text nodes="{{ postDuty }}"></rich-text>
+        </view>
+      </view>
+    </view>
+    <!-- 公司详情 -->
+    <view class="content_corporation" data-corporationId="{{postDetailInfo.corporationId}}" bindtap="urlCompany" wx:if="{{postDetailInfo.corporationId && postDetailInfo.personal == 0}}">
+      <view class="content_corporation_left">
+        <image src="{{postDetailInfo.logo}}" mode="aspectFill" wx:if="{{postDetailInfo.logo}}"></image>
+        <image src="{{baseImageUrl}}/newImg/companyHead.svg" mode="aspectFill" wx:else></image>
+      </view>
+      <view class="content_corporation_center">
+        <view class="content_corporation_center_top">
+          {{ companyFullName || '' }}
+        </view>
+        <view class="content_corporation_center_bottom">
+          <view class="view" wx:if="{{financingList[postDetailInfo.financeStage].name!='不限'}}">{{ financingList[postDetailInfo.financeStage].name || '' }}</view>
+          <view class="bot_line" wx:if="{{postDetailInfo.financeStage}}"></view>
+          <view class="view" wx:if="{{scaleList[postDetailInfo.scale].name!='不限'}}">{{ scaleList[postDetailInfo.scale].name || '' }}</view>
+          <view class="bot_line" wx:if="{{postDetailInfo.scale}}"></view>
+          <view class="view">{{ postDetailInfo.tradeName || '' }}</view>
+        </view>
+      </view>
+      <view class="content_corporation_right">
+        <image src="{{baseImageUrl + '/index_img/goToPage.png'}}" mode=""></image>
+      </view>
+    </view>
+    <!-- 位置定位 -->
+    <view class="content_map">
+      <!-- 静态地图图片 -->
+      <image src="{{src}}" mode="" bindtap="location"></image>
+      <view class="label-popup">
+        <view class="rectangle">
+          <text> {{postDetailInfo.postAddress}}</text>
+        </view>
+      </view>
+      <!-- 已有住址 -->
+      <view class="content_place" wx:if="{{distance !== null}}">
+        <view class="content_place_left">
+          距离我的位置<span>{{ distance }}</span>千米
+        </view>
+        <view class="content_place_right" bindtap="seeAdd">
+          去修改
+        </view>
+      </view>
+      <!-- 设置住址 -->
+      <view class="content_place" wx:else>
+        <view class="content_place_left">
+          设置家庭住址，通勤距离一目了然
+        </view>
+        <view class="content_place_right" bindtap="seeAdd">
+          添加住址
+        </view>
+      </view>
+    </view>
+    <!-- 安全提醒 -->
+    <view class="content_remind">
+      <image src="{{baseImageUrl + '/newImg/jubao1.png'}}" mode=""></image>
+      <text class="content_remind-title">优聘安全提醒</text>
+      <!-- <view>求职过程中如遇到招聘方有收费，扣押证件的行为，请立即举报。 岗位要求海外上班，请提高警惕，谨防诈骗。</view> -->
+      <view>1.求职过程中如遇到招聘方有收费，扣押证件的行为，请<text bind:tap="report" class="reportText">立即举报</text>；</view>
+      <view>2.岗位要求海外上班，请提高警惕，谨防诈骗。</view>
+    </view>
+    <view style="height: 178rpx;"></view>
+    <view class="content_button">
+      <view class="content_button_left">
+        <button class="share" open-type="share" hover-class="hover-class">
+          <image src="{{baseImageUrl + '/index_img/share.png'}}" mode="" />
+          <text>分享</text>
+        </button>
+
+        <view class="collect" data-type="0" bindtap="setPostCollect" wx:if="{{postDetailInfo.collected == 1}}">
+          <image src="{{baseImageUrl + '/index_img/hotcollect.png'}}" mode="aspectFill" />
+          <text>收藏</text>
+        </view>
+        <view class="collect" data-type="1" bindtap="setPostCollect" wx:else>
+          <image src="{{baseImageUrl + '/index_img/collect.png'}}" mode="aspectFill" wx:if="{{!collectIcon}}" />
+          <image src="{{baseImageUrl + '/index_img/hotcollect.gif'}}" mode="aspectFill" wx:else />
+          <text>收藏</text>
+        </view>
+      </view>
+      <!-- <button class="content_button_left" bindtap="notInterested">
+              取消不感兴趣
+          </button> -->
+      <!-- <button class="content_button_left" bindtap="notInterested" v-else>
+                  不感兴趣
+              </button> -->
+      <view wx:if="{{token}}" style="flex: 1;">
+        <view class="content_button_right" wx:if="{{contactWay === 1}}">
+          <view class="custom-style ma-right20 buttonBack1" bind:tap="phoneCommunicate">
+            <image src="{{baseImageUrl}}/user/phoneIcon.png" mode="" class="phoneIcon" />
+            电话沟通
+          </view>
+          <view class="custom-style buttonBack2" bindtap="getResumeInfo" wx:if="{{isfirstChat == 1}}">
+            <image src="{{baseImageUrl}}/user/messageIcon.png" mode="" class="messageIcon" />
+            在线沟通
+          </view>
+          <view class="custom-style buttonBack2" bindtap="getResumeInfo" wx:else>
+            <image src="{{baseImageUrl}}/user/messageIcon.png" mode="" class="messageIcon" />
+            继续沟通
+          </view>
+        </view>
+
+        <view class="content_button_right" wx:if="{{contactWay === 0}}">
+          <view class="custom-style buttonBack2" style="width: 100%;" bindtap="getResumeInfo" wx:if="{{isfirstChat == 1}}">
+            <image src="{{baseImageUrl}}/user/messageIcon.png" mode="" class="messageIcon" />在线沟通
+          </view>
+          <view class="custom-style buttonBack2" bindtap="getResumeInfo" style="width: 100%;" wx:else>
+            <image src="{{baseImageUrl}}/user/messageIcon.png" mode="" class="messageIcon" />继续沟通
+          </view>
+        </view>
+      </view>
+      <!-- 未登陆展示 -->
+      <view wx:if="{{!token}}" class="content_button_right">
+        <view class="custom-style buttonBack2" style="width: 100%;" bindtap="getResumeInfo">
+          <image src="{{baseImageUrl}}/user/messageIcon.png" mode="" class="messageIcon" />在线沟通
+        </view>
+      </view>
+    </view>
+    <!-- 一键投递 -->
+    <van-popup round show="{{ jlShow }}" position="bottom" custom-style="height: 40%" closeable bind:close="onClose">
+      <view class="gui-flex gui-column share-item">
+        <view class="getFile">
+          <view class="title">选择要发送的附件</view>
+          <view class="content" wx:for="{{jlList}}" wx:key="index" bindtap="sendFileFun" data-item="{{item}}">
+            <image src="{{baseImageUrl}}/my/resumeAnnex.png" mode="" />
+            <view>
+              <view class="fileName">{{item.fileName}}</view>
+              <view class="size">{{item.size+ " MB"}} 更新于{{item.updateTime}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </van-popup>
+  </block>
+  <!-- 收藏中间小星星 -->
+  <view wx:if="{{showStar}}">
+    <image class="star" src="{{baseImageUrl}}/index_img/collectioned.png" mode="aspectFit"></image>
+  </view>
+  <!-- 引导 -->
+  <view class="yd" wx:if="{{!firstLook}}" bind:tap="setLookVal">
+    <image src="{{baseImageUrl}}/index_img/collect_post_hint.png" mode="aspectFit" />
+    <image class="handImg" src="{{baseImageUrl}}/hand.png" mode="aspectFit"></image>
+  </view>
+  <!-- 收藏后效果 -->
+  <!-- wx:if="{{showCollect}}" -->
+  <view class="collectBg" wx:if="{{showCollect}}">
+    <view class="collectPop" bind:tap="closeCollect">
+      <view class="closeItem"><van-icon name="cross" color="rgba(255, 186, 183, 1)" size="12"/></view>
+      <view class="itemBox1">
+        <block wx:for="{{collectList}}" wx:key="index">
+          <view wx:if="{{sjNum==index}}">
+            <view class="itemBox1_name">{{item.name}}<image class="scIcon1" src="{{baseImageUrl}}/scIcon1.png" mode="aspectFill"></image></view>
+            <view class="itemBox1_desp">{{item.desp}}</view>
+          </view>
+        </block>
+        <view>
+          <image class="collected_tip" src="{{baseImageUrl}}/post_detail_collected_tip_man0.png" mode="aspectFill"></image>
+        </view>
+      </view>
+      <view class="itemBox2">
+        <view class="itemBox2_1">已收藏岗位 <view class="num">{{collectionCount}}</view>/无限制</view>
+        <view class="itemBox2_2" bind:tap="goCollect">我的收藏</view> 
+      </view>
+    </view>
+  </view>
+  <!-- 点击去登录 -->
+  <weixinLogin_prop show="{{loginShow}}" bind:onClose="weixinOnClose"></weixinLogin_prop>
+</scroll-view>
+
+<!-- 展示虚拟电话 -->
+<!-- <van-action-sheet show="{{ phoneShow }}" actions="{{ actions }}" bind:click-overlay="phoneOnClose" bind:cancel="phoneOnClose" bind:select="phoneOnSelect" cancel-text="取消" /> -->
+<van-popup show="{{ phoneShow }}" round bind:close="phoneOnClose">
+  <view class="phone_popup">
+    <view class="phone_popup-head">
+      <view class="title">即将用该号码 加密呼出</view>
+      <view class="tips">双卡双待请确认，系统呼出号码和下方一致</view>
+    </view>
+
+    <view class="phone_popup-content">
+      <view class="currentPhpne">{{userInfo.phone}}</view>
+      <view class="tips">如不是本机号码？则无法拨出</view>
+
+      <view class="buttomText">
+        <image src="{{baseImageUrl}}/versions/tipIcon.png" mode="aspectFill" style="width: 14px;height: 14px;margin-right: 10rpx;vertical-align: sub;"></image>为保障服务质量，您的通话可能被录音
+      </view>
+    </view>
+
+    <view class="phone_popup-button">
+      <view class="confirmButton" bind:tap="phoneOnSelect">立即呼叫(加密)</view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 简历有问题 -->
+<vltPrompt isShowContact="{{ isShowContact }}" bind:close="onClose" infoObj="{{jlShInfo}}"></vltPrompt>
+
+<!-- 余额不足弹窗/可去充值 -->
+<van-popup round show="{{ show }}" closeable round position="bottom" bind:close="cancel" z-index="1000">
+  <view class="circulate_popup">
+    <view class="circulate_popup-head">
+      <view class="title">虚拟电话次数不足</view>
+      <view class="imgBox">
+        <!-- <image src="{{baseImageUrl}}/versions/AIPopup.png" mode="" /> -->
+        <image src="{{baseImageUrl}}/newImg/xndh1.png" class="iconImage" mode="aspectFill" />
+      </view>
+    </view>
+
+    <view class="circulate_popup-content">
+      <view class="back">
+        <!-- <view class="text">您的虚拟电话次数不足,是否立即购买？</view> -->
+        <view class="text">使用虚拟电话可以直接拨打招聘者电话，更快入职</view>
+      </view>
+    </view>
+
+    <view class="circulate_popup-button">
+      <view class="cancalButton button" bind:tap="cancel">取消</view>
+      <view class="confirmButton button" bind:tap="gotoRecharge">去购买</view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 自定义弹窗 -->
+<modelPopup show="{{ outShow }}" custom-style="margin-top:-30%" zIndex="200" bind:confirm="comfirmFun" bind:cancel="cloneShow" refresherType="default" releaseText="{{outShowMsg}}" isTextContent="center">
+</modelPopup>

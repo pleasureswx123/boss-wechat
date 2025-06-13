@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+      "ocean-search":"/components/ocean-search/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarBackgroundColor": "#F5F5F5",
+  "navigationBarTitleText": "全部行业",
+  "navigationBarTextStyle": "black"
+}

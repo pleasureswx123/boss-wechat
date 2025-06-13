@@ -1,0 +1,896 @@
+<!--subpackPage/versions/hotPost/index.wxml-->
+<view class="ocean-wrapper">
+  <view class="hotPost-container column">
+    <!-- 头部区域 -->
+    <view class="hotPost-container_header">
+      <view class="indexBox_head">
+        <!-- 自定义导航栏 -->
+        <!-- background: rgba(255, 255, 255,{{topOpacity}}); -->
+        <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;background: linear-gradient( 180deg, #FE5D59 0%, rgba(255, 117, 114,{{topOpacity}}) 100%);">
+          <view class="topNav" style="height: {{capsuleData.menuHeight}}px;">
+            <view class="topNav_left" bindtap="gotoCity">
+              <view class="location">{{locationAddress}}</view>
+              <van-icon name="arrow-down" color="#fff" size="13px" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 内容区域 -->
+    <view class="hotPost-container_content column">
+      <pull-refresh-view scrollY="{{!showLoading}}" class="list-container" enhanced="{{true}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish && isUpload}}" nomoreText="{{isFinish && isUpload && dataList.length > 0 ? '没有更多数据了~' : ''}}" loadType="default" loadmoreText="努力加载中~" refresherEnable="{{!showLoading}}" bindscroll="contentscroll" upperThreshold="45">
+        <view class="bg">
+          <image src="{{baseImageUrl}}/hot_pageBg.png" mode="widthFix" />
+        </view>
+        <view class="container_content-header" style="padding-top: {{capsuleData.menuTop + capsuleData.menuHeight}}px;">
+          <image src="{{baseImageUrl}}/hot_title_img.png" mode="" class="tit_img" />
+          <view class="left_imgBox">
+            <image src="{{baseImageUrl}}/hot_header_left.png" mode="widthFix" class="left_img" />
+
+            <!-- 星星 大 -->
+            <image src="{{baseImageUrl}}/hot-star_big.png" mode="" class="hot-star_big fireworks1" />
+
+            <!-- 星星 小 -->
+            <image src="{{baseImageUrl}}/hot-star_small.png" mode="" class="hot-star_small fireworks2" />
+
+            <!-- 放大镜 -->
+            <image src="{{baseImageUrl}}/magnifier_img.png" mode="" class="magnifier_img fireworks3" />
+          </view>
+        </view>
+        <!-- 红包岗位 -->
+        <view class="container_content-hotPost column">
+          <view class="hotPost_header row between">
+            <view class="headerLeft">
+              <image src="{{baseImageUrl}}/hot_title.png" mode="" class="hot_title" />
+              <image src="{{baseImageUrl}}/hot_icon.png" mode="" class="hot_icon" />
+            </view>
+            <view class="headerRight row" bind:tap="gotoHotPostPage" wx:if="{{currentHotPost.name}}">
+              <text>{{currentHotPost.name}}</text>
+              <van-icon name="arrow" color="#F42F2F" size="30rpx" />
+            </view>
+          </view>
+          <!-- 骨架屏展示 -->
+          <view class="hotPost_content" wx:if="{{showLoading_red}}">
+            <view class="swiper-wrapper row">
+              <block wx:for="{{5}}" wx:key="index">
+                <view class="swiper-item">
+                  <view class="itemBox column" style="height: 100%;justify-content: center;">
+                    <view class="skeleton-title">
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 21px;"></view>
+                        </view>
+                      </view>
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 18px;"></view>
+                        </view>
+                      </view>
+                    </view>
+                    <view class="imitateSkeleton imitateSkeleton-animate" style="width: 75%;margin-top: 30rpx;">
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                        </view>
+                      </view>
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                        </view>
+                      </view>
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                        </view>
+                      </view>
+                    </view>
+
+                    <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                      <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                      <view class="imitateSkeleton_content" style="margin-right: 32rpx;">
+                        <view class="rowBox" style="height: 23px;"></view>
+                      </view>
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 23px;"></view>
+                        </view>
+                      </view>
+                    </view>
+
+                    <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                      <view class="imitateSkeleton_content">
+                        <view class="rowBox" style="height: 18px;"></view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+              <view style="width: 22rpx;height: 30rpx;display: flex;flex-shrink: 0;"></view>
+            </view>
+          </view>
+          <!-- 有数据展示 -->
+          <view class="hotPost_content" wx:if="{{redPocketPostList.length > 0}}">
+            <!-- 有数据 并多于一个 -->
+            <block wx:if="{{redPocketPostList.length > 1}}">
+              <view class="swiper-wrapper row">
+                <block wx:for="{{redPocketPostList}}" wx:key="index">
+                  <view class="swiper-item" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                    <view class="itemBox">
+                      <view class="itemBox-title">
+                        <view class="meta">
+                          <view class="meta_coontent">
+                            <view class="name">{{item.post}}</view>
+                          </view>
+                        </view>
+                        <view class="action">
+                          <view class="action_content">
+                            <block wx:if="{{item.moneyType == 1}}">
+                              <text class="compensation">面议</text>
+                            </block>
+                            <block wx:else>
+                              <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                                <!-- 元/时 -->
+                                {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                              </view>
+                              <view wx:else class="compensation">
+                                <!-- 经典版 -->
+                                <block wx:if="{{item.lowestMoney > 0}}">
+                                  <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                                  <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                                </block>
+                                <block wx:else>面议</block>
+                                <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                              </view>
+                            </block>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tags">
+                        <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                        <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                      </view>
+                      <view class="itemBox-content1">
+                        <!-- 招聘者信息 -->
+                        <view class="top-inviteInfo">
+                          <view class="left">
+                            <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                            <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                            <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                            <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                              <view class="fontBox">
+                                <text class="font1">{{item.outName || ''}}</text>
+                                <text class="font2" wx:if="{{item.online}}">在线中</text>
+                                <text class="font2" wx:else>{{item.activation}}</text>
+                              </view>
+                              <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                                <view class="bossName overflow">{{item.companyName || ''}}</view>
+                              </view>
+                            </view>
+                          </view>
+                          <!-- 企业地址和立即联系按钮 -->
+                          <view class="button-address">
+                            <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                              <view class="communicateButton">立即沟通</view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                        <image src="../../../image/deliver_icon1.png" mode="" />
+                        <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                      </view>
+                      <view wx:else style="height: 24rpx;margin-top: 23rpx;"></view>
+                    </view>
+                  </view>
+                  <view style="width: 22rpx;height: 30rpx;display: flex;flex-shrink: 0;" wx:if="{{(index + 1) == redPocketPostList.length}}"></view>
+                </block>
+              </view>
+            </block>
+            <!-- 有数据 但只有一个 -->
+            <block wx:if="{{redPocketPostList.length == 1}}">
+              <view class="swiper-wrapper row">
+                <block wx:for="{{redPocketPostList}}" wx:key="index">
+                  <view class="swiper-item onlyOne" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                    <view class="itemBox">
+                      <view class="itemBox-title">
+                        <view class="meta">
+                          <view class="meta_coontent">
+                            <view class="name">{{item.post}}</view>
+                          </view>
+                        </view>
+                        <view class="action">
+                          <view class="action_content">
+                            <block wx:if="{{item.moneyType == 1}}">
+                              <text class="compensation">面议</text>
+                            </block>
+                            <block wx:else>
+                              <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                                <!-- 元/时 -->
+                                {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                              </view>
+                              <view wx:else class="compensation">
+                                <!-- 经典版 -->
+                                <block wx:if="{{item.lowestMoney > 0}}">
+                                  <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                                  <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                                </block>
+                                <block wx:else>面议</block>
+                                <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                              </view>
+                            </block>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tags">
+                        <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                        <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                      </view>
+                      <view class="itemBox-content1">
+                        <!-- 招聘者信息 -->
+                        <view class="top-inviteInfo">
+                          <view class="left">
+                            <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                            <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                            <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                            <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                              <view class="fontBox">
+                                <text class="font1">{{item.outName || ''}}</text>
+                                <text class="font2" wx:if="{{item.online}}">在线中</text>
+                                <text class="font2" wx:else>{{item.activation}}</text>
+                              </view>
+                              <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                                <view class="bossName overflow">{{item.companyName || ''}}</view>
+                              </view>
+                            </view>
+                          </view>
+                          <!-- 企业地址和立即联系按钮 -->
+                          <view class="button-address">
+                            <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                              <view class="communicateButton">立即沟通</view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                        <image src="../../../image/deliver_icon1.png" mode="" />
+                        <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                      </view>
+                      <view wx:else style="height: 24rpx;margin-top: 23rpx;"></view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </block>
+          </view>
+          <!-- 无数据时展示 -->
+          <view class="hotPost_content" wx:if="{{redPocketPostList.length == 0 && showLoading_red == false}}">
+            <view class="swiper-wrapper row">
+              <view class="swiper-item onlyOne" style="height: 100%;">
+                <view class="no_data itemBox" style="width: calc(100% - 30rpx);">
+                  <view class="no_data_center">
+                    <view class="no_data_img">
+                      <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+                    </view>
+                    <view class="no_data_text">暂无岗位推荐</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- hr在线 骨架屏 -->
+        <view class="container_content-hr column" wx:if="{{showLoading_hr}}">
+          <view class="hr-header row between">
+            <view class="headerLeft">
+              <image src="{{baseImageUrl}}/hr_title.png" mode="" class="hr_title" />
+              <image src="{{baseImageUrl}}/hr_eye.png" mode="" class="hr_eye" />
+            </view>
+            <view class="headerRight row">
+              <image src="{{baseImageUrl}}/hr_heart.png" mode="" class="hr_heart" />
+            </view>
+          </view>
+          <!-- 骨架屏展示 -->
+          <view class="hr-content column">
+            <view class="swiper-wrapper row column">
+              <!-- 奇数数组 -->
+              <view class="multiseriate row">
+                <block wx:for="{{2}}" wx:key="index">
+                  <view class="swiper-item row">
+                    <view class="itemBox column" style="height: 100%;justify-content: center;">
+                      <view class="skeleton-title">
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 21px;"></view>
+                          </view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;"></view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 75%;margin-top: 30rpx;">
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                          </view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                          </view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                          </view>
+                        </view>
+                      </view>
+
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                        <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                        <view class="imitateSkeleton_content" style="margin-right: 32rpx;">
+                          <view class="rowBox" style="height: 23px;"></view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 23px;"></view>
+                          </view>
+                        </view>
+                      </view>
+
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 18px;"></view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+                <view style="width: 22rpx;height: 30rpx;display: flex;flex-shrink: 0;"></view>
+              </view>
+              <!-- 偶数数组 -->
+              <view class="multiseriate row">
+                <block wx:for="{{2}}" wx:key="index">
+                  <view class="swiper-item row">
+                    <view class="itemBox column" style="height: 100%;justify-content: center;">
+                      <view class="skeleton-title">
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 21px;"></view>
+                          </view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;"></view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 75%;margin-top: 30rpx;">
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                          </view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                          </view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                          </view>
+                        </view>
+                      </view>
+
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                        <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                        <view class="imitateSkeleton_content" style="margin-right: 32rpx;">
+                          <view class="rowBox" style="height: 23px;"></view>
+                        </view>
+                        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                          <view class="imitateSkeleton_content">
+                            <view class="rowBox" style="height: 23px;"></view>
+                          </view>
+                        </view>
+                      </view>
+
+                      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                        <view class="imitateSkeleton_content">
+                          <view class="rowBox" style="height: 18px;"></view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+                <view style="width: 22rpx;height: 30rpx;display: flex;flex-shrink: 0;"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- HR在线 -->
+        <view class="container_content-hr column" wx:if="{{hrOnlinePostList.length > 0}}">
+          <view class="hr-header row between">
+            <view class="headerLeft">
+              <image src="{{baseImageUrl}}/hr_title.png" mode="" class="hr_title" />
+              <image src="{{baseImageUrl}}/hr_eye.png" mode="" class="hr_eye" />
+            </view>
+            <view class="headerRight row">
+              <image src="{{baseImageUrl}}/hr_heart.png" mode="" class="hr_heart" />
+            </view>
+          </view>
+          <!-- 有数据时展示 -->
+          <view class="hr-content column">
+            <!-- 有数据 并多于一个但是小于4个 -->
+            <block wx:if="{{hrOnlinePostList.length > 1 && hrOnlinePostList.length < 4}}">
+              <view class="swiper-wrapper row">
+                <block wx:for="{{hrOnlinePostList}}" wx:key="index">
+                  <view class="swiper-item" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                    <view class="itemBox">
+                      <view class="itemBox-title">
+                        <view class="meta">
+                          <view class="meta_coontent">
+                            <view class="name">{{item.post}}</view>
+                          </view>
+                        </view>
+                        <view class="action">
+                          <view class="action_content">
+                            <block wx:if="{{item.moneyType == 1}}">
+                              <text class="compensation">面议</text>
+                            </block>
+                            <block wx:else>
+                              <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                                <!-- 元/时 -->
+                                {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                              </view>
+                              <view wx:else class="compensation">
+                                <!-- 经典版 -->
+                                <block wx:if="{{item.lowestMoney > 0}}">
+                                  <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                                  <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                                </block>
+                                <block wx:else>面议</block>
+                                <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                              </view>
+                            </block>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tags">
+                        <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                        <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                      </view>
+                      <view class="itemBox-content1">
+                        <!-- 招聘者信息 -->
+                        <view class="top-inviteInfo">
+                          <view class="left">
+                            <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                            <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                            <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                            <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                              <view class="fontBox">
+                                <text class="font1">{{item.outName}}</text>
+                                <!-- <text class="font2" wx:if="{{item.online}}">在线中</text> -->
+                                <!-- <text class="font2" wx:else>{{item.activation}}</text> -->
+                              </view>
+                              <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                                <view class="bossName overflow">{{item.companyName}}</view>
+                              </view>
+                            </view>
+                          </view>
+                          <!-- 企业地址和立即联系按钮 -->
+                          <view class="button-address">
+                            <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                              <view class="communicateButton">立即沟通</view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                        <image src="../../../image/deliver_icon2.png" mode="" />
+                        <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                      </view>
+                      <view wx:else style="height: 24rpx;margin-top: 23rpx;"></view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </block>
+            <!-- 有数据 并多于一个但是小于4个 -->
+            <block wx:if="{{hrOnlinePostList.length >= 4}}">
+              <view class="swiper-wrapper row column">
+                <!-- 奇数数组 -->
+                <view class="multiseriate row">
+                  <block wx:for="{{hrOddArray}}" wx:key="index">
+                    <view class="swiper-item row">
+                      <view class="itemBox" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                        <view class="itemBox-title">
+                          <view class="meta">
+                            <view class="meta_coontent">
+                              <view class="name">{{item.post}}</view>
+                            </view>
+                          </view>
+                          <view class="action">
+                            <view class="action_content">
+                              <block wx:if="{{item.moneyType == 1}}">
+                                <text class="compensation">面议</text>
+                              </block>
+                              <block wx:else>
+                                <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                                  <!-- 元/时 -->
+                                  {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                                </view>
+                                <view wx:else class="compensation">
+                                  <!-- 经典版 -->
+                                  <block wx:if="{{item.lowestMoney > 0}}">
+                                    <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                                    <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                                  </block>
+                                  <block wx:else>面议</block>
+                                  <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                                </view>
+                              </block>
+                            </view>
+                          </view>
+                        </view>
+                        <view class="itemBox-tags">
+                          <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                          <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                        </view>
+                        <view class="itemBox-content1">
+                          <!-- 招聘者信息 -->
+                          <view class="top-inviteInfo">
+                            <view class="left">
+                              <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                              <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                              <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                              <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                                <view class="fontBox">
+                                  <text class="font1">{{item.outName}}</text>
+                                  <!-- <text class="font2" wx:if="{{item.online}}">在线中</text> -->
+                                  <!-- <text class="font2" wx:else>{{item.activation}}</text> -->
+                                </view>
+                                <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                                  <view class="bossName overflow">{{item.companyName}}</view>
+                                </view>
+                              </view>
+                            </view>
+                            <!-- 企业地址和立即联系按钮 -->
+                            <view class="button-address">
+                              <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                                <view class="communicateButton">立即沟通</view>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                        <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                          <image src="../../../image/deliver_icon2.png" mode="" />
+                          <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                        </view>
+                        <view wx:else style="height: 24rpx;margin-top: 23rpx;"></view>
+                      </view>
+                    </view>
+                    <view style="width: 22rpx;height: 30rpx;display: flex;flex-shrink: 0;" wx:if="{{(index + 1) == hrOddArray.length}}"></view>
+                  </block>
+                </view>
+                <!-- 偶数数组 -->
+                <view class="multiseriate row">
+                  <block wx:for="{{hrEvenArray}}" wx:key="index">
+                    <view class="swiper-item row">
+                      <view class="itemBox" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                        <view class="itemBox-title">
+                          <view class="meta">
+                            <view class="meta_coontent">
+                              <view class="name">{{item.post}}</view>
+                            </view>
+                          </view>
+                          <view class="action">
+                            <view class="action_content">
+                              <block wx:if="{{item.moneyType == 1}}">
+                                <text class="compensation">面议</text>
+                              </block>
+                              <block wx:else>
+                                <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                                  <!-- 元/时 -->
+                                  {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                                </view>
+                                <view wx:else class="compensation">
+                                  <!-- 经典版 -->
+                                  <block wx:if="{{item.lowestMoney > 0}}">
+                                    <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                                    <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                                  </block>
+                                  <block wx:else>面议</block>
+                                  <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                                </view>
+                              </block>
+                            </view>
+                          </view>
+                        </view>
+                        <view class="itemBox-tags">
+                          <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                          <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                        </view>
+                        <view class="itemBox-content1">
+                          <!-- 招聘者信息 -->
+                          <view class="top-inviteInfo">
+                            <view class="left">
+                              <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                              <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                              <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                              <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                                <view class="fontBox">
+                                  <text class="font1">{{item.outName}}</text>
+                                  <!-- <text class="font2" wx:if="{{item.online}}">在线中</text> -->
+                                  <!-- <text class="font2" wx:else>{{item.activation}}</text> -->
+                                </view>
+                                <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                                  <view class="bossName overflow">{{item.companyName}}</view>
+                                </view>
+                              </view>
+                            </view>
+                            <!-- 企业地址和立即联系按钮 -->
+                            <view class="button-address">
+                              <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                                <view class="communicateButton">立即沟通</view>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                        <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                          <image src="../../../image/deliver_icon2.png" mode="" />
+                          <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                        </view>
+                        <view wx:else style="height: 24rpx;margin-top: 23rpx;"></view>
+                      </view>
+                    </view>
+                    <view style="width: 22rpx;height: 30rpx;display: flex;flex-shrink: 0;" wx:if="{{(hrOddArray.length == hrEvenArray.length) && (index + 1) == hrEvenArray.length}}"></view>
+                  </block>
+                </view>
+              </view>
+            </block>
+            <!-- 有数据 但是只有一个 -->
+            <block wx:if="{{hrOnlinePostList.length == 1}}">
+              <view class="swiper-wrapper row">
+                <block wx:for="{{hrOnlinePostList}}" wx:key="index">
+                  <view class="swiper-item onlyOne" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                    <view class="itemBox">
+                      <view class="itemBox-title">
+                        <view class="meta">
+                          <view class="meta_coontent">
+                            <view class="name">{{item.post}}</view>
+                          </view>
+                        </view>
+                        <view class="action">
+                          <view class="action_content">
+                            <block wx:if="{{item.moneyType == 1}}">
+                              <text class="compensation">面议</text>
+                            </block>
+                            <block wx:else>
+                              <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                                <!-- 元/时 -->
+                                {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                              </view>
+                              <view wx:else class="compensation">
+                                <!-- 经典版 -->
+                                <block wx:if="{{item.lowestMoney > 0}}">
+                                  <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                                  <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                                </block>
+                                <block wx:else>面议</block>
+                                <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                              </view>
+                            </block>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tags">
+                        <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                        <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                      </view>
+                      <view class="itemBox-content1">
+                        <!-- 招聘者信息 -->
+                        <view class="top-inviteInfo">
+                          <view class="left">
+                            <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                            <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                            <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                            <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                              <view class="fontBox">
+                                <text class="font1">{{item.outName}}</text>
+                                <!-- <text class="font2" wx:if="{{item.online}}">在线中</text> -->
+                                <!-- <text class="font2" wx:else>{{item.activation}}</text> -->
+                              </view>
+                              <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                                <view class="bossName overflow">{{item.companyName}}</view>
+                              </view>
+                            </view>
+                          </view>
+                          <!-- 企业地址和立即联系按钮 -->
+                          <view class="button-address">
+                            <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                              <view class="communicateButton">立即沟通</view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                        <image src="../../../image/deliver_icon2.png" mode="" />
+                        <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                      </view>
+                      <view wx:else style="height: 24rpx;margin-top: 23rpx;"></view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </block>
+          </view>
+        </view>
+
+        <!-- 骨架屏展示 -->
+        <view class="container_content-list" wx:if="{{showLoading}}">
+          <view class="list-header">
+            <view class="headerLeft">
+              <image src="{{baseImageUrl}}/list_title.png" mode="" class="list_title" />
+              <image src="{{baseImageUrl}}/list_suona.png" mode="" class="list_suona" />
+            </view>
+          </view>
+          <!-- 骨架屏展示 -->
+          <view class="list-content">
+            <block wx:for="{{10}}" wx:key="index">
+              <view class="itemBox column" style="justify-content: center;">
+                <view class="skeleton-title">
+                  <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;">
+                    <view class="imitateSkeleton_content">
+                      <view class="rowBox" style="height: 21px;"></view>
+                    </view>
+                  </view>
+                  <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                    <view class="imitateSkeleton_content">
+                      <view class="rowBox" style="height: 18px;"></view>
+                    </view>
+                  </view>
+                </view>
+                <view class="imitateSkeleton imitateSkeleton-animate" style="width: 75%;margin-top: 30rpx;">
+                  <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                    <view class="imitateSkeleton_content">
+                      <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                    </view>
+                  </view>
+                  <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                    <view class="imitateSkeleton_content">
+                      <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                    </view>
+                  </view>
+                  <view class="imitateSkeleton imitateSkeleton-animate" style="width: 33%;">
+                    <view class="imitateSkeleton_content">
+                      <view class="rowBox" style="height: 18px;margin-right: 10px;"></view>
+                    </view>
+                  </view>
+                </view>
+
+                <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                  <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                  <view class="imitateSkeleton_content" style="margin-right: 32rpx;">
+                    <view class="rowBox" style="height: 23px;"></view>
+                  </view>
+                  <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+                    <view class="imitateSkeleton_content">
+                      <view class="rowBox" style="height: 23px;"></view>
+                    </view>
+                  </view>
+                </view>
+
+                <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;margin-top: 30rpx;">
+                  <view class="imitateSkeleton_content">
+                    <view class="rowBox" style="height: 18px;"></view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <!-- 大家都在投 -->
+        <view class="container_content-list" wx:if="{{dataList.length > 0}}">
+          <view class="list-header">
+            <view class="headerLeft">
+              <image src="{{baseImageUrl}}/list_title.png" mode="" class="list_title" />
+              <image src="{{baseImageUrl}}/list_suona.png" mode="" class="list_suona" />
+            </view>
+          </view>
+          <!-- 有数据时展示 -->
+          <view class="list-content">
+            <block wx:for="{{dataList}}" wx:key="index">
+              <view class="itemBox" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                <view class="itemBox-title">
+                  <view class="meta">
+                    <view class="meta_coontent">
+                      <view class="name">{{item.post}}</view>
+                    </view>
+                  </view>
+                  <view class="action">
+                    <view class="action_content">
+                      <block wx:if="{{item.moneyType == 1}}">
+                        <text class="compensation">面议</text>
+                      </block>
+                      <block wx:else>
+                        <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                          <!-- 元/时 -->
+                          {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+                        </view>
+                        <view wx:else class="compensation">
+                          <!-- 经典版 -->
+                          <block wx:if="{{item.lowestMoney > 0}}">
+                            <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                            <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                          </block>
+                          <block wx:else>面议</block>
+                          <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                        </view>
+                      </block>
+                    </view>
+                  </view>
+                </view>
+                <view class="itemBox-tags">
+                  <view class="tagItem" wx:if="{{item.year !== '' && item.year !== '不限'}}">{{item.year}}</view>
+                  <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+                </view>
+                <view class="itemBox-content1">
+                  <!-- 招聘者信息 -->
+                  <view class="top-inviteInfo">
+                    <view class="left">
+                      <image class="avatar" src="{{item.avatar}}" mode="" wx:if="{{item.avatar}}" />
+                      <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                      <view class="onlineCircle" wx:if="{{item.online}}"></view>
+                      <view class="column" style="flex: 1;max-width: calc(100% - 56rpx - 18rpx)">
+                        <view class="fontBox">
+                          <text class="font1">{{item.outName || ''}}</text>
+                          <text class="font2" wx:if="{{item.online}}">在线中</text>
+                          <text class="font2" wx:else>{{item.activation}}</text>
+                        </view>
+                        <view class="font3 row" style="flex-shrink: 0;max-width: 100%">
+                          <view class="bossName overflow">{{item.companyName || ''}}</view>
+                        </view>
+                      </view>
+                    </view>
+                    <!-- 企业地址和立即联系按钮 -->
+                    <view class="button-address">
+                      <view class="" catch:tap="nowCommunicate" data-item="{{ item }}">
+                        <view class="communicateButton">立即沟通</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <view class="itemBox-tips row" wx:if="{{item.lastDeliveryTime}}">
+                  <image src="../../../image/deliver_icon1.png" mode="" />
+                  <view class="tips_txt">{{item.lastDeliveryTime}}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </pull-refresh-view>
+    </view>
+
+    <!-- 底部导航 -->
+    <view class="hotPost-container_footer" style="padding-bottom: {{globalBottom}}px;">
+      <component-tab_classics num-prop="3" count="{{count}}" />
+    </view>
+  </view>
+
+  <!-- 提示 -->
+  <van-transition show="{{ showToastDom }}" duration="{{ { enter: 1000, leave: 1000 } }}">
+    <view class="showToastDom" style="bottom: {{globalBottom+ 58}}px;">
+      <view class="logoImgs">
+        暂未找到相关职位，为您推荐以下职位
+      </view>
+    </view>
+  </van-transition>
+</view>
+
+<!-- 未登录快速登录 -->
+<weixinLogin_prop show="{{loginShow}}" bind:onClose="onClose"></weixinLogin_prop>
+<!-- 会员即将过期 -->
+<member-prop show="{{memberProp}}" bind:onClose="closeProp"></member-prop>

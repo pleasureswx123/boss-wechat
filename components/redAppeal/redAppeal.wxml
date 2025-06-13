@@ -1,0 +1,36 @@
+<van-popup show="{{ isShensu }}" closeable round position="bottom" custom-style="height: 85%;border-radius: 48rpx;" bind:close="onClose">
+  <view class="circulate_popup-head"></view>
+  <view class="circulate_popup-body">
+    <view class="sstitle">我要申诉</view>
+    <view class="ssTime">
+      <view class="s1">面试时间</view>
+      <view class="s2">{{interviewTime || ''}}</view>
+    </view>
+    <view class="ssdesp">
+      <view class="desp1"><text class="red">*</text>具体情况说明</view>
+      <view class="desp2">
+        <textarea value="{{despText}}" placeholder="说点什么…" maxlength="50" bindinput="changeText" style="height:178rpx;width:100%" placeholder-class="input-placeholder" bindinput="textareaInput" />
+        <view class="num">
+          {{despText.length}}/50
+        </view>
+      </view>
+    </view>
+    <view class="ssImg">
+      <view><text class="red">*</text>图片证明（最多3张）</view>
+      <view class="cont_img">
+        <view class="uploadImg" bindtap="uploadImage" wx:if="{{ImageArr.length < 3}}">
+          <image src="{{baseImgUrl}}/versions/add.png" class="add" />
+        </view>
+        <view class="img_item" wx:for="{{ImageArr}}" wx:key="index">
+          <image class="img1" src="{{item}}" mode="aspectFill" />
+          <view class="clone" data-index="{{index}}" bindtap="removeImage">x</view>
+        </view>
+      </view>
+    </view>
+    <view class="btns">
+      <view class="cancel" bind:tap="onClose">取消</view>
+      <view class="sure" bind:tap="appealSave" wx:if="{{ImageArr.length>0 && despText}}">申诉</view>
+      <view class="sure cancel" wx:else>申诉</view>
+    </view>
+  </view>
+</van-popup>

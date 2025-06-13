@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "van-switch": "@vant/weapp/switch/index",
+        "nodata": "../../../../components/nodata/nodata",
+        "van-radio": "@vant/weapp/radio/index",
+        "van-radio-group": "@vant/weapp/radio-group/index",
+        "van-icon": "@vant/weapp/icon/index"
+    },
+    "navigationBarTitleText": "打招呼语",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

@@ -1,0 +1,30 @@
+<!--subpackPage/user/setup/account/phone.wxml-->
+
+<view class="head">修改手机号</view>
+<text class="text">修改手机号码后，可以使用新手机号登录知城优聘，聊天时“交换电话”功能的手机号会一同修改
+  当前手机号：{{firstPhone}}****{{lastPhone}}</text>
+  <view class="revise textTips">
+    <view class="revise-left">每月可修改 {{phoneNum.base}} 次</view>
+    <view class="revise-right">剩余 {{phoneNum.leave}} 次</view>
+    <image src="{{baseImageUrl}}/user/userSurplus.png" mode="" />
+  </view>
+<!-- <view class="cen" wx:if="{{tipsShow}}">
+  <view class="textTips">注：每月可修改次数{{phoneNum.base}}次 您还可修改{{phoneNum.leave}}次</view>
+  <view class="closeIcon" bind:tap="closeTipsDom">
+    <van-icon name="cross" color="#FE0201" size="14px" />
+  </view>
+</view> -->
+<view class="input">
+  <text class="input_text">+86</text>
+  <input type="number" maxlength="11" cursor-color="#FE0201" value="{{phone}}" bindinput="phoneInput" placeholder="请输入新手机号" />
+</view>
+<view class="input">
+  <input type="number" cursor-color="#FE0201" bindinput="codeInput" value="{{code}}" placeholder="请输入验证码" />
+  <view class="inputBtn">
+    <view class="code" bindtap="checkCode" wx:if="{{secondShow==0 && second == 0}}">获取验证码</view>
+    <view class="code" wx:if="{{second > 0}}">剩余{{second}}s</view>
+    <view class="code" bindtap="checkCode" wx:if="{{secondShow==1 && second == 0}}">重新获取</view>
+  </view>
+</view>
+<button bindtap="subBtnHandle" wx:if="{{phone && code && phoneNum.leave>0}}">保存</button>
+<button class="greybtn" wx:else>保存</button>

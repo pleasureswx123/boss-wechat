@@ -1,0 +1,39 @@
+<!--subpackPage/index/setAddress/index.wxml-->
+<view id="setAddress">
+    <!-- 搜索框 -->
+    <view class="searchInput">
+        <!-- 当前位置 -->
+        <!-- <view class="left" bindtap="gotoCity">
+            <view class="location">{{locationAddress}}</view>
+            <van-icon name="arrow-down" size="8px" />
+        </view> -->
+        <!-- <view style="height: 38rpx;border: 2rpx solid #999999; opacity: 0.1;"></view> -->
+        <!-- 搜索框 -->
+        <view class="right" bindtap="gotoAddress">
+            <!-- 搜索图标 -->
+            <image class="searchIcon" src="{{baseImageUrl + '/index_img/search.png'}}" mode="" />
+            <!-- 模拟input框 -->
+            <view class="input">
+                输入并选择您当前的地址
+            </view>
+        </view>
+    </view>
+
+    <!-- 位置信息 -->
+    <view class="locationInfo">位置信息</view>
+
+    <view class="locationList">
+        <!-- 没有设置住址时显示 -->
+        <view class="notAvailable" wx:if="{{!addressObj.id}}">
+            <image src="{{baseImageUrl + '/index_img/notAvailable.png'}}" mode="" />
+            <text>没有家庭住址</text>
+        </view>
+        <!-- 设置了住址时显示 -->
+        <view class="addressList" wx:else>
+            <view class="addressItem" >
+                <view><span style="color: #1D2129;">( {{addressObj.city}}/{{addressObj.district}} )</span> {{addressObj.details}}</view>
+                <image bindtap="gotoAddress" src="{{baseImageUrl + '/edit.png'}}" mode="" />
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "notdata":"/components/nodata/nodata",
+        "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+        "perfectestCity-Popup": "/components/perfectestCityPopup/perfectestCityPopup"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText": ""
+}

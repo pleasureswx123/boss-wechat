@@ -1,0 +1,19 @@
+{
+  "usingComponents": {
+    "component-tab_classics": "/components/tab_classics/tab_classics",
+    "oceanwaterfall": "/components/ocean-waterall/index",
+    "screenCondition": "/components/screenCondition/screenCondition",
+    "me-waterfall": "/components/lib/waterfall/index",
+    "me-waterfall-item": "/components/lib/waterfall-item/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "pull-refresh-view":"/components/pull-refresh-view/index",
+    "member-prop": "/components/member_prop/member_prop",
+    "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+    "van-skeleton": "@vant/weapp/skeleton/index",
+    "skeletonList": "/components/skeletonList/skeletonList",
+    "van-transition": "@vant/weapp/transition/index"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText":"",
+    "navigationBarTextStyle":"white"
+}

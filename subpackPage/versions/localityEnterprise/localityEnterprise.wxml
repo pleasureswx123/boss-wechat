@@ -1,0 +1,69 @@
+<view class="localityEnterprise_box">
+  <!-- 自定义顶部栏 -->
+  <view class="nav-bar" style="height:{{globalData.navBarHeight}}px;">
+    <view class="search" bind:tap="gotoBack" style="height:{{globalData.menuHeight}}px; min-height:{{globalData.menuHeight}}px; line-height:{{globalData.menuHeight}}px; left:{{globalData.menuRight}}px; top:{{globalData.menuTop}}px;">
+      <van-icon name="arrow-left" color="#fff" size="18px" />
+    </view>
+  </view>
+
+  <!-- 占位，高度与顶部栏一样 -->
+  <view class="localityEnterprise_back">
+    <image src="{{baseImageUrl}}/versions/localityEnterprise_back.png" mode="" />
+  </view>
+
+
+  <view class="locality_box-scroll">
+    <scroll-view class="tabsbox" scroll-x="true" enable-flex>
+      <view class="tabs">
+        <view wx:for="{{tabsList}}" wx:key="index" class="tabs-item {{item.id == selectId ? 'tabs-active' : ''}}" bindtap="changeTab" id="{{item.id}}" data-index="{{index}}">{{item.name}}</view>
+      </view>
+    </scroll-view>
+    <view class="tabs_content" wx:if="{{enterpriseList.length > 0}}">
+    <!-- style="transition-duration: 0.3s;transform: translate3d({{distance + '%'}}, 0px, 0px);" -->
+      <scroll-view  class="tabs_track" scroll-y="{{true}}">
+      <!-- {{item.id == selectId ? '' : 'tab_pane-wrapper-inactive'}} -->
+        <view class="tab_pane-wrapper" wx:for="{{enterpriseList}}" wx:key="index">
+          <view class="tab_pane">
+            <view class="tabs-enterprise">
+            <!-- wx:for="{{enterpriseList}}" wx:key="index" -->
+              <view class="tabs-enterprise-item" data-corporationId="{{item.corporationId}}"  bind:tap="gotoCompanyDetail">
+                <view class="item-head">
+                  <view class="item-head_avatar">
+                    <image src="{{item.logo}}" wx:if="{{item.logo}}" mode="" />
+                    <!-- <image src="{{item.logo}}" mode="" /> -->
+                    <image src="{{baseImageUrl}}/newImg/companyHead.svg" mode="aspectFill" wx:else></image>
+                  </view>
+                  <view class="item-head_info">
+                    <!-- 企业简称 -->
+                    <view class="info-top">
+                      <text>{{item.abbreviation}}</text>
+                      <van-icon name="arrow" color="#666" size="14px" />
+                    </view>
+                    <view class="info-tagList">
+                      <view class="info-tagItem"  wx:for-item="itemName" wx:for="{{item.tags}}" wx:key="index">{{itemName}}</view>
+                    </view>
+                  </view>
+                </view>
+                <view class="item-line"></view>
+                <view class="item-button">
+                  <view class="item-button_left" wx:if="{{item.postInfo}}">{{item.postInfo.title}} <text>{{item.postInfo.salary}}</text></view>
+                  <view class="item-button_right" wx:if="{{item.postNum}}"><text style="color: #FE0201;">{{item.postNum}}</text>热招职位</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="tabs_content" wx:else>
+      <!-- 无数据时展示 -->
+      <view class="notData_box">
+        <view class="notData_box_img">
+          <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+          <view class="notData_box_text">暂无数据</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

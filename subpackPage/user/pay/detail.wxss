@@ -1,0 +1,183 @@
+page {
+  background: #ffffff;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.payDetailBox {
+  height: 100%;
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+
+.box1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 600rpx;
+  background: #ffffff;
+}
+
+.box1 image {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.btn {
+  /* width: 654rpx; */
+  height: 92rpx;
+  background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%);
+  border-radius: 12rpx;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.btn1 {
+  /* width: 654rpx; */
+  height: 92rpx;
+  /* background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+  border-radius: 12rpx;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F32E2E;
+  border: 1rpx solid #F32E2E;
+  margin-bottom: 30rpx;
+}
+
+.font {
+  font-size: 32rpx;
+
+  font-weight: 400;
+  color: #1D2129;
+  padding-top: 36rpx;
+}
+
+.member_order {
+  width: 100%;
+  position: relative;
+  padding-top: 100rpx;
+}
+
+.orderText {
+  font-size: 32rpx;
+
+  font-weight: 550;
+  color: #1D2129;
+  text-align: center;
+}
+
+.inviteChuli {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 550rpx;
+  padding-top: 60rpx;
+}
+
+.inviteImage {
+  height: 106rpx;
+}
+
+.inviteImage button {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 100;
+  background: transparent;
+}
+
+.vipbg {
+  width: 750rpx;
+  height: 782rpx;
+  position: absolute;
+  animation: explode 3s ease-out forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  90% {
+    transform: scale(3);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 定义动画关键帧 缩放 */
+@keyframes clickAnimation {
+
+  5%,
+  50% {
+    transform: scale(0.85);
+  }
+
+  15% {
+    transform: scale(0.95);
+  }
+
+  20% {
+    transform: scale(0.95) rotate(-1deg);
+  }
+
+  25% {
+    transform: scale(0.95) rotate(1deg);
+  }
+
+  30% {
+    transform: scale(0.95) rotate(-2deg);
+  }
+
+  35% {
+    transform: scale(0.95) rotate(0deg);
+  }
+
+  40% {
+    transform: scale(0.95) rotate(0);
+  }
+}
+
+.button {
+  /* animation: clickAnimation -.75s ease 4s infinite alternate; */
+  position: relative;
+}
+
+.button image {
+  width: 100%;
+  height: 106rpx;
+}
+
+.button text {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  line-height: 100rpx;
+  transform: translateX(-50%);
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.orderSucceed {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200rpx;
+  height: 240rpx;
+  margin-bottom: 50rpx;
+}

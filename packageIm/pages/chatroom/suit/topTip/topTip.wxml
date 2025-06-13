@@ -1,0 +1,46 @@
+<view>
+  <view class="showTip wainTip gui-space-between" bindtap="setBlock" wx:if="{{statusResult.blockStatus==1}}">
+    <view class="gui-flex">
+      <span>您已将对方加入黑名单，将不再接收对方的消息。</span>
+    </view>
+    <span class="edit">修改</span>
+  </view>
+  <view class="showTip gui-space-between {{statusResult.interviewStatus==5 || statusResult.interviewStatus==3 || statusResult.interviewStatus==2?'greyCss':''}}" bindtap="goPage" wx:elif="{{statusResult.interviewStatus>0}}">
+      <view class="gui-flex">
+        <image src="{{imImages+'/yp/new_chat_tips_expired_1.png'}}" style="width: 36rpx;height:34rpx;" wx:if="{{statusResult.interviewStatus==5 || statusResult.interviewStatus==3 || statusResult.interviewStatus==2}}"></image>
+        <image src="{{imImages+'/yp/new_chat_tips_expired.png'}}" style="width: 36rpx;height:34rpx;" wx:else></image>
+          <!-- <span wx:if="{{statusResult.interviewStatus==0}}">未邀请面试</span> -->
+          <span wx:if="{{statusResult.interviewStatus==1}}">面试待接受</span>
+          <span wx:if="{{statusResult.interviewStatus==2}}">面试超时未接受</span>
+          <span wx:if="{{statusResult.interviewStatus==3}}">面试已拒绝</span>
+          <span wx:if="{{statusResult.interviewStatus==4 && statusResult.signInType==1}}">面试已签到</span>
+          <span wx:if="{{statusResult.interviewStatus==4 && statusResult.signInType!=1}}">等待面试</span>
+          <span wx:if="{{statusResult.interviewStatus==5}}">面试已取消</span>
+          <span wx:if="{{statusResult.interviewStatus==6}}">面试待反馈</span>
+          <span wx:if="{{statusResult.interviewStatus==7}}">面试已完成</span>
+      </view>
+      <span class="see1" wx:if="{{statusResult.interviewStatus==5 || statusResult.interviewStatus==3 || statusResult.interviewStatus==2}}">查看</span>
+      <span class="see" wx:else>查看</span>
+  </view>
+  <view class="showTip gui-space-between" bindtap="setShowBox" wx:elif="{{statusResult.corporationTipOffNum>0 && showBox==1}}">
+    <view class="gui-flex">
+      <span class="wgCss"><van-icon name="warning" color="#FE0201" size="16"/><span style="color: #FE0201;margin-left: 5px;">该企业存在多次违规行为，请谨慎沟通！</span></span>
+    </view>
+    <span><van-icon name="cross" size="20" color="#FE0201"/></span>
+  </view>
+  
+  <!-- 开启微信通知 -->
+  <!-- wx:elif="{{statusResult.corporationTipOffNum>0 && showBox==1}}" -->
+  <!-- <view class="showTip gui-space-between infoTip" bindtap="setShowBox" wx:if="{{!follow && isEmptyStatusResult && statusResult.interviewStatus<=0 && statusResult.corporationTipOffNum == 0}}">
+    <view class="gui-flex" bind:tap="openPublicAccount">
+      <view class="left">
+        <image src="{{baseImageUrl}}/versions/InfowxIcon.png" mode=""/>
+      </view>
+      <view class="content">
+        <text class="content-top">开启消息提醒</text>
+        <text class="content-buttom">可在微信中及时收到招聘者回复</text>
+      </view>
+      <view class="right">去开启</view>
+    </view>
+  </view> -->
+</view>

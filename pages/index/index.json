@@ -1,0 +1,22 @@
+{
+    "usingComponents": {
+        "component-tab": "/components/tab/tab",
+        "van-search": "@vant/weapp/search/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "component-info": "/components/infomationList/infomationList",
+        "van-popup": "@vant/weapp/popup/index",
+        "screenCondition": "/components/screenCondition/screenCondition",
+        "noData":"/components/nodata/nodata",
+        "van-loading": "@vant/weapp/loading/index",
+        "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+        "van-transition": "@vant/weapp/transition/index",
+        "pull-refresh-view":"/components/pull-refresh-view/index",
+        "versions-prop": "/components/versions-prop/versions-prop",
+        "member-prop": "/components/member_prop/member_prop",
+        "van-skeleton": "@vant/weapp/skeleton/index",
+        "skeletonList": "/components/skeletonList/skeletonList",
+        "collectGuide": "/components/collectGuide/collectGuide"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+  }

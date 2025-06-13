@@ -1,0 +1,89 @@
+.customTip{
+    color: #999999;
+    font-size: 22rpx;
+    width: 100%;
+    text-align: center;
+    min-height: 70rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.customTip1{
+    color: #999999;
+    font-size: 10px;
+    width: 100%;
+    text-align: center;
+    min-height: 70rpx;
+    display: flex;
+}
+.msg{
+    display: flex;
+    margin-top:10rpx;
+    margin-bottom: 10px;
+}
+.msg image{
+    width: 72rpx;
+    height: 72rpx;
+    margin: 0 20rpx 0 0;
+    border-radius: 72rpx;
+    float: left;
+    display: inline-table;
+    flex-shrink: 0;
+}
+.msg .name image{
+  border-radius: 50% !important;
+}
+.showCard image{
+    width: 42rpx;
+    height: 42rpx;
+    margin: 0 10px 0 0;
+    border-radius: 50%;
+    float: left;
+}
+.customInter{
+  min-height: 60rpx;
+  background: #FFE7E7;
+  border-radius: 8rpx;
+  color: #1D2129;
+  padding-left: 12rpx;
+  font-size: 28rpx;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:6rpx 16rpx;
+}
+.customInter view{
+  min-width: 80px;
+}
+.customInter image{
+    width: 32rpx;
+    height: 32rpx;
+    border-radius: 0 !important;
+    margin-left: 10rpx;
+    margin-right: 0;
+}
+.gui-flex{
+    display: flex;
+}
+.gui-justify-content-end {
+    justify-content: flex-end;
+}
+
+.gui-align-items-start {
+    align-items: flex-start;
+}
+.gui-justify-content-start {
+    justify-content: flex-start;
+}
+
+.gui-justify-content-center {
+    justify-content: center;
+}
+
+.gui-justify-content-end {
+    justify-content: flex-end;
+}
+.resetEdit{
+  color: #3e7fe9;
+}

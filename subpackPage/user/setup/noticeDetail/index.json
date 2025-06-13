@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "van-switch": "@vant/weapp/switch/index"
+    },
+    "navigationBarTitleText": "职位推荐消息推送",
+    "navigationBarBackgroundColor": "#ffffff"
+}

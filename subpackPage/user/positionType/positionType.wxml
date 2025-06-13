@@ -1,0 +1,32 @@
+<view class="box">
+    <view class="top_input">
+        <view class="icons"><van-icon name="search" color="#999999"/></view>
+        <input type="text" cursor-color="#FE0201" value="{{industrySech}}" bindinput="searchChange" placeholder="搜索职位"/>
+    </view>
+    <view class="postList" wx:if="{{industrySech && postList.length>0}}">
+        <view class="item" wx:for="{{postList}}" wx:key="index" data-item="{{item}}" wx:for-item="item" bindtap="selectedItem1">
+            <view class="textName">{{item.textName}}</view>
+            <view class="levelName">{{item.level1Name}}-{{item.level2Name}}- {{item.level3Name}}</view>
+        </view>
+    </view>
+    <view class="bot_box" style="height: calc(100vh - 88rpx);">
+        <view class="left_scroll" style="height: 100%;">
+            <scroll-view scroll-y="true" style="height: calc(100vh - 100rpx);">
+                <view class="left_list">
+                    <view class="list_item {{active == index ? 'selected' : ''}}" wx:for="{{leftList}}" wx:key="index" bindtap="changeItem" data-index="{{index}}" wx:if="{{item.select || item.select == undefined}}">{{item.name}}</view>
+                </view>
+            </scroll-view>
+        </view>
+        <view class="middle_line"></view>
+        <view class="right_scroll">
+            <scroll-view scroll-y="true" style="height: calc(100vh - 100rpx);">
+                <view wx:for="{{rightList}}" wx:key="index"  data-index="{{index}}">
+                    <view class="xqName">{{item.name}}</view>
+                    <view class="sitemBox"><view class="sitem" wx:for="{{item.subList}}" wx:key="index" data-item="{{sitem}}" wx:for-item="sitem" bindtap="selectedItem">
+                    {{ sitem.name }}</view></view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+   
+</view>

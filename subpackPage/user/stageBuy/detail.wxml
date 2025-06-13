@@ -1,0 +1,94 @@
+<scroll-view scroll-y="true" style="height: calc(100vh - 220rpx);">
+  <view class="contBox">
+    <view class="box1">
+      <view class="name">确认支付</view>
+      <view class="contItem">
+        <!-- wx:if="{{info.goodsNumber == 3}}" -->
+        <view class="item1">
+          {{info.relation[0].card.propName}}
+          <!-- <text>{{info.relation[0].num}}次</text> -->
+        </view>
+        <view class="item2">{{ info.originalPrice }}知豆</view>
+      </view>
+      <!-- <view class="contItem">
+                <view class="item1">总金额</view>
+                <view class="item2">{{ info.originalPrice }}知豆</view>
+            </view> -->
+      <view class="contItem" wx:if="{{info.preferential == 1}}">
+        <view class="item1">优惠折扣</view>
+        <view class="item2">{{ info.discount }}知豆</view>
+      </view>
+
+      <view class="contItem">
+        <view class="item1">知豆抵扣</view>
+        <!-- balance - info.price >= 0 ? info.price : balance -->
+        <view class="item2">{{ balance - info.currentPrice >= 0 ? info.currentPrice : balance  }}知豆</view>
+      </view>
+      <view class="contItem">
+        <view class="item1">还需支付</view>
+        <view class="item2" style="color: #FE0201;">{{ info.currentPrice - (balance - info.currentPrice >= 0 ? info.currentPrice : balance) }}知豆</view>
+        <!-- <view class="item2">{{info.originalPrice}}知豆</view> -->
+      </view>
+    </view>
+    <!-- 立减 -->
+    <view class="box1" wx:if="{{balance < info.currentPrice}}">
+      <view class="name f36">选择充值金额</view>
+      <!-- <view class="payItem {{isShowAll?'':'itemH'}}">
+        <block wx:for="{{list}}" wx:key="index">
+          <view class="item {{active==index?'selItem':''}}" bindtap="selItem" data-index="{{index}}">
+            <view class="font1">{{ item.nowPrice }}元</view>
+            <view class="font2">{{ item.title }}</view>
+
+            <view class="activeIcon" wx:if="{{item.preferential == 1}}">
+              <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/my/member_activebg.png" mode="" />
+              <span>立减{{item.discount}}元</span>
+            </view>
+          </view>
+        </block>
+      </view> -->
+      <!-- 充值列表 -->
+      <!-- {{isShowAll?'':'itemH'}} -->
+      <view class="rechargeScrollBox-list {{isShowAll?'':'itemH'}}">
+        <view class="rechargeScrollBox-item {{active==index?'selItem':''}} {{index >= (list.length - 3) ? 'margin7' : ''}}" wx:for="{{list}}" wx:key="index" data-index="{{index}}" bindtap="selItem">
+          <view class="item-content">
+            <view class="price {{activeIndex == index ? 'active1' : ''}}">{{item.nowPrice}}元</view>
+            <view class="commodity">{{item.title}}</view>
+          </view>
+          <view class="activeIcon" wx:if="{{item.discount > 0}}">
+            <image src="{{baseImageUrl}}/my/member_activebg.png" mode="" />
+            <text>立减{{item.discount}}元</text>
+          </view>
+        </view>
+        
+      </view>
+
+      <view class="inputView">
+        <input type="number" cursor-color="#FE0201" maxlength="4" adjust-position="{{false}}" value="{{inputValue}}" bindinput="inputPrice" placeholder-class="input_class" placeholder="{{inputPriceText}}" bindfocus="inputFocus" bindblur="inputBlur"  confirm-type="done" />
+        <view class="tip" wx:if="{{inputValue>0}}">{{inputValue}}知豆</view>
+      </view>
+
+      <view class="moreBtn" bindtap="onChange">
+        更多充值金额
+        <van-icon name="arrow-down" wx:if="{{!isShowAll}}" />
+        <van-icon name="arrow-up" wx:else />
+      </view>
+      <view class="note">
+        <view class="text">充值说明</view>
+        <view class="text">1.知豆仅支持固定金额充值，充值后剩余知豆可继续用于购买道具和服务，详情可查看知豆说明
+          <!-- 暂时注销 ghy -->
+          <!-- <navigator url="/pages/me/mall/explain" hover-class="none">知豆说明</navigator> -->
+        </view>
+        <view class="text">2.付费即表示同意<text class="red">《知城优聘增值服务协议》</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view class="btns">
+  <view class="payBtn" wx:if="{{balance < info.currentPrice}}" bindtap="goPay">
+    <text>充值并支付</text>
+  </view>
+  <view class="payBtn" wx:else bindtap="comfirmPay">
+    <text>确认支付</text>
+  </view>
+</view>

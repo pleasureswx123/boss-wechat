@@ -1,0 +1,24 @@
+<view class="componyNameBox">
+
+  <view class="componyNameBox_head">
+    <view class="top_input">
+      <input type="text"  value="{{name}}" placeholder="请输入公司名称" bindinput="confirmValue" bindfocus="inputFocus" maxlength="25" placeholder-class="placeholderClass" 	confirm-type="done" cursor-color="#FE0201"/>
+      <view class="right_num"><text style="color: #FE0201;">{{name.length}}</text>/25</view>
+    </view>
+    <view class="line"></view>
+  </view>
+  <view class="componyNameBox_content">
+    <scroll-view scroll-y="true" style="height: 100%;">
+      <view class="content-componyList">
+        <view class="content-componyItem" data-componyItem="{{item}}" bind:tap="selectComponyName" wx:for="{{searchListAsync}}" wx:key="index">
+          <rich-text nodes="{{item.highlightedResult}}"/>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="componyNameBox_footer">
+    <view class="bot_btn" bindtap="goBack" wx:if="{{name !== ''}}">确定</view>
+    <view class="bot_btn no_data" bindtap="goBack" wx:else>确定</view>
+  </view>
+</view>

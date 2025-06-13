@@ -1,0 +1,26 @@
+<!-- 优化求职期望 -->
+<view class="addJobBox">
+  <image src="{{imageUrl}}/newImg/sexBg.png" class="headbg"></image>
+  <view class="title1">请简单介绍下基本信息 本地高薪 一手掌握</view>
+  <view class="stit"><image src="{{imageUrl}}/newImg/dp.png" class="dp"></image>信息安全保护中，请放心填写</view>
+  <scroll-view scroll-y="true" class="scrollView">
+    <view class="add_job_box">
+      <view class="itemName">你的姓名是？</view>
+      <view class="nameBox"><input type="text" cursor-color="#FE0201" value="{{userInfo.info.name || ''}}" placeholder="请输入姓名" bindinput="confirmValue" maxlength="15" style="height: 98rpx;padding-left: 36rpx;"/><view class="iconCloseBox" wx:if="{{userInfo.info.name}}" bind:tap="clearNickName"><image src="{{imageUrl}}/newImg/iconClose.png" class="iconClose"></image></view></view>
+      <view class="itemName" wx:if="{{ userInfo.info.name}}">性别</view>
+      <view class="qzStatus" wx:if="{{ userInfo.info.name}}">
+        <view class="qzItem {{selectedType==item.code?'selectedType':''}}" data-value="{{item.code}}" wx:for="{{sexArr}}" wx:key="index" bind:tap="selectedType">{{item.name}}</view>
+      </view>
+      <view class="itemName" wx:if="{{ selectedType===0 || selectedType }}">出生年月</view>
+      <view style="height: 300rpx;" wx:if="{{ selectedType===0 || selectedType }}">
+        <compData monthPopupTitleActive="1" id="compData"></compData>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="selectedBtn" bind:tap="saveData" wx:if="{{userInfo.info.name && (userInfo.info.sex || userInfo.info.sex===0)}}">
+    选好了
+  </view>
+  <view class="selectedBtn opacity5" wx:else>
+    选好了
+  </view>
+</view>

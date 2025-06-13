@@ -1,0 +1,36 @@
+<!-- 怎么联系你 -->
+<van-popup show="{{ isShowContact }}" round position="bottom" custom-style="border-radius: 48rpx 48rpx 0 0;">
+  <view class="topBg" bind:tap="onClose"><image src="{{imageUrl}}/newImg/tcTopBg.png" mode="aspectFill"/></view>
+  <view class="popupcontact">
+      <view class="contactTitle">
+        <!-- 开启电话助手 -->
+        开启虚拟电话
+        <view class="scloseItem"  bind:tap="onClose"><image src="{{imageUrl}}/newImg/online2.png" class="sclose" mode="aspectFill"/></view>
+      </view>
+      <view class="contactCont">
+        <image src="{{imageUrl}}/newImg/xndh1.png" class="iconImage" mode="aspectFill"/>
+        <!-- <image src="{{imageUrl}}/newImg/xndh2.png" class="simage1" mode="aspectFill"/> -->
+        <view class="simage1 borderRadius"></view>
+        <view class="litemList">
+          <view class="itemPhone" bind:tap="goEditPhone">
+            <view class="phone">{{userInfo.phone}}</view>
+            <image src="{{imageUrl}}/my/resume/smallEdit.png" mode=""/>
+            <!-- <view class="editBtn">修改</view> -->
+          </view>
+          <view>
+            <!-- <view class="tipCont">1.开启虚拟电话，方便HR直接电话联系您，让好机会一个不落；</view> -->
+            <view class="tipCont">1.开启虚拟电话，招聘者可通过虚拟电话直接联系到您，您也可以直接拨打招聘者电话，让好机会一个不落，更快入职；</view>
+            <view class="tipCont">2.拨打虚拟电话需与注册手机号保持一致；</view>
+            <view class="tipCont">3.拨打虚拟电话将不暴露真实手机号码；</view>
+            <view class="tipCont">4.HR只会在{{multiObject.startTime}}～{{multiObject.endTime}}联系您。</view>
+            <!-- {{multiObject.endTime}}～{{multiObject.startTime}} -->
+          </view>
+          <view class="phoneBtns">
+             <view class="cancelBtn" bind:tap="onClose">取消</view>
+             <view class="openBtn" bind:tap="contactWayChange"><text wx:if="{{contactStatus}}">关闭</text><text wx:else>开启</text>授权</view>
+          </view>
+           <!-- <view class="litem {{selectIndex == item.selectIndex ? 'active' : ''}}" wx:for="{{contactWay}}" bind:tap="contactWayChange" data-selectindex="{{item.selectIndex}}">{{item.text}}</view> -->
+        </view>
+      </view>
+  </view>
+</van-popup>

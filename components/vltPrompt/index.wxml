@@ -1,0 +1,93 @@
+<!-- 怎么联系你 -->
+<van-popup show="{{ isShowContact }}" round position="bottom" custom-style="border-radius: 48rpx 48rpx 0 0;" z-index="1001">
+  <view class="topBg" bind:tap="onClose">
+    <image src="{{imageUrl}}/newImg/tcTopBg.png" mode="aspectFill" />
+  </view>
+  <view class="popupcontact">
+    <view class="contactTitle" bind:tap="onClose">
+      <view class="titFont1">简历违规提示</view>
+      <view class="titFont2">请尽快修改简历信息，审核通过后，即可正常和HR沟通。</view>
+      <view class="scloseItem" wx:if="{{closeable}}">
+        <image src="{{imageUrl}}/newImg/online2.png" class="sclose" mode="aspectFill" />
+      </view>
+    </view>
+    <image src="{{imageUrl}}/newImg/wgtip.png" class="iconImage" mode="aspectFill" bind:tap="onClose" />
+    <view class="contactCont" wx:if="{{infoObj.strength}}">
+      <image src="{{imageUrl}}/newImg/xndh2.png" class="simage1" mode="aspectFill" />
+      <view class="litemList">
+        <view class="itemPhone" bind:tap="gotoPage" data-type="1" data-val="{{infoObj.strengthContent}}">
+          <view>
+            <view class="bigName1">个人优势</view>
+            <!-- <view class="bigCont1">内容多处存在相同，建议修改</view> -->
+            <view class="bigCont1">{{infoObj.strengthMark}}</view>
+          </view>
+          <view class="editBtn">
+            <van-icon name="arrow" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="contactCont" wx:if="{{infoObj.works.length>0}}">
+      <image src="{{imageUrl}}/newImg/xndh2.png" class="simage1" mode="aspectFill" />
+      <view class="litemList">
+        <view class="itemPhone" bind:tap="gotoPage" data-type="2">
+          <view>
+            <view class="bigName1">工作经历</view>
+            <!-- <view class="bigCont1">内容多处存在敏感信息与违规内容，尽快修改</view> -->
+            <view class="bigCont1">{{infoObj.works[0].mark}}</view>
+          </view>
+          <view class="editBtn">
+            <view class="totalNum">共{{infoObj.works.length}}条</view>
+            <view>
+              <van-icon name="arrow" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="contactCont" wx:if="{{infoObj.projects.length>0}}">
+      <image src="{{imageUrl}}/newImg/xndh2.png" class="simage1" mode="aspectFill" />
+      <view class="litemList">
+        <view class="itemPhone" bind:tap="gotoPage" data-type="3">
+          <view>
+            <view class="bigName1">项目经历</view>
+            <!-- <view class="bigCont1">内容多处存在相同，建议修改</view> -->
+            <view class="bigCont1">{{infoObj.projects[0].mark}}</view>
+          </view>
+          <view class="editBtn">
+            <view class="totalNum">共{{infoObj.projects.length}}条</view>
+            <view>
+              <van-icon name="arrow" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="contactCont" wx:if="{{infoObj.edus.length>0}}">
+      <image src="{{imageUrl}}/newImg/xndh2.png" class="simage1" mode="aspectFill" />
+      <view class="litemList">
+        <view class="itemPhone" bind:tap="gotoPage" data-type="4">
+          <view>
+            <view class="bigName1">教育经历</view>
+            <!-- <view class="bigCont1">内容多处存在相同，建议修改</view> -->
+            <view class="bigCont1">{{infoObj.edus[0].mark}}</view>
+          </view>
+          <view class="editBtn">
+            <view class="totalNum">共{{infoObj.edus.length}}条</view>
+            <view>
+              <van-icon name="arrow" />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- wx:if="{{closeable}}" -->
+    <view class="phoneBtns" >
+      <view class="cancelBtn" bind:tap="onClose" wx:if="{{closeable}}">取消</view>
+      <view class="openBtn" bind:tap="gotoJL">去修改</view>
+    </view>
+    <!-- <view class="phoneBtns" wx:else style="padding: 0 48rpx 100rpx;">
+      <view class="openBtn" bind:tap="gotoJL" style="width: 100%;">去修改</view>
+    </view> -->
+  </view>
+</van-popup>

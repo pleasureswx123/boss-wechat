@@ -1,0 +1,39 @@
+<!--subpackPage/user/setup/index.wxml-->
+<view class="item" bindtap="goToAccount">
+  <text>账户与安全</text>
+  <van-icon name="arrow" color="#999" size="40rpx" />
+</view>
+<view class="item" bindtap="goToNotice">
+  <text>通知与提醒</text>
+  <van-icon name="arrow" color="#999" size="40rpx" />
+</view>
+<view class="item" bindtap="goToPrivacy">
+  <text>隐私保护</text>
+  <van-icon name="arrow" color="#999" size="40rpx" />
+</view>
+<view class="item" bindtap="goToGreet">
+  <text>打招呼语</text>
+  <van-icon name="arrow" color="#999" size="40rpx" />
+</view>
+<view class="item" bindtap="goToSetAddress">
+  <text>地址管理</text>
+  <van-icon name="arrow" color="#999" size="40rpx" />
+</view>
+<view class="item" bindtap="goToSetBind">
+  <text>绑定邀请码</text>
+  <van-icon name="arrow" color="#999" size="40rpx" />
+</view>
+
+<button class="btn" bindtap="outLogin">退出登录</button>
+
+<modelPopup show="{{ outShow }}" custom-style="margin-top:-30%" zIndex="200" bind:confirm="identifyHandle" bind:cancel="cloneShow" refresherType="default">
+  <!-- <view class="pop_box" slot="custom">
+    <view class="pop_box_middle">
+      确定退出登录吗 ？
+    </view>
+    <view class="pop_box_bot">
+      <view class="pop_box_bot_left" bindtap="cloneShow">取消</view>
+      <view class="pop_box_bot_right" bindtap="identifyHandle">确定</view>
+    </view>
+  </view> -->
+</modelPopup>

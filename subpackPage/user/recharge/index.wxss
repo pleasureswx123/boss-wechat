@@ -1,0 +1,402 @@
+/* subpackPage/user/recharge/index.wxss */
+page {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.recharge {
+  height: 100%;
+  width: 100%;
+  background-color: #F5F5F5;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.recharge-content {
+  flex: 1;
+  overflow: scroll;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.rechargeScrollBox {
+  height: 100%;
+}
+
+.rechargeScrollBox-head {
+  width: 100%;
+  height: 294rpx;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-bottom: 40rpx;
+}
+
+.rechargeScrollBox-head .head-box {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding: 26rpx 46rpx 38rpx 70rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+
+.head-box_top .top-text {
+   /*font-family: AlibabaPuHuiTi_2_85_Bold;
+  font-size: 48rpx;
+  color: #FFD8D8;
+  line-height: 66rpx;
+  text-shadow: 1px -1px 2px #CB2E2E;
+  background: linear-gradient(25.18919653172536deg, #FFC9C9 0%, #F87F7F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+  height: 74rpx;
+  width: 194rpx;
+}
+
+.head-box_main .main-text {
+  /* font-family: "DIN Alternate"; */
+  font-family: "OPPOSans B";
+  font-weight: normal;
+  font-size: 68rpx;
+  color: #FFFFFF;
+  text-shadow: 0px 4px 8px rgba(174, 52, 52, 0.5);
+}
+
+.head-box_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.head-box_button .button-tag {
+  display: flex;
+  align-items: center;
+  margin-right: 56rpx;
+}
+
+.head-box_button .button-tag image {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 8rpx;
+}
+
+.head-box_button .button-tag text {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #FFDCDC;
+}
+
+.rightDetail {
+  position: absolute;
+  right: 0rpx;
+  top: 10rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #FE0201;
+  width: 160rpx;
+  height: 60rpx;
+  text-align: center;
+}
+
+.rechargeScrollBox-content {
+  width: 100%;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 0 34rpx;
+  box-sizing: border-box;
+}
+
+.rechargeScrollBox-content .title {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40rpx;
+}
+
+.rechargeScrollBox-content .title-text1 {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 32rpx;
+  color: #1D2129;
+}
+
+.rechargeScrollBox-content .title-text2 {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 26rpx;
+  color: #999999;
+}
+
+.rechargeScrollBox-content .rechargeScrollBox-list {
+  padding-top: 28rpx;
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 38rpx 40rpx;
+  padding-bottom: 24rpx;
+}
+
+.rechargeScrollBox-item {
+  border: 2rpx solid #DEDEDE;
+  /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFE5E5 100%); */
+  border-radius: 8rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  /* padding: 20rpx 0rpx; */
+  box-sizing: border-box;
+  /* overflow: hidden; */
+  /* will-change: transform; */
+  /* will-change: auto; */
+}
+
+.rechargeScrollBox-item.active .item-content::before {
+  display: inline-block;
+  left: -40%;
+  top: 48px;
+  transform: translateY(100%);
+  content: '';
+  display: inline-block;
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  border-radius: 35% 48% 35% 48%;
+  animation:
+    wave-color 13s linear infinite alternate both,
+    wave-rotate 17s linear infinite;
+  background-color: #FFDADA;
+  z-index: 1;
+  /* background-color: #3a7977; */
+}
+
+.rechargeScrollBox-item.active .item-content::after {
+  display: inline-block;
+  position: absolute;
+  left: -30%;
+  top: 48px;
+  transform: translateY(100%);
+  content: '';
+  position: absolute;
+  height: 140px;
+  width: 140px;
+  border-radius: 48% 40% 48% 40%;
+  background-color: #FFE3E3;
+  /* background-color: #3a7977; */
+  animation:
+    wave-color 17s linear infinite alternate both,
+    wave-rotate 13s linear infinite;
+    z-index: 1;
+}
+
+/* @keyframes wave-color {
+  from {
+      opacity: .6;
+  }
+
+  30% {
+      opacity: .75;
+  }
+
+  60% {
+      opacity: .6;
+  }
+
+  to {
+      opacity: .75;
+  }
+} */
+
+
+@keyframes wave-rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rechargeScrollBox-item .item-content{
+  position: relative;
+  z-index: 8;
+  padding: 20rpx 0rpx;
+  overflow: hidden;
+}
+
+.rechargeScrollBox-item .item-content .price {
+  /* font-family: "DIN Alternate"; */
+  font-family: "OPPOSans B";
+  font-weight: normal;
+  /* font-size: 36rpx; */
+  color: #1D2129;
+  position: relative;
+  z-index: 100;
+}
+
+.rechargeScrollBox-item .item-content .commodity {
+  /* font-family: PingFangSC, PingFang SC; */
+  font-family: "OPPOSans B";
+  font-weight: 400;
+  font-size: 22rpx;
+  color: #666666;
+  position: relative;
+  z-index: 100;
+  bottom: 6rpx;
+}
+
+.rechargeScrollBox-item:nth-child(3n) {
+  margin-right: 0;
+}
+
+.rechargeScrollBox-explain {
+  padding: 60rpx 0 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.rechargeScrollBox-inputView {
+  height: 80rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #DEDEDE;
+  padding-left: 28rpx;
+  position: relative;
+}
+.rechargeScrollBox-inputView .tip{
+  position: absolute;right: 20rpx;top:20rpx;font-size: 24rpx;color: #999;
+}
+
+.rechargeScrollBox-inputView input{
+  height: 100%;
+}
+
+.input_class{
+  font-size: 28rpx;
+}
+
+.content_button {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background-color: #F5F5F5;
+  width: 100vw;
+  padding: 0 46rpx 0 50rpx;
+  box-sizing: border-box;
+}
+
+.content_button_button {
+  width: 100%;
+  height: 92rpx;
+  /* background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+  background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 92rpx;
+}
+
+
+
+.active {
+  /* background: #FFE8E8; */
+  border-radius: 8rpx;
+  /* border: 2rpx solid #FE0201; */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFE5E5 100%);
+  border: 4rpx solid #FE0201;
+}
+
+/* 小屏幕样式 */
+@media screen and (min-width: 375px) {
+  .rechargeBottom {
+    position: fixed;
+    /* bottom: 60rpx; */
+  }
+}
+
+.activeIcon {
+  position: absolute;
+  left: -10rpx;
+  top: -30rpx;
+  z-index: 10;
+  animation: shake 1s;
+}
+
+.activeIcon image {
+  height: 56rpx;
+  position: absolute;
+  right: 0;
+}
+
+.activeIcon text {
+  width: 180rpx;
+  padding: 0 2rpx;
+  height: 56rpx;
+  text-align: center;
+  line-height: 56rpx;
+  z-index: 1;
+  position: relative;
+  color: #fff;
+  display: block;
+  font-size: 24rpx;
+}
+
+@keyframes shake {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.kf {
+  /* width: 65px;
+  height: 65px; */
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  bottom: 90px;
+  right: 7px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.kf image {
+  /* width: 52px;
+  height: 52px; */
+  width: 48px;
+  height: 48px;
+  /* margin-left: 8px;
+  margin-top: 3px; */
+  border-radius: 50%;
+}
+
+
+movable-area {
+  width: 100%;
+  height: 100%;
+  /*设置透明不影响后面的操作*/
+  pointer-events: none;
+  position: fixed;
+  text-align: center;
+  right: 0px;
+  top: 0px;
+  background: none;
+  z-index: 100;
+}

@@ -1,0 +1,12 @@
+<view class="box">
+   <scroll-view scroll-y="true" style="height: 100vh;">
+        <view class="top_input">
+            <input type="text" cursor-color="#FE0201" value="{{name}}" placeholder="请输入重命名" bindinput="confirmValue" maxlength="25" style="width: 90%;"/>
+            <van-icon name="cross" class="clearIcon" bindtap="clearText"/>
+            <view class="right_num">{{name.length}}/25</view>
+        </view>
+        <view class="line" style="margin-bottom: 28rpx;"></view>
+        <view class="bot_btn" bindtap="goBack" wx:if="{{name !== ''}}">确定</view>
+        <view class="bot_btn no_data"  wx:else>确定</view>
+    </scroll-view>
+</view>

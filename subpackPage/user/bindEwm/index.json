@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop"
+    },
+    "navigationBarTitleText": "邀请码",
+    "navigationBarBackgroundColor": "#ffffff"
+}

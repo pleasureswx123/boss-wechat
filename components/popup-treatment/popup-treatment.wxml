@@ -1,0 +1,37 @@
+<!--components/popup-treatment/popup-treatment.wxml-->
+<!-- <text>components/popup-treatment/popup-treatment.wxml</text> -->
+<!-- 公司福利弹窗 -->
+<view class="companyWelfare">
+    <scroll-view scroll-y="true" style="padding-top:30px">
+        <view style="height: {{height + 10 - 20}}px;">
+            <view class="itemStyle_top">
+			   <text>工作时间与福利待遇</text>
+			   <text>岗位信息由公司提供，可能根据实际岗位有所不同，具体岗位可以与招聘官或HR确认</text>
+		   </view>
+           <!-- 工作时间 -->
+           <view class="workTime" wx:if="{{companyDetail.workStart && companyDetail.workEnd}}">
+               <text>工作时间</text>
+               <text>上午 {{companyDetail.workStart}}-下午 {{companyDetail.workEnd}}</text>
+           </view>
+
+           <!-- 员工福利 -->
+           <view class="staffWelfare">
+               <view class="title">员工福利</view>
+               <!-- 福利列表 -->
+               <view class="welfareList" wx:for="{{otherWelfare}}" wx:key="index">
+                   <view class="welfareItem">
+                        <!-- 福利图表 -->
+                       <view class="welfareItem_left">
+                           <image src="https://imgcdn.guochuanyoupin.com/{{item.iconB}}" mode=""/>
+                       </view>
+                       <!-- 福利介绍 -->
+                       <view class="welfareItem_right">
+                           <text>{{item.label}}</text>
+                           <text>{{item.details}}</text>
+                        </view>
+                   </view>
+               </view>
+           </view>
+        </view>
+    </scroll-view>
+</view>

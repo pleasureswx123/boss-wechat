@@ -1,0 +1,55 @@
+<view>
+  <view class="message" wx:for="{{chatMsg}}" wx:key="index" bind:tap="bingcancelTap">
+    <view class="time" wx:if="{{item.showTime}}">
+      <text class="time-text">{{item.showTime}}</text>
+    </view>
+    <view class="main" class="{{item.style}}" wx:if="{{item.msg.type != 'custom'}}">
+      <!-- 求职 -->
+      <image class="avatar" catch:tap="gotoDetail" data-type="1" src="{{avatar || baseImgUrl+'/default-avatar.png'}}" wx:if="{{item.style == 'self'}}" />
+      <!-- 招聘 -->
+      <image class="avatar" catch:tap="gotoDetail" data-type="2" src="{{username.targetAvatar || baseImgUrl+'/default-avatar.png'}}" wx:else />
+      <view class="msg {{(item.style == 'self') ?  'borderL' : 'borderR'}} {{item.msg.data.length == 1 && item.msg.data[0].type == 'emoji' ? 'onlyEmoji' : ''}}" bindlongpress="bingLongTap" data-msg="{{item}}">
+        <image class="err" class="{{(item.style == 'self' && item.isFail) ?  'show' : 'hide'}}" src="{{baseImgUrl}}/default-avatar.png" mode="cover"/><!-- 错误图片 -->
+        <audio-msg
+					wx:if="{{ item.msg.type == 'audio' }}"
+					msg="{{ item }}"></audio-msg>
+        <view wx:if="{{item.msg.type == 'img'}}">
+            <van-image 
+            bind:load="onImageLoad"
+            bind:error="onImageError" 
+            bind:click="previewImage" 
+            data-url="{{item.msg.data}}" 
+            wx:if="{{item.msg.type == 'img'}}" 
+            fit="contain" 
+            width="90px" 
+            height="120px" 
+            src="{{item.msg.data}}" 
+            use-loading-slot
+            use-error-slot>
+              <image slot="loading" src="{{baseImgUrl}}/newImg/msgLoadImg.png" mode=""/>
+              <text slot="error">加载失败</text>
+            </van-image>
+        </view>
+        <view wx:elif="{{item.msg.type == 'txt' || item.msg.type == 'emoji'}}">
+          <view class="template" wx:for="{{item.msg.data}}" wx:key="index" wx:for-item="d_item">
+            <text data-msg="{{item}}" wx:if="{{d_item.type == 'txt'}}" class="msg-text" style="float:left;" selectable="true">{{ d_item.data }}</text>
+            <!-- faces -->
+            <image wx:if="{{d_item.type == 'emoji' && item.msg.data.length>1}}" src="{{imageUrl+'/newFaces/' + d_item.data}}" style="width:20px; height:20px; margin:0 0 2px 0; float:left;" />
+            <image wx:elif="{{d_item.type == 'emoji'}}" src="{{imageUrl+'/newFaces/' + d_item.data}}" style="width:40px; height:40px; margin:0 0 2px 0; float:left;" />
+          </view>
+        </view>
+        <view class="readStatus" wx:if="{{item.style == 'self'}}">
+          <view wx:if="{{item.isAckRead}}">已读</view>
+          <view wx:else>未读</view>
+        </view>
+        <view class="chehui" wx:if="{{item.style == 'self' && item.msgId==longressMsgId}}" bind:tap="sendReCall" data-msg="{{item}}">
+          <van-icon name="revoke" />撤回
+        </view>
+      </view>
+    </view>
+    <!-- 自定义消息／交换电话发起 -->
+    <block wx:else class="1111">
+      <showCustom itemObj="{{item}}" statusResult="{{statusResult}}" hhInfo="{{username}}"></showCustom>
+    </block>
+  </view>
+</view>

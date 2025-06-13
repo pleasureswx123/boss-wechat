@@ -1,0 +1,70 @@
+<view class="avatarBox">
+  <view class="avatarBox-head">
+    <view class="title">选择你喜欢的头像吧</view>
+    <view class="tips">使用真实头像更容易获得HR青睐</view>
+  </view>
+  <!-- 选择区域 -->
+  <view class="avatarBox-content">
+    <van-radio-group value="{{ radio }}" direction="horizontal">
+      <view class="box">
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx1.png">
+          <image src="{{imageUrl}}/avatar/qztx1.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx1.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx2.png">
+          <image src="{{imageUrl}}/avatar/qztx2.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx2.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx3.png">
+          <image src="{{imageUrl}}/avatar/qztx3.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx3.png"></van-radio>
+          </view>
+        </view>
+      </view>
+      <view class="box" style="margin-top: 28rpx;">
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx4.png">
+          <image src="{{imageUrl}}/avatar/qztx4.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx4.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx5.png">
+          <image src="{{imageUrl}}/avatar/qztx5.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx5.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx6.png">
+          <image src="{{imageUrl}}/avatar/qztx6.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx6.png"></van-radio>
+          </view>
+        </view>
+      </view>
+      <view class="box" style="margin-top: 28rpx;">
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx7.png">
+          <image src="{{imageUrl}}/avatar/qztx7.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx7.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx8.png">
+          <image src="{{imageUrl}}/avatar/qztx8.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar/qztx8.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="bindAvatar" data-imageUrl="{{imageUrl}}/avatar/addtx.png">
+          <image src="{{imageUrl}}/avatar/addtx.png" mode="" />
+        </view>
+      </view>
+    </van-radio-group>
+  </view>
+  <!-- <view class="text">不想用真实信息？快来试试平台推荐的头像吧</view> -->
+  <view bindtap="upLoadImage" class="button {{radio ? 'opacity1' : ''}}">确定</view>
+</view>

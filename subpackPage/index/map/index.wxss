@@ -1,0 +1,40 @@
+
+page{
+    height: 100%;
+}
+
+
+.map{
+    width: 100%; 
+    height: 100vh;
+    position: relative;
+}
+
+.buttonNavigation{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 200rpx;
+    width: 100%;
+    background: #F5F5F5;
+    display: flex;
+    flex-direction: row;
+}
+.box1{
+    flex: 1;
+    margin:30rpx;
+}
+.name{
+    color: #1D2129;
+    font-size: 36rpx;
+    font-weight: 500;
+}
+.addr{
+    color: #999999;
+    font-size: 24rpx;
+}
+.dh{
+    width: 90rpx;
+    height: 90rpx;
+    margin:30rpx;
+}

@@ -1,0 +1,22 @@
+<view class="jpbStatementBox">
+  <view class="jpbStatementBox_head">
+    <scroll-view scroll-y="true" style="height: 100%;">
+      <view class="in_scroll">
+        <view class="top_title">什么是求职期望</view>
+        <view class="top_discribe">求职期望是你找工作的意向，会根据你的求职期望为你推荐职位</view>
+        <view class="img">
+        <!-- widthFix -->
+          <image src="{{imageUrl}}/user/jobs.png" mode="" />
+        </view>
+        <view class="bot_title">
+          <view class="top_title">求职期望会被谁看见</view>
+          <view class="top_discribe">求职期望只会被对应的招聘官看见，若存在多个期望，则招聘官只会看到一个与之岗位匹配的期望</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 底部区域 -->
+  <view class="jpbStatementBox_footer">
+    <view class="submit_btn1" bindtap="goPage">管理我的求职期望</view>
+  </view>
+</view>

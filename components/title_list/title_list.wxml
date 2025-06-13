@@ -1,0 +1,10 @@
+<!--components/title_list/title_list.wxml-->
+<view>
+       <view class="titleMaring">
+		   <text wx:if="{{isHot}}">{{title}}</text>
+           <image src="{{baseImageUrl + '/index_img/hot.png'}}" mode="" wx:else/>
+		   <view wx:if="{{isHot}}">
+			   <image class="iconPic" src="{{baseImageUrl + '/index_img/deleteIcon.png'}}" mode="" style="width:{{widthImg}};height:{{heightImg}}"  bindtap="delefeEvent"></image>
+		   </view>  
+	   </view> 
+  </view>

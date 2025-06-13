@@ -1,0 +1,17 @@
+{
+  "usingComponents": {
+    "component-tab": "/components/tab/tab",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+    "van-icon": "@vant/weapp/icon/index",
+    "versions-prop": "/components/versions-prop/versions-prop",
+    "collectGuide": "/components/collectGuide/collectGuide",
+    "alliance_area": "/components/alliance-area/alliance-area",
+    "component-tab_classics": "/components/tab_classics/tab_classics"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "我的",
+  "navigationBarTextStyle": "white",
+  "backgroundColorTop": "#f5f5f5",
+  "backgroundColorBottom": "#f5f5f5"
+}

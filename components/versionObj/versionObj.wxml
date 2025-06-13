@@ -1,0 +1,110 @@
+<view>
+  <!-- <view wx:for="{{dataList}}" wx:key="index"> -->
+  <view style="height: 100%;">
+    <view class="itemBox" wx:if="{{item.type == 'job'}}" bindtap="jump" data-id="{{item.postId}}" data-distance="{{item.distance}}" data-bossUserId="{{item.bossUserId}}">
+      <!-- 岗位名称/是否急聘 -->
+      <view class="itemBox-title">
+        <!-- 是否急聘 -->
+        <view class="title-jipin">
+          <view class="title-text">{{item.post}}</view>
+          <view class="salary-hb">
+            <image class="hongICon" wx:if="{{item.isH == 1}}" src="{{baseImageUrl + '/index_img/hongbao.png'}}"></image>
+          </view>
+        </view>
+
+        <!-- 岗位薪资/是否有红包 -->
+        <view class="itemBox-salary">
+          <view class="salary-text">
+            <view wx:if="{{item.moneyType == 1}}">面议</view>
+            <view wx:else>
+              <!-- 元/时 -->
+              <view wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+              </view>
+
+              <view wx:else>
+                <span wx:if="{{versions == 2}}">
+                  <span wx:if="{{item.lowestMoney > 0}}">
+                    <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                    <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                  </span>
+                  <span wx:else>面议</span>
+                </span>
+                <span wx:if="{{item.monthMoney > 12}}"> · {{item.monthMoney}}薪</span>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 公司信息 -->
+      <view class="itemBox-introduce">
+        <span class="span">{{item.companyName || ''}}</span>
+        <span class="span">{{item.stage}}</span>
+        <span class="span">{{item.scale}}</span>
+      </view>
+      <!-- 岗位标签/知城核验 -->
+      <view class="itemBox-tags">
+        <!-- 是否核验 -->
+        <view class="isExamine">
+          <image src="{{baseImageUrl}}/versions/heyan.png" mode="" />
+          <text class="text">知城核验</text>
+        </view>
+        <view class="tagItem" wx:if="{{item.year !== ''}}">{{item.year}}</view>
+        <view class="tagItem" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</view>
+      </view>
+      <!-- 有实探 -->
+      <view class="itemBox-content1" wx:if="{{item.visitFiles && item.visitFiles.length > 0 }}">
+        <!-- 招聘者信息 -->
+        <view class="top-inviteInfo">
+          <view class="left">
+            <image class="avatar" src="{{item.avatar}}" mode="" />
+            <view class="onlineCircle" wx:if="{{item.online}}"></view>
+            <text>{{item.outName || ''}} {{item.outPost ? item.outPost : ''}}</text>
+          </view>
+          <view class="right">
+            <text wx:if="{{item.online}}">在线中</text>
+            <text wx:else>{{item.activation}}</text>
+          </view>
+        </view>
+        <!-- 企业实际图片 -->
+        <!-- <scroll-view scroll-x="true" class="center-scroll-view">
+          <view class="scroll-view-item" wx:for="{{item.visitFiles}}" wx:key="index">
+            <image src="{{item.url}}" mode="aspectFill" />
+          </view>
+        </scroll-view> -->
+        <!-- 企业地址和立即联系按钮 -->
+        <view class="button-address" wx:if="{{item.distance}}">
+          <view class="left text"><image src="{{baseImageUrl}}/versions/addressIcon.png" mode="" style="width: 16rpx;height: 22rpx;margin-right: 8rpx;vertical-align: middle;"/>{{item.distance || '11m'}} </view>
+        </view>
+      </view>
+      <!-- 无实探 -->
+      <view class="itemBox-content" wx:else>
+        <!-- 招聘者信息 -->
+        <view class="left-inviteInfo">
+          <image class="avatar" src="{{item.avatar}}" mode="" />
+          <view class="onlineCircle" wx:if="{{item.online}}"></view>
+          <view class="info">
+            <view class="companyName">{{item.outName || ''}} {{item.outPost ? item.outPost : ''}}</view>
+            <text class="invitePerson">
+              <text wx:if="{{item.online}}">在线中</text>
+              <text wx:else>{{item.activation}}</text>
+            </text>
+            <!-- 公司信息 -->
+            <view class="itemBox-introduce">
+              <span class="span">{{item.companyName || ''}}</span>
+              <span class="span">{{item.stage}}</span>
+              <span class="span">{{item.scale}}</span>
+            </view>
+          </view>
+        </view>
+        <view class="content" wx:if="{{item.distance}}">
+          <view>
+            <image src="{{baseImageUrl}}/versions/addressIcon.png" mode="" />
+            <text>{{item.distance || ''}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

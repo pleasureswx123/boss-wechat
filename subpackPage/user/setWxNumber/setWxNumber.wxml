@@ -1,0 +1,119 @@
+<!-- 设置微信号或者微信号二维码 -->
+<view class="setWxNumberBox">
+  <!-- 主体内容 -->
+  <view class="setWxNumberBox-content">
+    <scroll-view scroll-y="true" class="content_swiper">
+      <view class="item" bindtap="goClick" data-val="1">
+        <view class="item_left">微信二维码名片</view>
+        <van-checkbox icon-size="32rpx" checked-color="#F42F2F" custom-class="checkbox" value="{{ wxQrcode==1 }}"></van-checkbox>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goClick" data-val="0">
+        <view class="item_left">微信号</view>
+        <van-checkbox icon-size="32rpx" checked-color="#F42F2F" custom-class="checkbox" value="{{ wxQrcode==0 }}"></van-checkbox>
+      </view>
+      <view class="line"></view>
+      <!-- <view wx:if="{{wxQrcode==0}}">
+        <view class="top_input">
+          <input type="text" value="{{wxNumber}}" bindinput="confirmValue" placeholder="请输入微信号" />
+        </view>
+        <view style="font-size: 24rpx;color:#999;margin:20rpx 40rpx;">注:微信号格式为6-20个字母、数字、下划线和减号,必须以字母开头</view>
+      </view>
+      <view wx:else>
+        <view class="notice" wx:if="{{!first}}" style="margin-top:28rpx">
+          <view class="left">每月剩余修改 {{leave}} 次</view>
+        </view>
+        <view class="ewmPic">
+          <image wx:if="{{ewmPicUrl}}" src="{{ewmPicUrl}}" mode="aspectFill"></image>
+          <van-icon name="plus" wx:else size="40" color="#999999" />
+          <span class="botCont" bind:tap="uploadImage" wx:if="{{ewmPicUrl}}">修改</span>
+          <span class="botCont" bind:tap="uploadImage" wx:else>上传</span>
+        </view>
+      </view> -->
+      <!-- 勿删 -->
+      <view class="revise">
+        <view class="revise-left">每月可修改 3 次</view>
+        <view class="revise-right">剩余 {{leave}} 次</view>
+        <image src="{{baseImageUrl}}/user/userSurplus.png" mode="" />
+      </view>
+
+      <view class="desp">
+        <view>1.微信号仅用于与招聘官交换微信时使用，您可以任选一种方式填写；</view>
+        <view>2.您可以在“微信--我-个人信息”中查看微信号和二维码名片；</view>
+        <view>3.微信号和微信二维码交换方式只能二选一。</view>
+        <!-- <view>3.每个月可修改{{base}}次</view> -->
+      </view>
+    </scroll-view>
+  </view>
+  <!-- <view class="setWxNumberBox-footer">
+    <view class="bot_btn" bindtap="goBtn" wx:if="{{wxNumber !== '' && leave>0}}">确认</view>
+    <view class="bot_btn no_data" wx:else>确认</view>
+  </view> -->
+</view>
+
+<!-- 输入微信号 -->
+<van-popup show="{{ inputShow }}" position="bottom" custom-style="height: 590rpx;" round bind:close="onClose" z-index="1000">
+  <view class="circulate_popup">
+    <view class="circulate_popup-head">
+      <view class="title">
+        <text>{{ wxNumber && userInfo.wechat ?'是否需要更新微信号？':'请输入交换微信号'}}</text>
+        <van-icon name="cross" bind:click="cancel" color="#969799" custom-class="custom-class" />
+      </view>
+      <view class="imgBox">
+        <image src="{{baseImageUrl}}/user/userTestWx.png" mode="" />
+      </view>
+    </view>
+    <view class="circulate_popup-content">
+      <view class="back inputWx">
+        <input adjust-position="{{true}}" type="text" cursor-color="#F42F2F" placeholder="请输入您希望与招聘者交换的微信号" placeholder-class="placeholderClass" value="{{wxNumber}}" bindinput="confirmValue" />
+        <view class="input-rigth" wx:if="{{clearable}}">
+          <image bindtap="clearWxNumber" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+        </view>
+      </view>
+      <view class="point">注：微信号格式为6-20个字母、数字、下划线和减号，必须以字母开头</view>
+      <view class="circulate_popup-button" wx:if="{{leave>0}}">
+        <view class="cancalButton button" bind:tap="cancel">取消</view>
+        <view class="confirmButton button" bind:tap="goBtn">{{ wxNumber && userInfo.wechat ?'更新':'添加'}}</view>
+      </view>
+      <view class="point" style="color: #F32E2E;font-weight: 500;" wx:else>本月修改次数已用完</view>
+    </view>
+  </view>
+</van-popup>
+<!-- 上传微信二维码图片 -->
+<van-popup show="{{ qrcodeShow }}" position="bottom" custom-style="height: 750rpx;" round bind:close="onClose" z-index="1000">
+  <view class="circulate_popup wxQrcode">
+    <view class="circulate_popup-head">
+      <view class="title">
+        <text>{{ewmPicUrl && userInfo.wechat ? '是否更新微信二维码图片？':'请上传微信二维码照片'}}</text>
+        <van-icon name="cross" bind:click="cancel" color="#969799" custom-class="custom-class wxQrcodeCustom" />
+      </view>
+      <view class="imgBox">
+        <image src="{{baseImageUrl}}/user/userTestWx.png" mode="" />
+      </view>
+    </view>
+    <view class="circulate_popup-content wxQrcode-content">
+      <view class="back wxQrcode-upload">
+        <!-- 上传 -->
+        <view class="addWxupload" bind:tap="uploadImage" wx:if="{{!ewmPicUrl}}">
+          <van-icon name="plus" color="#F42F2F" size="26rpx" />
+          <text>添加二维码名片</text>
+        </view>
+        <!-- 展示 -->
+        <view class="addWxupload" wx:else>
+          <image src="{{ewmPicUrl}}" mode="aspectFill" />
+        </view>
+        <!-- 更新按钮 -->
+        <view class="updataWxQrcode" wx:if="{{ewmPicUrl}}" bind:tap="uploadImage">
+          <van-icon name="plus" color="#F42F2F" size="26rpx" />
+          <text>重新上传二维码名片</text>
+        </view>
+      </view>
+      <view class="point">您可以在<text style="color: #F42F2F;">“微信--我-个人信息”</text>中查看微信号和二维码名片；</view>
+      <view class="circulate_popup-button" wx:if="{{leave>0}}">
+        <view class="cancalButton button" bind:tap="cancel">取消</view>
+        <view class="confirmButton button" bind:tap="goBtn">{{ewmPicUrl && userInfo.wechat ? '更新':'添加'}}</view>
+      </view>
+      <view class="point" style="color: #F32E2E;font-weight: 500;" wx:else>注：本月修改次数已用完</view>
+    </view>
+  </view>
+</van-popup>

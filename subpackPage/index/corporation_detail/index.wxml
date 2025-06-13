@@ -1,0 +1,249 @@
+<scroll-view class="box" scroll-y="true">
+  <view id="corporation_detail">
+    <!-- 导航栏 -->
+    <view class="contain">
+      <view class="corporation_detail-head">
+        <!-- 自定义顶部栏 -->
+        <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+          <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px;width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+            <van-icon name="arrow-left" color="white" size="22px" bind:click="corporationJump" />
+            <view class="nav-bar_title">公司简介</view>
+          </view>
+        </view>
+        <!-- 占位，高度与顶部栏一样 -->
+        <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+      </view>
+      <!-- style="height: calc(100vh - {{(height * -1 + popupHeight + navBarHeight + statusBarHeight)}}px);" -->
+      <scroll-view scroll-y="true" style="height: calc(100vh - {{(height * -1 + popupHeight + capsuleData.navBarHeight)}}px);">
+        <!-- 公司详情 -->
+        <view class="content_logo">
+          <view class="content_logo_left">
+            <view class="content_logo_left_corporation">{{companyDetail.abbreviation || '待完善'}}</view>
+            <view class="content_logo_left_bot">
+              <text wx:if="{{financingList[companyDetail.financeStage].name!='不限'}}">{{financingList[companyDetail.financeStage].name}}</text>
+              <text wx:if="{{companyDetail.financeStage}}" class="content_logo_xian"></text>
+              <text wx:if="{{scaleList[companyDetail.scale].name!='不限'}}">{{scaleList[companyDetail.scale].name}}</text>
+              <text class="content_logo_xian" wx:if="{{companyDetail.scale}}"></text>
+              <text>{{companyDetail.tradeInfo.cname}}</text>
+            </view>
+          </view>
+          <view class="content_logo_right" wx:if="{{companyDetail.logo}}">
+            <image class="content_logo_right" src="{{companyDetail.logo}}" mode="aspectFill"></image>
+          </view>
+          <view wx:else class="content_logo_default">
+            <image src="{{baseImageUrl}}/newImg/companyHead.svg" mode="" />
+          </view>
+        </view>
+        <!-- 企业实探 -->
+        <view class="exploration" wx:if="{{companyDetail.visitVideos.length > 0}}">
+          <view class="exploration_box">
+            <view class="exploration_box-head">
+              <!-- <image src="{{baseImageUrl}}/versions/exploration.png" mode="" /> -->
+              <!-- <van-icon name="arrow" size="13px" color="#666" custom-class="exploration_box-head-arrow" /> -->
+              <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/shield_icon.png" mode="" class="shield_icon" />
+              <text>知城核验</text>
+            </view>
+            <!-- 实探视频照片 -->
+            <scroll-view class="exploration_box-button" scroll-x="true" enable-flex>
+              <view class="content_scroll">
+                <view class="content_scroll-image {{companyDetail.visitVideos.length == 1 ? 'onlyOne' : ''}}" data-playUrl="{{item.url}}" data-type="{{item.type}}" bindtap="explorationPlay" wx:for="{{companyDetail.visitVideos}}" wx:key="index">
+                  <image src="{{item.url}}" mode="aspectFill" />
+                  <!-- 蒙层 -->
+                  <view class="content_scroll-image-mask {{companyDetail.visitVideos.length == 1 ? 'onlyOne' : ''}}" wx:if="{{item.type == 2}}">
+                    <image class="content_scroll-image-playIcon" src="{{baseImageUrl + '/index_img/play1.png'}}" mode="aspectFit" />
+                  </view>
+                </view>
+              </view>
+            </scroll-view>
+          </view>
+        </view>
+        <!-- 公司基本信息 -->
+        <view class="welfare" bindtap="tereatmentEnever">
+          <view class="welfare_item" wx:if="{{companyDetail.workStart}}">
+            <image src="{{baseImageUrl}}/newImg/workTime.png" mode="" />
+            上午{{companyDetail.workStart}}-下午{{companyDetail.workEnd}}
+          </view>
+          <view class="welfare_item" wx:if="{{companyDetail.breakStatusStr}}">
+            <image src="{{baseImageUrl}}/newImg/rest.png" mode="" />
+            {{companyDetail.breakStatusStr}}
+          </view>
+          <view class="welfare_item" wx:if="{{companyDetail.overtimeStr}}">
+            <image src="{{baseImageUrl}}/newImg/overTime.png" mode="" />
+            {{companyDetail.overtimeStr}}
+          </view>
+          <view class="jiantou" wx:if="{{companyDetail.workStart || companyDetail.breakStatusStr}}">
+            <van-icon class="arrow" name="arrow" color="#FFF" />
+          </view>
+        </view>
+        <!-- 公司福利 -->
+        <scroll-view class="fuli" scroll-x="true" enable-flex wx:if="{{otherWelfareSort.length > 0}}">
+          <view class="content_jobTimeList">
+            <view class="jobTimeItem" bindtap="tereatmentEnever" wx:for="{{otherWelfareSort}}" wx:key="index">
+              <image src="https://imgcdn.guochuanyoupin.com/{{item.iconW}}" mode="" />
+              <text>{{item.label}}</text>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 公司地址 -->
+        <view class="content_address" wx:if="{{companyDetail.address.length > 0}}">
+          <view class="content_address_address">
+            <text>公司地址</text>
+            <text>{{companyDetail.address[0].mapDetails}}</text>
+          </view>
+          <view class="content_address_detail_right" data-="" bindtap="gotoMap">
+            <image src="{{baseImageUrl + '/index_img/nav.png'}}" mode=""></image>
+            <text>导航</text>
+          </view>
+        </view>
+        <!-- 公司介绍 -->
+        <view class="content_introduce" wx:if="{{companyDetail.introduction}}">
+          <view class="content_introduce_top">
+            公司介绍
+          </view>
+          <view class="content_introduce_content" bindtap="examineAll">
+            <text style="line-clamp: {{introductionMaxHeight}};-webkit-line-clamp: {{introductionMaxHeight}}; display: {{disPlay}};">{{companyDetail.introduction}}</text>
+            <view wx:if="{{examineAll}}">查看更多</view>
+          </view>
+        </view>
+        <!-- 公司相册 -->
+        <view class="imageOrvideo" wx:if="{{companyDetail.album}}">
+          <view class="imageOrvideoTitle">公司相册</view>
+          <view class="lookAll" bindtap="lookAll">
+            <text>查看全部</text>
+            <image src="{{baseImageUrl + '/index_img/jiantou.png'}}" mode="" />
+          </view>
+        </view>
+        <!-- 相册列表 -->
+        <scroll-view class="fuli_swiper {{companyDetail.boss ? '' : 'space'}}" scroll-x="true" enable-flex wx:if="{{companyDetail.album}}">
+          <view class="content_swiper">
+            <view class="image" wx:for="{{companyDetail.album}}" wx:key="index">
+              <image class="album" data-url="{{item.url}}" data-type="{{item.type}}" bindtap="preview" src="{{item.url}}" mode="aspectFit"></image>
+              <image class="play" data-url="{{item.url}}" bindtap="playVideo" src="{{baseImageUrl + '/index_img/play1.png'}}" mode="aspectFit" wx:if="{{item.type == 2}}" />
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 公司boss -->
+        <view class="boss" wx:if="{{companyDetail.boss}}">
+          <view class="bossTitle">公司高管</view>
+          <!-- 高管title -->
+          <!-- <view class="senior">
+                        <view class="companySenior">公司高管</view>
+                        <view class="companySenior">热门BOSS</view>
+                    </view> -->
+
+          <!-- 高管列表 -->
+          <view class="seniorList">
+            <view class="boss_container_separately" data-boss="{{companyDetail.boss}}" bindtap="seniorIntroduce" wx:for="{{companyDetail.boss}}" wx:key="index" data-index="{{index}}">
+              <view class="boss_container_img">
+                <image src="{{item.avatar}}" mode="aspectFill"></image>
+              </view>
+              <view class="boss_container_right">
+                <view>{{item.bossName}}</view>
+                <view>{{item.post}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 工商信息 -->
+        <view class="content_information" wx:if="{{companyDetail.business}}">
+          <view bindtap="corJump">
+            <view class="content_information_head">
+              工商信息
+            </view>
+          </view>
+          <view class="content_information_item">
+            <view class="item">公司全称</view>
+            <text>{{companyDetail.business.name}}</text>
+          </view>
+          <view class="content_information_item">
+            <view class="item">公司代表人</view>
+            <text>{{companyDetail.business.legalPersonName}}</text>
+          </view>
+          <view class="content_information_item">
+            <view class="item">注册资本</view>
+            <text>{{companyDetail.business.regCapital}}</text>
+          </view>
+          <view class="content_information_item">
+            <view class="item">注册日期</view>
+            <text>{{companyDetail.business.estiblishTime}}</text>
+          </view>
+          <view class="content_information_item">
+            <view class="item">公司状态</view>
+            <text>{{companyDetail.business.regStatus}}</text>
+          </view>
+          <view class="content_information_item">
+            <view class="item">统一信用代码</view>
+            <text>{{companyDetail.business.creditCode}}</text>
+          </view>
+          <!-- 占位标签 -->
+          <!-- <view class="zhanwei"></view> -->
+        </view>
+      </scroll-view>
+      <!-- 高管详情 -->
+      <van-popup show="{{ show }}" custom-class="seniorIntroduce" closeable="true" bind:close="onClose" round position="bottom" custom-style="height: 20%" z-index="1000">
+        <swiper style="height: 82vh" indicator-dots="true" circular="true" bindchange="bindchange" indicator-active-color="#FE0201" current="{{current}}">
+          <swiper-item wx:for="{{currentBoss}}" wx:key="index">
+            <view class="">
+              <view class="avatar">
+                <image src="{{item.avatar}}" mode="aspectFill"></image>
+                <view class="post">
+                  <text class="">{{item.bossName}}</text>
+                  <text>{{item.post}}</text>
+                </view>
+              </view>
+              <view class="jieshao">
+                <text>{{item.introduction}}</text>
+              </view>
+            </view>
+          </swiper-item>
+        </swiper>
+      </van-popup>
+      <!-- 福利弹框 -->
+      <van-popup show="{{treatShow}}" close-icon-position="top-left" closeable="{{true}}" z-index="1001" bind:close="onClosetreatShow" round position="bottom">
+        <popup-treatment height="{{treatHeight}}" otherWelfare="{{otherWelfare}}" companyDetail="{{companyDetail}}"></popup-treatment>
+      </van-popup>
+      <!--正在招聘职位-->
+      <view class="recruitment" bindtouchstart="start" bindtouchmove="move" bindtouchend="handlerEnd" style="transform:{{convertTransform}}; transition:{{convertTransition}}; bottom: {{popupHeight}}px; height: {{height * -1}}px;">
+        <!-- style="height: {{bottom * -1 + height1}}px;" -->
+        <view class="recruHeader" style="height: {{height1 - 22}}rpx;">
+          <view style="padding: 30rpx 50rpx 0 52rpx;position: relative;">
+            <!-- <view class="headerIcon"></view> -->
+            <view class="erect"></view>
+
+            <!-- 方向向上 -->
+            <image class="up" wx:if="{{!isUpOrDown}}" src="{{baseImageUrl}}/newImg/job_detailTop.png" mode="" />
+
+            <!-- 方向向下 -->
+            <image class="down" wx:else src="{{baseImageUrl}}/newImg/job_detailTop.png" mode="" />
+          </view>
+          <!-- 未点击搜索icon -->
+          <view class="beBeingPost" wx:if="{{!isSearchInput}}">
+            <view class="recTitle">正在招聘职位</view>
+            <view class="recNumber">{{postTotal}}</view>
+            <!-- <van-icon name="search" size="18px" color="#999999" bind:click="movement"/> -->
+          </view>
+          <!-- 点击搜索icon -->
+          <view class="searchInput" wx:else>
+            <view class="input">
+              <ocean-search height-class="height-class" bind:input="input" bind:clear="clear" value="{{searchPost}}" placeholder="搜索职位" background="#F5F5F5"></ocean-search>
+            </view>
+            <view class="close" bindtap="cutPostData">取消</view>
+          </view>
+          <scroll-view scroll-x="true" enable-flex>
+            <view class="recruitTagList">
+              <view class="recruitTagItem {{currentTag == index ? 'currentTag' : ''}}" data-index="{{index}}" bindtap="changCurrentTag" wx:for="{{recruitTagList}}" wx:key="index">
+                <text>{{item.name}}</text>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+        <scroll-view scroll-y="true" class="recStyle" style="height: {{height * -1 - ((height1) / 2) + 90 + 50}}px;">
+          <component-info dataList="{{dataList}}"></component-info>
+          <view style="height: 30rpx;"></view>
+        </scroll-view>
+      </view>
+    </view>
+
+    <view class="mask_bg"></view>
+  </view>
+</scroll-view>

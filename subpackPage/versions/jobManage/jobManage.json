@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "xnPhone": "/components/xnPhone/index"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText":""
+}

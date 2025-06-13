@@ -1,0 +1,180 @@
+/* subpackPage/versions/sclectPost/sclectPost.wxss */
+page {
+  width: 100%;
+  height: 100%;
+  /* background: #f5f5f5; */
+}
+
+.sclectPost-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  /* background: linear-gradient( 269deg, #FFF1DE 0%, #FFF8F8 51%, #FFEAEA 100%), linear-gradient( 180deg, #FFFFFF 0%, rgba(253,253,253,0) 100%); */
+}
+
+.sclectPost-box .head {}
+
+.sclectPost-box .head .head_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 80rpx;
+}
+
+.sclectPost-box .head .head_content .title {
+  font-size: 44rpx;
+  font-weight: 600;
+  color: #1D2129;
+  line-height: 60rpx;
+  margin-top: 20rpx;
+}
+
+.sclectPost-box .head .head_content .desp {
+  font-size: 32rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #999999;
+}
+
+.sclectPost-box .content {
+  flex: 1;
+  padding: 0 48rpx;
+}
+
+.content_view {
+  height: 100%;
+  width: 100%;
+}
+
+.content_view .img {
+  width: 100%;
+  height: 40rpx;
+  margin-bottom: 32rpx;
+}
+
+.content_view .img image {
+  width: 156rpx;
+  height: 100%;
+  margin-bottom: 32rpx;
+}
+
+.content_view .list {
+  width: 100%;
+  /* display: grid; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* 将容器分为一列三个 */
+  /* grid-gap: 24rpx 22rpx; */
+  /* 设置元素之间的间距 */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.content_view .list .item {
+  height: 63rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  text-align: center;
+  line-height: 63rpx;
+  padding: 0 28rpx;
+  margin: 0 32rpx 20rpx 0;
+  font-size: 26rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #1D2129;
+}
+
+.content_view .list .active {
+  background: linear-gradient(270deg, #FF7878 0%, #F32E2E 100%);
+  color: #FFFFFF;
+}
+
+.content_view .footer_text {
+  text-align: center;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #037AFF;
+  padding-top: 50rpx;
+}
+
+.sclectPost-box .footer {
+  background: #FFFFFF;
+  box-shadow: 0rpx 4rpx 14rpx 8rpx rgba(0, 0, 0, 0.08);
+  padding: 0 48rpx;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 60rpx;
+}
+
+.sclectPost-box .footer .title {
+  padding: 28rpx 0 12rpx;
+  font-size: 22rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #1D2129;
+}
+
+.sclectPost-box .footer .postBox {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sclectPost-box .footer .postBox .postBoxItem {
+  height: 63rpx;
+  background: rgba(254, 117, 117, 0.2);
+  border-radius: 8rpx;
+  border: 1rpx solid #F53939;
+  padding: 0 24rpx;
+  line-height: 63rpx;
+  display: flex;
+  align-self: center;
+  margin: 0 20rpx 20rpx 0;
+}
+
+.sclectPost-box .footer .postBox .postBoxItem text {
+  font-size: 24rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #FE0201;
+  margin: 0 20rpx;
+}
+
+.sclectPost-box .footer .btn {
+  display: flex;
+  align-items: center;
+
+}
+
+/* 取消按钮 */
+.sclectPost-box .footer .btn .cancelBtn {
+  width: 180rpx;
+  height: 80rpx;
+  background: #F1F1F1;
+  border-radius: 12rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #666666;
+  line-height: 80rpx;
+  text-align: center;
+  margin-right: 18rpx;
+}
+
+/* 确认按钮 */
+.sclectPost-box .footer .btn .confirmBtn {
+  width: 456rpx;
+  height: 80rpx;
+  background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%);
+  border-radius: 12rpx;
+
+  font-size: 36rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 80rpx;
+  text-align: center;
+}

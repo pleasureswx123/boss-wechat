@@ -1,0 +1,110 @@
+<!--components/infomationList/infomationList.wxml-->
+<view class="box {{item.looked == 1 ? 'looked' : ''}}" wx:for="{{dataList}}" wx:key="index">
+  <view class="date" wx:if="{{isShowTime==1}}">{{item.createTime}}</view>
+  <!-- <image src="{{baseImageUrl+'/listHb.png'}}" mode="aspectFill" class="listHb"  wx:if="{{item.isH == 1}}" /> -->
+  <view class="item {{item.isH == 1?'hotBack':''}}" data-id="{{item.postId}}" data-distance="{{item.distance}}" data-bossUserId="{{item.bossUserId}}" bindtap="jump">
+    <!-- 汽车标识 -->
+    <image src="{{baseImageUrl}}/versions/qiche.png" mode="aspectFill" class="qiche" wx:if="{{item.activityTags}}" />
+    <view class="contBody">
+      <view class="post_title">
+        <view class="meta">
+          <!-- 急聘 -->
+          <view class="urgentEmployment" wx:if="{{item.urgent == 1}}">
+            <image class="jipin" src="{{baseImageUrl + '/jipin.png'}}">
+            </image>
+            <image wx:if="{{item.compete == 1 && item.urgent == 0}}" src="{{baseImageUrl + '/jingzhao.png'}}">
+            </image>
+          </view>
+          <view class="meta_coontent">
+            <view class="name {{item.urgent == 1 ? 'setIndent' : ''}}">
+              <!-- <view wx:if="{{item.num=='兼职'}}" class="position">{{item.num}}</view> -->
+              {{item.post}}
+              <!-- 核验图标 -->
+              <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/shield_icon.png" mode="" class="shield_icon" wx:if="{{versions == 2}}"/>
+              <image wx:if="{{item.isH == 1}}" class="hongICon" src="{{imageUrl + '/yp/tip_redPacket.png'}}">
+              </image>
+            </view>
+          </view>
+        </view>
+        <view class="action">
+          <view class="action_content">
+            <block wx:if="{{item.moneyType == 1}}">
+              <text class="compensation">面议</text>
+            </block>
+            <block wx:else>
+              <view class="compensation" wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                <!-- 元/时 -->
+                {{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}
+              </view>
+              <view wx:else class="compensation">
+                <!-- 至臻版 -->
+                <block wx:if="{{versions == 1}}">
+                  <text wx:if="{{item.lowestMoney > 0}}">{{item.lowestMoney}}-{{item.maximumMoney}}K</text>
+                  <text wx:else>面议</text>
+                </block>
+                <!-- 经典版 -->
+                <block wx:elif="{{versions == 2}}">
+                  <block wx:if="{{item.lowestMoney > 0}}">
+                    <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                    <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                  </block>
+                  <block wx:else>面议</block>
+                </block>
+                <text wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+
+      <!-- 公司信息 -->
+      <view class="introduce row">
+        <view class="span companyName" wx:if="{{item.companyName}}">{{item.companyName || ''}}</view>
+        <view style="flex-shrink: 0;">
+          <text class="span" wx:if="{{item.stage && item.stage!='不限'}}">{{item.stage}}</text>
+          <text class="span" wx:if="{{item.scale && item.scale!='不限'}}">{{item.scale}}</text>
+        </view>
+      </view>
+
+      <!-- 标签 -->
+      <view class="category">
+        <!-- 路费补贴 -->
+        <view class="lufei" wx:if="{{item.activityTags}}">
+          <image src="{{baseImageUrl}}/index_img/car.png" mode="" />
+          <text class="text">路费补贴</text>
+        </view>
+        <!-- 是否核验 -->
+        <!-- <view class="isExamine" wx:if="{{versions==2}}">
+          <image src="{{baseImageUrl}}/versions/heyan.png" mode="" />
+          <text class="text">知城核验</text>
+        </view> -->
+        <span class="tag {{item.isH == 1 ? 'tagBack' : ''}}" wx:if="{{item.year !== '' && item.year != '不限'}}">{{item.year}}</span>
+        <span class="tag {{item.isH == 1 ? 'tagBack' : ''}}" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName" wx:if="{{itemName!='不限'}}">{{itemName}}</span>
+      </view>
+
+      <!-- 招聘者 -->
+      <view class="footer">
+        <view class="header">
+          <image src="{{item.avatar}}" class="headerIcon" mode="aspectFill" wx:if="{{item.avatar}}" />
+          <image src="{{baseImageUrl + '/default-avatar.png'}}" class="headerIcon" mode="aspectFill" wx:else />
+          <view class="onlineCircle" wx:if="{{item.online}}"></view>
+          <view>
+            <view class="namePost">{{item.outName || ''}}<text wx:if="{{item.outPost}}">· {{item.outPost}}</text> </view>
+            <view class="onlineState" wx:if="{{item.online == false && item.activation !== null}}">{{item.activation}}</view>
+            <view class="onlineState" wx:if="{{item.online}}">在线中</view>
+          </view>
+        </view>
+        <!-- 保留设置附近的距离 -->
+        <!-- {{item.distance}} -->
+        <view class="distance nearBy" wx:if="{{nearBy}}">
+          <image src="{{baseImageUrl}}/versions/addressIcon.png" mode="" />
+          <text wx:if="{{item.distance}}">{{item.distance}}</text>
+        </view>
+        <view class="distance" wx:else>
+          <text wx:if="{{item.province}}">{{item.province}}</text>
+          <text wx:if="{{item.city}}">·{{item.city}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

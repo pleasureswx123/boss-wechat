@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText":"我的反馈",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

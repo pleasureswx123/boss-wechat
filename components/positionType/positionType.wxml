@@ -1,0 +1,31 @@
+<view class="box" style="height: {{positionTypeHeight}}px;">
+    <view class="top_title">
+        <text>{{transmitData.name || '全部分类'}}</text>
+        <view class="closeIcon" bindtap="close">
+            <image src="{{baseImageUrl}}/newImg/closeIcon.svg" mode="" />
+        </view>
+    </view>
+    <view class="bot_box" style="height: calc({{positionTypeHeight}}px - 58rpx - 54rpx - 40rpx - {{globalBottom}}px);">
+        <view class="left_scroll" style="height: 100%;">
+            <scroll-view scroll-y="true" style="height: 100%;">
+                <view class="left_list">
+                    <view class="list_item {{active == index ? 'selected' : ''}}" wx:for="{{leftList}}" wx:key="index" bindtap="changeItem" data-index="{{index}}" wx:if="{{item.select || item.select == undefined}}">{{item.name}}</view>
+                </view>
+            </scroll-view>
+        </view>
+        <view class="middle_line" style="height: 100%"></view>
+        <view class="right_scroll" style="height: calc(100% - 28rpx)">
+            <scroll-view scroll-y="true" style="height: 100%">
+                <view wx:for="{{rightList}}" wx:key="index" data-index="{{index}}">
+                    <view class="xqName">{{item.name}}</view>
+                    <view class="sitemBox">
+                        <view class="sitem" wx:for="{{item.subList}}" wx:key="index" data-item="{{sitem}}" wx:for-item="sitem" bindtap="selectedItem">
+                            {{ sitem.name }}
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+
+</view>

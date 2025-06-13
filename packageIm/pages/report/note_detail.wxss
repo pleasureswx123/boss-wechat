@@ -1,0 +1,145 @@
+/* packageIm/pages/report/report_note.wxss */
+page {
+    background-color: #F5F5F5;
+    padding: 30rpx;
+    box-sizing: border-box;
+}
+
+.content {
+    padding: 28rpx 48rpx;
+    background-color: #fff;
+    border-radius: 16rpx;
+}
+
+.detailClass rich-text{
+    font-size: 22rpx;
+    font-family: PingFangSC, PingFang SC;
+    /* font-weight: 300; */
+    color: #1D2129;
+}
+
+.text {
+    font-size: 22rpx;
+    
+    font-weight: 400;
+    color: #666666;
+    text-align: right;
+}
+
+.textAC {
+    color: #FE0201 !important;
+}
+
+.head {
+    padding-bottom: 40rpx;
+    font-size: 32rpx;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #1D2129;
+    border-bottom: 1px solid rgba(151, 151, 151, 0.34);
+}
+
+.head_text {
+    font-size: 22rpx;
+    
+    font-weight: 400;
+    color: #999999;
+}
+
+.img_box {
+    display: flex;
+    align-items: center;
+    height: 72rpx;
+}
+
+.report_Detail {
+    padding-top: 28rpx;
+}
+
+.report_Detail .item-cell {
+    padding: 6rpx 0;
+    font-size: 26rpx;
+    font-weight: 400;
+    position: relative;
+}
+
+.report_Detail .item-cell .label_text {
+    width: 136rpx;
+    vertical-align: middle;
+    position: absolute;
+    left: 0;
+    color: #999999;
+}
+
+.report_Detail .item-cell .item_conent {
+    color: #1D2129;
+    margin-left: 136rpx;
+}
+
+.screenshot {
+    font-size: 26rpx;
+    color: #999999;
+}
+
+.screenshot .label_text {
+    padding: 6rpx 0 0;
+}
+
+.screenshot .item_conent {
+    padding-top: 16rpx;
+}
+
+.screenshot .item_conent image {
+    width: 96rpx;
+    height: 96rpx;
+    margin-right: 4rpx;
+}
+
+image {
+    width: 72rpx;
+    height: 72rpx;
+    border-radius: 16rpx;
+    margin-right: 24rpx;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+}
+.right view {
+    padding-top: 2rpx;
+    font-size: 26rpx;
+    
+    font-weight: 400;
+    color: #1D2129;
+}
+
+.footer {
+    padding: 60rpx 48rpx;
+    background-color: #fff;
+    margin-top: 20rpx;
+    border-radius: 16rpx;
+}
+
+.footer text {
+    font-size: 32rpx;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #1D2129;
+}
+
+.footer>.text {
+    font-size: 28rpx;
+    
+    font-weight: 400;
+    color: #666666;
+    line-height: 44rpx;
+    margin-bottom: 92rpx;
+}
+
+.time {
+    font-size: 24rpx;
+    
+    font-weight: 400;
+    color: #666666;
+    text-align: right;
+}

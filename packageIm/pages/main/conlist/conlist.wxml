@@ -1,0 +1,154 @@
+<!-- 会话列表 -->
+<view class='list'>
+  <view wx:for="{{datalist}}" wx:key="index" id="{{item.id}}" data-id="{{item.id}}" bindlongpress="longpress">
+    <!-- <van-swipe-cell
+    id="swipe-cell"
+    right-width="{{ 65 }}"
+    async-close
+    bind:close="onClose" 
+     wx:if="{{item.chatType=='singleChat'}}"
+    >
+    <view class='item' bindtap="imClickfun" data-item="{{item}}">
+        <view class="em-msgNum" wx:if="{{item.unReadNum > 0}}">
+				  {{ item.unReadNum > 99 ? '99+':item.unReadNum}}</view>
+        <image src="{{item.targetAvatar+defaultImage}}" wx:if="{{item.targetAvatar}}"></image>
+        <image src="{{baseImgUrl+'/default-avatar.png'}}" wx:else></image>
+        <view class="itemCont">
+            <view class="titleDiv">
+                <span class="name">{{item.targetName || item.targetUsername}}<span class="company">{{item.targetCompany}}<span wx:if="{{item.targetJob}}">·{{item.targetJob}}</span></span></span>
+                <span class="time">{{item.msgTimestamp}}</span>
+            </view>
+            <view class="dialog">
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==0 && item.msgType!= 'custom'}}">[送达]</span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==1 && item.msgType!= 'custom'}}">[已读]</span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==2}}">
+                    [交换电话]
+                </span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==3}}">[交换微信]</span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==4}}">
+                  <text wx:if="{{item.msgCustomEvent=='interview_send_result'}}">[发送了面试结果]</text>
+                  <text wx:elif="{{item.msgCustomEvent=='interview_request_result'}}">[询问面试结果]</text>
+                  <text wx:elif="{{item.msgCustomEvent=='interview_sign_in'}}">[到达面试现场]</text>
+                  <text wx:else>[面试邀请]</text>
+                </span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==5}}">
+                    [录取通知]
+                </span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==6}}">[求简历]</span>
+                <span class="gui-text-color6" wx:if="{{item.msgStatus==7}}">[新招呼]</span>
+            <listWord lastMessageVo="{{item}}" keyword="{{keyword}}"></listWord>
+            </view>
+        </view>
+    </view> 
+    <view slot="right" class="editBtns">
+        <view class="sbtn" bindtap="top_chat" data-item="{{item}}">
+            <image src=" {{imageUrl}}/yp/top.png" mode="aspectFit" wx:if="{{ item.topStatus==0}}"></image>
+            <image src="{{imageUrl}}/yp/ntop.png" mode="aspectFit" wx:else></image>
+        </view>
+        <view class="sbtn"  bindtap="del_chat" data-item="{{item}}">
+            <image style="margin-left: 36rpx;" src="{{imageUrl}}/yp/del.png" mode="aspectFit"></image>
+        </view>
+    </view>
+    </van-swipe-cell> -->
+
+
+    <view wx:if="{{item.chatType=='singleChat'}}" class='item' bindtap="imClickfun" data-item="{{item}}">
+      <view class="figure">
+        <span class="badge">
+          <view class="image-content">
+            <image src="{{item.targetAvatar}}" wx:if="{{item.targetAvatar}}" mode="aspectFill"></image>
+            <image src="{{baseImgUrl+'/default-avatar.png'}}" mode="aspectFill" wx:else></image>
+          </view>
+          <!-- <view class="em-msgNum" wx:if="{{item.unReadNum > 0}}">
+            <span>{{ item.unReadNum > 99 ? '99+':item.unReadNum}}</span>
+          </view> -->
+          <span class="badge-count badge-count-common-less" wx:if="{{item.unReadNum > 0}}">
+            <span>{{ item.unReadNum > 99 ? '99+':item.unReadNum}}</span>
+          </span>
+        </span>
+      </view>
+      <view class="itemCont">
+        <view class="titleDiv">
+          <span class="name">{{item.targetName || item.targetUsername}}<span class="company">{{item.targetCompany}}<span wx:if="{{item.targetJob}}">·{{item.targetJob}}</span></span></span>
+          <span class="time">{{item.msgTimestamp}}</span>
+        </view>
+        <view class="dialog">
+          <span class="gui-text-color6" wx:if="{{item.msgStatus==0 && item.msgType!= 'custom'}}">[送达]</span>
+          <span class="gui-text-color6" wx:if="{{item.msgStatus==1 && item.msgType!= 'custom'}}">[已读]</span>
+          <span class="gui-text-color7" wx:if="{{item.msgStatus==2}}">
+            [交换电话]
+          </span>
+          <span class="gui-text-color7" wx:if="{{item.msgStatus==3}}">[交换微信]</span>
+          <span class="gui-text-color7" wx:if="{{item.msgStatus==4}}">
+            <text wx:if="{{item.msgCustomEvent=='interview_send_result'}}">[发送了面试结果]</text>
+            <text wx:elif="{{item.msgCustomEvent=='interview_request_result'}}">[询问面试结果]</text>
+            <text wx:elif="{{item.msgCustomEvent=='interview_sign_in'}}">[到达面试现场]</text>
+            <text wx:else>[面试邀请]</text>
+          </span>
+          <span class="gui-text-color7" wx:if="{{item.msgStatus==5}}">
+            [录取通知]
+          </span>
+          <span class="gui-text-color7" wx:if="{{item.msgStatus==6}}">[求简历]</span>
+          <span class="gui-text-color7" wx:if="{{item.msgStatus==7}}">[新招呼]</span>
+          <listWord lastMessageVo="{{item}}" keyword="{{keyword}}"></listWord>
+        </view>
+      </view>
+      <!-- 2023-10-19 ghy 添加 长按弹窗 -->
+      <view class="longpressModel" wx:if="{{item.islongpressModel && cancelPressModel}}">
+        <view class="maskBg" catchtap="closeModel"></view>
+        <view class="caozuoList">
+          <view class="caozuoItem" catchtap="top_chat" data-item="{{item}}">
+            <image wx:if="{{ item.topStatus==0}}" class="top_icon" src="/image/msgIcon/msgTop_icon.png" mode="aspectFit" />
+            <image wx:else class="top_icon" src="/image/msgIcon/cancelTop_icon.png" mode="aspectFit" />
+            <text>{{item.topStatus==0 ? '置顶' : '取消置顶'}}</text>
+          </view>
+          <!-- <view class="caozuoItem">
+                    <image class="collect_icon" src="/image/msgIcon/msgCollect_icon.png" mode="aspectFit"/>
+                    <text>收藏</text>
+                </view> -->
+          <!-- <view class="caozuoItem">
+                    <image class="inappropriate_icon" src="/image/msgIcon/msgInappropriate_icon.png" mode="aspectFit"/>
+                    <text>不合适</text>
+                </view> -->
+          <view class="caozuoItem" catchtap="del_chat" data-item="{{item}}">
+            <image class="delete_icon" src="/image/msgIcon/msgDelete_icon.png" mode="aspectFit" />
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <view ></view> -->
+    <view class='item' wx:else bindtap="goPage" data-type="{{item.chatType}}" data-specialNoticeType="{{item.specialNoticeType}}">
+      <!-- <view class="em-msgNum" wx:if="{{item.unReadNum > 0}}">
+        <text>{{ item.unReadNum > 99 ? '99+':item.unReadNum}}</text>
+      </view>
+      <image wx:if="{{ item.chatType=='post_new_position'}}" src="{{imageUrl}}/yp/msg_add.png" mode="aspectFit"></image>
+      <image wx:if="{{ item.chatType=='system_notification' }}" src="{{imageUrl}}/yp/msg_ld.png" mode="aspectFit"></image>
+      <image wx:if="{{ item.chatType=='interested' }}" src="{{imageUrl}}/yp/msg_like.png" mode="aspectFit"></image>
+      <image wx:if="{{ item.chatType=='have_see_you' }}" src="{{imageUrl}}/yp/msg_see.png" mode="aspectFit"></image>
+      <image wx:if="{{ item.chatType=='not_interested' }}" src="{{imageUrl}}/yp/msg_notInterest.png" mode="aspectFit"></image> -->
+
+      <view class="figure">
+        <span class="badge">
+          <view class="image-content">
+            <image wx:if="{{ item.chatType=='post_new_position'}}" src="{{imageUrl}}/yp/msg_add.png" mode="aspectFit"></image>
+            <image wx:if="{{ item.chatType=='system_notification' }}" src="{{imageUrl}}/yp/msg_ld.png" mode="aspectFit"></image>
+            <image wx:if="{{ item.chatType=='interested' }}" src="{{imageUrl}}/yp/msg_like.png" mode="aspectFit"></image>
+            <image wx:if="{{ item.chatType=='have_see_you' }}" src="{{imageUrl}}/yp/msg_see.png" mode="aspectFit"></image>
+            <image wx:if="{{ item.chatType=='not_interested' }}" src="{{imageUrl}}/yp/msg_notInterest.png" mode="aspectFit"></image>
+          </view>
+          <view class="badge-count badge-count-common-less" wx:if="{{item.unReadNum > 0}}">
+            <span>{{ item.unReadNum > 99 ? '99+':item.unReadNum}}</span>
+          </view>
+        </span>
+      </view>
+      <view class="itemCont">
+        <view class="titleDiv">
+          <span class="name">{{item.specialTypeTitle || ''}}<span class="company">{{item.specialTypeTitleDesc || ''}}</span></span>
+          <span class="time">{{item.msgTimestamp}}</span>
+        </view>
+        <view class="dialog">{{item.specialTypeContent}}</view>
+      </view>
+    </view>
+  </view>
+</view>

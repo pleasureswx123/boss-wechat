@@ -1,0 +1,66 @@
+<view class="shareZpBox">
+<!-- widthFix -->
+  <!-- style="background-image: url({{imageUrl}}/myCard/shareZpBoxBack.png)" -->
+  <!-- <image src="{{imageUrl}}/myCard/shareZpBoxBack.png" mode="" class="backImg" /> -->
+  <!-- style="background-image: url({{imageUrl}}/myCard/shareZpBoxBack.png);"  -->
+  <view class="shareZpBox_head">
+    <view class="nav-bar" bind:tap="goBack" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px;">
+        <van-icon name="arrow-left" color="#000" size="26px" />
+      </view>
+    </view>
+    <!-- <view style="height:{{capsuleData.navBarHeight}}px;"></view> -->
+  </view>
+
+  <view class="shareZpBox_main" >
+    <!-- <image src="{{imageUrl}}/myCard/shareZpBoxBack.png" mode="widthFix" class="backImg" /> -->
+    <image class="back1" src="{{imageUrl}}/myCard/back1-1.png" mode=""/>
+    <image class="back2" src="{{imageUrl}}/myCard/back2-1.png" mode=""/>
+    <image class="back3" src="{{imageUrl}}/myCard/back3-1.png" mode=""/>
+
+    <scroll-view class="boxCont" scroll-y="{{false}}">
+      <view class="downCont">
+        <view class="changeTab">
+          <view class="changeTab_back">
+            <span wx:for="{{list}}" wx:key="index" class="{{active==item.type?'selected':''}}" bind:tap="changeTab" data-type="{{item.type}}">{{item.name}}</span>
+          </view>
+        </view>
+        <!-- 轮播图 -->
+        <view class="swiperImg">
+          <view class="down2">
+            <image src="{{imageUrl}}/myCard/down2.png" />
+          </view>
+          <view class="down1">
+            <image src="{{imageUrl}}/myCard/down1.png" />
+          </view>
+          <swiper circular interval="3000" class="swiper {{isIphone678 ? 'height1' : 'height2'}}"  previous-margin="0rpx" 
+          next-margin="228rpx" bindchange="monitorCurrent" current="{{current}}" autoplay="{{autoplay}}">
+            <swiper-item class="item" wx:for="{{imgUrls}}" bind:tap="openLook" wx:key="index" wx:if="{{item.type==active}}">
+              <image src="{{imageUrl + item.name}}" mode="" />
+            </swiper-item>
+          </swiper>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+<!-- style="background-image: url({{imageUrl}}/myCard/shareZpBoxBtnBack.png);" -->
+  <view class="shareZpBox_footer" >
+    <!-- <image class="shareZpBoxBtn" bind:tap="openEwm" src="{{imageUrl}}/myCard/shareZpBoxBtn1.png" mode="" /> -->
+    <!-- <image class="shareZpBoxBtn" bind:tap="openEwm" src="{{imageUrl}}/myCard/btn.png" mode="" /> -->
+    <image class="shareZpBoxBtn" bind:tap="openEwm" src="{{imageUrl}}/myCard/btn1-2.png" mode="" />
+  </view>
+</view>
+
+<van-popup show="{{ show }}" round closeable position="bottom" custom-style="height: 40%" bind:close="onClose">
+  <view class="ewm">
+    <view style="width: 170px;height: 170px;background: #666;border-radius: 10rpx;">
+      <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/index_img/gcypGwCode.png" mode="" show-menu-by-longpress="{{true}}" bindlongtap="onLongTap" />
+    </view>
+    <view class="text">长按保存二维码</view>
+  </view>
+</van-popup>
+
+<!-- 弹窗查看 -->
+<van-popup show="{{ lookAppShow }}"  position="bottom" custom-style="height: 100%;background: #000" >
+  <lookAppPopup capsuleData="{{capsuleData}}" bind:close="onClose"></lookAppPopup>
+</van-popup>

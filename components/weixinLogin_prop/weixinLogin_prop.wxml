@@ -1,0 +1,22 @@
+<!--components/weixinLogin_prop/weixinLogin_prop.wxml-->
+<!-- <text>components/weixinLogin_prop/weixinLogin_prop.wxml</text> -->
+
+<van-popup show="{{ show }}" z-index="1001" position="{{position}}" round="{{round}}" closeable="{{closeable}}" custom-style="height: 434rpx;" bind:close="onClose">
+    <view class="weixin_login">
+        <view class="title" wx:if="{{type == 1}}">登录或注册</view>
+        <view class="title" wx:if="{{type == 2}}">请阅读并同意协议</view>
+        <view class="agreement">
+            <view class="text check" bindtap="checkedTap">
+                <view wx:if="{{!checked}}" class="checkbox-icon"></view>
+                <view wx:else class="checked_active">
+                    <image src="{{baseImageUrl}}/white_gou.png" mode=""/>
+                </view> 
+                <view>我已阅读并同意 <text class="red" catchtap="goAgreePage" data-url="https://guochuanyoupin.com/static/fwxy.html" data-type="知城优聘用户协议">《知城优聘用户协议》</text> 与 <text class="red" catchtap="goAgreePage" data-url="https://guochuanyoupin.com/static/ysxy.html" data-type="知城优聘隐私协议">《知城优聘隐私协议》</text></view>
+            </view>
+        </view>
+        <button class="weixin_loginButton" bindtap="weixinLogin" wx:if="{{type == 1}}">
+        <!-- <image src="{{baseImageUrl}}/wechat.png" mode="" class="wechat"/> -->
+        手机号快速登录</button>
+        <button class="weixin_loginButton" bindtap="weixinLoginA" open-type="" wx:if="{{type == 2}}">同意并继续</button>
+    </view>
+</van-popup>

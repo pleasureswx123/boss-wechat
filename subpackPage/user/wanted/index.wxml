@@ -1,0 +1,191 @@
+<!--subpackPage/user/wanted/index.wxml-->
+<view class="head">
+  <!-- <image class="head_bg" src="{{imageUrl}}/my/wanted_bg.png" mode="" /> -->
+  <view class="img" bindtap="openDesc">
+    <view style="border-bottom: 2rpx solid rgba(255,255,255,0.2);padding-bottom: 20rpx;">
+      <view class="text">可提微信金额<view class="hb2">
+          <image src="{{imageUrl}}/my/hb_2.png" mode="" class="hb2Img" />
+        </view>
+      </view>
+      <text><text style="font-size: 16px;display: inline-block;vertical-align: top;">¥</text> {{redInfo.balance || 0}}<text class="decimals">.00</text></text>
+    </view>
+    <view class="txMoney">
+      <view>
+        <view>已提现金额（元）</view>
+        <view class="f34">{{redInfo.withdraw}}<text class="decimals">.00</text></view>
+      </view>
+      <view>
+        <view>累计到账金额（元）</view>
+        <view class="f34">{{redInfo.grandTotal}}<text class="decimals">.00</text></view>
+      </view>
+    </view>
+    <!-- <image src="{{imageUrl}}/newImg/wanted_money.png" mode="" style="width: 166rpx;height: 262rpx;position: absolute;right: 0;"/> -->
+    <image src="{{imageUrl}}/index_img/hongbaoBtn.png" mode="" class="coin1" catch:tap="goWithdraw" />
+    <view class="mingxiText" catch:tap="moneyDetail"></view>
+    <!-- <image src="{{imageUrl}}/newImg/qzhb.gif" mode="" class="coin"/> -->
+  </view>
+</view>
+
+
+<view class="navBox">
+  <view class="nav">
+    <view class="item {{isActive == item.value ? 'active' : '' }} " wx:for="{{navList}}" wx:key="index" bindtap="switchNavHandle" data-index="{{item.value}}">{{item.title}}</view>
+  </view>
+  <view class="shaixuan" bind:tap="screenEvent">
+    筛选
+  </view>
+</view>
+<!-- 金币动画 -->
+<view class="jinbi" wx:if="{{showJinbi}}">
+  <image src="{{imageUrl}}/jinbi.gif" mode="" style="width: 350rpx;height: 514rpx;" />
+</view>
+
+<view class="loading-container" wx:if="{{showLoading}}">
+  <van-loading type="circular" custom-class="custom-class" size="48px" color="#FE0201" />
+</view>
+<!-- 列表组件 -->
+<view class="content">
+  <scroll-view scroll-y="true" style="height: calc(100vh - 500rpx);" wx:if="{{dataList.length>0}}">
+    <wantedList dataList="{{dataList}}" type="0" tab="{{ isActive }}" bind:ssEvent="goSs" bind:confirm="jobRedEnvelopeInfo"></wantedList>
+  </scroll-view>
+  <noData wx:else></noData>
+</view>
+<!-- 申诉框 -->
+<!-- height: 82%; -->
+<van-popup show="{{ isShenSu }}" closeable round position="bottom" custom-style="border-radius: 48rpx;" bind:close="onClose">
+  <view class="circulate_popup-head"></view>
+  <view class="circulate_popup-body">
+    <view class="sstitle">我要申诉</view>
+    <view class="ssTime">
+      <view class="s1">面试时间</view>
+      <view class="s2">{{interviewInfo.interviewTime || ''}}</view>
+    </view>
+    <view class="ssdesp">
+      <view class="desp1"><text class="red">*</text>具体情况说明</view>
+      <view class="desp2">
+        <textarea value="{{despText}}" placeholder="说点什么…" maxlength="50" style="height:178rpx;width:100%" placeholder-class="input-placeholder" bindinput="textareaInput" />
+        <view class="num">
+          {{despText.length}}/50
+        </view>
+      </view>
+    </view>
+    <view class="ssImg">
+      <view><text class="red">*</text>图片证明（最多3张）</view>
+      <view class="cont_img">
+        <view class="uploadImg" bindtap="uploadImage" wx:if="{{ImageArr.length < 3}}">
+          <image src="{{imageUrl}}/versions/add.png" class="add" />
+        </view>
+        <view class="img_item" wx:for="{{ImageArr}}" wx:key="index">
+          <image class="img1" src="{{item}}" mode="aspectFill" />
+          <view class="clone" data-index="{{index}}" bindtap="removeImage">x</view>
+        </view>
+      </view>
+    </view>
+    <view class="btns">
+      <view class="cancel" bind:tap="onClose">取消</view>
+      <view class="sure" bind:tap="appealSave" wx:if="{{ImageArr.length>0 && despText}}">申诉</view>
+      <view class="sure cancel" wx:else>申诉</view>
+    </view>
+  </view>
+</van-popup>
+<!-- 遮罩层，动画手效果 -->
+<van-overlay show="{{ show }}" bind:click="onClickHide">
+  <view class="wrapper">
+    <view class="over_content">
+      <image class="content_img" src="{{imageUrl}}/shou1.png" mode="" />
+      <view class="money">
+        <text>20</text>
+        <text>元</text>
+      </view>
+      <text class="text">企业确认后，可自动转入微信钱包</text>
+      <button bindtap="cloneOver">开心收下</button>
+
+      <view class="top_bg"></view>
+      <view class="right_bg"></view>
+      <view class="bottom_bg"></view>
+      <view class="left_bg"></view>
+    </view>
+    <view class="cen" bindtap="cloneOver">
+      <image src="{{imageUrl}}/yuan_clone.png" mode="" />
+    </view>
+  </view>
+  <view class="image">
+    <image src="{{imageUrl}}/shou2.png" mode="" />
+    <image src="{{imageUrl}}/shou3.png" mode="" />
+    <image src="{{imageUrl}}/shou4.png" mode="" />
+    <image src="{{imageUrl}}/shou5.png" mode="" />
+  </view>
+</van-overlay>
+
+<!-- 遮罩层，红包须知 -->
+<van-overlay show="{{ wnShow }}" bind:click="onClickHide">
+  <image src="{{imageUrl}}/my/hb_1_2.png" mode="widthFix" class="hbbg" />
+  <image src="{{imageUrl}}/my/hb_1_1.png" mode="widthFix" class="hbbg1" />
+  <view class="wrapperBox">
+    <view class="title">
+      <image src="{{imageUrl}}/my/hb_4.png" mode="" />
+      <image src="{{imageUrl}}/my/hb_3.png" mode="aspectFill" class="closeBtn" />
+    </view>
+    <view class="cont">
+      <scroll-view style="height: 60%;" scroll-y>
+        <view class="scrollView" style="padding-bottom: 140rpx;">
+          <view class="bName"> Q1：什么是求职红包？</view>
+          <view class="bCont">A:求职红包是企业在招聘人才时给予的一种特殊福利。</view>
+          <view class="bName">Q2：什么情况会展示求职红包岗位？</view>
+          <view class="bCont">A:企业在发布岗位时添加了岗位红包，且岗位在招情况下。</view>
+          <view class="bName">Q3：求职红包怎样领取？会不会过期？</view>
+          <view class="bCont">A:求职红包不需要手动领取，在企业确认了您的面试签到行为后，红包将会自动转入您的微信零钱，请您注意查收，红包不存在过期说法。</view>
+          <view class="bName">Q4：我将如何获得求职红包？</view>
+          <view class="bCont">A:在您投递了带有求职红包的岗位，企业对您发送了带有求职红包的面试邀请，您接受后在约定时间、规定范围内，点击【面试签到】，待企业面试结束确认后将自动转入您的微信零钱。面试签到在【我的】-【待面试】点击进入详情页，可查看右上角签到标志，点击签到即可。</view>
+          <view class="bName">Q5：签到后企业迟迟没有对面试进行确认应该怎么办？</view>
+          <view class="bCont">A:如确定您的签到行为真实有效，平台将会在面试签到成功后的3~7天联系该企业，提醒该企业对您的签到行为进行核对确认，若到达面试签到成功后的第七个工作日，系统将自动确认您的签到行为。</view>
+        </view>
+      </scroll-view>
+      <view class="bott">
+        <view class="txtB">有其他问题请咨询：<text class="blue"> 400-8098-688 </text></view>
+        <view class="sbtn" bind:click="onClickHide">我知道了</view>
+      </view>
+    </view>
+  </view>
+</van-overlay>
+
+<!-- 提现  wx:if="{{isWithDraw}}"-->
+<view class="withDrawView" hidden="{{isWithDraw}}">
+  <canvas id="demoCanvas" type="2d" style="top: {{-capsuleData.navBarHeight}}px;height: calc(100% + {{capsuleData.navBarHeight}}px);"></canvas>
+  <view class="withDrawContBox">
+    <image class="bg" src="{{imageUrl}}/index_img/tixian3.png" mode="" style="top: calc(50% - {{capsuleData.navBarHeight}}px);" />
+    <image src="{{imageUrl}}/my/jinbi6.png" mode="" class="species" style="top: calc(50% - {{capsuleData.navBarHeight}}px);"/>
+    <image src="{{imageUrl}}/index_img/tixian22.png" class="bg1" mode=""  style="top: calc(50% - {{capsuleData.navBarHeight}}px + 244rpx);"/>
+    <view class="withDrawCont" style="top: calc(50% - {{capsuleData.navBarHeight}}px);">
+      <view class="font1" wx:if="{{redInfo.todayWithdraw>0}}">请明日再来</view>
+      <view class="font1" wx:else>本次可提现</view>
+      <view class="font2" wx:if="{{redInfo.todayWithdraw>0}}" style="font-size: 36rpx;">今日已提现<text style="font-size:44rpx;margin: 0 10rpx;">{{redInfo.todayWithdrawMoney || 0}}</text>元</view>
+      <view class="font2" wx:else><text style="font-size:96rpx">{{redInfo.balance>100?100:redInfo.balance || 0}}</text> 元</view>
+      <!-- <view class="font3">每日可提 1 次，每次最大额 ¥100</view> -->
+      <view class="font3">每日仅可提现 1 次，每次最高提现 100 元</view>
+      <view class="font4" catch:tap="goMoney">
+        <image src="{{imageUrl}}/index_img/tixian1.png" />
+        <image class="transformImage" src="{{imageUrl}}/versions/switch_btn_flash1.png" mode="" />
+      </view>
+    </view>
+    <image src="{{imageUrl+'/user/sign1_close.png'}}" class="closeIcon" style="top: calc(50% - {{capsuleData.navBarHeight}}px + 320rpx);"></image>
+  </view>
+</view>
+
+<!-- 筛选 -->
+<van-action-sheet show="{{ sxShow }}" title="筛选" bind:close="onClose1">
+  <view class="screenBox">
+    <view class="screenCont">
+      <view class="title">请选择状态</view>
+      <view class="itemList">
+        <view class="sitem {{isActive1 == item.value ? 'activeItem' : '' }}" wx:for="{{screenList}}" wx:key="index" bindtap="switchSxHandle" data-index="{{item.value}}">{{item.title}}</view>
+      </view>
+      <view class="sxBottom">
+        <view class="sxCont">
+          <view class="cancelBtn" bind:tap="cancelEvent">重置</view>
+          <view class="sureBtn" bind:tap="sureEvent">确定</view>
+        </view>
+      </view>
+    </view>
+  </view>  
+</van-action-sheet>

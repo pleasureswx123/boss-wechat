@@ -1,0 +1,10 @@
+{
+    "usingComponents": {
+      "van-icon": "@vant/weapp/icon/index",
+      "van-checkbox": "@vant/weapp/checkbox/index",
+      "van-dialog": "@vant/weapp/dialog/index",
+      "van-popup": "@vant/weapp/popup/index"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText":""
+}

@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "van-search": "@vant/weapp/search/index",
+        "van-checkbox": "@vant/weapp/checkbox/index"
+    },
+    "navigationBarTitleText": "添加屏蔽公司",
+    "navigationBarBackgroundColor": "#ffffff"
+}

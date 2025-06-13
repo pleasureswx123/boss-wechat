@@ -1,0 +1,345 @@
+<view class="previewResumeBox">
+  <view class="locality_box-scroll">
+    <view class="tabs">
+      <view wx:for="{{tabsList}}" wx:key="index" class="tabs-item {{item.index == tabsId ? 'tabs-active' : ''}}" bindtap="changeTab" data-index="{{item.index}}">{{item.text}}</view>
+    </view>
+    <view class="tabs_content">
+      <!-- 内容布局 -->
+      <swiper class="tabs_track" bindchange="slideOn" current="{{tabsId}}">
+        <!-- 在线简历 -->
+        <swiper-item class="tab_pane-wrapper displayWrapper">
+          <view class="displayWrapper-content">
+            <scroll-view class="tab_pane" scroll-y="{{true}}" style="height: 100%;">
+              <view class="personal_info_box">
+                <view class="personal_info_box_left">
+                  <view class="personal_info_box_left_top">
+                    <view class="personal_info_box_left_top_left">{{info.nickName || '完善姓名'}}</view>
+                    <view class="personal_info_box_left_top_right">
+                      <image src="{{imageUrl}}/my/resume/bigEdit.png" mode="" />
+                    </view>
+                  </view>
+                  <view class="personal_info_box_left_bot">
+                    <text wx:if="{{jobYear}}">{{ jobYear || '' }}年经验</text> <text wx:if="{{birthday}}">{{birthday || ''}}岁</text> <text wx:if="{{info.maxBackground}}">{{educationList[info.maxBackground - 1]}}</text>
+                  </view>
+                </view>
+                <view class="personal_info_box_right">
+                  <image wx:if="{{info.avatar}}" src="{{info.avatar}}" mode="aspectFill" />
+                  <image wx:else src="{{imageUrl}}/default-avatar.png" mode="aspectFill" />
+                </view>
+              </view>
+              <!-- 用户手机号和用户微信 -->
+              <view class="userPhone_wx">
+                <!-- 手机号 -->
+                <view class="phone marRight-40">
+                  <image src="{{imageUrl}}/user/userPhone.png" mode="" />
+                  <text>{{userInfo.phone}}</text>
+                </view>
+                <view wx:if="{{userInfo.wechat}}">
+                  <!-- 微信号是输入的 -->
+                  <view class="wx" wx:if="{{userInfo.wechatQrcode == 0}}">
+                    <image src="{{imageUrl}}/user/userWx.png" mode="" />
+                    <text>{{userInfo.wechat}}</text>
+                  </view>
+                  <!-- 微信号是二维码 -->
+                  <view class="wx wxQrcode" bind:tap="previewWx" wx:if="{{userInfo.wechatQrcode == 1}}">
+                    <image src="{{imageUrl}}/user/userWxqrcode.png" mode="" />
+                  </view>
+                </view>
+
+                <view class="addWx" wx:if="{{!userInfo.wechat}}">
+                  <span>+</span>
+                  <text>添加微信</text>
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="good_personal">
+                <view class="good_personal_top">
+                  <view class="title">个人优势</view>
+                </view>
+                <!-- {{info.illegal==1?'wgbd':''}} -->
+                <view class="good_personal_bot " wx:if="{{info.personalStrength}}">
+                  <!-- <view class="wgmgBox" wx:if="{{info.illegal==1}}">
+                    <view class="boxName">{{info.strengthMark || '该部分内容存在违规或敏感信息，请尽快修改。'}}</view>
+                    <view class="boxBtn">修改</view>
+                  </view> -->
+                  <view class="wgmgCont">{{info.personalStrength}}</view>
+                </view>
+                <view class="good_personal_bot" wx:else>
+                  暂无个人优势
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="exp_type other_box">
+                <view class="title">求职状态</view>
+                <view class="exp_type_right">
+                  <view class="exp_type_right_left">{{ExpType || ''}}</view>
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="other_box job_exp">
+                <view class="job_exp_top">
+                  <view class="job_exp_top_left">
+                    <view class="title">求职期望</view>
+                    <!-- 请勿删除 -->
+                    <!-- <view class="titile_ques" catchtap="goOtherPage" data-type="jpbStatement">
+                      <van-icon name="question-o" color="#FE0201" />
+                    </view> -->
+                  </view>
+                </view>
+                <view class="job_exp_bot" wx:for="{{info.jobExpectationList}}" wx:key="index">
+                  <view class="job_exp_bot_left">
+                    <view class="job_exp_bot_left_top">{{item.postName}}
+                      <text wx:if="{{item.jobType==1}}">兼职</text>
+                      <text wx:else>
+                        <text wx:if="{{item.expectedMoneyStatus == 0 || item.lowestMoney==0}}">面议</text>
+                        <text wx:else>{{item.lowestMoney}}K - {{item.maximumMoney}}K</text>
+                      </text>
+                    </view>
+                    <view class="job_exp_bot_left_bot">[{{item.jobCityName}}] {{item.businessName ?item.businessName : '不限'}}</view>
+                  </view>
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="other_box" id="gzjlName">
+                <view class="job_exp_top">
+                  <view class="title">工作经历</view>
+                </view>
+                <!-- {{item.illegal==1?'wgbd':''}}" -->
+                <view class="other_box_item" wx:for="{{workExperienceList}}" wx:key="index">
+                  <!-- <view class="wgmgBox" wx:if="{{item.illegal==1}}">
+                    <view class="boxName">{{item.mark || '该部分内容存在违规或敏感信息，请尽快修改。'}}</view>
+                    <view class="boxBtn">修改</view>
+                  </view> -->
+                  <view class="gzjlCont">
+                    <view class="item_top">
+                      <view class="item_top_left">{{item.corporationName}}</view>
+                      <view class="item_top_right">
+                        <view class="item_top_right_left">{{item.thenStartTime}}-{{item.thenEndTime || '至今'}}</view>
+                      </view>
+                    </view>
+                    <view class="item_middle">
+                      {{item.postName}} {{item.department ? item.department : ''}}
+                    </view>
+                    <view class="item_bot" wx:if="{{item.wokeDetails}}">
+                      <rich-text nodes="内容：{{item.wokeDetails}}"></rich-text>
+                    </view>
+                    <view class="bot_tags">
+                      <view class="tag" wx:for="{{item.tag}}" wx:key="index" wx:for-item="tagItem">{{tagItem}}</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="other_box">
+                <view class="job_exp_top" id="xmjlName">
+                  <view class="title">项目经历</view>
+                </view>
+                <!-- {{item.illegal==1?'wgbd':''}} -->
+                <view class="other_box_item " wx:for="{{info.projectExperienceList}}" wx:key="index">
+                  <!-- <view class="wgmgBox" wx:if="{{item.illegal==1}}">
+                    <view class="boxName">{{item.mark || '该部分内容存在违规或敏感信息，请尽快修改。'}}</view>
+                    <view class="boxBtn">修改</view>
+                  </view> -->
+                  <view class="gzjlCont">
+                    <view class="item_top">
+                      <view class="item_top_left">{{item.name}}</view>
+                      <view class="item_top_right">
+                        <view class="item_top_right_left" wx:if="{{item.endThisDay == 1}}">{{item.startTime}}-至今</view>
+                        <view class="item_top_right_left" wx:if="{{item.endThisDay == 0}}">{{item.startTime}}-{{item.endTime}}</view>
+                      </view>
+                    </view>
+                    <view class="item_middle">
+                      {{item.role}}
+                    </view>
+                    <view class="item_bot">
+                      <rich-text nodes="内容：{{item.details}}"></rich-text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="other_box" id="jyjlName">
+                <view class="job_exp_top">
+                  <view class="title">教育经历</view>
+                </view>
+                <!-- {{item.illegal==1?'wgbd':''}} -->
+                <view class="other_box_item " wx:for="{{info.educationExperienceList}}" wx:key="index">
+                  <!-- <view class="wgmgBox" wx:if="{{item.illegal==1}}">
+                    <view class="boxName">{{item.mark || '该部分内容存在违规或敏感信息，请尽快修改。'}}</view>
+                    <view class="boxBtn">修改</view>
+                  </view> -->
+                  <view class="gzjlCont">
+                    <view class="item_top">
+                      <view class="item_top_left">{{item.schoolName}}</view>
+                      <view class="item_top_right">
+                        <view class="item_top_right_left">{{item.schoolStartTime}}-{{item.schoolEndTime}}</view>
+                      </view>
+                    </view>
+                    <view class="item_middle">
+                      {{item.specialty}} {{educationList[item.background-1]}}
+                    </view>
+                    <view class="item_bot" wx:if="{{item.schoolExperience}}">
+                      <rich-text nodes="{{item.schoolExperience}}"></rich-text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="line"></view>
+              <view class="other_box">
+                <view class="job_exp_top">
+                  <view class="title">资格证书</view>
+                </view>
+                <view class="bot_tags_box">
+                  <view class="bot_tags mart" wx:if="{{certificate.length > 0}}" wx:for="{{certificate}}" wx:key="index">
+                    <view class="tag">{{item}}</view>
+                  </view>
+                </view>
+              </view>
+            </scroll-view>
+          </view>
+
+          <view class="displayWrapper-footer">
+            <view class="footer_button" bind:tap="rechargeOrstageBuy">简历置顶</view>
+          </view>
+        </swiper-item>
+        <!-- 推荐卡片 -->
+        <swiper-item class="tab_pane-wrapper">
+          <view class="tab_pane">
+            <view class="card recommend">
+              <view class="card_content">
+                <view class="card_content-title">HR首页推荐列表 您简历展示效果</view>
+                <!-- 内容部分 -->
+                <view class="card_content-main">
+                  <view class="content" style="background-image: url({{baseImageUrl}}/my/card_back1.png);">
+                    <view class="head card_back1Top">
+                      <view class="headMain" style="background-image: url({{baseImageUrl}}/my/card_back1Top.png);"></view>
+
+                      <view class="card_back1TopName">{{info.jobExpectationList[0].postName}}</view>
+                    </view>
+                    <!-- 当前用户的自我信息 -->
+                    <view class="current_item card1_content">
+                      <view class="resumeInfo">
+                        <image src="{{info.avatar}}" mode="" class="leftAvatar" />
+                        <!-- <view class="leftAvatar">
+                          
+                        </view> -->
+                        <view class="rightInfo">
+                          <view class="left">
+                            <view class="leftTop">
+                              <view class="name">{{info.nickName}}</view>
+                            </view>
+                            <view class="leftButton">
+                              <text wx:if="{{jobYear}}">{{jobYear}}年</text>
+                              <text wx:else>暂无经验</text>｜
+                              <text wx:if="{{educationList[info.maxBackground - 1]}}">{{educationList[info.maxBackground - 1]}}</text>
+                              <text wx:else>暂无</text>｜
+                              <text wx:if="{{info.jobExpectationList[0].jobType ==1}}">兼职</text>
+                              <text wx:if="{{info.jobExpectationList[0].expectedMoneyStatus == 0 || info.jobExpectationList[0].lowestMoney==0}}">面议</text>
+                              <text wx:else>{{info.jobExpectationList[0].lowestMoney}}K - {{info.jobExpectationList[0].maximumMoney}}K</text>
+                            </view>
+                          </view>
+
+                        </view>
+                        <view class="right">
+                          <view class="text">打招呼</view>
+                        </view>
+                      </view>
+                      <view class="resumeInfo-pass" wx:if="{{workExperienceList.length > 0}}">
+                        <view class="passList">
+                          <view class="passItem" wx:for="{{workExperienceList}}" wx:key="index">
+                            <image src="{{baseImageUrl}}/newImg/experience_year.svg" mode="" style="width: 28rpx;height: 26rpx;margin-top: -4rpx;" />
+                            <text class="passItem-name">{{item.corporationName}}·{{item.postName}}</text>
+                          </view>
+                        </view>
+
+                        <view class="passTagList">
+                          <view class="passTagItem" wx:for="{{recommendList}}" wx:key="index" wx:for-item="tagItem">{{tagItem}}</view>
+                        </view>
+                      </view>
+                      <view class="resumeInfo-superiority" wx:if="{{info.personalStrength}}">{{info.personalStrength}}</view>
+                      <view class="resumeInfo-superiority" wx:else>暂无个人优势</view>
+                    </view>
+                    <!-- 展示蒙层 -->
+                    <view class="card1_content-footer" style="background-image: url({{baseImageUrl}}/my/card_maskBack.png);">
+
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="card_footer recommend_footer">
+                <view class="card_footer-box" style="background-image: url({{baseImageUrl}}/my/card_buttomBack.png);">
+                  <view class="box_left">
+                    <view class="title">简历置顶</view>
+                    <view class="tip">简历<text style="color: #FE0201;">置顶展示</text>，让企业快速发现你</view>
+                  </view>
+                  <view class="box_right" bind:tap="rechargeOrstageBuy">简历置顶</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+        <!-- 沟通卡片 -->
+        <swiper-item class="tab_pane-wrapper">
+          <view class="tab_pane">
+            <view class="card communicate">
+              <view class="card_content">
+                <view class="card_content-title">与HR沟通详情展示效果</view>
+                <!-- 内容部分 -->
+                <view class="card_content-main">
+                  <view class="content" style="background-image: url({{baseImageUrl}}/my/card_back.png);">
+                    <view class="head">
+                      <view class="headMain" style="background-image: url({{baseImageUrl}}/my/card_backTop.png);"></view>
+
+                      <view class="headMain_name">{{info.nickName}}-{{info.jobExpectationList[0].postName}}</view>
+                    </view>
+                    <!-- 当前用户的自我信息 -->
+                    <view class="current_item">
+                      <view class="baseInfo">
+                        <view class="left">
+                          <image src="{{info.avatar}}" mode="" />
+                        </view>
+                        <view class="right">
+                          <view class="top">
+                            <view class="top_left">{{info.jobExpectationList[0].postName}}</view>
+                            <view class="top_right" wx:if="{{info.jobExpectationList[0].jobType ==1}}">兼职</view>
+                            <view class="top_right" wx:if="{{info.jobExpectationList[0].expectedMoneyStatus == 0 || info.jobExpectationList[0].lowestMoney==0}}">面议</view>
+                            <view class="top_right" wx:else>{{info.jobExpectationList[0].lowestMoney}}K - {{info.jobExpectationList[0].maximumMoney}}K</view>
+                          </view>
+                          <view class="buttom">
+                            <text>{{birthday}}岁 </text>
+                            <text wx:if="{{jobYear}}">{{jobYear}}年经验 </text>
+                            <text wx:else>暂无经验 </text>
+                            <text>{{educationList[info.maxBackground - 1]}} </text>
+                            <text wx:if="{{ExpType}}">{{ExpType}}</text>
+                            <!-- <text wx:else>请选择您的求职状态</text> -->
+                          </view>
+                        </view>
+                      </view>
+                      <view class="jobProcess">
+                        <view class="jobProcess_item" wx:for="{{workExperienceList}}" wx:key="index">
+                          <image src="{{baseImageUrl}}/newImg/experience_year.svg" mode="" style="width: 28rpx;height: 26rpx;margin-top: -4rpx;" />
+                          {{item.corporationName}}·{{item.postName}}
+                        </view>
+                      </view>
+                      <view class="date">{{currentMonth}}月{{currentDay}}日 沟通的职位-{{info.jobExpectationList[0].postName}}</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="card_footer">
+                <view class="card_footer-box" style="background-image: url({{baseImageUrl}}/my/card_buttomBack1.png);">
+                  <view class="box_left">
+                    <view class="title">小TAP</view>
+                    <!-- 详细的工作经历教育经历 -->
+                    <view class="tip">详细的<text style="color: #FE0201;">工作经历</text>、<text style="color: #FE0201;">教育经历</text>会更容易获得HR的回复哦</view>
+                  </view>
+                  <view class="box_right" bind:tap="back">更新简历</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,27 @@
+
+.container {
+  width: 100%;
+}
+.container .item-box {
+  margin-bottom: 20rpx;
+}
+
+.flex{
+  display: flex;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.flex-column {
+  flex-direction: column;
+}

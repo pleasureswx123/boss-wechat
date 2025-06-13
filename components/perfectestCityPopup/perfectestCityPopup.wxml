@@ -1,0 +1,50 @@
+<view class="cityBox">
+  <view class="cityBox_main">
+    <!-- 头部区域 -->
+    <view class="cityBox_main-head">
+      <view class="search">{{provinceName || '河北省'}}</view>
+      <!-- 占位，高度与顶部栏一样 -->
+      <!-- <view style="height:{{capsuleData.navBarHeight}}px;"></view> -->
+      <view style="height:98rpx;"></view>
+    </view>
+    <!-- 选择地址区域 -->
+    <view class="selectCity_content" >
+      <!-- 市 -->
+      <view class="cityList">
+        <view data-item="{{item}}" data-currentLevel="city" data-nextLevel="district" bind:tap="selectItem" class="cityItem {{activeCityId == item.id ? 'activeName' : ''}}" wx:for="{{cityList}}" wx:key="index">{{item.name}}</view>
+      </view>
+      <!-- 区县 -->
+      <view class="cityList">
+        <view data-item="{{item}}" data-currentLevel="district" data-nextLevel="street" bind:tap="selectItem" class="cityItem {{activeDistrictId == item.id ? 'activeName' : ''}}" wx:for="{{districtList}}" wx:key="index">{{item.name}}</view>
+      </view>
+      <!-- 街道 -->
+      <view class="cityList">
+        <view data-item="{{item}}" data-currentLevel="street" data-nextLevel="" bind:tap="selectItem" class="cityItem {{activeStreetId == item.id ? 'activeName' : ''}}" wx:for="{{streetList}}" wx:key="index">{{item.name}}</view>
+      </view>
+    </view>
+
+    <!-- 底部固定区域 -->
+    <view class="cityFliter">
+      <!-- 选择 -->
+      <!-- <view class="cityMultiple">
+        <view class="selected">
+          <text>已选</text>
+        </view>
+        <scroll-view scroll-x="true" class="selectedScroll" enable-flex>
+          <view class="multipleList">
+            <view class="multipleItem" wx:for="{{selectedList}}" wx:key="index">
+              <view class="multipleItembg">
+                <text class="text {{item.level == 'city' ? 'padding0' : ''}}">{{item.name}}</text>
+                <van-icon name="cross" wx:if="{{item.level !== 'city'}}" color="#FE0201" data-index="{{index}}" data-type="{{leftTitle[index].type}}" data-id="{{item.id}}" size="16" bind:click="delete" />
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view> -->
+      <!-- 按钮 -->
+      <view class="popup-button" style="padding-bottom: {{globalBottom}}px;">
+        <view class="comfirm" bindtap="comfirmScreening">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

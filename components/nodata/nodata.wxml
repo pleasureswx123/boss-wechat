@@ -1,0 +1,11 @@
+<!-- 缺省页 -->
+<block>
+    <view class="no_data" wx:if="{{show}}">
+        <view class="no_data_center">
+            <view class="no_data_img">
+                <image src="{{baseImgUrl}}/my/no_collect.png" mode=""/>
+            </view>
+            <view class="no_data_text">{{stitle}}</view>
+        </view>
+    </view>
+</block>

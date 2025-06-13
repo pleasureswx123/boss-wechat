@@ -1,0 +1,65 @@
+<!--subpackPage/user/customer/index.wxml-->
+<image class="head_bg" src="{{imageUrl}}/kfbg.png" mode="aspectFill"/>
+<view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+      <view class="van-nav-bar__left" style="padding-top:{{statusBarHeight}}px; height:{{navBarHeight}}px" bindtap="back">
+          <van-icon name="arrow-left" color="#fff" size="22px" />
+      </view>
+  </view>
+  <view style="padding-top:{{statusBarHeight+10}}px;height:{{navBarHeight}}px;position: absolute;width: 100%;text-align: center;color: #fff;">帮助与客服</view>
+<view class="head" style="padding-top:{{statusBarHeight+40}}px;">
+    <view>
+        <view class="hello">您好</view>
+        <view class="hello_bot">小优为您服务！</view>
+    </view>
+    <!-- <image class="kefu_img" src="{{imageUrl}}/kefu_head.png" mode=""/> -->
+     <image class="kefu_img" src="{{imageUrl}}/service_icon.gif" mode=""/>
+</view>
+<view class="nav">
+    <view class="navName">帮助中心</view>
+    <!-- <van-tabs line-width="40rpx" ellipsis="{{false}}" active="{{ active }}" bind:change="switchNavType">
+        <van-tab title="{{item.name}}" wx:for="{{typeList}}" wx:key="index" tab-class="tabClass">
+            <view class="tab_item">
+               <view class="item"  bindtap="goToDetail" data-index="{{items}}" wx:for="{{detailList}}" wx:key="index" wx:for-item="items" >{{items.question}} </view>
+            </view>
+        </van-tab>
+    </van-tabs> -->
+    <view class="container">
+      <scroll-view scroll-x="true" class="scroll-view">
+        <view class="citem {{selIdx==index?'active':''}}" wx:for="{{typeList}}" wx:key="index" data-index="{{index}}" bind:tap="switchNavType">{{item.name}}</view>
+      </scroll-view>
+      <view class="tab_item">
+          <view class="item"  bindtap="goToDetail" data-index="{{items}}" wx:for="{{detailList}}" wx:key="index" wx:for-item="items" >
+            <image src="{{imageUrl}}/help_center_list_item_{{index}}.png" mode="aspectFit" class="helpCenterImg"/>
+            {{items.question}} 
+          </view>
+      </view>
+    </view>
+</view>
+
+<view class="footer">
+    <view class="phoneBtn" bind:tap="phoneShowClick">
+        <image src="{{imageUrl}}/phone.png" mode="aspectFit"/>
+        <view class="fot_text1">电话</view>
+    </view>
+    <!-- <view class="fot_line"></view> -->
+    <view class="kfBtn" bind:tap="codeShowClick">
+        <image src="{{imageUrl}}/customer1.png" mode="aspectFit"/>
+        <view class="fot_text2">企业客服</view>
+    </view>
+</view>
+<van-overlay show="{{ PhoneShow }}">
+    <view class="phoneBox">
+        <view class="popPhone" bind:tap="freeTell">400-809-8688</view>
+        <view class="popPhone" bind:tap="onClickHide">取消 </view>
+    </view>
+</van-overlay>
+
+<van-overlay show="{{ codeShow }}" bind:tap="onClickHide">
+    <view class="codeBox">
+       <view class="code_content">
+            <image src="{{imageUrl}}/my/ewm.png" mode=""/>
+            <view>扫描二维码，添加企业微信联系优聘客服</view>
+       </view>
+       <view class="codeOk">好的</view>
+    </view>
+</van-overlay>

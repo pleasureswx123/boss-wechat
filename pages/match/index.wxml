@@ -1,0 +1,150 @@
+<view class="match_box" style="background-image: url('{{baseImageUrl}}/match/matchBack.png');">
+  <!--  -->
+  <!-- 头部 -->
+  <view class="match_box-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search {{versions == 2 ? 'noPadding' : ''}}" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px;width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" bind:click="navigateBack" color="#fff" size="22px" custom-class="back_icon" wx:if="{{versions == 2}}" />
+        <view class="nav-bar_title">今日速配（{{currentSwiperIndex + 1}}/{{datalist.length}}）</view>
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+
+  <!-- 中间部分 -->
+  <view class="match_box-content">
+    <!-- style="width: 508rpx;" -->
+    <view class="jrspkp1" wx:if="{{isFirstSp}}" bind:tap="closefirstSp">
+      <image src="{{baseImageUrl}}/tab/jrspkp1.png" mode="aspectFit" style="width: 320px;" />
+    </view>
+    <!-- 中间标题 -->
+    <view class="match_box-content-top">
+      <!-- <image class="matchTitleLeft" src="{{baseImageUrl}}/match/matchTitleLeft.png" mode="" /> -->
+      <view class="top-title" style="background-image: url({{baseImageUrl}}/tab/matchTopTitleBack.png);">
+        <text style="margin-left: 70rpx;">每天上午9点都会推荐一批岗位～</text>
+      </view>
+      <!-- <image class="matchTitleRight" src="{{baseImageUrl}}/match/matchTitleRight.png" mode="" /> -->
+      <image class="user" src="{{baseImageUrl}}/versions/user.png" mode="" />
+    </view>
+    <!-- 展示swiper -->
+    <view class="match_box-content-main">
+      <swiper interval="3000" snap-to-edge duration="500" previous-margin="10rpx" next-margin="46rpx" bindchange="swiperBindchange" current="{{currentSwiperIndex}}" easing-function="default" class="main-swiperView">
+        <block wx:for="{{datalist}}" wx:key="index" wx:if="{{datalist[0].title}}">
+          <swiper-item>
+            <view class="swiperViewItem-box {{currentSwiperIndex == index ? 'zoom-in' : 'zoom-out'}}">
+              <view class="boxCont  {{item.title ? '' : 'testDomRigth'}} {{currentSwiperIndex == index ? 'testDom' : ''}}">
+                <view class="postBox column" wx:if="{{item.title}}" bind:tap="goDetail">
+                  <!-- 标题 -->
+                  <view class="content_job">
+                    <view class="content_job_left">
+                      <view class="content_job_job">{{item.title}}</view>
+                    </view>
+                    <view class="content_job_right">
+                      <text wx:if="{{item.moneyType == 1}}">面议</text>
+                      <text class="content_job_right_money" wx:else>{{item.lowestMoney || 10}}-{{item.maximumMoney || 12}}K<text wx:if="{{item.monthMoney && item.monthMoney>12}}">·{{item.monthMoney || 13}}薪</text></text>
+                    </view>
+                  </view>
+                  <view class="container">
+                    <!-- 地址 -->
+                    <view class="content_condition">
+                      <view class="content_condition_left" wx:if="{{item.street}}">
+                        <image src="{{baseImageUrl + '/newImg/anchor.svg'}}" mode="" style="width: 26rpx;"></image>
+                        <text>{{item.street}}</text>
+                      </view>
+                      <view class="content_condition_center" wx:if="{{experienceList[item.experience].name}}">
+                        <image src="{{baseImageUrl + '/newImg/experience_year.svg'}}" mode="" style="width: 26rpx;"></image>
+                        <text>{{ experienceList[item.experience].name }}</text>
+                      </view>
+                      <view class="content_condition_right" wx:if="{{educationList[item.background-1].name}}">
+                        <image src="{{baseImageUrl + '/newImg/edu_bg_icon.svg'}}" mode="" style="width: 32rpx;"></image>
+                        <text>{{ educationList[item.background-1].name }}</text>
+                      </view>
+                    </view>
+                    <!-- 面试红包 -->
+                    <view class="content_redPacket" wx:if="{{item.redPacket}}">
+                      <image src="{{imageUrl + '/yp/tip_redPacket.png'}}" mode="" class="hongICon"></image>
+                      <text> 面试签到后可获得神秘红包哦</text>
+                    </view>
+                    <!-- 职位详情 -->
+                    <view class="content_describe_box">
+                      <view class="content_describe">
+                        <view class="content_describe_text">
+                          <text>职位详情</text>
+                        </view>
+                        <view class="content_describe_category">
+                          <view class="content_describe_category_container" wx:for="{{item.tag}}" wx:key="index">
+                            {{item}}
+                          </view>
+                        </view>
+
+                      </view>
+                      <!-- 岗位描述 -->
+                      <view class="content_describe_detail_view" style="flex-shrink: 0;">
+                        <rich-text class="rich-text" nodes="{{ item.postDuty }}"></rich-text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <!-- 无数据时展示 -->
+                <view class="no_data" wx:else>
+                  <view class="no_data_center">
+                    <view class="no_data_img">
+                      <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+                    </view>
+                    <view class="no_data_text">今日速配职位机会已用完，欢迎小主明日再来～</view>
+                    <!-- <view class="no_data_text" style="margin-bottom: 160rpx;">每天早上9点更新职位哦~</view> -->
+                  </view>
+                  <view class="loginBtn" bind:tap="gotoHome">回首页</view>
+                </view>
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+
+        <block wx:for="{{datalist}}" wx:key="index" wx:if="{{!datalist[0].title}}">
+          <swiper-item>
+            <view class="swiperViewItem-box {{currentSwiperIndex == index ? 'zoom-in' : 'zoom-out'}}">
+              <view class="boxCont {{currentSwiperIndex == index ? 'testDom' : ''}}">
+                <!-- 无数据时展示 -->
+                <view class="no_data">
+                  <view class="no_data_center">
+                    <view class="no_data_img">
+                      <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+                    </view>
+                    <view class="no_data_text">今日速配职位没有更多了</view>
+                  </view>
+                  <view class="loginBtn" bind:tap="gotoHome">回首页</view>
+                </view>
+              </view>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+
+      <!-- 底部按钮 -->
+      <view class="main-buttonBox {{currentSwiperIndex == datalist.length - 1 ? 'main-buttonBox_left' : 'main-buttonBox_right '}}" wx:if="{{datalist.length - 1 != 0}}">
+        <view class="buttonBox-button cancel" bind:tap="{{isClick ? 'changeSwiperIndex' : ''}}">暂不考虑</view>
+        <view class="buttonBox-button confirm" bind:tap="goDetail">查看详情</view>
+      </view>
+      <!-- 无数据时展示（仅占位使用） -->
+      <view class="main-buttonBox " wx:if="{{datalist.length - 1 == 0}}"></view>
+    </view>
+    <!-- 上面圆圈 -->
+    <!-- /match/matchTopCircle.png -->
+    <image class="matchTopCircle" src="{{baseImageUrl}}/match/matchTopCircle.png" mode="" />
+    <!-- 左边圆圈 -->
+    <image class="matchLeftCircle" src="{{baseImageUrl}}/match/matchLeftCircle.png" mode="" />
+    <!-- 右边圆圈 -->
+    <image class="matchRightCircle" src="{{baseImageUrl}}/match/matchRightCircle.png" mode="" />
+  </view>
+  <!-- 至臻版底部 -->
+  <view class="match_box-footer" style="padding-bottom: {{globalBottom}}px;" wx:if="{{versions == 1}}">
+    <component-tab num-prop="2" count="{{count}}" />
+  </view>
+</view>
+<weixinLogin_prop show="{{loginShow}}" bind:onClose="weixinOnClose"></weixinLogin_prop>
+
+<!-- 收藏 -->
+<collectGuide collectGuideY="{{capsuleData.navBarHeight}}" isShow="{{collectGuide}}" bind:closeCollectGuide="closeCollectGuide"></collectGuide>

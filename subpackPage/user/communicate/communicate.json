@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "component-info": "/components/infomationList/infomationList",
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText": "沟通过",
+    "navigationBarBackgroundColor": "#fff"
+}

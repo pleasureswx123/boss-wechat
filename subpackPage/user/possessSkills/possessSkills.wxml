@@ -1,0 +1,31 @@
+<view class="box">
+    <scroll-view scroll-y="true" style="height: 100vh;">
+        <view class="in_box">
+            <view class="title">拥有技能</view>
+            <view class="discribe">最多选择 6 个，被选中的标签将突出展示</view>
+            <view class="item" wx:for="{{list}}" wx:key="index" >            
+                <view class="item_box">
+                    <view class="item_top" bindtap="changeList" data-index="{{index}}">
+                        <view class="item_top_left">{{item.title}}</view>
+                        <view class="item_top_right" wx:if="{{item.selected}}"><van-icon name="arrow-up" color="#999999"/></view>
+                        <view class="item_top_right" wx:else><van-icon name="arrow-down" color="#999999"/></view>
+                    </view>
+                    <view class="item_tags" wx:if="{{item.selected}}">
+                        <view class="tags {{items.selected == true ? 'select_tags' : ''}}" wx:for="{{item.children}}" wx:key="indexs" wx:for-item="items" wx:for-index="indexs" bindtap="changeListChildren" data-index="{{index}}" data-indexs="{{indexs}}">{{items.tag}}</view>
+                    </view>
+                </view>
+                <view class="line"></view>              
+            </view>
+            <view style="height: 310rpx;"></view>
+            <view class="bot_btn">
+                <view class="top_cont">已选：<text style="color:#f43535 ;">{{handleList.length}}</text> / 6</view>
+                <view class="tags_box_sel">
+                    <view class="sel_tags">
+                        <view class="tags_item" wx:for="{{handleList}}" wx:key="index">{{item}}<view class="icons" bindtap="delHandleList"><van-icon name="cross" color="#f43535"/></view></view>
+                    </view>
+                </view>
+                <view class="btns">保存</view>
+            </view>
+        </view>
+    </scroll-view>
+</view>

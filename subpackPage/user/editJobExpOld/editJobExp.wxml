@@ -1,0 +1,123 @@
+<!-- 老版至臻版添加修改求职期望 -->
+<view class="addJobBox">
+  <view class="add_job_box">
+    <view class="title" wx:if="{{id}}">编辑求职期望</view>
+    <view class="title" wx:else>添加求职期望</view>
+    <view class="discribe">求职期望的不同，推荐的职位也会不同</view>
+    <view class="item">
+      <view class="item_left">求职类型</view>
+      <view class="item_right">
+        <picker bindchange="bindPickerChange" value="{{item.code}}" range-key="name" range="{{qzArray}}">
+          <view class="picker">
+            {{qzArray[dataInfo.jobType].name || '请选择'}}
+          </view>
+        </picker>
+        <view class="item_right_cont">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <!-- dataInfo.businessId ||  -->
+    <view class="item" bindtap="goDesireindustry" data-businessId="{{dataInfo.business}}">
+      <view class="item_left_cont">
+        <view class="item_left_cont_top">期望行业</view>
+        <!-- <view class="item_left_cont_bot">{{ dataInfo.businessName ? dataInfo.businessName : '请选择行业' }}</view> -->
+        <view class="item_left_cont_bot">{{ dataInfo.businessName ? dataInfo.businessName : '不限' }}</view>
+      </view>
+      <view class="item_right_cont">
+        <van-icon name="arrow" color="#999999" />
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="item" bindtap="goPositionType">
+      <view class="item_left_cont">
+        <view class="item_left_cont_top">期望职位</view>
+        <view class="item_left_cont_bot">{{ dataInfo.postName ?
+                        dataInfo.postName : '请选择期望职位' }}</view>
+      </view>
+      <view class="item_right_cont">
+        <van-icon name="arrow" color="#999999" />
+      </view>
+    </view>
+    <view class="line" wx:if="{{dataInfo.jobType==0}}"></view>
+    <view class="item" bindtap="selectedMoney" wx:if="{{dataInfo.jobType==0}}">
+      <view class="item_left_cont">
+        <view class="item_left_cont_top">薪资要求</view>
+        <view class="item_left_cont_bot" wx:if="{{dataInfo.lowestMoney>0}}">
+          <!-- {{ dataInfo.lowestMoney }}K - {{ dataInfo.maximumMoney }}K -->
+          <text>
+            <text wx:if="{{dataInfo.lowestMoney > 0 && dataInfo.maximumMoney < 10}}">{{dataInfo.lowestMoney}}千-{{dataInfo.maximumMoney}}千</text>
+            <text wx:else>{{dataInfo.lowestMoney / 10}}万-{{dataInfo.maximumMoney / 10}}万</text>
+          </text>
+        </view>
+        <view class="item_left_cont_bot" wx:elif="{{dataInfo.expectedMoneyStatus==0 || dataInfo.lowestMoney=='面议'}}">面议</view>
+        <view class="item_left_cont_bot" wx:else>请选择薪资范围</view>
+      </view>
+      <view class="item_right_cont">
+        <van-icon name="arrow" color="#999999" />
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="item" bindtap="selectedCity">
+      <view class="item_left_cont">
+        <view class="item_left_cont_top">求职城市</view>
+        <view class="item_left_cont_bot">{{ dataInfo.jobCityName || '请选择工作城市' }}</view>
+      </view>
+      <view class="item_right_cont">
+        <van-icon name="arrow" color="#999999" />
+      </view>
+    </view>
+    <view class="line"></view>
+    <view style="height: 100rpx;"></view>
+    <view class="more_btn" wx:if="{{id && num>1}}">
+      <view class="left_btn" bindtap="del">删除</view>
+      <view class="right_btn" bindtap="submitPost">保存</view>
+    </view>
+    <view class="more_btn" wx:else>
+      <view class="right_btn" bindtap="submitPost" wx:if="{{dataInfo.postName && ((dataInfo.jobType == 0 && (dataInfo.lowestMoney || dataInfo.expectedMoneyStatus == 0)) || (dataInfo.jobType == 1))}}">保存</view>
+      <view class="right_btn grey" wx:else>保存</view>
+    </view>
+  </view>
+  <!-- </scroll-view> -->
+</view>
+<van-popup show="{{ show }}" round>
+  <view class="pop_box">
+    <view class="pop_box_top">是否删除本求职期望？</view>
+    <view class="pop_box_bot">
+      <view class="pop_box_bot_left" bindtap="closePop">取消</view>
+      <view class="pop_box_bot_right" bindtap="surePop">确定</view>
+    </view>
+  </view>
+</van-popup>
+<!-- 选择月薪弹窗 -->
+<van-popup position="bottom" round show="{{ showXz }}" bind:close="onClose">
+  <view class="header">
+    <text class="cancel" bindtap="cancel">取消</text>
+    <text class="confirm" bindtap="confirm">确认</text>
+  </view>
+  <!-- <view class="tipFont">期望薪资(月薪 单位：元)</view> -->
+  <view class="tipFont">请选择月薪</view>
+  <!-- value="{{selectedValues}}" -->
+  <!-- immediate-change="{{true}}" -->
+  <picker-view indicator-class="selecetedIndicator" value="{{selectedValues}}" class="picker-view" bindchange="changeData">
+    <picker-view-column>
+      <view data-id="{{item.label}}" wx:for="{{list}}" wx:key="vlaue" class="columnStyle leftPay {{wagesIndex == index ? 'activeSize' :''}}">
+        {{ item.label }}
+        <text wx:if="{{item.value!='面议'}}"></text>
+      </view>
+    </picker-view-column>
+    <picker-view-column wx:if="{{middle}}">
+      <view class="columnStyle">-</view>
+    </picker-view-column>
+    <picker-view-column wx:else>
+      <view class="columnStyle"></view>
+    </picker-view-column>
+    <picker-view-column wx:if="{{list[wagesIndex]}}">
+      <view wx:for="{{list[wagesIndex].children}}" class="columnStyle rightPay {{wagesIndex2 == index ? 'activeSize' :''}}" wx:key="value">{{ item.label }}<text wx:if="{{ item.value }}"></text></view>
+    </picker-view-column>
+  </picker-view>
+</van-popup>
+
+<!-- 选择地址 -->
+<perfectest-city wx:if="{{currentAddress.provinceName}}" cityShow="{{cityShow}}" bind:closeCityShow="closeCityShow" addressInfo="{{currentAddress}}" location="{{location}}" bind:changeCity="changeCity" type="{{1}}"></perfectest-city>

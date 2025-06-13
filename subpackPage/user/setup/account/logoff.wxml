@@ -1,0 +1,12 @@
+<view class="head">
+    注销账号
+</view>
+<view class="head_bot">
+    请您确认是否注销该账号：
+</view>
+<view class="head_text">
+    在您注销前，如有剩余的知豆、虚拟道具、红包、卡券等权益建议您继续将其使用/消耗/兑换完毕，否则您一旦点击【已考虑好了，确认注销】按钮，将视为您自愿放弃您对前述产品与服务的所有权，并同意知城优聘平台将其退还给企业/全部清空并无法恢复。请您慎重考虑相关内容建议您前往阅读<text bind:tap="writeOffAgreement">《知城优聘注销协议》</text>
+</view>
+<button class="btn" bindtap="writeOff">已考虑好，确认注销</button>
+<modelPopup show="{{ outShow }}" custom-style="margin-top:-30%" zIndex="200" bind:confirm="comfirmBtn" bind:cancel="cloneShow" refresherType="default" releaseText="{{outShowMsg}}">
+</modelPopup>

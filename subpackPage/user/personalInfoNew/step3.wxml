@@ -1,0 +1,44 @@
+<!-- 优化求职期望 -->
+<view class="addJobBox">
+  <image src="{{imageUrl}}/newImg/sexBg.png" class="headbg"></image>
+  <view class="title1">你真棒坚持到最后一步</view>
+  <view class="stitle">据说上传真实头像，HR回复率更高哦～</view>
+  <scroll-view scroll-y="true" class="scrollView">
+    <view class="add_job_box">
+      <view class="uploadAvatar1" bind:tap="openAvatar" wx:if="{{imgUrl}}">
+        <image src="{{imgUrl}}" class="photoImg" mode="aspectFill"></image>
+        <view class="photoImg2"><image src="{{imageUrl}}/newImg/photo1.png" mode="aspectFill"></image></view>
+      </view>
+      <view class="uploadAvatar1" bind:tap="openAvatar" wx:else>
+        <image src="{{imageUrl}}/newImg/photo.png" class="photo"></image>
+        <view class="djsc">点击上传</view>
+      </view>
+      <view>
+        <view class="tit">或者选择平台头像</view>
+        <view class="avatarBox">
+            <view class="itemBox" wx:for="{{9}}" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar/qztx{{item}}.png" data-num="{{item}}">
+              <image src="{{imageUrl}}/avatar/qztx{{item}}.png" class="avatarImg" wx:if="{{item>0}}"></image>
+              <view class="quan {{radioNum==item?'active':''}}" wx:if="{{item>0}}"></view>
+            </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="selectedBtn" bind:tap="getSave" wx:if="{{imgUrl}}">
+    开始求职
+  </view>
+  <view class="selectedBtn opacity5" wx:else>
+    开始求职
+  </view>
+</view>
+<!-- 不是首次登录展示 -->
+<van-popup show="{{ show }}" round position="bottom" class="pop" bind:close="onClose" custom-style="background: transparent;width:702rpx;margin-left:24rpx;">
+  <view class="uploadAvatar">
+    <image src="{{imageUrl}}/my/avatar.png" mode="" />
+  </view>
+  <view class="popBg">
+      <view class="pop_item" bindtap="uploadImage1">拍照</view>
+      <view class="pop_item fot_item" bindtap="uploadImage">从手机相册选择</view>
+      <view class="pop_item last_item" bindtap="onClose">取消</view>
+  </view>
+</van-popup>

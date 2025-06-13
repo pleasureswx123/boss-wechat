@@ -1,0 +1,621 @@
+page {
+  height: 100%;
+  width: 100%;
+}
+
+.jobManage_box {
+  height: 100%;
+  width: 100%;
+  /* background: linear-gradient( 269deg, #FFF1DE 0%, #FFF8F8 51%, #FFEAEA 100%), linear-gradient( 180deg, #FFFFFF 0%, rgba(253,253,253,0) 100%); */
+  /* background: #f5f5f5; */
+  /* padding: 0 40rpx;
+  box-sizing: border-box; */
+  display: flex;
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.popBg{
+  background: #fff;
+  border-radius: 32rpx;
+}
+.noborder{
+  border-bottom: 0 !important;
+}
+.uploadAvatar{
+  width: 702rpx;
+  height: 588rpx;
+  margin-bottom: 20rpx;
+}
+.uploadAvatar image{
+  width: 100%;
+  height: 100%;
+}
+.nav-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  color: #fff;
+  /* background: #000; */
+}
+
+.nav-bar .search {
+  width: 60%;
+  color: #1D2129;
+  font-size: 14px;
+  background: #fff;
+  position: absolute;
+  border-radius: 50px;
+  background: #ddd;
+  padding-left: 14px;
+}
+
+.jobManage_box-content {
+  /* flex: 1; */
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  height: calc(100% - 320rpx);
+  overflow: auto;
+}
+
+.jobManage_box-footer {
+  width: 100%;
+  height: 180rpx;
+  background: #FFFFFF;
+  box-shadow: 0rpx 4rpx 14rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+.jobManage_box-title {
+  text-align: center;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  font-size: 44rpx;
+  color: #1D2129;
+  padding-bottom: 45rpx;
+  background-image: linear-gradient(31.200963146826716deg, #1D2129 0%, #7C0101 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-top: 20rpx;
+}
+.jobManage_box-title image{
+  width: 540rpx;
+  height: 48rpx;
+}
+
+.jobManage_box-postBox {
+  height: 190rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  margin-top: 20rpx;
+  box-shadow: 0rpx 4rpx 4rpx 0rpx rgba(146,53,53,0.1);
+}
+
+.jobManage_box-postBox .item {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.jobManage_box-postBox .postBox-left {
+  justify-content: center;
+  align-items: center;
+}
+
+.jobManage_box-postBox .postBox-left .postName {
+  width: 100%;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 38rpx;
+  color: #1D2129;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.jobManage_box-postBox .tip {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #7A7A7A;
+}
+
+.jobManage_box-postBox .postBox-right {
+  justify-content: center;
+  align-items: center;
+}
+
+.jobManage_box-postBox .postBox-right .salary {
+  width: 100%;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 38rpx;
+  color: #1D2129;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.userInfo_box {
+  margin-top: 24rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 0 48rpx;
+  box-shadow: 0rpx 4rpx 4rpx 0rpx rgba(146,53,53,0.1);
+}
+
+.userInfo_box .cell-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid rgba(245, 245, 245, 1);
+  padding: 32rpx 0 30rpx;
+}
+
+.userInfo_box .cell-item .cell-item_left {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.userInfo_box .cell-item .cell-item_content {
+  flex: 1;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #1D2129;
+  text-align: right;
+  margin-right: 16rpx;
+}
+
+.userInfo_box .cell-item .textEllipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 50rpx;
+}
+
+.userInfo_box .cell-item .cell-item_right {
+  display: flex;
+  align-items: center;
+}
+
+.userInfo_box .avatar .cell-item_right {
+  width: 84rpx;
+  height: 84rpx;
+}
+
+.userInfo_box .avatar .cell-item_right image {
+  border-radius: 50%;
+}
+
+.userInfo_box .sex .cell-item_right .sex_item {
+  width: 88rpx;
+  height: 48rpx;
+  background: #F3F3F3;
+  border-radius: 4rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #1D2129;
+  text-align: center;
+  line-height: 48rpx;
+}
+
+.litemList .active {
+  color: #fff !important;
+  background: linear-gradient( 90deg, #F43232 0%, #FF7575 100%);
+}
+
+.userInfo_box .contactWay .contactWay_item {
+  height: 48rpx;
+  background: #F3F3F3;
+  border-radius: 4rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #1D2129;
+  text-align: center;
+  line-height: 48rpx;
+  padding: 0 20rpx;
+  margin: 0 6px;
+}
+
+.userInfo_box .contactWay .contactWay_item:last-child {
+  margin: 0 0px 0 6px;
+}
+
+
+.jobManage_box-footer {
+  display: flex;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+}
+
+.jobManage_box-footer .button {
+  height: 80rpx;
+  border-radius: 12rpx;
+  margin-top: 40rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-family: PingFangSC, PingFang SC;
+}
+
+
+.jobManage_box-footer .cancalButton {
+  width: 206rpx;
+  height: 80rpx;
+  background: #F5F5F5;
+  margin-right: 24rpx;
+  font-weight: 400;
+  color: #666666;
+}
+
+.jobManage_box-footer .confirmButton {
+  width: 442rpx;
+  height: 80rpx;
+  /* background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+  background: linear-gradient( 308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 16rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+
+/* 头像 */
+.pop_item {
+  height: 104rpx;
+  font-size: 30rpx;
+  
+  font-weight: 400;
+  color: #1D2129;
+  line-height: 104rpx;
+  text-align: center;
+  border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.fot_item {
+  border-bottom: 10rpx solid rgb(236, 236, 236);
+}
+
+.last_item {
+  color: #037AFF;
+  border: none;
+  /* height: 176rpx;
+  line-height: 176rpx; */
+}
+
+.picker-view {
+  width: 570rpx;
+  height: 500rpx;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header {
+  width: 100%;
+  height: 45px;
+  padding: 10px 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 15px;
+  background: #fff;
+  position: relative;
+}
+
+.header .cancel {
+  color: rgb(96, 98, 102);
+}
+
+.header .confirm {
+  color: #FE0201;
+}
+
+.tipFont {
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 550;
+  color: #1D2129;
+  display: flex;
+  justify-content: center;
+}
+
+
+.selecetedIndicator {
+  height: 36px;
+  position: relative;
+  border-top: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.selecetedIndicator::after {
+  display: none;
+}
+
+.selecetedIndicator::before {
+  display: none;
+}
+
+.columnStyle {
+  line-height: 72rpx;
+  color: #1D2129;
+  font-size: 30rpx;
+  background: transparent;
+  margin: auto 0;
+  /* background: #f5f5f5; */
+}
+
+.activeSize {
+  font-size: 38rpx;
+  /* border-top: 2rpx solid #666666; */
+}
+
+.leftPay {
+  border-radius: 8rpx 0 0 8rpx;
+}
+
+.rightPay {
+  border-radius: 0 8rpx 8rpx 0;
+}
+
+.popupSex .popupSex_main_item .sexMan {
+  position: absolute;
+  left: 0;
+}
+
+.popupSex .popupSex_main_item .sexWoman {
+  position: absolute;
+  right: 0;
+}
+
+
+.popupSex {
+  height: 718rpx;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.popupSex .popupSex_title {
+  height: 208rpx;
+  text-align: center;
+  line-height: 208rpx;
+  position: relative;
+}
+.sexBg{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.sexTitle{
+  font-size: 46rpx;
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  z-index: 2;
+  position: relative;
+}
+
+.popupSex .popupSex_main {
+  /* margin-top: 48rpx; */
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* justify-content: space-between; */
+  position: relative;
+}
+.confirmBtn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 36rpx;
+  color: #1D2129;
+  width: 100px;
+  text-align: center;
+  z-index: 100;
+}
+.popupSex .popupSex_main_item {
+  /* background: #F5F5F5; */
+  border-radius: 24rpx;
+  display: flex;
+  /* width: 50%; */
+  flex-direction: column;
+  /* justify-content: center; */
+  position: relative;
+  align-items: center;
+}
+
+.popupSex_main_item .itemTitle {
+  padding-bottom: 16rpx;
+  font-weight: 500;
+  font-size: 36rpx;
+  color: #999999;
+}
+
+.popupSex_main_item .itemBox {
+  width: 256rpx;
+  height: 336rpx;
+  background: rgba(242, 242, 242, 0.5);
+  border-radius: 28rpx;
+  border: 1rpx solid #979797;
+  position: relative;
+  overflow: hidden;
+}
+
+.popupSex_main_item .itemBox .itemBox_image {
+  width: 254rpx;
+  height: 294rpx;
+  position: absolute;
+  bottom: -10rpx;
+  left: 0;
+}
+.popupSex_main_item .itemBox .selectHoverImg{
+  position: absolute;
+  z-index: 10;
+  width: 98rpx;
+  animation: cross 3s infinite linear;
+}
+.simage{
+  width: 158rpx;
+  height: 298rpx;
+}
+.bimage{
+  width: 228rpx;
+  height: 458rpx;
+  z-index: 1;
+}
+.girlImg{
+  animation: shake 3s infinite;
+  transform-origin: bottom right;
+}
+.manImg{
+  animation: shake1 3s infinite;
+  transform-origin: bottom left;
+}
+@keyframes shake {
+  0% {
+      transform: rotate(0deg);
+  }
+  50% {
+      transform: rotate(8deg);
+  }
+  100% {
+      transform: rotate(0deg);
+  }
+}
+@keyframes shake1 {
+  0% {
+      transform: rotate(0deg);
+  }
+  50% {
+      transform: rotate(-8deg);
+  }
+  100% {
+      transform: rotate(0deg);
+  }
+}
+
+/* .popupSex_main_item image {
+  width: 100%;
+  height: 100%;
+  border-radius: 24rpx;
+} */
+
+/* .borderActive {
+  border: 2rpx solid #FF7979 !important;
+  margin-right: -30rpx !important;
+  color: #FE0201 !important;
+  background: rgba(255,233,233,0.5) !important;
+} */
+.borderActive .itemTitle {
+  color: #F42F2F;
+}
+
+.borderActive .itemBox {
+  background: rgba(255, 233, 233, 0.5);
+  border: 1rpx solid #F42F2F;
+}
+/* .borderActive1 {
+  margin-left: -30rpx !important;
+  color: #037AFF !important;
+  background: rgba(3, 122, 255, 0.12) !important;
+  border: 2rpx solid #035FFF !important;
+} */
+
+.borderActive1 .itemTitle {
+  color: #037AFF;
+}
+
+.borderActive1 .itemBox {
+  background: rgba(3, 122, 255, 0.12);
+  border: 1rpx solid #035FFF;
+}
+.gview{
+  margin-right: 30rpx;
+  left: 50rpx;
+  top: 0;
+  z-index: 10;
+}
+
+.popupSex_main_item-detail{
+    width: 100%;
+    text-align: center;
+    padding-top: 42rpx;
+}
+
+.rtspan{
+  width: calc(100% - 170rpx);
+}
+.rtspanDiv{
+  width: 100%;text-align: right;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 42rpx;
+}
+.imgView{
+  width: 140rpx;
+  height: 140rpx;
+  background: rgba(242,242,242,0.5);
+  border-radius: 28rpx;
+  border: 1rpx solid #979797;
+  font-weight: 500;
+  font-size: 36rpx;
+  color: #999999;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100rpx;
+  position: absolute;
+  /* z-index: 2; */
+}
+.bview{
+  margin-left: 30rpx;
+  right: 50rpx;
+  top: 0;
+  z-index: 10;
+}
+
+.jyopen{
+  width: 118rpx;
+  height: 46rpx;
+  background: #FFEEEE;
+  border-radius: 4rpx;
+  display: inline-flex;
+  margin-left: 12rpx;
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #FE0201;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes cross {
+  from {
+    left: -20%;
+  }
+
+  to {
+    /* top: 50rpx; */
+    left: 90%;
+  }
+}

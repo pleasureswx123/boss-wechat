@@ -1,0 +1,88 @@
+/* subpackPage/user/avatar/avatar.wxss */
+page {
+  background-color: #fff;
+  /* padding: 48rpx;
+    box-sizing: border-box; */
+  height: 100%;
+  width: 100%;
+}
+
+.avatarBox {
+  height: 100%;
+  width: 100%;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.avatarBox-head {
+  padding-top: 60rpx;
+}
+
+.avatarBox-head .title {
+  font-weight: 600;
+  font-size: 44rpx;
+  color: #1D2129;
+}
+
+.avatarBox-head .tips {
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.avatarBox-content{
+  padding: 64rpx 0 152rpx;
+}
+
+.box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  /* height: auto; */
+  height: 182rpx;
+  background: #fff !important;
+}
+
+.image {
+  position: relative;
+  width: 182rpx;
+}
+
+.image image {
+  height: 182rpx;
+  width: 182rpx;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+}
+
+.radio {
+  position: absolute;
+  top: 10rpx;
+  right: -40rpx;
+}
+
+.text {
+  font-size: 28rpx;
+  
+  font-weight: 400;
+  color: #666666;
+  margin: 40rpx 0 292rpx;
+}
+
+.opacity1 {
+  opacity: 1 !important;
+}
+
+.button {
+  height: 80rpx;
+  /* background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+  background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 80rpx;
+  opacity: 0.5;
+  text-align: center;
+}

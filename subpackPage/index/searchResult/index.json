@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "component-info": "/components/infomationList/infomationList",
+    "ocean-search": "/components/ocean-search/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "screenCondition": "/components/screenCondition/screenCondition",
+    "van-icon": "@vant/weapp/icon/index",
+    "companyList": "/components/company/company",
+    "van-loading": "@vant/weapp/loading/index",
+    "skeletonList": "/components/skeletonList/skeletonList",
+    "pull-refresh-view": "/components/pull-refresh-view/index"
+  },
+  "navigationBarTitleText": "职位搜索"
+}

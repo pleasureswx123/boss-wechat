@@ -1,0 +1,62 @@
+<view class="recordStageDetailBox">
+  <view class="recordStageDetailBox-card">
+    <scroll-view scroll-y="{{true}}" class="cardScrollView">
+      <view class="detailCard">
+        <view class="detailCard_top">
+          <view class="detailCard_top-title">
+            <!-- <image src="{{baseImageUrl}}/my/detailIconOvertime.png" mode=""/> -->
+            <!-- 充值 -->
+              <image src="{{baseImageUrl}}/my/rechargeType.png" mode="" wx:if="{{billDetail.handle == 0}}" />
+              <!-- 购买道具 -->
+              <image src="{{baseImageUrl}}/my/buyPropType.png" mode="" wx:if="{{billDetail.handle == 1}}" />
+              <!-- 发布岗位红包 -->
+              <image src="{{baseImageUrl}}/my/publishPostType.png" mode="" wx:if="{{billDetail.handle == 2}}" />
+              <!-- 红包退回 -->
+              <image src="{{baseImageUrl}}/my/hotType.png" mode="" wx:if="{{billDetail.handle == 3}}" />
+              <!-- 转让管理员 -->
+              <image src="{{baseImageUrl}}/my/changeType.png" mode="" wx:if="{{billDetail.handle == 4}}" />
+              <!-- 购买会员 -->
+              <image src="{{baseImageUrl}}/my/buyMemberType.png" mode="" wx:if="{{billDetail.handle == 6}}" />
+              <!-- 会员订单超时 -->
+              <image src="{{baseImageUrl}}/my/overtimeType.png" mode="" wx:if="{{billDetail.handle == 7}}" />
+              <!-- 发送红包给求职者 -->
+              <image src="{{baseImageUrl}}/my/overtimeType.png" mode="" wx:if="{{billDetail.handle == 8}}" />
+            <text wx:if="{{billDetail.handle == 0}}">充值</text>
+            <text wx:if="{{billDetail.handle == 1}}">购买道具</text>
+            <text wx:if="{{billDetail.handle == 2}}">发布岗位红包</text>
+            <text wx:if="{{billDetail.handle == 3}}">红包已退回</text>
+            <text wx:if="{{billDetail.handle == 4}}">转让管理员</text>
+            <text wx:if="{{billDetail.handle == 6}}">购买会员</text>
+            <text wx:if="{{billDetail.handle == 7}}">会员订单超时</text>
+            <text wx:if="{{billDetail.handle == 8}}">发送红包给求职者</text>
+          </view>
+          <!-- <text wx:if="{{billDetail.handle == 1 || billDetail.handle == 2 || billDetail.handle == 4 || billDetail.handle == 6 || billDetail.handle == 8}}">-</text><text wx:else>+</text> -->
+          <view class="detailCard_top-money">{{billDetail.num}}</view>
+          <view class="detailCard_top-balance">余额 ¥{{billDetail.balance}}</view>
+        </view>
+
+        <view class="detailCard_form">
+          <view class="detailCard_form-item">
+            <label for="" class="item_label">商品说明</label>
+            <text class="item_text">{{billDetail.remark}}</text>
+          </view>
+          <view class="detailCard_form-item">
+            <label for="" class="item_label">交易时间</label>
+            <text class="item_text">{{billDetail.createTime}}</text>
+          </view>
+          <view class="detailCard_form-item">
+            <label for="" class="item_label">支付类型</label>
+            <text class="item_text">{{billDetail.payType}}支付</text>
+          </view>
+          <view class="detailCard_form-item">
+            <label for="" class="item_label">订单号</label>
+            <text class="item_text">{{billDetail.orderNo}}</text>
+          </view>
+        </view>
+
+
+        <image class="detailCardButton" src="{{baseImageUrl}}/my/detailCard.png" mode=""/>
+      </view>
+    </scroll-view>
+  </view>
+</view>

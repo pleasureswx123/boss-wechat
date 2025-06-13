@@ -1,0 +1,57 @@
+<!--资格证书-->
+<view class="box">
+    <view class="top_input">
+        <view class="icons"><van-icon name="search" color="#999999"/></view>
+        <input type="text" cursor-color="#FE0201" placeholder-class="placeholderClass" value="{{industrySech}}" bindchange="searchChange" placeholder="搜索资格证书"/>
+    </view>
+    <view class="all_line"></view>
+    <view class="bot_box" style="height: calc(100vh - 300rpx);">
+        <view class="left_scroll"  style="height: 100%;">
+            <scroll-view scroll-y="true"  style="height:100%;">
+                <view class="left_list">
+                    <view class="list_item {{active == index ? 'selected' : ''}}" wx:for="{{leftList}}" wx:key="index" bindtap="changeItem" data-index="{{index}}" wx:if="{{item.select || item.select == undefined}}">
+                        <text>{{item.name}}</text>
+                        <text class="numBox" wx:if="{{item.selecetdNum}}">{{item.selecetdNum}}</text>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+        <view class="middle_line"></view>
+        <view class="right_scroll" style="height: calc(100vh - 360rpx);">
+            <scroll-view scroll-y="true" style="height: 100%;">
+                <view wx:for="{{rightList}}" wx:key="index"  data-index="{{index}}" data-item="{{item}}" class="sitemBox" bindtap="selectedItem">
+                    <view style="position: relative;" class="sitem {{item.selected?'selected':''}}">
+                    {{ item.name }}
+                    <view style="position: absolute;right: 10px;" wx:if="{{item.subList.length>0}}"><van-icon name="arrow-down" /></view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+    <view class="bot_btn"> 
+        <scroll-view scroll-x="true" style="white-space:nowrap;padding:15px 0 0 15rpx;width: calc(100% - 30rpx);height: 90rpx;font-size:14px">
+            已选:<view wx:for="{{selectTags}}" wx:key="index" class="selBtnview" bindtap="clearSingle" data-item="{{item}}">{{item}}<image class="hy_close" src="{{imageUrl}}/hy_close.png" mode=""/></view>
+        </scroll-view>
+        <view class="btnsBox">
+            <view class="qcbtn" bindtap="clearTab">清除</view>
+            <view class="btns" bindtap="goBack">确定</view>
+        </view>
+    </view>
+    <view class="mask" wx:if="{{showSj}}"></view>
+    <view class="bot_btn btnR" wx:if="{{showSj}}"> 
+        <view class="contSpan">
+          <view class="zsdjName">
+            <span>证书等级</span>
+            <view class="closeIcon" bindtap="closeSj">
+                <image class="" src="{{imageUrl}}/newImg/closeIcon.svg" mode="" />
+            </view>
+          </view>
+          <view class="zsdjCont">
+              <view wx:for="{{sjList}}" wx:key="index"  data-index="{{index}}" data-item="{{item}}" class="sitemBox" bindtap="selectedItem">
+                    <view class="sitem {{item.selected?'selected':''}}">
+                    {{ item.name }}</view>
+                </view>
+          </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,26 @@
+.textarea {
+    position: relative;
+    width: 654rpx;
+    height: 786rpx;
+    border-radius: 20rpx;
+    opacity: 0.5;
+    border: 1rpx solid #979797;
+    padding: 40rpx;
+    box-sizing: border-box;
+    margin: 0 auto 0 auto;
+}
+.textarea textarea {
+    width: 100%;
+    height: 650rpx;
+}
+.num {
+    position: absolute;
+    bottom: 40rpx;
+    right: 40rpx;
+}
+.box{
+    background: #fff;
+}
+page{
+  overflow: hidden;
+}

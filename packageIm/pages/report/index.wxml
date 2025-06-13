@@ -1,0 +1,62 @@
+<!--packageIm/pages/report/index.wxml-->
+
+
+<view class="box">
+    <!-- <van-sticky>
+    </van-sticky> -->
+    <view class="top_tabs">
+        <van-tabs active="{{ active }}" bind:change="changeTabs" title-active-color="#FE0201" color="#FE0201">
+            <van-tab title="举报投诉">
+
+            </van-tab>
+            <van-tab title="举报记录"></van-tab>
+        </van-tabs>
+    </view>
+    <view class="tab_main" wx:if="{{active == 0}}">
+        <view class="list" wx:for="{{reportList}}" wx:key="index" data-code="{{item.code}}" bindtap="itemDetailList">
+            <view class="item">
+                <text>{{item.name}}</text>
+            </view>
+            <van-icon name="arrow" color="#999" size="40rpx" />
+        </view>
+    </view>
+
+    <view class="tab_main" wx:if="{{active == 1}}">
+        <view class="content" wx:for="{{list}}" wx:key="index" bindtap="goToDetail" data-id="{{item.id}}">
+            <view class="text" wx:if="{{item.status == 0}}">待处理</view>
+            <view class="text" wx:if="{{item.status == 1}}">已处理</view>
+            <view class="text" wx:if="{{item.status == 2}}">已驳回</view>
+            <view class="head">
+                <view class="head_top">{{item.typeName}}--{{item.details}}</view>
+                <view class="head_text">{{item.remark}}</view>
+            </view>
+            <view class="img_box">
+                <image src="{{item.respondentAvatar}}" mode="" />
+                <view class="right">
+                    <view>{{item.respondentName}}</view>
+                    <text class="head_text">{{item.corporationName}}·{{item.outPost}}</text>
+                </view>
+            </view>
+        </view>
+
+        <noData wx:if="{{list.length==0}}"></noData>
+    </view>
+</view>
+
+
+
+<van-popup show="{{ show }}" bind:close="onClose" round closeable position="bottom">
+    <view class="content">
+        <view class="head">具体情况说明</view>
+        <van-radio-group value="{{ radio }}" bind:change="onChange">
+            <view class="radio_item" bindtap="onChange" data-name="{{item.name}}" wx:for="{{detailList}}" wx:key="index">
+                <text>{{item.name}}</text>
+                <van-radio name="{{item.name}}" checked-color="#FE0201" icon-size="30rpx"></van-radio>
+            </view>
+        </van-radio-group>
+    </view>
+    <!-- <view class="pop_btn">
+       <button bindtap="subReport">确定</button>
+   </view> -->
+</van-popup>
+<!-- <view class="btn" bindtap="goToReportNote">举报记录</view> -->

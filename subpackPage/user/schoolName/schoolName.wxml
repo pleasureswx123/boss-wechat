@@ -1,0 +1,37 @@
+<view class="box">
+  <!-- <scroll-view scroll-y="true">
+    <view class="top_input">
+        <input type="text" value="{{name}}" placeholder="请输入学校名称" bindinput="confirmValue" bindfocus="confirmValue"/>
+        <view class="right_num">{{name.length}}/25</view>
+    </view>
+    <view class="schoolList" wx:for="{{schoolList}}" wx:key="index" data-item="{{item}}" bindtap="itemHandel">
+        <view>
+            {{item.name}}
+        </view>
+    </view>
+    <view class="footer">
+        <view class="bot_btn" bindtap="goBack" wx:if="{{name}}">确定</view>
+        <view class="bot_btn no_data"  wx:else>确定</view>  
+    </view>
+</scroll-view> -->
+
+  <view class="box_head">
+    <view class="top_input">
+      <input type="text" cursor-color="#FE0201" value="{{name}}" placeholder="请输入学校名称" bindinput="confirmValue" bindfocus="confirmValue" />
+      <view class="right_num">{{name.length}}/25</view>
+    </view>
+  </view>
+  <!-- 中间部分 -->
+  <view class="box_content">
+    <scroll-view class="scrollView" scroll-y="true">
+      <view class="schoolList" wx:for="{{schoolList}}" wx:key="index" data-item="{{item}}" bindtap="itemHandel">
+        <view>{{item.name}}</view>
+    </view>
+    </scroll-view>
+  </view>
+  <!-- 底部按钮 -->
+  <view class="box_footer" style="padding-bottom: {{globalBottom}}px;">
+    <view class="bot_btn" bindtap="goBack" wx:if="{{name}}">确定</view>
+    <view class="bot_btn no_data"  wx:else>确定</view> 
+  </view>
+</view>

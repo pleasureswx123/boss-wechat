@@ -1,0 +1,26 @@
+<!-- 优化求职期望 -->
+<view class="addJobBox">
+  <image src="{{imageUrl}}/newImg/sexBg.png" class="headbg"></image>
+  <view class="title1">请选择身份，让我们更加了解你～</view>
+  <scroll-view scroll-y="true" class="scrollView">
+    <view class="add_job_box">
+      <view class="itemName">您的身份</view>
+      <view class="qzStatus">
+        <view class="qzItem {{selectedType==item.code?'selectedType':''}}" data-value="{{item.code}}" wx:for="{{cardArr}}" wx:key="index" bind:tap="selectedType">{{item.name}}</view>
+      </view>
+      <view wx:if="{{selectedType==2}}">
+        <view class="itemName">您首次参加工作时间</view>
+        <view class="yearDesp">约{{wordYear}}年工作经验</view>
+        <view style="height: 300rpx;">
+          <compData id="compData" bind:changeDate="changeDate"></compData>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="selectedBtn" bind:tap="saveData" wx:if="{{selectedType}}">
+    下一步
+  </view>
+  <view class="selectedBtn opacity5" wx:else>
+    下一步
+  </view>
+</view>

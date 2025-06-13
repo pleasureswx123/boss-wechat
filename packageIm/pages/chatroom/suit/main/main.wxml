@@ -1,0 +1,56 @@
+<form class="text-input">
+    <view class="f-row" style="margin-bottom: {{mgBtm}}px;">
+    <!-- wx:if="{{!userMessage}}" -->
+      <view class="useful" catchtap="openFunModal" data-type="1" wx:if="{{!isFocus && !isFingerboard}}">
+        <text>常用语</text>
+      </view>
+      <!-- wx:else -->
+      <!-- 常用语标识 -->
+      <view style="margin-left:16rpx" catchtap="openFunModal" data-type="1"  wx:if="{{isFocus}}">
+        <image class="icon-mic" src="{{imageUrl}}/yp/chang1.png" style="margin-right: 10rpx;"></image>
+      </view>
+      <!-- 键盘标识 -->
+      <view style="margin-left:16rpx" catchtap="openFunModalFingerboard" data-type="1" data-changeFoucs="1"  wx:if="{{isFingerboard}}">
+        <image class="icon-mic" src="{{imageUrl}}/yp/new_fingerboard.png" style="margin-right: 10rpx;"></image>
+      </view>
+      <!-- 富文本输入框 -->
+      <!-- <editor id="editor" class="f news ql-container" placeholder="和TA聊一聊" bindinput="getEditorContent"  bindready="onEditorReady" adjust-position="{{false}}"></editor> -->
+      <!-- <input
+        class="f news"
+        type="text"
+        value="{{ inputMessage }}"
+        cursor-spacing="65"
+        confirm-type="send"
+        bindconfirm="sendMessage"
+        bindinput="bindMessage"
+        bindtap="focus"
+        bindfocus="focus"
+        bindblur="blur"
+        placeholder="和TA聊一聊"
+        adjust-position="{{false}}"
+        placeholder-style="color:#999999; padding-left:5px;"
+            /> -->
+        <!-- bindfocus="focus" catchtap="focus" -->
+        <textarea show-confirm-bar="{{false}}" class="f news myTextarea" placeholder="和TA聊一聊" value="{{inputMessage}}" cursor-spacing="65"
+        confirm-type="send"
+        bindconfirm="sendMessage"
+        bindinput="bindMessage"
+        
+        bindfocus="focus"
+        bindkeyboardheightchange="getKeyBoardHeight"
+        focus="{{auto_focus}}"
+        bindblur="blur" adjust-position="{{false}}" placeholder-style="color:#999999; padding-left:5px;" auto-height="true"></textarea>
+      <view>
+        <image class="icon-mic" src="{{imageUrl}}/yp/new_Emoji.png" bindtap="openFunModal" data-type="3"></image>
+      </view>
+      <view bindtap="openFunModal" data-type="2" wx:if="{{!userMessage}}" >
+        <image class="icon-mic" src="{{imageUrl}}/yp/new_ad.png"></image>
+      </view>
+       <button 
+        class="send-btn-style" 
+        hover-class='hover'
+        bindtap="sendMessage"
+        wx:if="{{userMessage}}" 
+      >发送</button> 
+    </view>
+  </form>

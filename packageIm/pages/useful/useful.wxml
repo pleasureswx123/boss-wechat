@@ -1,0 +1,29 @@
+<!--常用语管理-->
+<view class="usefulBox">
+  <view class="usefulBox_content">
+    <scroll-view scroll-y="true" class="scrollBox">
+      <view wx:for="{{usefulArr}}" wx:key="index" class="useful_list">
+        <!-- <van-swipe-cell right-width="{{ 65 }}" wx:for="{{usefulArr}}" wx:key="index">
+        
+      </van-swipe-cell> -->
+        <view class="item">
+          <view style="flex: 1; text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{item.content}}</view>
+          <view class="right_icon" wx:if="{{item.common == 0}}">
+            <view class="editIcon" bindtap="editUse" data-item="{{item}}">
+              <image src="{{imImages}}/yp/useEdit.png" mode="" />
+            </view>
+            <view style="color: #F32E2E" bind:tap="delUseful" data-num="{{item.usualMsgId}}">删除</view>
+          </view>
+        </view>
+        <!-- <view slot="right" class="editBtns">
+          <view class="sbtn" bindtap="delUseful" data-num="{{item.usualMsgId}}">
+            <image src="{{imImages}}/yp/del.png" mode="aspectFit"></image>
+          </view>
+        </view> -->
+      </view>
+    </scroll-view>
+  </view>
+  <view class="usefulBox_footer">
+    <view class="addBtn" bindtap="addUseFul">添加常用语</view>
+  </view>
+</view>

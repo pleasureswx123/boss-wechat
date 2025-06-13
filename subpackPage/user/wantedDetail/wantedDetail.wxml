@@ -1,0 +1,96 @@
+<view class="wantedDetail-wrapper">
+  <view class="wantedDetail-container">
+    <!-- 月份筛选部分 -->
+    <view class="wantedDetail-container_top">
+      <view class="content_top-month" bind:tap="openMonthPopup">
+        <view class="month_num" wx:if="{{showTextType == 0}}">{{month}}<text>月</text></view>
+        <view class="month_num" wx:if="{{showTextType == 1}}">{{year}}<text>年</text>{{month}}<text>月</text></view>
+        <view class="month_icon">
+          <image src="{{baseImageUrl}}/my/screeIcon.png" mode="" />
+        </view>
+      </view>
+      <image class="recordStageContent_img" src="{{baseImageUrl}}/my/recordStageContent_img.png" mode="" />
+    </view>
+    <!-- 列表部分 -->
+    <view class="wantedDetail-container_buttom" wx:if="{{wantedDetailList.length > 0}}">
+      <scroll-view class="wantedDetail-list-wrapper" scroll-y="true">
+        <view class="wantedDetail-item" wx:for="{{wantedDetailList}}" wx:key="index">
+          <view class="item-left">
+            <!-- 红包发放 -->
+            <image wx:if="{{item.type == 0 || item.type == 3}}" src="{{baseImageUrl}}/my/hotType.png" mode=""/>
+            <!-- wx提现 -->
+            <image wx:if="{{item.type == 1}}" src="{{baseImageUrl}}/my/bg_wx.png" mode=""/> 
+            <!-- wx退回 -->
+            <image wx:if="{{item.type == 2}}" src="{{baseImageUrl}}/my/returnIcon.png" mode=""/>
+          </view>
+          <view class="item-content">
+            <view class="item-content-top" wx:if="{{item.type == 1 || item.type == 2}}">
+              <text wx:if="{{item.type == 1}}" class="title_text">提现到微信</text>
+              <text wx:if="{{item.type == 2}}">微信转账失败退回账户</text>
+              <text wx:if="{{item.status == 1 && item.type != 2}}" class="statusText warning">转账中</text>
+              <text wx:if="{{item.status == 2 && item.type != 2}}" class="statusText primary">成功</text>
+              <text wx:if="{{item.status == 3 && item.type != 2}}" class="statusText danger">失败</text>
+            </view>
+            <view class="item-content-top" wx:if="{{item.type == 0}}">面试红包发放</view>
+             <!-- 平台路费发放 -->
+             <view class="item-content-top" wx:if="{{item.type == 3}}">面试路费补贴发放</view>
+            <view class="item-content-buttom" wx:if="{{item.type == 0 || item.type == 3}}">{{item.companyName}} - {{item.title}}</view>
+          </view>
+          <view class="item-right">
+            <view class="item-right-topTime">{{item.timeWithoutYear}}</view>
+            <view class="item-right-buttomMoney">
+              <text wx:if="{{item.handleType == 2}}">-</text> 
+              <text wx:if="{{item.handleType == 1}}">+</text> 
+              {{item.money}}
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 无数据时展示 -->
+    <view class="wantedDetail-container_buttom" wx:else>
+      <view class="no_data_center">
+        <view class="no_data_img">
+          <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+        </view>
+        <view class="no_data_text">暂无数据</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<van-popup show="{{ monthShow }}" custom-style="padding-bottom:0rpx" position="bottom" round bind:close="closeMonthPopup" close-on-click-overlay="{{false}}">
+  <view class="monthPopup">
+    <view class="monthPopup-head">
+      <!-- 背景 -->
+      <view class="monthPopup-head_back" style="background-image: url({{baseImageUrl}}/my/monthPopup_back.png);"></view>
+      <!-- 占位 -->
+      <view class="monthPopup-head_title">
+        <view class="title-item {{monthPopupTitleActive == 0 ? 'monthPopupTitleActive' : ''}}" bind:tap="changeTab" data-index="0">按月份</view>
+        <image bindtap="closeMonthPopup" src="{{baseImageUrl}}/newImg/closeIcon.svg" mode="" /> 
+      </view>
+    </view>
+    <view class="monthPopup-content">
+      <view style="height: 100%; background: #F6F6F6;position: absolute;width: 100%;">
+        <picker-view indicator-class="selecetedIndicator" value="{{selectedValues}}" class="picker-view" bindchange="changeData">
+          <!-- 年份 -->
+          <picker-view-column>
+            <view data-id="{{item}}" wx:for="{{list}}" wx:key="vlaue" class="columnStyle leftPay {{wagesIndex == index ? 'activeSize' :''}}">
+              {{ item.label }}
+            </view>
+          </picker-view-column>
+          <!-- 月份 -->
+          <picker-view-column>
+            <view wx:for="{{list[wagesIndex].children}}" class="columnStyle rightPay {{wagesIndex2 == index ? 'activeSize' :''}}" wx:key="value">{{ item.label }}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+    </view>
+
+    <view class="monthPopup-footer">
+      <view class="button cancelButton" bind:tap="closeMonthPopup">取消</view>
+      <view class="button confirmButton" bind:tap="confirm">确定</view>
+    </view>
+  </view>
+</van-popup>

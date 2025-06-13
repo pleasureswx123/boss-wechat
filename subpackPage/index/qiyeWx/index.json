@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "cell": "plugin://materialPlugin/cell"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText": ""
+}

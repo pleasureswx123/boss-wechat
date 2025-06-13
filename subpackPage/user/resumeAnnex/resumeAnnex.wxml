@@ -1,0 +1,90 @@
+<view class="resumeAnnexBox">
+  <!-- 自定义导航栏 -->
+  <!-- <view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+        <view class="van-nav-bar__left" style="height: {{navBarHeight}}px;line-height: {{navBarHeight}}px;" >
+            <van-icon name="arrow-left" color="#000" size="22px" wx:if="{{!flag}}" bind:click="back"/>
+            <image src="{{imageUrl}}/newImg/Home.png" wx:if="{{flag}}" mode="" bindtap="gotoHome"/>
+        </view>
+        <view class="van-nav-bar__title">管理附件</view>
+    </view> -->
+  <view class="resumeAnnexBox-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px;width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#000" size="22px" wx:if="{{!flag}}" bind:click="back" />
+        <image class="Home" src="{{imageUrl}}/newImg/Home.png" wx:if="{{flag}}" mode="" bindtap="gotoHome" />
+        <view class="nav-bar_title">管理附件</view>
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+
+  <!-- 内容部分 -->
+  <view class="resumeAnnexBox-content">
+    <scroll-view scroll-y="true" class="content_swiperBox">
+      <view class="in_box" wx:if="{{list.length > 0}}">
+        <view class="annex">
+          <view class="item" wx:for="{{list}}" wx:key="index">
+            <view class="left" bindtap="previewResume" data-url="{{item.url}}" data-fileName="{{item.fileName}}">
+              <view class="left_img">
+                <image src="{{imageUrl}}/my/resumeAnnex.png" mode="" wx:if="{{item.fileTy=='.pdf' || item.fileTy=='.PDF'}}" />
+                <image src="{{imageUrl}}/my/resumeAnnex1.png" mode="" wx:else />
+              </view>
+              <view class="left_info">
+                <view class="info_top">{{item.fileName}}</view>
+                <view class="info_bot">{{item.size}} 更新于 {{ item.updateTime }}</view>
+              </view>
+            </view>
+            <view class="right" bindtap="moreOperate" data-item="{{item}}">
+              <view class="dian"></view>
+              <view class="dian"></view>
+              <view class="dian"></view>
+            </view>
+          </view>
+          <view class="line" wx:if="{{list.length>0}}"></view>
+        </view>
+        <view class="info_bot bot_discribe">最多支持上传3个简历附件</view>
+        <!-- <view bindtap="gotoAppUpload" class="left_top_text" style="color: #000;margin-bottom: 20px;">app上传</view> -->
+      </view>
+      <view class="no_data" wx:else>
+        <view class="no_data_center">
+          <view class="no_data_img">
+            <image src="{{imageUrl}}/my/no_collect.png" mode="" />
+          </view>
+          <view class="no_data_text">暂无附件</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+
+  <view class="resumeAnnexBox-footer">
+    <view class="footerBtn">
+      <view class="bot_btn" wx:if="{{list.length<3}}">
+        <view class="left_top_text" bind:tap="selectUploadWay">上传简历</view>
+        <!-- <van-uploader accept="file" max-count="1" bind:after-read="uploadBefore">
+          <view class="left_top_text">上传简历</view>
+        </van-uploader> -->
+      </view>
+    </view>
+  </view>
+
+
+  <van-popup show="{{ show }}" bind:close="onClose" round>
+    <view class="uploadFlie">
+      <view class="uploadFlie_title">简历上传成功</view>
+      <view class="uploadFlie_detail">请点击确定按钮返回APP</view>
+      <button class="backAPP" open-type="launchApp" app-parameter="wechat" bindlaunchapp="handleLaunchApp" binderror="launchAppError">确定</button>
+    </view>
+  </van-popup>
+
+
+  <van-popup show="{{ overlay }}" bind:close="onClickHide" round position="bottom">
+    <view class="bot_over">
+      <view class="set_name" bindtap="goResetName">重命名</view>
+      <view class="set_name middle_over" bindtap="goResetName" bindtap="getResumeRemove">删除</view>
+      <view class="set_name cancelBtn" bindtap="closeOverlay">取消</view>
+    </view>
+  </van-popup>
+</view>

@@ -1,0 +1,22 @@
+<!--subpackPage/user/setup/noticeDetail/index.wxml-->
+<view class="item">
+  <view class="top">
+    向我推荐职位
+  </view>
+  <!-- <van-switch inactive-color="#D9D9D9" checked="{{ checked }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="chatNotify" bind:change="Chenge" /> -->
+  <van-switch inactive-color="#D9D9D9" checked="{{ checked }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="recommendPosition" bind:change="Chenge" />
+</view>
+<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="name">
+  <view class="item">
+    <view class="top">
+      <view>方便消息推送时间段</view>
+    </view>
+    <view class="font1"><text class="mr24">{{multiArray[0][multiIndex[0]].name}}~{{multiArray[1][multiIndex[1]].name}}</text>
+      <van-icon name="arrow" color="#999" size="30rpx" />
+    </view>
+  </view>
+</picker>
+<view class="tipBox">
+  <view class="tipCont">1.开启消息推送，招聘者可通过虚拟电话直接联系到您，您也可以直接拨打招聘者电话，让好机会一个不落，更快入职；</view>
+  <view class="tipCont">4.平台将只在您方便的时间段推送消息给您。</view>
+</view>

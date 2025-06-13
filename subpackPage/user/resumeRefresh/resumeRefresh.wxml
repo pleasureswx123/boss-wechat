@@ -1,0 +1,143 @@
+<view class="resumeRefreshBox">
+  <!-- 头部区域 -->
+  <view class="resumeRefreshBox-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="background-image: url(https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/user/reseau.png);">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#FFF" size="20px" bind:click="back" />
+        <view class="nav-bar_title" wx:if="{{propType == 5}}">简历置顶</view>
+        <view class="nav-bar_title" wx:if="{{propType == 1}}">简历刷新</view>
+        <view class="nav-bar_title" wx:if="{{propType == 9}}">虚拟电话</view>
+        <view class="nav-bar_title" wx:if="{{propType == 7}}">AI帮写</view>
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;padding-top: 50rpx;"></view>
+  </view>
+  <!-- 内容区域 -->
+  <view class="resumeRefreshBox-content">
+    <scroll-view scroll-y="{{true}}" class="contentScrollView">
+      <!-- 虚拟电话 -->
+      <view class="contentScrollView-head" wx:if="{{propType==9 || propType==7}}">
+        <view class="head_left">
+          <view>剩余{{totalNum}}次</view>
+          <text wx:if="{{ propType==9 }}">保护个人隐私，沟通有保障</text>
+          <text wx:if="{{ propType==7 }}">自动完善信息，为求职加速</text>
+        </view>
+        <view class="head_right" bindtap="goLookPost" wx:if="{{ propType==9 }}">立即使用</view>
+        <view class="head_right" bindtap="goLookResume" wx:if="{{ propType==7 }}">立即使用</view>
+      </view>
+      <view class="contentScrollView-head" wx:else>
+        <view class="head_left">
+          <view wx:if="{{used == 0 && !status}}">今日未刷新</view>
+          <view wx:if="{{used == 1 && status=='using'}}">
+            持续刷新中
+            <image src="{{baseImageUrl}}/renovateing.png" mode="" class="renovateing"/>
+          </view>
+          <view wx:if="{{used == 1 && status=='done'}}">刷新结束</view>
+          <text wx:if="{{used == 0 && !status}}">刷新后，简历优先展示，曝光翻倍</text>
+          <text wx:if="{{used == 1 && status=='using'}}">使用道具后，简历优先展示，平台曝光率翻倍</text>
+          <text wx:if="{{used == 1 && status=='done'}}">使用道具完成，简历已优先展示，平台曝光率翻倍</text>
+          
+        </view>
+        <view class="head_right" bindtap="refresh" wx:if="{{used == 0}}">立即刷新</view>
+      </view>
+      <!-- 道具使用效果 -->
+      <view class="contentScrollView-PropContent" style="height: {{propType==7?'668rpx':'auto'}};" wx:if="{{propType==9 || propType==7}}">
+        <view class="tabs-head">
+          <view class="tabs-head_item {{item.selected ? 'active' : ''}}" wx:for="{{topTabs}}" wx:key="index" bindtap="changeTopTabs" data-index="{{index}}">{{item.name}}</view>
+        </view>
+        <view class="tab-main">
+          <view class="list" wx:if="{{ aiPhoneList.length>0 }}">
+            <view class="item itemActive {{currentNum==index && propType==9?'activeStyle':''}}" wx:for="{{aiPhoneList}}" wx:key="index">
+              <view class="item-left">
+                <image src="{{baseImageUrl}}/my/propIcon.png" mode="" wx:if="{{item.today}}" />
+                <image src="{{baseImageUrl}}/my/propIcon1_1.png" class="propIcon1" mode="" wx:elif="{{!item.today && currentNum==index && propType==9}}" />
+                <image src="{{baseImageUrl}}/my/propIcon1.png" class="propIcon1" mode="" wx:else />
+                <text>{{item.useDate}}</text>
+              </view>
+              <view class="item-right">
+                <view class="quan" wx:if="{{index==currentNum && propType==9}}"></view>使用{{item.times}}次
+              </view>
+            </view>
+          </view>
+          <view wx:else>
+            <block wx:if="{{propType==9}}">
+              <view class="titleName">
+                <view>您暂未使用</view>
+                <view>拨通电话与HR“当面”聊吧</view>
+              </view>
+              <view class="titleBtns" bindtap="goLookPost">去逛逛机会</view>
+            </block>
+            <block wx:else>
+              <view class="titleName">
+                <view>您暂未使用</view>
+                <view>自动完善信息，为求职加速</view>
+              </view>
+              <view class="titleBtns" bindtap="goLookPost">去优化简历</view>
+            </block>
+          </view>
+        </view>
+        <!-- 背景 -->
+        <image class="PropContentImage" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/newImg/renovate1.png" mode="" />
+      </view>
+      <view class="contentScrollView-PropContent" wx:else>
+        <view class="tabs-head">
+          <view class="tabs-head_item {{item.selected ? 'active' : ''}}" wx:for="{{topTabs}}" wx:key="index" bindtap="changeTopTabs" data-index="{{index}}">{{item.name}}</view>
+        </view>
+        <view class="tab-main">
+          <view class="list">
+            <view class="item itemActive" wx:for="{{lookList}}" wx:key="index">
+              <view class="item-left">
+                <image src="{{baseImageUrl}}/my/propIcon.png" class="propIcon1" mode="" wx:if="{{today}}" />
+                <image src="{{baseImageUrl}}/my/propIcon1.png" class="propIcon1" mode="" wx:else />
+                <text>{{item.date}}</text>
+              </view>
+              <view class="item-right" wx:if="{{topActive == 0 || topActive == 1}}">刷新前 {{item.num}} 人</view>
+              <view class="item-right" wx:if="{{topActive == 2}}">我 0 人</view>
+              <view class="item-right_line" wx:if="{{topActive == 2}}">同行 0 人</view>
+            </view>
+          </view>
+        </view>
+        <!-- 背景 -->
+        <image class="PropContentImage" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/newImg/renovate1.png" mode="" />
+      </view>
+
+      <!-- 列表展示 -->
+      <view class="contentScrollView-list" wx:if="{{propType!=7}}">
+        <view class="contentScrollView-list_title">
+          <view class="tabs-head">
+            <view class="tabs-head_item {{item.selected ? 'active' : ''}}" wx:for="{{botTabs}}" wx:key="index" bindtap="changeBotTabs" data-index="{{index}}">{{item.name}}</view>
+          </view>
+
+          <view class="infomation" wx:if="{{dataList.length>0}}">
+            <component-info dataList="{{dataList}}"></component-info>
+          </view>
+          <view class="no_data" wx:else>
+            <view class="no_date1">
+              <view class="no_date_img">
+                <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+              </view>
+              <view class="no_data_content">暂无记录</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<van-popup show="{{ popShow }}" round z-index="200">
+  <view class="pop_box">
+    <view class="pop_box_top">
+      暂时无法使用
+    </view>
+    <view class="pop_box_middle">
+      您已隐藏简历,请您取消隐藏后刷新简历
+    </view>
+    <view class="pop_box_bot">
+      <view class="pop_box_bot_left" bindtap="cloneShowA">稍后处理</view>
+      <view class="pop_box_bot_right" bindtap="cloneShow">取消隐藏</view>
+    </view>
+  </view>
+</van-popup>

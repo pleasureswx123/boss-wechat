@@ -1,0 +1,51 @@
+<!--components/collectGuide/collectGuide.wxml-->
+<view class="collectGuideBox" wx:if="{{isShow}}">
+  <view class="collectGuideBox-main">
+  <!-- background-image: url({{baseImageUrl}}/versions/guideBoxBack.png); -->
+    <view class="content" style="top: {{collectGuideY}}px;">
+      <view class="content-title">将知城优聘添加到我的小程序</view>
+      <view class="content-item">
+        <view class="content-item_title">
+          <view class="leftNum">1</view>
+          <view class="rightText">
+            <text>点击图标“</text>
+            <image src="{{baseImageUrl}}/versions/dianIcon.png" mode=""/>
+            <text>”选择添加</text>
+          </view>
+        </view>
+
+        <view class="content-item_box content-item_box1">
+          <view class="item">
+            <image class="image" src="{{baseImageUrl}}/index_img/collectGuideBox2.png" mode=""/>
+            <text>当前页面不可转发</text>
+          </view>
+          <view class="item">
+            <image class="image" src="{{baseImageUrl}}/index_img/collectGuideBox3.png" mode=""/>
+            <image class="BoxBack" src="{{baseImageUrl}}/versions/back.png" mode=""/>
+            <image class="HandIcon" src="{{baseImageUrl}}/versions/HandIcon.png" mode=""/>
+            <text>添加到我的小程序</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="content-item" style="padding-bottom: 40rpx;">
+        <view class="content-item_title1">
+          <view class="leftNum">2</view>
+          <view class="rightText">微信首页下拉“从我的小程序” 进入更方便</view>
+        </view>
+
+        <view class="content-item_box .content-item_box2">
+          <view class="item">
+            <text class="item_tip">我的小程序</text>
+            <image class="image" src="{{baseImageUrl}}/index_img/collectGuideBox1.png" mode=""/>
+            <image class="HandIcon1" src="{{baseImageUrl}}/versions/HandIcon.png" mode=""/>
+          </view>
+        </view>
+      </view>
+
+      <view class="content-btn" bind:tap="colseCollectGuideBox">我知道了</view>
+
+      <image class="beforeIcon" src="{{baseImageUrl}}/versions/beforeTop.png" mode=""/>
+    </view>
+  </view>
+</view>

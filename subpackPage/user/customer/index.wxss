@@ -1,0 +1,253 @@
+/* subpackPage/user/customer/index.wxss */
+
+.head_bg{
+    width: 100%;
+    height: 440rpx;
+    position: absolute;
+    z-index: -9;
+    border-radius: 0rpx;
+}
+page{
+    background-color: #F5F5F5;
+    overflow: hidden;
+}
+.head{
+    display: flex;
+    align-items: center;
+    padding: 0 102rpx 0 68rpx;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.kefu_img{
+    width: 194rpx;
+    height: 194rpx;
+    margin-right: -40rpx;
+}
+.hello{
+    font-size: 44rpx;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+.hello_bot{
+    font-size: 26rpx;
+    
+    font-weight: 400;
+    color: #FFFFFF; 
+}
+
+.nav{
+    /* background: #FFFFFF; */
+    border-radius: 32rpx !important;
+    margin: 0 28rpx;
+    padding-top:24rpx;
+    padding-bottom: 24rpx;
+    background: linear-gradient( 180deg, #FFF4F4 0%, #FFEBEB 9%, #FFFFFF 100%);
+}
+
+.tab_item{
+    margin-top: 30rpx;
+}
+.item{
+    font-size: 28rpx;
+    
+    font-weight: 400;
+    color: #212121;
+    margin-top: 34rpx;
+    margin-left: 40rpx;
+}
+.footer{
+    position: fixed;
+    bottom: 0rpx;
+    height: 168rpx;
+    display: flex;
+    /* justify-content: space-around; */
+    justify-content: center;
+    background-color: #FFFFFF;
+    width: 100%;
+    align-items: center;
+    padding: 34rpx 0 60rpx 0;
+    box-sizing: border-box;
+}
+.footer view{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+.footer image{
+    width: 35rpx;
+    height: 35rpx;
+    vertical-align: middle;
+    margin-right: 15rpx;
+}
+.fot_line{
+    width: 2rpx;
+    height: 103rpx;
+    opacity: 0.3;
+    background-color: #979797;
+}
+.fot_text{
+    font-size: 26rpx; 
+    color: #999999;
+}
+
+.popPhone{
+    height: 101rpx;
+    background: #FFFFFF;
+    border-radius: 16rpx;
+    margin:16rpx 34rpx ;
+    text-align: center;
+    line-height: 101rpx;
+    font-size: 36rpx;
+    
+    font-weight: 400;
+    color: #037AFF;
+}
+.phoneBox{
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+}
+.codeBox{
+    padding: 74rpx 0 38rpx 0;
+    box-sizing: border-box;
+    margin: 240rpx 102rpx 0 102rpx;
+    background-color: #FFFFFF;
+    border-radius: 32rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.code_content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding-bottom: 68rpx; */
+    padding-bottom: 20rpx;
+}
+.code_content image{
+    width: 300rpx;
+    height: 316rpx;
+    margin-bottom: 24rpx;
+    /* margin-bottom: 94rpx; */
+}
+.code_content view{
+    font-size: 26rpx; 
+    color: #1D2129;
+    padding: 0 62rpx;
+    text-align: center;
+}
+.codeOk{
+    border-top: 1px solid #e4e3e3;
+    width: 100%;
+    text-align: center;
+    padding-top: 36rpx;
+    font-size: 26rpx; 
+    color: #FE0201;
+}
+.backIcon {
+  background-size: cover;
+  background-position: center -100%;
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  align-items: center;
+  padding-top: 20px;
+  height: 40px;
+}
+.van-nav-bar__left {
+  padding-left: 4px;
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  position: fixed;
+  top: 0
+}
+.active{
+  border-radius: 16rpx;
+  /* border: 2rpx solid #FE0201; */
+  font-weight: 500;
+  font-size: 32rpx;
+  color: #FE0201 !important;
+  background: #FDC7C7 !important;
+}
+.nav-bar_title {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  font-size: 36rpx;
+  color: #1D2129;
+}
+.navName{
+  margin:10rpx 35rpx;
+  background: linear-gradient(180deg, #B00303 0%, #1E0000 100%); /* 渐变背景 */
+  -webkit-background-clip: text; /* 将背景限制在文本区域内 */
+  background-clip: text;
+  color: transparent; /* 将文本颜色设置为透明 */
+  font-size: 42rpx;
+  font-weight: bold;
+}
+
+/* index.wxss */
+.container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scroll-view {
+  white-space: nowrap; /* 防止子元素换行 */
+  width: 100%;
+}
+
+.citem {
+  display: inline-block; /* 使子元素横向排列 */
+  text-align: center;
+  font-size: 16px;
+  height: 49rpx;
+  line-height: 49rpx;
+  background: #F0F0F0;
+  border-radius: 26rpx;
+  font-weight: 400;
+  font-size: 26rpx;
+  color: #212121;
+  padding:0 20rpx;
+  margin-left: 30rpx;
+}
+.helpCenterImg{
+  width: 20rpx;height: 28rpx;margin-right: 10rpx;vertical-align:middle
+}
+.phoneBtn{
+  width: 168rpx;
+  height: 82rpx;
+  background: #F1F1F1;
+  border-radius: 41rpx;
+  font-weight: 400;
+  font-size: 34rpx;
+  color: #212121;
+  display: flex;
+  justify-content: center;
+}
+.kfBtn{
+  width: 476rpx;
+  height: 82rpx;
+  background: linear-gradient( 308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 41rpx;
+  display: flex;
+  justify-content: center;
+  margin-left: 20rpx;
+}
+.fot_text1{
+  font-weight: 400;
+  font-size: 34rpx;
+  color: #212121;
+}
+.fot_text2{
+  font-weight: 400;
+  font-size: 34rpx;
+  color: #FFFFFF;
+}

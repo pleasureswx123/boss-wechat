@@ -1,0 +1,67 @@
+<view class="ocean-wrapper">
+  <view class="system-container column">
+    <!-- 头部区域 -->
+    <view class="system-container_header">
+      <!-- 自定义导航栏 -->
+      <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+        <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+          <van-icon name="arrow-left" color="#333333" size="23px" bind:click="goBack" />
+          <view class="nav-bar_title">系统通知</view>
+        </view>
+      </view>
+
+      <!-- 占位，高度与顶部栏一样 -->
+      <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+    </view>
+    <!-- 内容区域 -->
+    <view class="system-container_content">
+      <!--系统通知-->
+      <view class="noticeBox" >
+        <view style="margin: 0 30rpx;" class="noticeBox_head">
+          <scroll-view class="title" scroll-x="true" enable-flex scroll-into-view="{{navTagView}}" scroll-with-animation="{{true}}">
+            <view wx:for="{{navList}}" id="{{'navTagView' + item.type}}" wx:key="index" class="{{item.type == active ? 'changeSel':''}}" bindtap="changeTab" data-type="{{item.type}}">
+              {{item.name}}
+            </view>
+          </scroll-view>
+        </view>
+        <view class="noticeBox_content">
+          <scroll-view scroll-y="{{true}}" style="height: calc(100% - {{navBarHeight+statusBarHeight+50}}px);">
+            <view wx:if="{{datalist.length>0}}" class="noticeBox_content-list">
+              <view class="systemBox" wx:for="{{datalist}}" wx:key="index" bindtap="goDetail" data-smallType="{{item.smallType}}" data-id="{{item.id}}" data-contentJson="{{item.contentJson}}">
+                <view>
+                  <view class="t1">
+                    {{item.title}}
+                    <view class="circle" wx:if="{{item.looked}}"></view>
+                  </view>
+                  <view class="t2 {{item.smallType == '2-1' ? 'margin0' : ''}}">{{item.content}}</view>
+                  <view class="t2 {{item.smallType == '2-1' ? 'margin1' : ''}}" style="margin-bottom: 20rpx;" wx:if="{{item.smallType == '2-1'}}">
+                    {{item.contentJson.info}}
+                  </view>
+                </view>
+                <view class="t3" wx:if="{{item.smallType == '2-1'}}">
+                  <view class="changeSel">去开启</view>
+                  <view>{{item.createTime}}</view>
+                </view>
+                <view class="t3" wx:else>
+                  <view>查看详情</view>
+                  <view>{{item.createTime}}</view>
+                </view>
+              </view>
+            </view>
+            <noData stitle="暂无通知" wx:else></noData>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 导航和title -->
+<!-- <view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px;">
+  <van-icon name="arrow-left" color="#333333" size="26px" bindtap="goBack" />
+</view>
+<view class="top_bg" bindtap="clearFun">
+  <view style="padding-top:{{statusBarHeight+10}}px;height:{{navBarHeight}}px;text-align: center;font-weight: 600;font-size: 36rpx;color: #333333;">系统通知
+    <image src="{{baseImageUrl}}/my/clearIcon.png" mode="" style="width: 32rpx;height: 36rpx;vertical-align: middle;margin-left: 10rpx;" />
+  </view>
+</view> -->

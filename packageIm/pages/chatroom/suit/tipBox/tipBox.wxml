@@ -1,0 +1,150 @@
+<block>
+  <view wx:if="{{itemObj.msg.customEvent=='change_job' || itemObj.msg.customEvent=='greet_job_info'}}" data-item="{{itemObj}}" catch:tap="goToPostDetail">
+    <view class="showCard">
+      <!-- 汽车活动背景 -->
+      <image src="{{imageBaseUrl}}/index_img/carBg.png" mode="" style="width: 100%;height: 124rpx;border-radius: 0;position: absolute;left:0;top:0;z-index: 1;" wx:if="{{itemObj.msg.customExts.activitySubsidy==1 || itemObj.msg.customExts.jobRedEnvelope>0}}" />
+      <view style="position: relative;z-index: 10;">
+        <view class="title">
+          <span style="display: inline-flex;align-items: center;">
+            {{itemObj.msg.customExts.jobTitle}}
+            <!-- 汽车活动图标 -->
+            <image src="{{imageBaseUrl}}/index_img/car.png" mode="" style="width: 34rpx;height: 28rpx;margin-left: 12rpx;margin-right: 6rpx;padding-top: 5rpx;" wx:if="{{itemObj.msg.customExts.activitySubsidy==1}}" />
+            <!-- 红包图标 -->
+            <image src="{{imImages}}/yp/tip_redPacket.png" mode="" style="width: 28rpx;height: 30rpx;margin-left: 12rpx;border-radius: 0;margin-right: 0;" wx:if="{{itemObj.msg.customExts.jobRedEnvelope==1}}" />
+            <!-- 大红包 -->
+            <image src="{{imageBaseUrl}}/index_img/red_packet_gold.png" mode="" style="width: 28rpx;height: 30rpx;margin-left: 12rpx;border-radius: 0;" wx:if="{{itemObj.msg.customExts.bigRedPacket==true}}" />
+          </span>
+          <span style="font-size: 30rpx;" wx:if="{{itemObj.msg.customExts.jobSalary=='0-0k' || itemObj.msg.customExts.jobSalary=='0~0k' || itemObj.msg.customExts.jobSalary=='0-0K'}}">面议</span>
+          <span style="font-size: 30rpx;" wx:else>{{itemObj.msg.customExts.jobSalary}}</span>
+        </view>
+        <view class="tag">{{itemObj.msg.customExts.jobCompanyName}} {{itemObj.msg.customExts.jobCompanyFinancing}} {{itemObj.msg.customExts.scale}}</view>
+        <view wx:if="{{jobTag}}" class="postTagBox">
+          <view class="postTag" wx:for="{{jobTag}}" wx:key="index">
+            <span>{{item}}</span>
+          </view>
+        </view>
+        <view class="name">
+          <view>
+            <image src="{{itemObj.msg.customExts.jobRecruiterAvatar || imageBaseUrl+'/default-avatar.png'}}" class="pic" style="width: 42rpx;height: 42rpx;" />{{itemObj.msg.customExts.jobRecruiterName}}·{{itemObj.msg.customExts.jobRecruiterJob}}
+          </view>
+          <!-- 位置 -->
+          <view>
+            <text wx:if="{{itemObj.msg.customExts.province}}">{{itemObj.msg.customExts.province}}</text>
+            <text wx:if="{{itemObj.msg.customExts.city}}">·{{itemObj.msg.customExts.city}}</text>
+          </view>
+        </view>
+        <view class="time" wx:if="{{itemObj.msg.customEvent=='change_job'}}">
+          <span wx:if="{{itemObj.style=='self'}}">您更换了沟通的职位</span>
+          <span wx:else>该招聘官更换了您沟通的职位</span>
+        </view>
+        <view class="time" wx:if="{{itemObj.msg.customEvent=='greet_job_info'}}">
+          <span wx:if="{{itemObj.style=='self'}}">您发起了沟通的职位</span>
+          <span wx:else>招聘者发起了沟通的职位</span>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='card_work_address'}}" style="min-height:250px;width:494rpx;overflow:hidden">
+    <!-- 此处需要添加map图片 -->
+    <view>
+      <!-- <map longitude="{{itemObj.msg.customExts.longitude}}" latitude="{{itemObj.msg.customExts.latitude}}"  scale="14"></map> -->
+      <image style="height: 150px;width: 100%; margin: 0; border-radius: 0;" src="{{itemObj.msg.customExts.src}}" data-msg="{{itemObj.msg}}" mode="" catch:tap="gotoMapNavigation"></image>
+    </view>
+    <view class="addrCont">
+      <view class="addr">
+        <view class="title1">{{itemObj.msg.customExts.address}}</view>
+        <view class="msg">您是否接受此工作地点？</view>
+      </view>
+      <view class="gui-flex gui-row gui-space-between" wx:if="{{itemObj.style!='self'}}">
+        <button class="btn cancel" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}" data-type="1" catch:tap="sendaddrMsg">暂不考虑</button>
+        <button class="btn agree" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}" data-type="2" catch:tap="sendaddrMsg">可以接受</button>
+      </view>
+    </view>
+  </view>
+  <view class="showBox gui-flex gui-column" wx:else>
+    <view class="gui-flex gui-row" style="position: relative;">
+      <image src="{{imImages+'/yp/tip_'+type+'.png'}}" class="pic" wx:if="{{type!='offer' && type!='redPacket' && type!='initiator'}}" />
+      <image src="{{imageBaseUrl + '/newImg/companyHead.svg'}}" style="border-radius: 0;width: 60rpx;margin-left: 4rpx;" class="pic" wx:elif="{{type=='initiator'}}" />
+      <image src="{{imImages+'/yp/tip_'+type+'.png'}}" class="redPacket" wx:elif="{{type=='redPacket'}}" />
+      <image src="{{imImages}}/yp/tip_ly.png" class="pic" wx:else />
+      <view class="tip" wx:if="{{type=='phone' && itemObj.msg.customEvent=='exchange_phone_initiator'}}">我想要和您交换联系方式，您是否同意</view>
+      <view class="tip" wx:if="{{type=='phone' && (itemObj.msg.customEvent=='exchange_phone_agree' || itemObj.msg.customEvent=='card_exchange_phone')}}">
+        <view class="gui-size-26">{{userInfo.name}}的电话号码</view>
+        <view class="gui-size-24">{{userInfo.phone}}</view>
+      </view>
+      <view class="tip" wx:if="{{itemObj.msg.customEvent=='phone'}}">
+        <view class="gui-size-26">{{userInfo.name}}的电话号码</view>
+        <view class="gui-size-24">{{userInfo.phone}}</view>
+      </view>
+      <view class="tip" wx:if="{{type=='chat' && itemObj.msg.customEvent=='exchange_wechat_initiator'}}">我想要和您交换微信，您是否同意</view>
+      <view class="tip" wx:if="{{type=='chat' && (itemObj.msg.customEvent=='exchange_wechat_agree' || itemObj.msg.customEvent=='card_exchange_wechat')}}">
+        <view class="gui-size-26">{{userInfo.name}}的微信号</view>
+        <view wx:if="{{userInfo.wechatQrcode==1}}" style="position: absolute;right: 0;">
+          <image src="{{userInfo.wechat}}" mode="aspectFill" style="width:58rpx;height:58rpx;border-radius: 0;" />
+        </view>
+        <view class="gui-size-24" wx:else>{{userInfo.wechat}}</view>
+      </view>
+      <view class="tip" wx:if="{{itemObj.msg.customEvent=='chat'}}">
+        <view class="gui-size-26">{{userInfo.name}}的微信号</view>
+        <view wx:if="{{userInfo.wechatQrcode==1}}">
+          <image src="{{userInfo.wechat}}" mode="aspectFill" style="width:58rpx;height:58rpx;border-radius: 0;" />
+        </view>
+        <view class="gui-size-24" wx:else>{{userInfo.wechat}}</view>
+      </view>
+      <view class="tip" wx:if="{{type=='file'  && itemObj.msg.customEvent=='send_resume_initiator'}}">对方想发送附件简历给您，您是否同意</view>
+      <view class="tip" wx:if="{{type=='file' && itemObj.msg.customEvent=='request_resume_initiator'}}">该招聘官想要一份您的简历，您是否同意</view>
+      <view class="tip" wx:if="{{type=='file'  && itemObj.msg.customEvent=='send_resume_agree'}}">
+        {{itemObj.msg.customExts.resumeFileName}}
+      </view>
+      <view class="tip" wx:if="{{type=='file' && itemObj.msg.customEvent=='request_resume_agree'}}">
+        {{itemObj.msg.customExts.resumeFileName}}
+      </view>
+      <view class="tip" wx:if="{{type=='initiator' && itemObj.msg.customEvent=='interview_initiator'}}">该招聘官向您发出面试邀请，点击查看</view>
+      <view class="tip" wx:if="{{type=='redPacket' && itemObj.msg.customEvent=='interview_red'}}" style="display: flex;flex-direction: row;"><text style="color: #FE0201;">{{itemObj.msg.customExts.redEnvelopeCount}} 元</text>岗位红包已发放到您的账户</view>
+      <view class="tip" wx:if="{{type=='redPacket' && itemObj.msg.customEvent=='interview_send_result'}}">已标记实际未面试，如事实不符，请在3天发起申诉。</view>
+      <view class="tip" wx:if="{{type=='offer' && itemObj.msg.customEvent=='offer_initiator'}}">
+        <view wx:if="{{itemObj.style!='self'}}">该招聘官向您发来重要邀约，等待你接受</view>
+        <view wx:else>你向对方发出录用通知</view>
+      </view>
+    </view>
+
+    <view class="gui-flex gui-row gui-space-between" wx:if="{{itemObj.msg.customEvent=='exchange_phone_initiator'}}">
+      <button class="btn cancel" bindtap="reject" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}">拒绝</button>
+      <button class="btn agree" bindtap="agree" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}">同意</button>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:if="{{itemObj.msg.customEvent=='exchange_wechat_initiator'}}">
+      <button class="btn cancel" bindtap="reject" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}">拒绝</button>
+      <button class="btn agree" bindtap="agree" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}">同意</button>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:if="{{itemObj.msg.customEvent=='send_resume_initiator' || itemObj.msg.customEvent=='request_resume_initiator'}}">
+      <button class="btn cancel" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}" bindtap="reject">拒绝</button>
+      <button class="btn agree" disabled="{{itemObj.msg.customExts.customMsgStatus>0}}" data-msgId="{{itemObj.id || itemObj.msgId}}" bindtap="agree">同意</button>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='exchange_phone_agree' || itemObj.msg.customEvent=='phone' || itemObj.msg.customEvent=='card_exchange_phone'}}">
+      <!-- <view class="btn cancel" bindtap="note">发短信</view> -->
+      <view class="btn cancel" bindtap="call" data-value="{{userInfo.phone}}">拨号</view>
+      <view class="btn cancel" bindtap="copy" data-value="{{userInfo.phone}}">复制</view>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='exchange_wechat_agree' || itemObj.msg.customEvent=='chat' || itemObj.msg.customEvent=='card_exchange_wechat'}}">
+      <view class="btn cancel" wx:if="{{userInfo.wechatQrcode==1}}" data-url="{{userInfo.wechat}}" bindtap="downloadImage">查看微信号图片</view>
+      <view class="btn cancel" wx:else bindtap="copy" data-value="{{userInfo.wechat}}">复制微信号</view>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='request_resume_agree' || itemObj.msg.customEvent=='send_resume_agree'}}">
+      <view class="btn cancel" bindtap="copy('15811391637')">点击查看附件简历</view>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='interview_initiator'}}">
+      <view class="btn cancel" bindtap="lookMs">立即查看</view>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='interview_send_result' && itemObj.msg.customExts.interviewResult==3}}">
+      <view class="btn cancel" wx:if="{{itemObj.msg.customExts.appealStatus>0}}">已申诉</view>
+      <view class="btn cancel" wx:elif="{{itemObj.msg.customExts.signInConfirm}}">红包已发放</view>
+      <view class="btn cancel" bindtap="goSs" wx:else>申诉</view>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='interview_red'}}">
+      <view class="btn goLookBtn" bindtap="goLookBtn">立即查看</view>
+    </view>
+    <view class="gui-flex gui-row gui-space-between" wx:elif="{{itemObj.msg.customEvent=='offer_initiator'}}">
+      <view class="btn cancel" bindtap="lookLy">查看详情</view>
+    </view>
+  </view>
+</block>

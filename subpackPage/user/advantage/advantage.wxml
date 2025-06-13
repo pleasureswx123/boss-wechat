@@ -1,0 +1,50 @@
+<view class="superiority_box">
+  <view class="head">
+    <scroll-view class="headBox" scroll-y="true">
+    <view class="textarea">
+      <textarea show-confirm-bar="{{false}}" value="{{advantage || ''}}" placeholder="等待输入内容..." maxlength="300" bindinput="changeText" placeholder-style="font-size: 28rpx;font-weight: 400;color: #999;" />
+      <view class="num">
+        {{advantage.length}}/300
+      </view>
+    </view>
+    <!-- al帮写 -->
+    <view class="alBox">
+      <view class="alBox_left baseBox" bind:tap="gotoAI">
+        <image src="{{baseImageUrl}}/versions/user.png" mode="" />
+        <view class="alBox_left-text">使用AI帮我优化</view>
+      </view>
+      <view class="alBox_right baseBox" bind:tap="recommendFn">
+        <image src="{{baseImageUrl}}/versions/aiCompile.png" mode="" />
+        <view class="alBox_right-text">看看别人怎么写</view>
+      </view>
+    </view>
+
+    <!-- 推荐（别人怎么写） -->
+    <view class="superiority-recommend_box" wx:if="{{masterplate}}" >
+      <view class="superiority-recommend" bindlongtap="copyTemplate" data-key="{{templeteData.content}}">
+      <!-- 头部基本信息 -->
+      <view class="recommend_top">
+        <view class="recommend_top-left">
+          <image src="{{baseImageUrlList[templeteData.avatar - 1]}}" mode="" />
+          <text>{{templeteData.postName}}</text>
+        </view>
+        <view class="recommend_top-right" bind:tap="renewalTemplete">
+          <image src="{{baseImageUrl}}/versions/renovate.png" mode="" />
+          <text>换一个</text>
+        </view>
+      </view>
+      <!-- 主题内容 -->
+      <view class="recommend_content">
+        {{templeteData.content}}
+      </view>
+    </view>
+    <view class="tapText">*小TAP：长按复制，写出自己特色内容</view>
+    </view>
+  </scroll-view>
+  </view>
+
+  <view class="footer-button">
+    <view class="submitbtn" bindtap="subTextHandle" wx:if="{{ advantage != ''}}">保存</view>
+    <view class="submitbtn" wx:else>保存</view>
+  </view>
+</view>

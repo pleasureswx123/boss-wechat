@@ -1,0 +1,58 @@
+<view class="addressListBox">
+  <view class="addressList" wx:if="{{seekerCollectAddressList.length > 0}}">
+    <scroll-view scroll-y="{{true}}" class="scrollBox">
+      <view class="address-item" wx:for="{{seekerCollectAddressList}}" wx:key="index">
+        <!-- 上半部分 -->
+        <view class="address-item_top">
+          <view class="item_top-title">{{item.title}}</view>
+          <view class="item_top-text">{{item.details}}</view>
+
+          <!-- 背景 -->
+        <image class="address_CardBack" src="{{baseImageUrl}}/newImg/address_CardBack.png" mode=""/>
+        </view>
+        <!-- 下半部分 -->
+        <view class="address-item_button">
+          <view class="item_button-edit" bind:tap="addOreditAddress" data-id="{{item.id}}">
+            <image src="{{baseImageUrl}}/newImg/address_edit.png" mode=""/>
+            <text>编辑</text>
+          </view>
+          <view class="item_button-delete" bind:tap="deteleAddress" data-id="{{item.id}}">
+            <image catchtap="deleteFn" src="{{baseImageUrl}}/newImg/address_detele.png" mode="" />
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 无数据时展示 -->
+  <view class="addressList" wx:else>
+    <block>
+      <view class="no_data">
+        <view class="no_data_center">
+          <view class="no_data_img">
+            <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+          </view>
+          <view class="no_data_text">暂无地址</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="footer" wx:if="{{seekerCollectAddressList.length < 4}}">
+    <view class="addBtn" bind:tap="addOreditAddress">添加</view>
+  </view>
+
+
+  <van-popup show="{{ show }}" round z-index="200" custom-style="margin-top:-30%">
+    <view class="pop_box">
+      <view class="pop_box_middle">
+        确定删除该地址吗 ？
+      </view>
+      <view class="pop_box_bot">
+        <view class="pop_box_bot_left" bind:tap="cloneShow">取消</view>
+        <view class="pop_box_bot_right" bind:tap="identifyHandle">确定</view>
+      </view>
+    </view>
+  </van-popup>
+</view>

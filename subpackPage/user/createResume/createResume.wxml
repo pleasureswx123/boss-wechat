@@ -1,0 +1,153 @@
+<view class="resumeMasterplateBox">
+  <!-- 头部区域 -->
+  <view class="resumeMasterplateBox-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" size="24px" bind:click="back" color="#000" />
+        <view class="nav-bar_title">简历模版</view>
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+
+  </view>
+  <!-- 内容部分 -->
+  <view class="resumeMasterplateBox-content">
+    <view class="content_top">
+      <view class="content_tags">
+        <view class="content_tags-item {{index == tagActive ? 'active' : ''}}" wx:for="{{tagList}}" wx:key="index" bind:tap="changeActive" data-index="{{index}}">{{item.text}}</view>
+      </view>
+
+      <view class="left_shaixuan" bind:tap="openScreen">筛选<text style="color: #FE0201;" wx:if="{{copySceenNum > 0}}">·{{copySceenNum}}</text></view>
+    </view>
+    <view class="content_main" wx:if="{{templateList.length > 0}}">
+      <!-- <scroll-view scroll-y="{{true}}" class="content_scrollView">
+        <view class="content_scrollView-list">
+          <view class="MasterplatItem" wx:for="{{templateList}}" id="{{item.id}}" data-item="{{item}}" wx:key="index" bind:tap="templateDetail">
+            <view class="MasterplatImage">
+              <image src="{{item.picUrl}}" mode="aspectFill" />
+            </view>
+            <image class="titleImg" wx:if="{{item.vip == 2}}" src="{{baseImageUrl}}/user/resume_template_vip.png" mode=""/>
+
+            <view class="MasterplatText">{{item.title}}</view>
+          </view>
+        </view>
+      </scroll-view> -->
+      <pull-refresh-view class="content_scrollView" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish}}" pullText="下拉可以刷新"  bindonpulling="onPulling" refresherType="custom" loadType="custom" >
+        <!-- 自定义上拉样式  -->
+        <view slot="refresher" class="custom-pull-down">
+          <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+          <!-- <view class="loadingText" wx:if="{{isRefreshingText}}">推荐职位已更新</view> -->
+        </view>
+        <!-- 自定义下拉样式  -->
+        <!--  -->
+        <view slot="loader" class="custom-loader-loading" wx:if="{{templateList.length>5 && !isFinish}}">
+          <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+          努力加载中~
+        </view>
+        <view slot="loader" class="custom-loader" wx:if="{{isFinish}}">
+          ～更多模版正在努力搭建中～
+        </view>
+        <view class="content_scrollView-list">
+          <view class="MasterplatItem" wx:for="{{templateList}}" id="{{item.id}}" data-item="{{item}}" wx:key="index" bind:tap="templateDetail">
+            <view class="MasterplatImage" style="{{item.noBorder?'border:2rpx solid #f5f5f5':''}}">
+              <image src="{{item.picUrl}}" mode="aspectFit" />
+            </view>
+            <image class="titleImg" wx:if="{{item.vip == 2}}" src="{{baseImageUrl}}/user/resume_template_vip.png" mode=""/>
+            <view class="MasterplatText">{{item.title}}</view>
+          </view>
+        </view>
+      </pull-refresh-view>
+    </view>
+    <!-- 无数据时展示 -->
+    <view class="content_main" style="position: relative;" wx:else>
+      <view class="no_data_center" style="top: calc(50% - {{capsuleData.navBarHeight}}px);">
+        <view class="no_data_img">
+          <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+        </view>
+        <view class="no_data_text">暂无模版</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 模版弹窗 -->
+<van-popup show="{{ TemplatePopup }}" position="bottom" round custom-style="height: calc(100% - {{capsuleData.navBarHeight}}px); padding-bottom: 0px;" bind:close="cloneShow">
+  <view class="previewMasterplat">
+    <view class="previewMasterplat-top">个性模版</view>
+    <view class="previewMasterplat-main">
+      <scroll-view scroll-y="{{true}}" style="height: 100%;">
+        <view class="current_Masterplat">
+          <image class="templateImage" src="{{currentTemplate.picUrl}}" mode="widthFix" />
+          <image class="titleImg" wx:if="{{currentTemplate.vip == 2}}" src="{{baseImageUrl}}/user/resume_template_vip.png" mode=""/>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="previewMasterplat-buttom">
+      <view class="cancalButton button" bind:tap="cloneShow">再看看</view>
+      <view class="confirmButton button" bind:tap="selectPost">使用此模版</view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 筛选弹窗 -->
+<van-popup show="{{ isOpenScreen }}" custom-style="padding-bottom: 0px;" closeable position="bottom" round bind:close="cloneShow">
+  <view class="screenPopup">
+    <view class="screenPopup_top">筛选<text style="color: #FE0201;" wx:if="{{sceenNum > 0}}">·{{sceenNum}}</text> </view>
+    <view class="screenPopup_main">
+      <!-- 价格 -->
+      <view class="screenConditionItem">
+        <view class="title">
+          <text>价格</text>
+        </view>
+        <view class="screenList">
+          <view bindtap="radio" data-code="{{item.code}}" data-distinctionname="priceList" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{priceList}}" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 模版风格 -->
+      <view class="screenConditionItem">
+        <view class="title">
+          <text>模版风格</text>
+        </view>
+        <view class="screenList">
+          <view bindtap="radio" data-code="{{item.code}}" data-distinctionname="templateScreenList" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{templateScreenList}}" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="screenPopup_buttom">
+      <view class="cancalButton button" bind:tap="reset">重置</view>
+      <view class="confirmButton button" bind:tap="sceenConfirm">确定</view>
+    </view>
+  </view>
+</van-popup>
+
+
+<!-- 选择求职期望弹窗 -->
+<!-- custom-style="height: 750rpx;" -->
+<van-popup show="{{ postShow }}"  position="bottom" round bind:close="cloneShow">
+  <view class="circulate_popup">
+    <view class="circulate_popup-head">
+      <view class="title">选择您希望生成的简历</view>
+      <view class="tips">根据您的求职期望做出不同版本</view>
+    </view>
+
+    <view class="circulate_popup-content">
+      <view class="content-postItem" wx:for="{{postList}}" id="{{item.id}}" wx:key="index" bind:tap="createResumeTemplate">
+        <view class="content-postItem_left">
+          <view class="top">[{{item.jobCityName}}]{{item.postName}}</view>
+          <view class="buttom" wx:if="{{item.jobType==1}}">兼职</view>
+          <view class="buttom" wx:if="{{item.expectedMoneyStatus == 0 || item.lowestMoney==0}}">面议</view>
+          <view class="buttom" wx:else>{{item.lowestMoney}}K - {{item.maximumMoney}}K</view>
+        </view>
+        <view class="content-postItem_right">
+          <van-icon name="arrow" size="36rpx" color="#9F9F9F" />
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>

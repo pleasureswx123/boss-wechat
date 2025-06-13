@@ -1,0 +1,87 @@
+<view class="postAllBox">
+    <!-- 头部 -->
+    <view class="searchTop">
+        <!-- 搜索框 -->
+        <view class="searchInput" wx:if="{{isSearch}}">
+            <view class="input">
+                <ocean-search 
+                marginRight="20rpx" 
+                background="#F5F5F5" 
+                placeholder="搜索职位" 
+                value="{{searchPostValue}}" 
+                bind:confirm="confirm" 
+                bind:clear="clearKeyWord">
+            </ocean-search>
+            </view>
+        </view>
+
+        <!-- 筛选/公司/职位 -->
+        <view class="tabBox">
+            <view class="tabNav" >
+                <span bindtap="searchTab" class="span" data-type="isOpen1" data-icon="arrowIcon1">{{locationAddress}}</span>
+                <view class="tabNav_icon">
+                  <van-icon name="{{arrowIcon1}}" size="12px" />
+                </view>
+            </view>
+            <view class="tabNav">
+                <span bindtap="searchTab" class="span" data-type="isOpen" data-icon="arrowIcon">{{postName}}</span>
+                <view class="tabNav_icon">
+                  <van-icon name="{{arrowIcon}}" size="12px" />
+                </view>
+            </view>
+            <view class="screen" bindtap="screOpen">
+                <text>筛选</text>
+                <span wx:if="{{sxNum>0}}">*{{sxNum}}</span>
+            </view>
+        </view>
+    </view>
+    <!-- 骨架屏代替加载效果 -->
+    <view class="postAllBox_content" wx:if="{{showLoading}}" style="height: calc(100vh - 40rpx - 68rpx - 22rpx - 40rpx - {{globalBottom}}px);">
+      <skeletonList type="1" button="{{false}}"></skeletonList>
+    </view>
+
+    <view class="postAllBox_content" wx:if="{{!showLoading}}" style="height: calc(100vh - 40rpx - 68rpx - 22rpx - 40rpx - {{globalBottom}}px);">
+        <pull-refresh-view class="list-container"
+             wx:if="{{dataList.length>0}}" 
+             bindonrefresh="onRefresh" 
+             refreshing="{{isRefreshing}}" 
+             bindloadmore="onLoadMore" 
+             nomore="{{isFinish}}" 
+             pullText="下拉可以刷新" 
+             refresherType="custom" 
+             loadType="custom" 
+             bindonpulling="onPulling">
+                <!-- 自定义上拉样式 -->
+                <view slot="refresher" class="custom-pull-down">
+                    <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+                </view>
+                <!-- 自定义下拉样式  -->
+                <view slot="loader" class="custom-loader-loading" wx:if="{{dataList.length>5 && !isFinish}}">
+                  <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+                  努力加载中~
+	             </view>
+                <!-- 数据加载完成样式 -->
+                <view slot="loader" class="custom-loader" wx:if="{{isFinish && dataList.length>5}}" >
+                    没有更多数据了~
+	             </view>
+                <component-info dataList="{{dataList}}" bind:showLogin="showLogin"></component-info>
+        </pull-refresh-view>
+        <!-- 无数据时展示 -->
+        <noData wx:else></noData>
+    </view>
+
+    <!-- 地址选择 -->
+    <van-popup root-portal="{{true}}" lock-scroll round show="{{isOpen1}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001">
+        <versionsCity-prop areaId="{{areaId}}" bind:onClose="onClose" bind:comfirmCity="comfirmCity" versionsCityHeight="{{popupHeight}}"></versionsCity-prop>
+    </van-popup>
+
+    <!-- 全部职位弹出层 -->
+    <van-popup safe-area-inset-bottom="{{false}}" show="{{ isOpen }}" round position="bottom"  bind:close="onClose">
+        <positionType bind:onClose="onClose" bind:onClick="selectedPost" positionTypeHeight="{{popupHeight}}" transmitData="{{transmitData}}"></positionType>
+    </van-popup>
+
+    <!-- 筛选弹窗 -->
+    <van-popup root-portal="{{true}}" lock-scroll round show="{{isShow}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight}}px">
+        <screenCondition bind:screenEvent="screenEvent" show="{{isShow}}" bind:screenNum="screenNum" bind:onClose="onClose" height="{{popupHeight}}" jobType="{{jobType}}" isSave="{{true}}"></screenCondition>
+    </van-popup>
+</view>

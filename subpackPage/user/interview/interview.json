@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "noData":"/components/nodata/nodata",
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index"
+    },
+    "navigationBarTitleText": "面试日程",
+    "navigationBarBackgroundColor": "#fff"
+}

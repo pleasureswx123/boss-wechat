@@ -1,0 +1,10 @@
+{
+    "usingComponents": {
+      "van-tab": "@vant/weapp/tab/index",
+      "van-tabs": "@vant/weapp/tabs/index",
+      "versionObj": "/components/versionObj/versionObj"
+    },
+    "navigationBarTitleText":"",
+    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "#f5f5f5"
+}

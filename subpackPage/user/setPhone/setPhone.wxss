@@ -1,0 +1,43 @@
+.item{
+  display: flex;
+  justify-content: space-between;
+  height: 126rpx;
+  align-items: center;
+  /* padding-top: 35rpx; */
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #e4e3e3;
+  margin:0 48rpx;
+}
+.font1{
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #666666;
+}
+.top{
+  font-weight: 400;
+  font-size: 32rpx;
+  color: #1D2129;
+}
+.tipBox{
+  width: 654rpx;
+  /* height: 256rpx; */
+  background: #FFF4F4;
+  border-radius: 24rpx;
+  margin: 48rpx;
+  font-weight: 400;
+  padding-bottom: 30rpx;
+  font-size: 26rpx;
+  color: #666666;
+}
+.tipCont{
+  margin:0 36rpx;
+}
+.tipBox view:first-child{
+  padding-top: 28rpx;
+}
+.tipBox view:last-child{
+  /* padding-bottom: 28rpx; */
+}
+.mr24{
+  margin-right: 24rpx;
+}

@@ -1,0 +1,43 @@
+<view class="editName-box">
+  <!-- 主体内容 -->
+  <view class="editName-box_content">
+    <!-- <view class="top_input">
+        <input type="text" value="{{name || ''}}" placeholder="请输入姓名" bindinput="confirmValue" maxlength="15"/>
+        <view class="cross" bindtap="clearCont"><van-icon name="cross" /></view>
+    </view> -->
+
+    <view class="editName_input">
+      <input type="text" cursor-color="#FE0201" value="{{name || ''}}" placeholder="请输入姓名" bindinput="confirmValue" maxlength="15"/>
+      <view class="editName_input-rigth" wx:if="{{clearable}}">
+        <image bindtap="clearCont" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+      </view>
+    </view>
+
+    <view class="editName_notice" wx:if="{{!first}}">
+        <view class="editName_notice-left">每月可修改{{base}}次</view>
+        <!-- style="background-image: url({{baseImageUrl}}/user/userSurplus.png);" -->
+        <view class="editName_notice-right" >剩余{{leave}}次</view>
+
+        <image src="{{baseImageUrl}}/user/userSurplus.png" mode=""/>
+    </view>
+  </view>
+
+  <!-- 底部区域 -->
+  <view class="editName-box_footer">
+    <view class="bot_btn" bindtap="goBtn" wx:if="{{name !== '' && leave>0}}">确定</view>
+    <view class="bot_btn no_data" wx:else>确定</view>
+  </view>
+   <!-- <scroll-view scroll-y="true" style="height: 100%;">
+    <view class="top_input">
+        <input type="text" value="{{name || ''}}" placeholder="请输入姓名" bindinput="confirmValue" maxlength="15"/>
+        <view class="cross" bindtap="clearCont"><van-icon name="cross" /></view>
+    </view>
+    <view class="line"></view>
+    <view class="notice" wx:if="{{!first}}">
+        <view class="left">每月可修改{{base}}次</view>
+        <view class="left">剩余{{leave}}次</view>
+    </view>
+    
+</scroll-view> -->
+
+</view>

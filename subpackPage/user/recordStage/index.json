@@ -1,0 +1,10 @@
+{
+    "usingComponents": {
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-sticky": "@vant/weapp/sticky/index",
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText": "购买明细",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

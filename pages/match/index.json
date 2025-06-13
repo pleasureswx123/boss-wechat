@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+      "component-tab": "/components/tab/tab",
+      "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+      "collectGuide": "/components/collectGuide/collectGuide"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+}

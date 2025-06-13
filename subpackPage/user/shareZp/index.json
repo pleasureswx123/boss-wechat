@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "van-popup": "@vant/weapp/popup/index",
+        "lookAppPopup": "/components/lookAppPopup/lookAppPopup"
+    },
+     "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
+}

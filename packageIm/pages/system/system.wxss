@@ -1,0 +1,163 @@
+page {
+  background: #f5f5f5;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.noticeBox {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.noticeBox_content {
+  flex: 1;
+  overflow: auto
+}
+
+.title {
+  color: #999999;
+  height: 80rpx;
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.title view {
+  /* display: inline-block; */
+  text-align: center;
+  flex-shrink: 0;
+  margin: 0 20rpx;
+}
+
+.systemBox {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 28rpx 30rpx 0;
+  box-sizing: border-box;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20rpx;
+}
+
+.systemBox .t1 {
+  font-size: 28rpx;
+  color: #1D2129;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 550;
+}
+
+.systemBox .t2 {
+  font-size: 24rpx;
+  color: #1D2129;
+  margin-top: 20rpx;
+  margin-bottom: 36rpx;
+}
+
+.systemBox .t3 {
+  font-size: 22rpx;
+  color: #999999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 72rpx;
+  align-items: center;
+  border-top: 1px solid #f5f5f5;
+}
+
+.changeSel {
+  color: #FE0201;
+}
+
+.circle {
+  width: 12rpx;
+  height: 12rpx;
+  /* border-radius: 12rpx; */
+  border-radius: 50%;
+  background: #FE0201;
+}
+
+.noticeBox_content-list {
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.margin0 {
+  margin-bottom: 0 !important;
+}
+
+.margin1 {
+  margin-top: 0 !important;
+}
+
+.backIcon {
+  /* width: 100vw; */
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  align-items: center;
+  padding-top: 20px;
+  margin-left: 20rpx;
+  height: 40px;
+}
+
+.top_bg {
+  width: 100%;
+  position: absolute;
+  z-index: 1000;
+  height: 198rpx;
+  /* background: linear-gradient( 308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%); */
+}
+
+/* 以下为样式优化 */
+.ocean-wrapper {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.system-container{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.nav-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  color: #fff;
+  height: 908rpx;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nav-bar .search {
+  color: #1D2129;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar_title {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 23px;
+}
+
+.system-container_content{
+  flex: 1;
+}

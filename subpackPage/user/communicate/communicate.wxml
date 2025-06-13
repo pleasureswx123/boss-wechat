@@ -1,0 +1,10 @@
+<view class="box">
+    <scroll-view style="height: 100vh;" scroll-y="{{true}}">
+    <!-- <view class="in_box" style="height: 100%;"> -->
+        <view class="date_box">
+            <component-info dataList="{{datalist}}" isShowTime="1"></component-info>
+        </view>
+    <!-- </view> -->
+    <noData wx:if="{{datalist.length==0}}"></noData>
+    </scroll-view>
+</view>

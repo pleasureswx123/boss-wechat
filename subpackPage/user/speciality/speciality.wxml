@@ -1,0 +1,17 @@
+<view class="box">
+   <scroll-view scroll-y="true">
+    <view class="top_input">
+        <input type="text" value="{{name}}" cursor-color="#FE0201" placeholder="请输入专业名称" bindinput="confirmValue" bindfocus="confirmValue"/>
+        <view class="right_num">{{name.length}}/25</view>
+    </view>
+    <view class="schoolList" wx:for="{{specialtyList}}" wx:key="index" data-item="{{item}}" bindtap="itemHandel">
+        <view>
+            {{item.name}}
+        </view>
+    </view>
+    <view class="footer">
+        <view class="bot_btn" bindtap="goBack" wx:if="{{name}}">确定</view>
+        <view class="bot_btn no_data"  wx:else>确定</view>  
+    </view>
+</scroll-view>
+</view>

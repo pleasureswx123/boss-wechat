@@ -1,0 +1,94 @@
+<view class="box">
+    <view style="height: 100vh;overflow: auto;">
+        <view class="in_box">
+            <view class="item" bindtap="goOtherPage" data-type="projectName" data-val="{{dataInfo.name}}">
+                <view class="item_left">
+                    <view class="item_left_top topBefore">
+                        项目名称
+                    </view>
+                    <view class="item_left_bot">
+                        <text wx:if="{{dataInfo.name}}">{{dataInfo.name}}</text>
+                        <text wx:else class="grey">如：知城优聘小程序</text>
+                    </view>
+                </view>
+                <view class="item_right">
+                    <van-icon name="arrow" color="#999999" />
+                </view>
+            </view>
+            <view class="line"></view>
+            <view class="item" bindtap="goOtherPage" data-type="takeRoles" data-val="{{dataInfo.role}}">
+                <view class="item_left">
+                    <view class="item_left_top topBefore">
+                        担任角色
+                    </view>
+                    <view class="item_left_bot">
+                        <text wx:if="{{dataInfo.role}}">{{dataInfo.role}}</text>
+                        <text wx:else class="grey">如：高级软件工程师</text>
+                    </view>
+                </view>
+                <view class="item_right">
+                    <van-icon name="arrow" color="#999999" />
+                </view>
+            </view>
+            <view class="line"></view>
+            <view class="items">
+                <view class="item_left_top topBefore">
+                    项目时间
+                </view>
+                <view class="time_box">
+                    <view class="time_left">
+                        <!-- <pickerDate fields="month" selectDate="{{dataInfo.startTime}}" placeholder="请选择开始时间" bind:changeDate="changeStart"></pickerDate> -->
+                        <picker mode="multiSelector" data-type="start" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+                            <view class="picker">{{dataInfo.startTime || '请选择开始时间'}}</view>
+                        </picker>
+                    </view>
+                    <view class="time_middle">-</view>
+                    <view class="time_left">
+                        <!-- <pickerDate fields="month" selectDate="{{dataInfo.endTime}}" placeholder="请选择结束时间" bind:changeDate="changeEnd"></pickerDate> -->
+                        <picker mode="multiSelector" data-type="end" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
+                            <view class="picker" wx:if="{{dataInfo.endThisDay == 1}}">至今</view>
+                            <view class="picker" wx:else>{{dataInfo.endTime || '请选择结束时间'}}</view>
+                        </picker>
+                    </view>
+                </view>
+            </view>
+            <view class="line"></view>
+            <view class="item" bindtap="goOtherPage" data-type="projectDescribe" data-val="{{dataInfo.details}}">
+                <view class="item_left">
+                    <view class="item_left_top topBefore">
+                        项目描述
+                    </view>
+                    <view class="item_left_bot">
+                        <view class="contnew" wx:if="{{dataInfo.details}}">{{dataInfo.details}}</view>
+                        <view wx:else class="grey">可以输入负责内容或成就</view>
+                    </view>
+                </view>
+                <view class="item_right">
+                    <van-icon name="arrow" color="#999999" />
+                </view>
+            </view>
+            <view class="line"></view>
+            <view class="item" bindtap="goOtherPage" data-type="projectPerformance" data-val="{{dataInfo.performance}}">
+                <view class="item_left">
+                    <view class="item_left_top">
+                        项目业绩
+                    </view>
+                    <view class="item_left_bot">
+                        <view class="contnew" wx:if="{{dataInfo.performance}}">{{dataInfo.performance}}</view>
+                        <view wx:else class="grey">选填 请输入</view>
+                    </view>
+                </view>
+                <view class="item_right">
+                    <van-icon name="arrow" color="#999999" />
+                </view>
+            </view>
+            <view class="line"></view>
+            <view style="height:180rpx;"></view>
+        </view>
+        <view class="more_btn" wx:if="{{dataInfo.id}}">
+            <view class="left_btn" bindtap="del">删除</view>
+            <view class="right_btn" bindtap="setProjectExperience">保存</view>
+        </view>
+        <view class="submit_btn" wx:else bindtap="setProjectExperience">保存</view>
+    </view>
+</view>

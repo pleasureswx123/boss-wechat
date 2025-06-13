@@ -1,0 +1,146 @@
+<view class="workExperbox">
+  <!-- style="height:calc(100% - 150rpx);overflow: auto;" -->
+  <view class="workExperbox_content">
+    <scroll-view class="in_box" scroll-y="{{true}}" style="height: 100%;">
+      <view class="item" bindtap="goOtherPage" data-type="componyName" data-val="{{dataInfo.corporationName}}">
+        <view class="item_left">
+          <view class="item_left_top topBefore">
+            公司名称
+          </view>
+          <view class="item_left_bot">
+            <text wx:if="{{dataInfo.corporationName}}">{{dataInfo.corporationName}}</text>
+            <text wx:else class="tipColor">如：知城优聘科技有限公司</text>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goOtherPage" data-type="positionType">
+        <view class="item_left">
+          <view class="item_left_top topBefore">
+            职位名称
+          </view>
+          <view class="item_left_bot">
+            <text wx:if="{{dataInfo.postName}}">{{dataInfo.postName}}</text>
+            <text wx:else class="tipColor">如：高级软件工程师</text>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goOtherPage" data-type="desireIndustry" data-val="hangye" data-id="{{dataInfo.businessId}}">
+        <view class="item_left">
+          <view class="item_left_top topBefore">
+            所在行业
+          </view>
+          <view class="item_left_bot">
+            <text wx:if="{{dataInfo.businessName}}">{{dataInfo.businessName}}</text>
+            <text wx:else class="tipColor">如：互联网/电子商务</text>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="items">
+        <view class="item_left_top topBefore">
+          在职时间
+        </view>
+        <view class="time_box">
+          <view class="time_left">
+            <!-- <pickerDate fields="month" selectDate="{{dataInfo.thenStartTime}}" startTime="1990" placeholder="请选择开始时间" bind:changeDate="changeStart"></pickerDate> -->
+            <picker mode="multiSelector" data-type="start" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+              <view class="picker">{{dataInfo.thenStartTime || '请选择开始时间'}}</view>
+            </picker>
+          </view>
+          <view class="time_middle">-</view>
+          <view class="time_left">
+            <!-- <pickerDate fields="month" selectDate="{{dataInfo.thenEndTime}}" startTime="1990" placeholder="请选择离职时间" quick bind:changeDate="changeEnd"></pickerDate> -->
+            <picker mode="multiSelector" data-type="end" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
+              <view class="picker">{{dataInfo.thenEndTime || '请选择离职时间'}}</view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goOtherPage" data-type="workContent" data-val="{{dataInfo.wokeDetails}}">
+        <view class="item_left">
+          <view class="item_left_top topBefore">
+            工作内容
+          </view>
+          <view class="item_left_bot">
+            <view class="contnew" wx:if="{{dataInfo.wokeDetails}}">{{dataInfo.wokeDetails}}</view>
+            <view wx:else class="tipColor">可以输入负责内容或成就</view>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goOtherPage" data-type="desireIndustry" data-skill="{{dataInfo.tag}}" data-val="jineng">
+        <view class="item_left">
+          <view class="item_left_top">
+            拥有技能
+          </view>
+          <view class="item_left_bot">
+            <text wx:if="{{dataInfo.tag}}">{{dataInfo.tag}}</text>
+            <text wx:else class="tipColor">请选择技能</text>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goOtherPage" data-type="workPerformance" data-val="{{dataInfo.wokePerformance}}">
+        <view class="item_left">
+          <view class="item_left_top">
+            工作业绩
+          </view>
+          <view class="item_left_bot">
+            <view class="contnew" wx:if="{{dataInfo.wokePerformance}}">{{dataInfo.wokePerformance}}</view>
+            <view wx:else class="tipColor">请填写工作业绩</view>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item">
+        <view class="item_left">
+          <view class="item_left_top">
+            所属部门
+          </view>
+          <view class="item_left_bot">
+            <input type="text" cursor-color="#FE0201" bindinput="input" placeholder="请输入所属部门" maxlength="20" value="{{dataInfo.department}}" placeholder-class="tipColor" />
+          </view>
+        </view>
+      </view>
+      <view class="line"></view>
+      <!-- wx:if="{{corporationId}}" -->
+      <view class="bot_swich">
+        <view class="left_swich">对这家公司隐藏我的信息</view>
+        <view class="right_swich">
+          <van-switch node-class="node-class" custom-class="custom-class" checked="{{ isShowChecked }}" size='20px' bind:change="onChange" active-color="#FE0201" inactive-color="#D9D9D9" />
+        </view>
+      </view>
+      <!-- <view style="height: 50rpx;"></view> -->
+    </scroll-view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="workExperbox_footer in_box">
+    <view class="more_btn" wx:if="{{dataInfo.id}}">
+      <view class="left_btn" bindtap="del">删除</view>
+      <view class="right_btn" bindtap="setWorkExperience">保存</view>
+    </view>
+    <view class="submitbtn" bindtap="setWorkExperience" wx:else>保存</view>
+  </view>
+</view>

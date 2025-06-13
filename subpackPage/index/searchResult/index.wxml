@@ -1,0 +1,89 @@
+<!--subpackPage/index/searchResult/index.wxml-->
+<page-meta page-style="{{ show ? 'overflow: hidden;' : '' }}" />
+<view class="searchResult">
+  <!-- 头部 -->
+  <view class="searchTop">
+    <!-- 搜索框 -->
+    <view class="searchInput">
+      <!-- 暂时隐藏,明日跟app对接 -->
+      <!-- <view class="left" bindtap="gotoCity">
+                <view class="location">{{locationAddress}}</view>
+                <van-icon name="arrow-down" size="8px" color="#999999" />
+            </view>
+            <view style="height: 38rpx;border: 2rpx solid #999999; opacity: 0.1;"></view> -->
+
+      <view class="input">
+        <ocean-search marginRight="20rpx" background="#F5F5F5" placeholder="{{searchType == 1 ? '搜索职位' : '搜索职位/公司'}}" value="{{searchResultValue}}" bind:confirm="confirm" bind:focus="focus" bind:input="input" bind:clear="clearKeyWord"></ocean-search>
+      </view>
+    </view>
+
+    <!-- 筛选/公司/职位 -->
+    <view class="tabBox" wx:if="{{searchListAsync.length == 0}}">
+      <view class="tabNav">
+        <span bindtap="searchTab" class="span {{index == '0' ? 'searchNo' : ''}}" data-index="0">职位</span>
+        <span bindtap="searchTab" wx:if="{{!searchType}}" class="span {{index == '1' ? 'searchNo' : ''}}" data-index="1">公司</span>
+      </view>
+      <view class="screen" bindtap="screOpen" wx:if="{{index == '0'}}">
+        <text>筛选</text>
+        <span wx:if="{{sxNum>0}}">*{{sxNum}}</span>
+      </view>
+    </view>
+  </view>
+
+  <!-- 骨架屏代替加载效果（职位的）  && index == '0' -->
+  <view class="searchContent" wx:if="{{showLoading}}" style="overflow: hidden;">
+    <skeletonList type="1" skeletonList="{{5}}"></skeletonList>
+  </view>
+
+  <!-- 职位列表 -->
+  <view wx:if="{{!showLoading && index == '0' && searchListAsync.length == 0}}" class="searchContent">
+    <pull-refresh-view style="height: 100%;" wx:if="{{dataList.length>0}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish}}" pullText="下拉刷新" releaseText="释放更新" refreshText="加载中" refresherType="default" loadType="default" loadmoreText="努力加载中~" pullDownHeight="{{45}}">
+        <component-info dataList="{{dataList}}"></component-info>
+    </pull-refresh-view>
+    <!-- 职位无数据时展示 -->
+    <view class="empty" wx:else style="top: calc(50% - {{searchTopHeight}}px);">
+      <view class="emptyCounent">
+        <image src="{{baseImageUrl + '/index_img/empty.png'}}" mode="" />
+        <view class="hintTitle">
+          <text>暂无合适岗位</text>
+          <text>换个搜索条件试试吧</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 公司列表 -->
+  <view wx:if="{{!showLoading && index == '1' && searchListAsync.length == 0}}" class="searchContent">
+    <companyList wx:if="{{companyList.length>0}}" companyList="{{companyList}}" scaleList="{{scaleList}}" financingList="{{financingList}}"></companyList>
+    <!-- 公司无数据时展示 -->
+    <view class="empty" wx:else style="top: calc(50% - {{searchTopHeight}}px);">
+      <view class="emptyCounent">
+        <image src="{{baseImageUrl + '/index_img/empty.png'}}" mode="" />
+        <view class="hintTitle">
+          <text>暂无合适公司</text>
+          <text>换个搜索条件试试吧</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 模糊搜索列表 -->
+  <view class="select" wx:if="{{searchListAsync.length > 0}}">
+    <view class="selectItem" wx:for="{{searchListAsync}}" data-item="{{item}}" wx:key="index" bindtap="hotSearch">
+      <view class="countent">
+        <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+        <view style="flex:1"><rich-text nodes="{{ item.highlightedResult }}"></rich-text></view>
+        <view class="postOrfirmTag {{item.type == 1 ? 'post' : ''}} {{item.type == 2 ? 'firm' : ''}} {{item.type == 3 ? 'advertise' : ''}}">
+          <text wx:if="{{item.type == 1}}">职位</text>
+          <text wx:if="{{item.type == 2}}">公司</text>
+          <text wx:if="{{item.type == 3}}">招聘者</text>
+        </view>
+      </view>
+      <view class="line"></view>
+    </view>
+  </view>
+</view>
+
+<!-- 筛选 -->
+<van-popup lock-scroll round show="{{show}}" position="bottom" close-icon-position="top-left" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight}}px">
+  <screenCondition bind:screenEvent="screenEvent" bind:screenNum="screenNum" bind:onClose="onClose" height="{{popupHeight}}" jobType="{{jobType}}" isSave="{{true}}" pageType="{{pageType}}"></screenCondition>
+</van-popup>

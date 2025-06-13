@@ -1,0 +1,36 @@
+<!--components/ghy-search/index.wxml-->
+<view class="selectHeight">
+  <view class="searchInput height-class" style="background: {{background}}; width: {{width}}; padding-left: 24rpx; padding-right: {{padding_right}}rpx;">
+    <!-- 搜索图标 -->
+    <image class="searchIcon" src="{{searchIcon}}" mode="" />
+    <!-- 搜索框 -->
+    <input type="text" cursor-color="#FE0201" maxlength="{{maxlength}}" placeholder="{{placeholder}}" model:value="{{keyWord}}" style="background: {{background}};margin-right: {{marginRight}};" class="input-class" placeholder-style="{{placeholderStyle}}" placeholder-class="input-placeholder" confirm-type="{{confirmType}}" adjust-position="{{adjustPosition}}" bindconfirm="confirm" bindfocus="focus" bindinput="input" />
+    <!-- 清除控件 -->
+    <!-- <van-icon bind:click="clearKeyWord" custom-class="customIcon" name="{{clearIcon}}" wx:if="{{keyWord !== '' && clearable}}" size="18px" color="#999999" custom-style="margin-left:12px" /> -->
+    <span class="clearIcon" bindtap="clearKeyWord" wx:if="{{keyWord !== '' && clearable}}">
+      <image bindtap="clearKeyWord" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+    </span>
+  </view>
+
+  <view class="select" wx:if="{{selectList.length > 0}}">
+    <view class="selectItem" wx:for="{{selectList}}" data-item="{{item}}" wx:key="index" bindtap="hotSearch">
+      <view class="countent" wx:if="{{isShowlistImg}}">
+        <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+        <view style="flex:1">
+          <rich-text nodes="{{ item.highlightedResult }}"></rich-text>
+        </view>
+        <view class="postOrfirmTag {{item.type == 1 ? 'post' : ''}} {{item.type == 2 ? 'firm' : ''}} {{item.type == 3 ? 'advertise' : ''}}">
+          <text wx:if="{{item.type == 1}}">职位</text>
+          <text wx:if="{{item.type == 2}}">公司</text>
+          <text wx:if="{{item.type == 3}}">招聘者</text>
+        </view>
+      </view>
+
+      <view class="countent" wx:else>
+        <image src="{{selectIcon}}" mode="" />
+        <rich-text nodes="{{ item.highlightedResult }}"></rich-text>
+      </view>
+      <view class="line"></view>
+    </view>
+  </view>
+</view>

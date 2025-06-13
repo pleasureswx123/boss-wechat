@@ -1,0 +1,23 @@
+<view class="payDetailBox">
+  <view class="box1" wx:if="{{type == 0}}">
+    <image src="{{baseImageUrl + '/paySucess.png'}}" mode="" />
+    <view class="font">恭喜支付成功！</view>
+  </view>
+  <view class="btn1" wx:if="{{type == 0}}" bindtap="goBack">我知道了</view>
+  <view class="btn" wx:if="{{discriminate == 'prop'}}" bind:tap="gotoPropList">查看道具</view>
+  <!-- 会员订购支付展示 -->
+  <view class="member_order" wx:if="{{type == 1}}">
+    <image class="vipbg" src="{{baseImageUrl}}/vipBg.png" mode="" />
+    <image class="orderSucceed" src="{{baseImageUrl}}/newImg/congratulation.png" mode="" />
+    <view class="orderText">恭喜您, 升级成VIP会员！</view>
+    <view class="orderText">相关会员已发放, 赶紧去使用吧</view>
+    <view class="inviteChuli">
+      <view class="inviteImage">
+        <button class="button" bindtap="lookEquities">
+          <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{baseImageUrl}}/helpButton.png" mode="" />
+          <text>查看权益</text>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

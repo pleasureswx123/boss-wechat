@@ -1,0 +1,163 @@
+<page-meta page-style="{{ show ? 'overflow: hidden;' : '' }}" />
+<!-- style="background-image: url({{imageUrl}}/index_img/freePropBackground.png);background-size: cover;background-repeat: no-repeat;" -->
+<view style="height: 100vh;">
+  <view class="freeProp" style="background: #FFE4CA;">
+    <image class="headBg" src="{{imageUrl}}/my/free1.png" mode="" />
+    <image class="rocketBoy" src="{{imageUrl}}/index_img/rocketBoy1.png" mode="" />
+    <view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px;background: rgba(255, 255, 255,{{topOpacity}});">
+      <van-icon name="arrow-left" wx:if="{{!activityId}}" color="{{topOpacity >= 0.7 ? '#000' : 'white'}}" size="26px" bind:click="goBack" />
+      <van-icon name="wap-home-o" wx:if="{{activityId}}" color="{{topOpacity >= 0.7 ? '#000' : 'white'}}" size="26px" bind:click="draw" />
+    </view>
+    <image class="rocketBoy" src="{{imageUrl}}/index_img/rocketBoy1.png" mode="" />
+    <view class="zhanwei"></view>
+    <!-- 好友助力 -->
+    <view class="help">
+      <image src="{{imageUrl}}/my/free5.png" mode="" />
+      <!-- 上半部分 -->
+      <view style="position: absolute;top:0">
+        <view class="friend">
+          <view class="friend_lfet">
+            <view class="xian"></view>
+            <view class="yuan"></view>
+          </view>
+          <!-- 中 -->
+          <view class="friend_middle">
+            <text>好友助力进度{{currentHelpInfo.helpers.length}}/1</text>
+          </view>
+          <!-- 右 -->
+          <view class="friend_right">
+            <view class="yuanA"></view>
+            <view class="xianA"></view>
+          </view>
+        </view>
+        <!-- 中间好友 -->
+        <view class="inviteList">
+          <view class="invite left">
+            <image class="inviteAvatar" src="{{currentHelpInfo.createUserAvatar ? currentHelpInfo.createUserAvatar : avatar}}" mode="aspectFill" />
+            <view class="identity">
+              <image src="{{imageUrl}}/icondz.png" mode="aspectFill" />
+              <!-- <view>队长</view> -->
+            </view>
+          </view>
+          <!-- open-type="share" -->
+          <button class="invite right" wx:if="{{currentHelpInfo.helpers.length == 0}}">+</button>
+          <view class="invite right" style="border: 2rpx solid #FF7DA2;" wx:else>
+            <image src="{{currentHelpInfo.helpers[0].avatar}}" mode="aspectFill" class="inviteAvatar" />
+          </view>
+        </view>
+        <view class="inviteChuli">
+          <!-- 邀请好友助力 -->
+          <view class="inviteImage">
+            <button class="button" data-activeId="{{currentHelpInfo.activityId}}" open-type="share" wx:if="{{currentHelpInfo.creater == 1 && currentHelpInfo.helpers.length == 0}}">
+              <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{imageUrl}}/helpButton.png" mode="" />
+              <text>立即分享 享免费刷新</text>
+            </button>
+            <button class="button button1" bindtap="receiveAward" wx:if="{{currentHelpInfo.creater == 1 && currentHelpInfo.helpers.length > 0 && currentHelpInfo.status == 1}}">
+              <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{imageUrl}}/helpButton.png" mode="" />
+              <text>立即领取</text>
+            </button>
+            <button class="button button1" bindtap="gotoResumeRefresh" wx:if="{{currentHelpInfo.creater == 1 && currentHelpInfo.helpers.length > 0 && (currentHelpInfo.status == 2 || currentHelpInfo.status == 3)}}">
+              <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{imageUrl}}/helpButton.png" mode="" />
+              <text>立即使用</text>
+            </button>
+            <button class="button button1" wx:if="{{currentHelpInfo.creater == 1 && currentHelpInfo.status == 4}}">
+              <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{imageUrl}}/helpButton.png" mode="" />
+              <text>已使用</text>
+            </button>
+            <!-- 当已经有人助力过之后,第三个人点击链接进来看到的就是助力完成,不做任何操作
+                      如何第三个人没登录,去登陆之后看到的还是助力完成
+                  -->
+            <button class="button" bindtap="draw" wx:if="{{currentHelpInfo.creater == 0 && currentHelpInfo.helpers.length > 0}}">
+              <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{imageUrl}}/helpButton.png" mode="" />
+              <text>助力完成,回首页看看</text>
+            </button>
+            <button class="button" bindtap="inviteFriend" wx:if="{{ (currentHelpInfo.creater == 0 && currentHelpInfo.helpers.length == 0)}}">
+              <image class="{{clicked ? 'clickAnimation' : ''}}" src="{{imageUrl}}/helpButton.png" mode="" />
+              <text>立即助力</text>
+            </button>
+          </view>
+          <!-- 手指 -->
+          <!-- <view class="fingerView">
+                  <image class="finger {{clicked ? 'clicked' : ''}}" src="{{imageUrl}}/index_img/finger.png" mode="" bindtap="handleFingerClick" />
+              </view> -->
+        </view>
+      </view>
+    </view>
+    <!-- 流程 -->
+    <view class="flow">
+      <image src="{{imageUrl}}/my/free10.png" mode="" />
+      <image src="{{imageUrl}}/my/free2.png" mode="" class="free2 free2_1" />
+      <image src="{{imageUrl}}/my/free2.png" mode="" class="free2 free2_2" />
+      <image src="{{imageUrl}}/my/free2.png" mode="" class="free2 free2_3" />
+      <image src="{{imageUrl}}/my/free2.png" mode="" class="free2 free2_4" />
+    </view>
+
+    <!-- 规则 -->
+    <view class="regulation">
+      <!-- <image src="{{imageUrl}}/index_img/regulation.png" mode="" /> -->
+      <image src="{{imageUrl}}/my/free7.png" mode="" />
+      <view class="hdgzCont">
+        <view class="title">
+          <view class="hdgz">活动规则</view>
+          <image src="{{imageUrl}}/my/free8.png" mode="" class="titbg" />
+        </view>
+        <view class="hdgz">
+          <view>1、邀请好友助力，可获得简历刷新资格。一个用户，每月总共可得<text>5次简历</text>刷新机会，用户<text>每天可以邀请 1次</text>，好友组队成功后可领取奖励并使用;</view>
+          <view>2、领取成功后，简历刷新资格会立即发送至您的知城优聘账户中，但<text>您需要手动操作</text>才能使用;</view>
+          <view>3、满足领取资格但未手动领取，活动结束后领取资格将清空；</view>
+          <view>4、邀请好友所得的奖励在激活前没有使用限制，会一直存在于你的账户中;当激活后有365天的有效期(第一次使用即认为激活)。</view>
+        </view>
+      </view>
+    </view>
+    <view class="smDesp">*活动最终解释权归知城优聘</view>
+  </view>
+</view>
+
+<!-- 弹窗 -->
+<view class="modal" wx:if="{{show}}">
+  <view class="modal-overlay"></view>
+  <view class="modal-content">
+    <!-- 弹出层内容 -->
+    <view class="inviteFriend">
+      <view class="inviteFriendTitle">
+        <image src="{{currentHelpInfo.createUserAvatar}}" mode="aspectFill" style="display: flex;flex-shrink: 0;" />
+        <text style="display: inline-block;width: 100%;">{{currentHelpInfo.createUserName}}的助力邀请</text>
+      </view>
+      <text class="helpText">快帮我助力吧</text>
+      <view class="prop">
+        <view>简历刷新 提高曝光</view>
+        <text>简历被 HR 查看几率提示 1.5 倍</text>
+      </view>
+      <!-- 立即助力 -->
+      <view class="nowHelp" bindtap="inviteFriend">
+        <image src="{{imageUrl}}/helpButton.png" mode="" />
+        <view>立即助力</view>
+      </view>
+      <!-- 关闭icon -->
+      <view class="close" bindtap="onClose">
+        <image src="{{imageUrl}}/close.png" mode="" />
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 领取道具成功弹窗 -->
+<view class="modal" wx:if="{{receiveAwardModal}}">
+  <view class="modal-overlay"></view>
+  <view class="modal-content">
+    <!-- 弹出层内容 -->
+    <view class="inviteFriend">
+      <view class="succeeIcon">
+        <image src="{{imageUrl}}/newImg/sussecc.png" mode="" />
+      </view>
+      <view class="succeeText">已获得 1 次简历刷新机会</view>
+      <view class="succeeSpan">您今日不能再邀请好友领取了，明天可以继续领取，次数可累计</view>
+      <view class="closeText" bindtap="onClose">
+        <text>我知道了</text>
+      </view>
+      <!-- 关闭icon -->
+      <view class="close" bindtap="onClose">
+        <image src="{{imageUrl}}/close.png" mode="" />
+      </view>
+    </view>
+  </view>
+</view>

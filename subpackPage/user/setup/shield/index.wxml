@@ -1,0 +1,45 @@
+<!--subpackPage/user/setup/shield/index.wxml-->
+<view class="head">
+    添加屏蔽公司后，你和这些公司的招聘官，都不会被互相推荐，你查看的行为也不会告知对方。
+</view>
+<view class="searchCompany">
+    <view class="searchInput" style="background: #fff; padding-left: 24rpx; padding-right: 24rpx;">
+        <!-- 搜索图标 -->
+        <image class="searchIcon" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+        <!-- 搜索框 -->
+        <!-- bindconfirm="confirm" bindinput="input" -->
+        <input type="text" cursor-color="#FE0201" disabled="{{true}}" bindtap="goToAddShield" placeholder="搜索公司、邮箱后缀" model:value="{{value}}" style="background: #fff;" class="input-class" placeholder-style="{{placeholderStyle}}" placeholder-class="input-placeholder" confirm-type="search" adjust-position="{{true}}"  />
+        <!-- 清除控件 -->
+        <van-icon bind:click="clearKeyWord" custom-class="customIcon" name="clear" wx:if="{{value !== '' && clearable}}" size="18px" color="#999999" custom-style="margin-left:12px" />
+    </view>
+</view>
+<!-- 勿删 -->
+<!-- <van-search value="{{ value }}" bind:change="chengeCompany" background="#fff" shape="round" placeholder="搜索公司、邮箱后缀" /> -->
+<view class="list_head">
+    <view>
+        手动屏蔽{{total}}家公司
+    </view>
+    <text wx:if="{{manage}}" bindtap="manageHandle">批量管理</text>
+    <text wx:else bindtap="manageHandle">完成</text>
+</view>
+
+<view class="list {{manage ? 'lookList' : 'batchList'}}" wx:if="{{list.length > 0}}">
+    <view class="item" wx:for="{{list}}" wx:key="index">
+        <van-checkbox wx:if="{{!manage}}" data-index="{{index}}" value="{{ item.checked}}" icon-size="25rpx" checked-color="#FE0201" bind:change="onChange"></van-checkbox>
+        <text>{{item.corporationName}}</text>
+        <view class="last" data-id="{{item.corporationId}}" wx:if="{{manage}}" bindtap="relieveCompany">解除</view>
+    </view>
+    <view class="look" wx:if="{{list.length >= 6 && list.length < total}}" bindtap="lookAll">查看更多 <text>∨</text> </view>
+</view>
+
+<noData stitle="暂无屏蔽记录"  wx:else></noData>
+
+<button class="fot_btn" wx:if="{{manage}}" bindtap="goToAddShield">添加屏蔽公司</button>
+
+<view class="manage" wx:if="{{!manage}}">
+    <van-checkbox class="van_checked" value="{{ allChecked }}" icon-size="25rpx" checked-color="#FE0201" bind:change="allOnChange">全选所有公司</van-checkbox>
+    <view class="man_btn">
+        <button data-every="every" bindtap="relieveCompany">清空所有公司</button>
+        <button data-type="typeList" bindtap="relieveCompany">解除屏蔽已选公司</button>
+    </view>
+</view>

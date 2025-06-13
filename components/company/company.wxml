@@ -1,0 +1,58 @@
+<!-- 公司列表 -->
+<view wx:for="{{companyList}}" wx:key="index" class="custom-class">
+    <view class="content_corporation" data-item="{{item}}" bindtap="urlCompany" wx:if="{{type == 1}}">
+        <view class="content_corporation_left">
+            <image wx:if="{{item.logo}}" src="{{item.logo}}" mode="aspectFill"></image>
+            <image wx:else src="{{baseImageUrl}}/newImg/companyHead.svg" mode="" />
+        </view>
+        <view class="content_corporation_center">
+            <view class="content_corporation_center_top">
+                {{item.name}}
+            </view>
+            <view class="content_corporation_center_bottom">
+                <view class="view bot_line">{{financingList[item.financeStage].name}}</view>
+                <view class="view bot_line">{{scaleList[item.scale].name}}</view>
+                <!-- 行业 -->
+                <view class="view">{{item.tradeInfo.cname}}</view>
+            </view>
+        </view>
+        <view class="content_corporation_right">
+            <image class="imgae-size" src="{{baseImageUrl + '/index_img/goToPage.png'}}" mode="" />
+        </view>
+    </view>
+
+    <view class="company" wx:if="{{type == 2}}" data-item="{{item}}" bindtap="urlCompany">
+        <view class="company-left">
+            <image src="{{baseImageUrl}}/versions/company_one.png" mode=""  wx:if="{{index == 0}}"/>
+            <image src="{{baseImageUrl}}/versions/company_two.png" mode="" wx:elif="{{index == 1}}"/>
+            <image src="{{baseImageUrl}}/versions/company_three.png" mode="" wx:elif="{{index == 2}}" />
+            <view wx:else class="ranking">{{index + 1}}</view>
+        </view>
+        <view class="company-content">
+            <!-- 公司头像 -->
+            <view class="companyAvatar">
+                <image wx:if="{{item.logo}}" src="{{item.logo}}" mode="aspectFill"></image>
+                <image wx:else src="{{baseImageUrl}}/newImg/companyHead.svg" mode="" />
+            </view>
+            <!-- 公司基本信息 -->
+            <view class="companyBaseInfo">
+                <text class="companyName">{{item.name}}</text>
+                <view class="companyfinanceStage">
+                    <!-- 融资 -->
+                    <text class="financing">{{financingList[item.financeStage].name || '暂无'}}</text>
+                    <view class="line"></view>
+                    <!-- 规模 -->
+                    <text class="scale">{{scaleList[item.scale].name || '暂无'}}</text>
+                    <view class="line"></view>
+                    <!-- 行业 -->
+                    <text class="cname">{{item.tradeInfo.cname || '暂无'}}</text>
+                </view>
+                <text style="font-size: 24rpx; color: #999;"><text style="color: #FE0201;">{{item.jobNum}} </text> 个职位正在招</text>
+            </view>
+        </view>
+        <view class="company-right">
+            <image src="{{baseImageUrl + '/index_img/goToPage.png'}}" mode="" />
+        </view>
+    </view>
+    <view class="xian"></view>
+</view>

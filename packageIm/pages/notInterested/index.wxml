@@ -1,0 +1,9 @@
+<view style="position: relative;">
+    <scroll-view scroll-y class="scrollView" bindscrolltolower="loadMore" wx:if="{{sessionList.length>0}}" style="height:calc(100vh - {{statusBarHeight+navBarHeight+globalBottom}}px - 90rpx - 114rpx - 10px);">
+        <component-list bind:getData="getData" bind:clearRead="setReadNum" bind:changePage="changePage" datalist="{{sessionList}}" wx:if="{{sessionList.length>0}}"></component-list>
+    </scroll-view>
+    <noData stitle="没有不感兴趣的HR～" wx:else></noData>
+</view>
+<view class="loadingBox" wx:if="{{showLoading && token}}">
+    <image src="{{baseImageUrl + '/loading1.gif'}}" style="width: 40rpx;height: 40rpx;"></image>
+</view>

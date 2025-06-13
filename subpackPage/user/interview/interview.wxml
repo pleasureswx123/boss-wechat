@@ -1,0 +1,102 @@
+<view class="box" style="height: 100vh;">
+  <!-- <scroll-view style="height: 100vh;" scroll-y="ture"> -->
+  <!-- </scroll-view> -->
+  <van-tabs line-width="40rpx" bind:change="beforeChange" nav-class="NavClass" custom-class="custom-class" tab-class="tab-class">
+    <van-tab title="待面试">
+    <!-- style="height: 100%; overflow: auto;" -->
+      <view wx:if="{{datalist.length>0}}" >
+        <view wx:for="{{datalist}}" wx:key="index">
+          <view class="interviewMD" wx:if="{{item.interviewTimeMD}}">{{item.interviewTimeMD}}</view>
+          <view class="interview_box" bindtap="gotoDetail" data-id="{{item.interviewRecordId}}">
+            <view class="interview_box_item">
+              <view class="item_left">
+                <image src="{{ item.companyLogo }}" mode="" wx:if="{{item.companyLogo && item.companyLogo!='null'}}"></image>
+                <image src="{{baseImageUrl}}/newImg/companyHead.svg" mode="" wx:else></image>
+              </view>
+              <view class="item_middle">
+                <view class="item_middle_top">{{item.companyName}}</view>
+                <view class="item_middle_bot" wx:if="{{item.settlementMethod==0 || item.settlementMethod==3}}">{{item.title}} · {{item.lowestMoney}}-{{item.maximumMoney}} {{clearing[item.settlementUnit-1].name}}</view>
+                <view class="item_middle_bot" wx:else>{{item.title}}· <text wx:if="{{item.lowestMoney>0}}">{{item.lowestMoney}}-{{item.maximumMoney}}K</text><text wx:else>面议</text>
+                  <view wx:if="{{item.monthMoney && item.monthMoney>12}}">· {{item.monthMoney ? item.monthMoney : 12}}薪</view>
+                </view>
+              </view>
+              <view class="item_right">
+                <view class="item_right_top">
+                  <view wx:if="{{item.interviewStatus == 0}}">未邀请面试</view>
+                  <view wx:if="{{item.interviewStatus == 1}}">面试待接受</view>
+                  <view wx:if="{{item.interviewStatus == 2}}">超时未接受</view>
+                  <view wx:if="{{item.interviewStatus == 3}}">面试已拒绝</view>
+                  <view wx:if="{{item.interviewStatus == 4}}">等待面试</view>
+                  <view wx:if="{{item.interviewStatus == 5}}">面试已取消</view>
+                  <view wx:if="{{item.interviewStatus == 6}}">面试时间到</view>
+                  <view wx:if="{{item.interviewStatus == 7}}">面试已完成</view>
+                </view>
+                <view class="item_right_bot">{{item.interviewTimeHM}}</view>
+              </view>
+            </view>
+            <view class="line"></view>
+          </view>
+        </view>
+      </view>
+      <!-- <noData wx:else stitle="暂无面试记录111"></noData> -->
+      <view class="no_data" wx:if="{{datalist.length==0}}">
+        <view class="no_data_center">
+          <view class="no_data_img">
+            <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+          </view>
+          <view class="no_data_text">暂无面试记录</view>
+          <view class="no_data_button" bind:tap="gotoIndex">去逛逛机会</view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="面试记录">
+    <!-- style="height: 100%; overflow: auto;" -->
+    <!-- style="height: calc(100vh - 110rpx);" -->
+      <view  wx:if="{{interviewAllList.length>0}}">
+        <view wx:for="{{interviewAllList}}" wx:key="index">
+          <view class="interviewMD" wx:if="{{item.interviewTimeMD}}">{{item.interviewTimeMD}}</view>
+          <view class="interview_box" bindtap="gotoDetail" data-id="{{item.interviewRecordId}}">
+            <view class="interview_box_item">
+              <view class="item_left">
+                <image src="{{ item.companyLogo }}" mode="" wx:if="{{item.companyLogo && item.companyLogo!='null'}}"></image>
+                <!-- <image src="{{baseImageUrl}}/newImg/ompanyHead.svg" mode="" wx:else></image> -->
+                <image src="{{baseImageUrl}}/newImg/companyHead.svg" mode="" wx:else></image>
+              </view>
+              <view class="item_middle">
+                <view class="item_middle_top">{{item.companyName}}</view>
+                <view class="item_middle_bot" wx:if="{{item.settlementMethod==0 || item.settlementMethod==3}}">{{item.title}} · {{item.lowestMoney}}-{{item.maximumMoney}} {{clearing[item.settlementUnit-1].name}}</view>
+                <view class="item_middle_bot" wx:else>{{item.title}}· <text wx:if="{{item.lowestMoney>0}}">{{item.lowestMoney}}-{{item.maximumMoney}}K</text><text wx:else>面议</text>
+                  <view wx:if="{{item.monthMoney && item.monthMoney>12}}">· {{item.monthMoney ? item.monthMoney : 12}}薪</view>
+                </view>
+              </view>
+              <view class="item_right">
+                <view class="item_right_top">
+                  <view wx:if="{{item.interviewStatus == 0}}">未邀请面试</view>
+                  <view wx:if="{{item.interviewStatus == 1}}">面试待接受</view>
+                  <view wx:if="{{item.interviewStatus == 2}}">超时未接受</view>
+                  <view wx:if="{{item.interviewStatus == 3}}">面试已拒绝</view>
+                  <view wx:if="{{item.interviewStatus == 4}}">等待面试</view>
+                  <view wx:if="{{item.interviewStatus == 5}}">面试已取消</view>
+                  <view wx:if="{{item.interviewStatus == 6}}">面试时间到</view>
+                  <view wx:if="{{item.interviewStatus == 7}}">面试已完成</view>
+                </view>
+                <view class="item_right_bot">{{item.interviewTimeHM}}</view>
+              </view>
+            </view>
+            <view class="line"></view>
+          </view>
+        </view>
+      </view>
+      <!-- <noData wx:else stitle="暂无面试记录"></noData> -->
+      <view class="no_data" wx:if="{{interviewAllList.length==0}}">
+        <view class="no_data_center">
+          <view class="no_data_img">
+            <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+          </view>
+          <view class="no_data_text">暂无面试记录</view>
+          <view class="no_data_button" bind:tap="gotoIndex">去逛逛机会</view>
+        </view>
+      </view>
+    </van-tab>
+  </van-tabs>
+</view>

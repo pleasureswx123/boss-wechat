@@ -1,0 +1,44 @@
+<view class="gcIndustry">
+      <view class="allSpan" bindtap="clearFun">
+          清空条件
+      </view>
+      <view class="closeIcon" bindtap="onClose">
+        <image src="{{baseImageUrl}}/newImg/closeIcon.svg" mode="" />
+      </view>
+    <!-- 顶部搜索框 -->
+    <view class="gcIndustry_search" style="margin-top: {{statusBarHeight + navBarHeight}}px;">
+        <ocean-search placeholder="搜索行业" style="border: none;" padding_right="0" value="{{IndustryValue}}" bind:input="input" bind:clear="clear" selectList="{{searchListAsync}}" bind:searchitem="searchitem"></ocean-search>
+    </view>
+    <!-- <view class="gc_line" style="opacity: 0.2;"></view> -->
+    <!-- 主体内容 -->
+    <view class="gcIndustry_list" style="height: calc(100vh - {{statusBarHeight + navBarHeight}}px - 114rpx - 68rpx - 48rpx - {{globalBottom}}px);">
+        <view class="gcIndustry_list-box">
+            <!-- 左边导航 -->
+            <view class="left">
+            <!-- calc(100vh - 180px - {{globalBottom+15}}px - 18rpx) -->
+                <scroll-view class="leftScroll" scroll-into-view="scroll-{{nowIndex}}" scroll-with-animation="true" scroll-y="true" style="height: 100%;">
+                    <view id="scroll-{{ index }}" class="gcIndustry_list_item {{nowIndex == index ? 'active' : ''}}" wx:for="{{industry}}" wx:key="index" data-index="{{index}}" bindtap="cutIndustry">
+                        <text class="gcIndustry_name ">{{item.name}}</text>
+                    </view>
+                </scroll-view>
+            </view>
+            <!-- <view style="height: calc(100vh - 220px); transform: scaleX(0.7); transform-origin: 50% 100%; background-color: #979797; width: 2px; opacity: 0.2;"></view> -->
+            <!-- 右边内容 -->
+            <view class="right">
+            <!-- calc(100vh - 180px - {{globalBottom+15}}px - 19rpx) -->
+                <scroll-view scroll-top="{{scrollTop}}" class="content" id="scrollMenu" scroll-y="true" style="height: calc(100vh - {{statusBarHeight + navBarHeight}}px - 114rpx - 68rpx - 48rpx - {{globalBottom}}px);" scroll-into-view="{{tabIndex}}" bindscroll="" scroll-with-animation="true">
+                    <view id="scroll-{{index}}" class="safeList" wx:for="{{industry}}" wx:key="index">
+                        <view class="IndustryListHead">{{item.name}}</view>
+                        <view class="IndustryList">
+                            <view class="IndustryList_item" wx:for="{{item.subList}}" wx:key="code" wx:for-index="idx" wx:for-item="itemName">
+                                <view data-industryid="{{itemName.code}}" data-name="{{itemName.name}}" class="IndustryList_itembg" bindtap="gotoIndusrtyDetail">
+                                    <text>{{itemName.name}}</text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+    </view>
+</view>

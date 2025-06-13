@@ -1,0 +1,46 @@
+<!--subpackPage/index/appUpload/index.wxml-->
+<view class="appWxUpload">
+  <!-- 自定义导航栏 -->
+  <view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+    <view class="van-nav-bar__left" style="height: {{navBarHeight}}px;line-height: {{navBarHeight}}px;" bindtap="back">
+      <image src="{{baseImageUrl}}/newImg/Home.png" mode="" bindtap="gotoHome" />
+    </view>
+    <view class="van-nav-bar__title">选择上传方式</view>
+  </view>
+  <!-- 占位 -->
+  <view style="height: {{statusBarHeight + navBarHeight}}px;" class="NavberPerch"></view>
+  <view class="appWxUpload_main">
+    <view>
+      <view class="appWxUpload_main_title">上传微信文件</view>
+      <view class="appWxUpload_main_detail">将文件发送至微信(文件传输助手、自己或好友) , 在 本页面点击上传按钮,选择刚才发送文件的聊天对象,选择文件，点击确认即可上传成功。</view>
+      <!-- 轮播图 -->
+      <view class="swiperImg">
+        <swiper class="swiper" bindchange="monitorCurrent" current="{{current}}" autoplay="{{autoplay}}" circular="{{true}}">
+          <swiper-item class="item">
+            <image src="{{baseUrl + 'resource/wechat/baseimages/index_img/scroll_image1.png'}}" mode="" />
+          </swiper-item>
+          <swiper-item>
+            <image src="{{baseUrl + 'resource/wechat/baseimages/index_img/scroll_image2.png'}}" mode="" />
+          </swiper-item>
+          <swiper-item>
+            <image src="{{baseUrl + 'resource/wechat/baseimages/index_img/scroll_image3.png'}}" mode="" />
+          </swiper-item>
+          <swiper-item>
+            <image src="{{baseUrl + 'resource/wechat/baseimages/index_img/scroll_image4.png'}}" mode="" />
+          </swiper-item>
+        </swiper>
+        <!-- 指示点 -->
+        <view class="dots">
+          <block wx:for="{{backgroundArr}}" wx:for-index="index" wx:key="*this">
+            <view class="{{current==index?'active':''}}"></view>
+          </block>
+        </view>
+      </view>
+      <view class="bot_btn">
+        <van-uploader class="1111" accept="file" max-count="1" bind:after-read="uploadBefore">
+          <view class="left_top_text">立即上传</view>
+        </van-uploader>
+      </view>
+    </view>
+  </view>
+</view>

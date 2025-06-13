@@ -1,0 +1,70 @@
+<view class="user-account-info">
+    <image class="area-back" mode="widthFix" src="{{baseImage + '/images/user/alliance-area-back1.png'}}" />
+  <view class="alliance-area">
+    <view class="info-head">
+      <view class="info-head-title">
+        <image class="info-head-title-icon" src="{{baseImage + '/images/user/alliance-area-icon.png'}}" mode="widthFix" />
+        <text>知城生态</text>
+      </view>
+      <text class="info-head-tip">用心打造每一款产品</text>
+    </view>
+    <!-- <view class="operate-aera">
+      <block wx:for="{{operateList}}" wx:key="index">
+
+        <view class="operate-item" bind:tap="gotoPage" data-url="{{item.operateUrl}}" data-appid="{{item.appId}}">
+          <view class="operate-item-img-back">
+            <view class="operate-item-img-back_big"></view>
+            <view class="operate-item-img-back_small"></view>
+          </view>
+          <image class="operate-item-img" src="{{baseImage + item.operateImg}}" mode="aspectFill" />
+          <view class="column operate-item-content">
+            <text class="operate-item-tit">{{item.operateTitle}}</text>
+            <view class="swiper-container">
+              <swiper 
+                class="swiper-tip"
+                indicator-dots="{{swiperConfig.indicatorDots}}"
+                autoplay="{{swiperConfig.autoplay}}" 
+                interval="{{swiperConfig.interval}}" 
+                duration="{{swiperConfig.duration}}"
+                circular="{{swiperConfig.circular}}"
+                vertical="{{swiperConfig.vertical}}"
+              >
+                <block wx:for="{{item.operateTxt}}" wx:for-item="operateTxtItem" wx:for-index="operateTxtIdx" wx:key="{{operateTxtIdx}}">
+                  <swiper-item>
+                    <view>
+                      <text class="operate-item-txt">{{operateTxtItem}}</text>
+                    </view>
+                  </swiper-item>
+                </block>
+              </swiper>
+            </view>
+          </view>
+        </view>
+      
+      </block>
+    </view> -->
+
+    <scroll-view scroll-x="{{false}}" style="width: 100%; height: 100%; margin-top: 38rpx;">
+      <view class="new-operate-aera">
+        <block wx:for="{{operateList}}" wx:key="index">
+          <view class="new-operate-item" bind:tap="gotoPage" data-url="{{item.operateUrl}}" data-appid="{{item.appId}}">
+            <view class="new-operate-back">
+              <image src="{{item.backImg}}" />
+            </view>
+            <view class="new-swiper-container">
+              <swiper class="new-swiper-tip" indicator-dots="{{swiperConfig.indicatorDots}}" autoplay="{{swiperConfig.autoplay}}" interval="{{swiperConfig.interval}}" duration="{{swiperConfig.duration}}" circular="{{swiperConfig.circular}}" vertical="{{swiperConfig.vertical}}">
+                <block wx:for="{{item.operateTxt}}" wx:for-item="operateTxtItem" wx:for-index="operateTxtIdx" wx:key="operateTxtIdx">
+                  <swiper-item>
+                    <view>
+                      <view class="new-operate-item-txt">{{operateTxtItem}}</view>
+                    </view>
+                  </swiper-item>
+                </block>
+              </swiper>
+            </view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+</view>

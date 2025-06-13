@@ -1,0 +1,12 @@
+<view class="box">
+    <scroll-view scroll-y="true" style="height: 100vh;">
+        <view class="textarea">
+            <textarea value="{{advantage}}" placeholder="等待输入内容…" maxlength="300" bindinput="changeText"/>
+            <view class="num">
+                {{advantage.length}}/300
+            </view>
+        </view>
+        <view class="submit_btn" bindtap="goBack" wx:if="{{ advantage!== ''}}">保存</view>
+        <view class="default_btn" wx:else>保存</view>
+    </scroll-view>
+</view>

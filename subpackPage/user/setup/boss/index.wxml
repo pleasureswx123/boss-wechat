@@ -1,0 +1,61 @@
+<!--subpackPage/user/setup/boss/index.wxml-->
+<view class="item">
+  <view class="left">
+    <text>对招聘官隐藏简历</text>
+    <view>开启后，将不会在招聘官的推荐列表里出现</view>
+  </view>
+  <van-switch checked="{{checked1}}" data-type="hideResumeFromBoss" size="35rpx" inactive-color="#D9D9D9" active-color="#FE0201" bind:change="chenge" node-class="node-class" />
+</view>
+
+<view class="item">
+  <view class="left">
+    <text>个人主页隐藏简历</text>
+    <view>开启后，招聘官访问个人主页时简历隐藏</view>
+  </view>
+  <van-switch checked="{{ checked2 }}" data-type="homepageHideResume" size="35rpx" inactive-color="#D9D9D9" active-color="#FE0201" bind:change="chenge" node-class="node-class" />
+</view>
+
+<view class="item">
+  <view class="left">
+    <text>对招聘官隐藏求职偏好</text>
+    <view>开启后，招聘官无法查看您的办公区域偏好沟通事件/行为等</view>
+  </view>
+  <van-switch checked="{{ checked3 }}" data-type="hideJobPreferencesFormBoss" size="35rpx" inactive-color="#D9D9D9" active-color="#FE0201" bind:change="chenge" node-class="node-class" />
+</view>
+
+<view class="item">
+  <view class="left">
+    <text>对招聘官隐藏活跃度</text>
+    <view>开启后，招聘官无法查看您的活跃情况</view>
+  </view>
+  <van-switch checked="{{ checked4 }}" data-type="hideActivityFromBoss" size="35rpx" inactive-color="#D9D9D9" active-color="#FE0201" bind:change="chenge" node-class="node-class" />
+</view>
+
+
+<!-- 弹窗优化 -->
+<!--   -->
+<van-popup show="{{ checkedShow }}" lock-scroll="{{true}}" custom-style="height: 590rpx" round z-index="200" closeable root-portal="{{true}}" lock-scroll round position="bottom" bind:close="cloneShow">
+  <view class="circulate_popup">
+    <view class="circulate_popup-head">
+      <view class="title" wx:if="{{showTextType == 'hideResumeFromBoss'}}">对招聘官隐藏简历</view>
+      <view class="title" wx:if="{{showTextType == 'homepageHideResume'}}">个人主页隐藏简历</view>
+      <view class="title" wx:if="{{showTextType == 'hideJobPreferencesFormBoss'}}">对招聘官隐藏求职偏好</view>
+      <view class="title" wx:if="{{showTextType == 'hideActivityFromBoss'}}">对招聘官隐藏活跃度</view>
+      <view class="imgBox">
+        <image src="{{baseImageUrl}}/newImg/wgtip.png" mode="" />
+      </view>
+    </view>
+    <view class="circulate_popup-content">
+      <view class="back">
+        <view class="text" wx:if="{{showTextType == 'hideResumeFromBoss'}}">开启后，将不会在照招聘官的推荐列表里出现</view>
+        <view class="text" wx:if="{{showTextType == 'homepageHideResume'}}">开启后，招聘官访问个人主页时简历隐藏</view>
+        <view class="text" wx:if="{{showTextType == 'hideJobPreferencesFormBoss'}}">开启后，招聘官无法查看您的办公区域偏好沟通事件/行为等</view>
+        <view class="text" wx:if="{{showTextType == 'hideActivityFromBoss'}}">开启后，招聘官无法查看您的活跃情况</view>
+      </view>
+    </view>
+    <view class="circulate_popup-button">
+      <view class="cancalButton button" bind:tap="cloneShow">取消</view>
+      <view class="confirmButton button" bind:tap="identifyHandle">确定</view>
+    </view>
+  </view>
+</van-popup>

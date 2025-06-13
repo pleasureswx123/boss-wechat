@@ -1,0 +1,129 @@
+<van-popup position="bottom" show="{{ show }}" z-index="1001" custom-class="versions-prop" custom-style="height: 100%">
+  <!-- bind:tap="onClose" -->
+  <view class="versions-propModel">
+    <view class="versions-propModel-mask"></view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view class="versions-head">
+      <view style="height:{{capsuleData.navBarHeight - 10}}px;"></view>
+      <view class="base-title row column {{screenHeight > 740 ? 'versions-title' : 'versions-title678'}}">
+        <!-- <image src="{{baseImageUrl}}/versions/versionsTitle.png" mode="" /> -->
+        <!-- 选择icon -->
+        <image src="{{baseImageUrl}}/versions/versions_select.png" mode="" class="versions_select" />
+        <image src="{{baseImageUrl}}/versions/versions_title.png" mode="" class="titleImg" />
+        <view class="title_tips row">
+          <text>请先选择适合你的版本，体验更完美</text>
+          <image src="{{baseImageUrl}}/versions/versions_suona.png" mode="" class="versions_suona" />
+        </view>
+      </view>
+    </view>
+
+    <view class="versions-content column {{screenHeight > 740 ? '' : 'versions-content678'}} {{screenHeight > 740 && screenHeight < 760 ? 'versions-content740-760' : ''}}">
+    <!-- 经典版 -->
+    <view class="versions_2 row">
+        <!-- 版本信息 -->
+        <view class="versions_2-leftInfo row column">
+          <view class="info_header row column">
+            <view class="header_tit">
+              <image src="{{baseImageUrl}}/versions/icon1.png" mode="" class="icon1" />
+              <text>经典版</text>
+              <image src="{{baseImageUrl}}/versions/icon2.png" mode="" class="icon2" />
+            </view>
+            <view class="header_tip row">更适用于多元化就业者</view>
+          </view>
+
+          <view class="info_content">
+            <view class="list row" style="padding: 0 16rpx;box-sizing: border-box;justify-content: center;">
+              <view class="item row">客服</view>
+              <view class="item row">司机</view>
+              <view class="item row">木工</view>
+              <view class="item row">技工</view>
+              <view class="item row">销售</view>
+              <!-- ··· -->
+              <!-- <view class="drop row"></view> -->
+            </view>
+
+            <view class="content_introduce">
+              <view class="introduce_item row" animation="{{animationData_right[0]}}">
+                <image src="{{baseImageUrl}}/versions/versions_arrow.png" mode="" />
+                <view class="txt">快速发布求职期望</view>
+              </view>
+              <view class="introduce_item row" animation="{{animationData_right[1]}}">
+                <image src="{{baseImageUrl}}/versions/versions_arrow.png" mode="" />
+                <view class="txt">覆盖全岗位，专业又可靠</view>
+              </view>
+              <view class="introduce_item row" animation="{{animationData_right[2]}}">
+                <image src="{{baseImageUrl}}/versions/versions_arrow.png" mode="" />
+                <view class="txt">兼职热门助残帮扶，工种分类明确</view>
+              </view>
+            </view>
+            <!-- 按钮 -->
+            <view class="row column" style="justify-content: center;">
+              <view class="content_btn row" bind:tap="confirmVersions" data-versions="2">进入经典版</view>
+            </view>
+          </view>
+        </view>
+        <!-- 版本图片 -->
+        <view class="versions_2-rightImg">
+          <image src="{{baseImageUrl}}/versions/versionsImage2.png" mode=""/>
+        </view>
+      </view>
+      <!-- 至臻版 -->
+      <view class="versions_1 row column">
+        <!-- 版本图片 -->
+        <view class="versions_1-leftImg">
+          <image src="{{baseImageUrl}}/versions/versionsImage1.png" mode=""/>
+        </view>
+        <!-- 版本信息 -->
+        <view class="versions_1-rightInfo row column">
+          <view class="info_header row column">
+            <view class="header_tit">
+              <image src="{{baseImageUrl}}/versions/icon1.png" mode="" class="icon1" />
+              <text>至臻版</text>
+              <image src="{{baseImageUrl}}/versions/icon2.png" mode="" class="icon2" />
+            </view>
+            <view class="header_tip">更适用于 白领，上班族</view>
+          </view>
+
+          <view class="info_content">
+            <view class="list row" style="padding: 0 16rpx;box-sizing: border-box;justify-content: center;">
+              <view class="item row">测试</view>
+              <view class="item row">开发</view>
+              <view class="item row">财务</view>
+              <view class="item row">产品</view>
+              <view class="item row">后端</view>
+              <!-- <view class="drop row">···</view> -->
+            </view>
+
+            <view class="content_introduce">
+            <!-- introduce_item1 -->
+              <view class="introduce_item row" animation="{{animationData[0]}}">
+                <view class="txt">薪资超高，海量本地名企有保障</view>
+                <image src="{{baseImageUrl}}/versions/versions_arrow.png" mode="" />
+              </view>
+              <!-- introduce_item2 -->
+              <view class="introduce_item row" animation="{{animationData[1]}}">
+                <view class="txt">支持2d3d转化，定位查看周边岗位</view>
+                <image src="{{baseImageUrl}}/versions/versions_arrow.png" mode="" />
+              </view>
+              <view class="introduce_item row" animation="{{animationData[2]}}">
+                <view class="txt">智能算法精准推荐</view>
+                <image src="{{baseImageUrl}}/versions/versions_arrow.png" mode="" />
+              </view>
+            </view>
+            <!-- 按钮 -->
+            <view class="row column" style="justify-content: center;">
+              <view class="content_btn row" bind:tap="confirmVersions" data-versions="1">进入至臻版</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+    </view>
+    <view style="padding-bottom: {{globalBottom}}px;">
+    </view>
+    <!-- <view class="versions-footer" bind:tap="confirmVersions">
+      <image src="{{baseImageUrl}}/versions/versionsBtn.png" mode="" />
+      <image class="transformImage" src="{{baseImageUrl}}/versions/switch_btn_flash.png" mode="" />
+    </view> -->
+  </view>
+</van-popup>

@@ -1,0 +1,84 @@
+<view class="recharge">
+  <!-- 内容部分 -->
+  <view class="recharge-content">
+    <scroll-view scroll-y="true" class="rechargeScrollBox">
+      <!-- 知豆余额 -->
+      <view class="rechargeScrollBox-head" style="background-image: url('{{baseImageUrl}}/versions/rechargeBackground.png');">
+        <view class="head-box">
+          <view class="head-box_top">
+            <view class="top-text">
+              <image src="{{baseImageUrl}}/versions/rechargeName.png" mode=""/>
+            </view>
+          </view>
+          <view class="head-box_main">
+            <view class="main-text">{{balance}}</view>
+            <image src="{{baseImageUrl}}/newImg/ydpay.gif" mode="" style="width: 264rpx;height: 226rpx;position: absolute;right: 20rpx;top:40rpx" />
+          </view>
+          <view class="head-box_button">
+            <view class="button-tag" wx:for="{{msgList}}" wx:key="index">
+              <image src="{{baseImageUrl}}/versions/rechargeSuccess.png" mode="" />
+              <text>{{item}}</text>
+            </view>
+          </view>
+
+          <view class="rightDetail" bind:tap="buyDetail">明细</view>
+        </view>
+      </view>
+      <!-- 充值金额 -->
+      <view class="rechargeScrollBox-content">
+        <!-- 标题 -->
+        <view class="title">
+          <text class="title-text1">充值知豆</text>
+          <text class="title-text2">请选择相应的金额充值</text>
+          <!-- <text class="title-text2">1元=1知豆</text> -->
+        </view>
+        <!-- 充值列表 -->
+        <view class="rechargeScrollBox-list">
+          <view class="rechargeScrollBox-item {{activeIndex == index ? 'active' : ''}}" wx:for="{{productList}}" wx:key="index" data-index="{{index}}" bindtap="changeActiveIndex">
+            <view class="item-content">
+              <text class="price {{activeIndex == index ? 'active1' : ''}}">{{item.nowPrice}}元</text>
+              <view class="commodity">{{item.title}}</view>
+            </view>
+            <view class="activeIcon" wx:if="{{item.discount > 0}}">
+              <image src="{{baseImageUrl}}/my/member_activebg.png" mode="" />
+              <text>立减{{item.discount}}元</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="rechargeScrollBox-inputView">
+          <input type="number" maxlength="4" cursor-color="#FE0201"	adjust-position="{{true}}" value="{{inputValue}}" bindfocus="inputFocus" bindblur="inputBlur" bindinput="inputPrice" placeholder-class="input_class" placeholder="{{inputPriceText}}" confirm-type="done"/>
+          <view class="tip" wx:if="{{inputValue>0}}">{{inputValue}}知豆</view>
+        </view>
+                           
+        <view class="rechargeScrollBox-explain">
+          <text class="title-text1">充值说明</text>
+          <text class="title-text2" style="margin-top: 8rpx;">充值后剩余知豆可继续用于购买道具和服务，详情可查看知豆说明付费即表示同意<text style="color: #FE0201;">《知城优聘增值服务协议》</text>
+          </text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部立即充值 -->
+  <view class="recharge-footer">
+    <view style="height: 180rpx; background-color: #F5F5F5;"></view>
+    <view class="content_button" style="position: fixed; bottom: {{bottomDistance}}rpx">
+      <!-- 充值按钮 -->
+      <button class="content_button_button" bindtap="recharge">立即充值</button>
+    </view>
+  </view>
+
+</view>
+<!-- <view class="kf">
+  <image src="{{baseImageUrl}}/service_icon.gif" mode="aspectFill" bind:tap="gotoUrl" />
+</view> -->
+
+<!-- 客服咨询 -->
+<movable-area>
+  <movable-view x='375' y='600' direction="all" style="pointer-events: auto;">
+    <view class="kf" bind:tap="gotoUrl">
+      <image src="{{baseImageUrl}}/service_icon.gif" mode="" />
+    </view>
+  </movable-view>
+</movable-area>

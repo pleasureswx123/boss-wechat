@@ -1,0 +1,600 @@
+<!--subpackPage/versions/partTime/index.wxml-->
+<view class="ocean-wrapper">
+  <!-- && !showLoading -->
+  <!-- scroll-y="{{partTime_ScrollY}}" enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" catchscrolltolower="containerscrolltolower" bindscroll="containerscroll" throttle="{{false}}" lower-threshold="0" -->
+  <view class="partTime-container column">
+    <!-- 背景 -->
+    <view class="headBn">
+      <image class="headbnImg" src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/bg_header.png" mode="" />
+      <!-- <image class="headbnImg" src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/part_bg.png" mode="" /> -->
+    </view>
+    <!-- 头部区域 登录状态下展示-->
+    <view class="indexBox_head" wx:if="{{token}}">
+      <!-- 自定义导航栏 -->
+      <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+        <view class="topNav" style="height: {{capsuleData.menuHeight}}px;">
+          <view class="topNav_left" bindtap="gotoCity">
+            <view class="location">{{locationAddress}}</view>
+            <van-icon name="arrow-down" color="#fff" size="13px" />
+          </view>
+        </view>
+      </view>
+      <!-- 占位 -->
+      <view class="banner" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight + 5}}px">
+      </view>
+    </view>
+    <!-- 头部区域 未登录状态下展示-->
+    <view class="indexBox_head" wx:else>
+      <!-- 自定义导航栏 -->
+      <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+        <view class="topNav newNav" style="height: {{capsuleData.menuHeight}}px;width: calc(100% - {{capsuleData.menuWidth + capsuleData.menuRight}}px - 64rpx);margin-top: 0;">
+          <view class="right" bindtap="gotoSearch">
+            <view class="input">
+              <!-- <image class="searchIcon" src="{{baseImageUrl}}/avatar/hot.png" mode="" /> -->
+              <swiper layout-type="transformer" autoplay="{{true}}" vertical="true" transformer-type="accordion" class="swiper" interval="5000" circular>
+                <swiper-item class="swiper_item">
+                  <view class="row" style="width: 100%;height: 100%;">
+                    <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                    <text class="big">电话客服</text><text class="small">正在热搜</text>
+                  </view>
+                </swiper-item>
+                <swiper-item class="swiper_item">
+                  <view class="row" style="width: 100%;height: 100%;">
+                    <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                    <text class="big">搜索职位</text>
+                  </view>
+                </swiper-item>
+              </swiper>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 占位 -->
+      <view class="banner" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight + 5}}px">
+      </view>
+    </view>
+    <!-- 搜索框 -->
+    <view class="newNav_wrap" wx:if="{{token}}">
+      <view class="newNav" style="height: {{capsuleData.menuHeight}}px;">
+        <view class="right" bindtap="gotoSearch">
+          <view class="input">
+            <!-- <image class="searchIcon" src="{{baseImageUrl}}/avatar/hot.png" mode="" /> -->
+            <swiper layout-type="transformer" autoplay="{{true}}" vertical="true" transformer-type="accordion" class="swiper" interval="5000" circular>
+              <swiper-item class="swiper_item">
+                <view class="row" style="width: 100%;height: 100%;">
+                  <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                  <text class="big">电话客服</text><text class="small">正在热搜</text>
+                </view>
+              </swiper-item>
+              <swiper-item class="swiper_item">
+                <view class="row" style="width: 100%;height: 100%;">
+                  <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                  <text class="big">搜索职位</text>
+                </view>
+              </swiper-item>
+            </swiper>
+          </view>
+          <view class="searchBtn">搜索</view>
+        </view>
+      </view>
+    </view>
+    <!-- 金刚区 -->
+    <view class="featured-entries">
+      <!-- 今日速配 -->
+      <view class="entries_item row column" bind:tap="gotoMatch">
+        <image src="{{baseImageUrl}}/entries_speed.png" mode="" />
+        <view class="txt">今日速配</view>
+      </view>
+      <!-- 宝妈专区 -->
+      <view class="entries_item baoma row column" bindtap="gotoTab" data-type="5" data-path="component/component" data-module="104">
+        <image src="{{baseImageUrl}}/entries_baoma.png" mode="" />
+        <view class="txt">宝妈专区</view>
+      </view>
+      <!-- 学生专区 -->
+      <view class="entries_item row column" bindtap="gotoTab" data-type="3" data-path="component/component" data-module="103">
+        <image src="{{baseImageUrl}}/entries_campus.png" mode="" />
+        <view class="txt">学生专区</view>
+      </view>
+      <!-- 日结专区 -->
+      <view class="entries_item settlement row column" bindtap="gotoTab" data-type="6" data-path="component/component" data-module="105">
+        <image src="{{baseImageUrl}}/entries_settlement.png" mode="" />
+        <view class="txt">日结专区</view>
+      </view>
+      <!-- 求职群 -->
+      <view class="entries_item row column" bind:tap="handleToEntryPage">
+        <image src="{{baseImageUrl}}/entries_chat.png" mode="" />
+        <view class="txt">求职群</view>
+      </view>
+    </view>
+    <!-- 内容区域 -->
+    <!-- 整体高度 - 顶部显示地址的区域 - 底部tab区域 -->
+    <!-- style="height: calc(100vh - {{statusBarHeight + navBarHeight + 5 + globalBottom + 57}}px);" -->
+    <view class="partTime-container_content column">
+      <!-- 岗位展示 -->
+      <view class="postandTab">
+        <!-- 推荐/红包岗/附近/实探 -->
+        <view class="tabNav">
+          <view class="tabNav_left">
+            <view class="text {{currentTab.tab_name == '全部' ? 'searchNo' : ''}} " data-index="0" bindtap="searchTab" data-tab="全部">全部</view>
+            <view class="text {{currentTab.tab_name == '红包' ? 'searchNo' : ''}}" data-index="9" bindtap="searchTab" data-tab="红包">
+              <image src="{{baseImageUrl + '/index_img/hongbao.png'}}" mode="aspectFit" style="width:26rpx;height: 26rpx;margin-right: 5rpx;" />红包岗
+            </view>
+            <view class="text {{currentTab.tab_name == '最新' ? 'searchNo' : ''}}" data-index="2" bindtap="searchTab" data-tab="最新">最新</view>
+          </view>
+          <view class="screen" bindtap="openFilterPopup">
+            <image src="../../../image/filter_icon.png" mode="aspectFit" class="filterIcon" />
+            筛选<span wx:if="{{sxNum>0}}">·{{sxNum}}</span>
+          </view>
+        </view>
+      </view>
+      <!-- 骨架屏 -->
+      <view class="waterfall_content" style="overflow: hidden;" wx:if="{{showLoading}}">
+        <me-waterfall gap="{{10}}" custom-class="waterfall-post_list" id="waterfall">
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 65%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 80%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 85%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 30px;"></view>
+                </view>
+              </view>
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 85%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 85%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 85%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 85%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+
+          <me-waterfall-item custom-class="waterfallItem">
+            <view class="waterfall-skeleton_item">
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-bottom: 8px;">
+                <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 85%;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;padding-top: 8px;">
+                <view class="imitateSkeleton_content">
+                  <view class="rowBox" style="height: 18px;"></view>
+                </view>
+              </view>
+
+              <view class="imitateSkeleton imitateSkeleton-animate between" style="width: 100%;padding-top: 8px;">
+                <view class="" style="width: 60%;">
+                  <view class="rowBox"></view>
+                </view>
+                <view class="" style="width: 20%;">
+                  <view class="rowBox"></view>
+                </view>
+              </view>
+            </view>
+          </me-waterfall-item>
+        </me-waterfall>
+      </view>
+
+      <!-- 瀑布流 -->
+      <view class="waterfall_content" wx:if="{{!showLoading}}">
+        <!-- scrollY="{{waterfall_ScrollY}}" -->
+        <!-- 登陆时 -->
+        <pull-refresh-view class="list-container" enhanced="{{true}}" wx:if="{{dataList.length>0 && token}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish && (module_dom != 100 || isUpload)}}" loadType="default" loadmoreText="努力加载中~" refresherEnable="{{true}}" bindscroll="contentscroll" upperThreshold="45">
+          <me-waterfall gap="{{10}}" custom-class="waterfall-post_list" id="waterfall">
+            <me-waterfall-item wx:for="{{dataList}}" wx:key="index" custom-class="waterfallItem">
+              <block wx:if="{{item.renderType == 'prop'}}">
+                <view class="waterfall-prop_item" bind:tap="gotoPropDetail" data-item="{{item}}">
+                  <view class="close_iconBox row">
+                    <image class="close_icon" src="../../../image/close_icon.png" mode="" catch:tap="closePropDom" />
+                  </view>
+                  <view class="tit">#求职神器抢先用</view>
+                  <view class="prop_detail column">
+                    <text class="propName">{{item.name}}</text>
+                    <text class="propTips">{{item.title}}</text>
+                  </view>
+                </view>
+              </block>
+              <block wx:else>
+                <view class="waterfall-post_item {{item.isH ? 'hb_bg' : ''}}" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                  <view class="header row">
+                    <image src="{{item.avatar}}" class="avatar" mode="aspectFill" wx:if="{{item.avatar}}" />
+                    <!-- https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png -->
+                    <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                    <view class="column" style="flex-shrink: 0;max-width: calc(100% - 53rpx - 16rpx);">
+                      <view class="tit row">
+                        <view class="overflow name">{{item.companyName}}</view>
+                        <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/shield_icon.png" mode="" class="shield_icon" />
+                        <!-- <image wx:if="{{item.ptype == 1 || item.ptype == 2 || item.ptype == 3}}" src="../../../image/partTime_icon.png" mode="" class="partTime_icon" /> -->
+                      </view>
+                      <view class="status_txt row">
+                        <block wx:if="{{item.online}}">
+                          <view class="circle"></view>
+                          <text>在线中</text>
+                        </block>
+                        <text wx:if="{{item.online == false && item.activation !== null}}">{{item.activation}}</text>
+                      </view>
+                    </view>
+                  </view>
+                  <view class="container">
+                    <!-- 岗位信息 -->
+                    <view class="job-partTime column">
+                      <view class="tit overflow-2">{{item.post}}</view>
+                      <view class="job_right_money">
+                        <text wx:if="{{item.moneyType == 1}}">面议</text>
+                        <block wx:else>
+                          <!-- 兼职/实习 -->
+                          <block wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                            <text>{{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}</text>
+                          </block>
+
+                          <block wx:else>
+                            <block wx:if="{{item.lowestMoney > 0}}">
+                              <!-- 一万以下 -->
+                              <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                              <!-- 一万以上 -->
+                              <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                            </block>
+                          </block>
+                        </block>
+                        <text class="content_job_right_money" wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                      </view>
+                    </view>
+                    <!-- 标识 -->
+                    <view class="describe_category">
+                      <view class="describe_category_item" wx:for="{{item.tag}}" wx:key="index">
+                        {{item}}
+                      </view>
+                    </view>
+                  </view>
+                  <view class="footer row">
+                    <!-- style="flex-shrink: 0;max-width: calc(100% - 16rpx);" -->
+                    <view class="footer_address row">
+                      <image src="../../../image/address_icon.png" alt="" />
+                      <view class="txt overflow">{{item.postAddress}}</view>
+                    </view>
+                    <view class="footer_distance">{{item.distance || ""}}</view>
+                  </view>
+                </view>
+              </block>
+            </me-waterfall-item>
+          </me-waterfall>
+        </pull-refresh-view>
+
+        <!-- 未登陆时 custom-->
+        <pull-refresh-view class="list-container" enhanced="{{true}}" wx:elif="{{dataList.length>0 && !token}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bind:loadmore="onLoadMore" nomore="{{isFinish && (module_dom != 100 || isUpload)}}" loadType="default" loadmoreText="努力加载中~" refresherEnable="{{true}}" bindscroll="contentscroll" upperThreshold="45">
+          <me-waterfall gap="{{10}}" custom-class="waterfall-post_list" id="waterfall">
+            <me-waterfall-item wx:for="{{dataList}}" wx:key="index" custom-class="waterfallItem">
+              <!-- style="height: {{item.height}};" -->
+              <view class="waterfall-post_item {{item.isH ? 'hb_bg' : ''}}" bindtap="jump" data-id="{{item.postId}}" data-bossUserId="{{item.bossUserId}}">
+                <view class="header row">
+                  <image src="{{item.avatar}}" class="avatar" mode="aspectFill" wx:if="{{item.avatar}}" />
+                  <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/default-avatar.png" mode="" class="avatar" wx:else />
+                  <view class="column" style="flex-shrink: 0;max-width: calc(100% - 53rpx - 16rpx);">
+                    <view class="tit row">
+                      <view class="overflow name">{{item.companyName}}</view>
+                      <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/shield_icon.png" mode="" class="shield_icon" />
+                      <!-- <image wx:if="{{item.ptype == 1 || item.ptype == 2 || item.ptype == 3}}" src="../../../image/partTime_icon.png" mode="" class="partTime_icon" /> -->
+                    </view>
+                    <view class="status_txt row">
+                      <block wx:if="{{item.online}}">
+                        <view class="circle"></view>
+                        <text>在线中</text>
+                      </block>
+                      <text wx:if="{{item.online == false && item.activation !== null}}">{{item.activation}}</text>
+                    </view>
+                  </view>
+                </view>
+                <view class="container">
+                  <!-- 岗位信息 -->
+                  <view class="job-partTime column">
+                    <view class="tit overflow-2">{{item.post}}</view>
+                    <view class="job_right_money">
+                      <text wx:if="{{item.moneyType == 1}}">面议</text>
+                      <block wx:else>
+                        <!-- 兼职/实习 -->
+                        <block wx:if="{{item.num=='严选兼职' || item.num=='实习生' || item.num == '应届/校园'}}">
+                          <text>{{item.lowestMoney}}-{{item.maximumMoney}}{{item.clearing || '元/时'}}</text>
+                        </block>
+
+                        <block wx:else>
+                          <block wx:if="{{item.lowestMoney > 0}}">
+                            <!-- 一万以下 -->
+                            <text wx:if="{{item.maximumMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney * 1000}}-{{item.maximumMoney * 1000}}元</text>
+                            <!-- 一万以上 -->
+                            <text wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+                          </block>
+                        </block>
+                      </block>
+                      <text class="content_job_right_money" wx:if="{{item.monthMoney > 12}}">·{{item.monthMoney}}薪</text>
+                    </view>
+                  </view>
+                  <!-- 标识 -->
+                  <view class="describe_category">
+                    <view class="describe_category_item" wx:for="{{item.tag}}" wx:key="index">
+                      {{item}}
+                    </view>
+                  </view>
+                </view>
+                <view class="footer row">
+                  <view class="footer_address row">
+                    <image src="../../../image/address_icon.png" alt="" />
+                    <view class="txt overflow">{{item.postAddress}}</view>
+                    <!-- <text wx:if="{{item.province}}">{{item.province}}</text>
+                    <text wx:if="{{item.city}}">·{{item.city}}</text> -->
+                  </view>
+                  <view class="footer_distance">{{item.distance || ""}}</view>
+                </view>
+              </view>
+            </me-waterfall-item>
+          </me-waterfall>
+        </pull-refresh-view>
+
+        <!-- 无数据时展示 -->
+        <view class="no_data" wx:if="{{dataList.length == 0 && showLoading == false}}">
+          <view class="no_data_center">
+            <view class="no_data_img">
+              <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+            </view>
+            <view class="no_data_text">暂无岗位推荐</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 底部导航 -->
+    <view class="partTime-container_footer" style="padding-bottom: {{globalBottom}}px;">
+      <component-tab_classics num-prop="2" count="{{count}}" id="tab" />
+    </view>
+  </view>
+
+  <!-- 提示 -->
+  <van-transition show="{{ showToastDom }}" duration="{{ { enter: 1000, leave: 1000 } }}">
+    <view class="showToastDom" style="bottom: {{globalBottom+ 58}}px;">
+      <view class="logoImgs">
+        暂未找到相关职位，为您推荐以下职位
+      </view>
+    </view>
+  </van-transition>
+</view>
+
+<!-- 未登录快速登录 -->
+<weixinLogin_prop show="{{loginShow}}" bind:onClose="onClose"></weixinLogin_prop>
+<!-- 会员即将过期 -->
+<member-prop show="{{memberProp}}" bind:onClose="closeProp"></member-prop>
+<!-- 筛选弹窗 -->
+<van-popup root-portal="{{true}}" lock-scroll round show="{{isShow}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight - statusBarHeight}}px">
+  <screenCondition bind:screenEvent="screenEvent" show="{{isShow}}" bind:screenNum="screenNum" bind:onClose="onClose" height="{{popupHeight - statusBarHeight}}" isSave="{{false}}" jobType="{{jobType}}" pageType="partTime"></screenCondition>
+</van-popup>

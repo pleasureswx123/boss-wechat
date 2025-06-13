@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "noData":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText": "会员购买记录",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

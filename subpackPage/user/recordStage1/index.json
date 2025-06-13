@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "van-popup": "@vant/weapp/popup/index"
+    },
+    "navigationBarTitleText": "钱包明细",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

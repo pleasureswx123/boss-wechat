@@ -1,0 +1,154 @@
+page{
+    background-color: #F5F5F5;
+}
+.logo{
+    width: 120rpx;
+    height: 120rpx;
+    margin-bottom: 16rpx;
+}
+.head{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    height: 430rpx;
+    justify-content: center;
+    padding-top: 30px;
+}
+.head view{
+    font-size: 36rpx; 
+    color: #1D2129;
+}
+.form{
+    margin: 0 auto;
+    width: calc(100% - 96rpx);
+    background-color: #fff;
+    border-radius: 20rpx;
+    height: 238rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 40rpx;
+    position: relative;
+    box-sizing: border-box;
+}
+.line{
+    width: 100%;
+}
+.form input {
+    flex: 1;
+}
+.code{
+    position: absolute;
+    right: 36rpx;
+    bottom: 36rpx;
+    width: 168rpx;
+    height: 48rpx;
+    background: #FFEEEE;
+    border-radius: 30rpx;
+    border: 1rpx solid #FE0201;
+    font-size: 22rpx;
+    
+    font-weight: 400;
+    color: #FE0201;
+    text-align: center;
+    line-height: 48rpx;
+    z-index: 99;
+}
+.btn{
+    height: 80rpx;
+    background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%);
+    border-radius: 12rpx;
+    opacity: 0.7;
+    margin: 0 auto;
+    width: calc(100% - 96rpx);
+    margin-top: 80rpx;
+    font-size: 32rpx;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-bottom: 40rpx;
+}
+
+/* 设置checkbox的图标样式 */
+.checkbox-icon {
+    width: 26rpx;
+    height: 22rpx;
+    border: 1px solid #999;
+    border-radius: 50%;
+    margin-right: 16rpx;
+    position: relative;
+    top: 8rpx; 
+  }
+  
+  /* 设置checkbox选中状态的样式 */
+ .checked_active{
+     margin-right: 16rpx;
+     background-color: #FE0201;
+     width: 28rpx;
+     height:24rpx;
+     border-radius: 30px !important;
+     position: relative;
+     top: 8rpx;
+ }
+ .checked_active image{
+     width: 16rpx;
+     height: 12rpx;
+     margin: 0 auto;
+     position: relative;
+     top: -8rpx;
+     left: 4rpx;
+ }
+  .check{
+      padding: 0 70rpx;
+      display: flex;
+  }
+  .check view{
+    font-size: 24rpx;
+    
+    font-weight: 400;
+    color: #666666;
+  }
+  .check view span{
+      color: #FE0201 !important;
+  }
+
+  .fot_btn{
+    position: fixed;
+    bottom: 102rpx;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24rpx; 
+    color: #6B6B6B;
+    background-color:#F5F5F5 ;
+  }
+  .fot_btn image{
+      width: 38rpx;
+      height: 32rpx;
+      margin-right: 24rpx;
+  }
+  .identify{
+      display: flex;
+      margin-left: 48rpx;
+      align-items: center;
+      margin-top: 16rpx;    
+      position:fixed;
+      font-size: 24rpx; 
+    color: #FE0201;
+  }
+  .identify image{
+      width: 26rpx;
+      height: 26rpx;
+      margin-right: 16rpx;
+  }
+  input{
+    font-size: 28rpx;
+    
+    font-weight: 400;
+    color: #1D2129;
+  }
+  .phcolor{
+      color: #999999;
+  }

@@ -1,0 +1,31 @@
+<view class="addressDetailBox">
+    <view class="addressDetailBox_main">
+        <view class="addressTitle">我的地址</view>
+        <view class="addressInput">
+            <van-cell bind:tap="gotoAddressMap" value-class="value-class" use-label-slot center custom-class="custom-class">
+                <view slot="title" class="van-cell_title">
+                    <view class="van-cell-text">工作地点</view>
+                </view>
+                <view slot="label" class="van-cell_label">
+                    <view class="van-cell-text">{{addressName || '请输入办公大楼'}}</view>
+                </view>
+                <van-icon name="arrow" />
+            </van-cell>
+
+            <!-- <van-cell use-label-slot center custom-class="custom-class" value-class="value-class">
+                <view slot="title" class="van-cell_title">
+                    <view class="van-cell-text">楼层/单元室/门牌号</view>
+                </view>
+                <view slot="label" class="van-cell_label">
+                    <input type="text" placeholder="请输入" class="input-class" model:value="{{addressValue}}" bindinput="input" />
+                </view>
+
+                <van-icon name="arrow" />
+            </van-cell> -->
+        </view>
+    </view>
+
+    <view class="footer">
+        <view class="addBtn" bind:tap="confirmSave">完成</view>
+    </view>
+</view>

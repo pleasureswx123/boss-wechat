@@ -1,0 +1,10 @@
+<view class="box">
+   <scroll-view scroll-y="true" style="height: 100vh;">
+    <view class="top_input">
+        <input type="text" cursor-color="#FE0201" value="{{name}}" placeholder="请输入邮箱" bindinput="confirmValue"/>
+    </view>
+    <view class="line" style="margin-bottom: 28rpx;"></view>
+    <view class="bot_btn" bindtap="goBtn" wx:if="{{name !== ''}}">确定</view>
+    <view class="bot_btn no_data" wx:else>确定</view>
+</scroll-view>
+</view>

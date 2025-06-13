@@ -1,0 +1,104 @@
+<!--subpackPage/index/cityIndex/index.wxml-->
+<view class="cityBox">
+  <!-- 自定义导航栏 height: {{navBarHeight}}px;line-height: {{navBarHeight}}px;-->
+  <view class="backIcon " style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+    <view class="van-nav-bar__title" style="width: calc(100% - {{capsuleWidth}}px - 40rpx);">
+      <van-icon name="arrow-left" color="#000" size="20px" bind:click="back" />
+      <!-- 搜索框 style="padding-top: {{(capsuleTop - statusBarHeight) * 2}}px;" -->
+      <view class="selectHeight">
+        <view class="searchInput" style="background: #fff; padding-left: 24rpx; padding-right: 24rpx;">
+          <!-- 搜索图标 -->
+          <image class="searchIcon" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+          <!-- 搜索框 -->
+          <!-- bindconfirm="confirm" -->
+          <input id="inputElement" cursor-color="#FE0201" type="text" bindblur="blur" focus="{{focus}}" maxlength="{{maxlength}}" placeholder="{{placeholderVal}}" model:value="{{searchValue}}" style="background: #fff;" class="input-class" placeholder-style="font-size: 26rpx" confirm-type="done" adjust-position="{{true}}" bindinput="input" />
+          <!-- 清除控件 -->
+          <span class="clearIcon" bindtap="clearKeyWord" wx:if="{{searchValue !== '' && clearable}}">
+            <image bindtap="clearKeyWord" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+          </span>
+        </view>
+        <!-- 模拟滚动 -->
+        <!-- <view class="rollInput" style="padding-left: 24rpx; padding-right: 24rpx;top: {{(capsuleTop - statusBarHeight) * 2}}px;">
+                    <view class="rollInput_item" wx:for="{{rollList}}" style="transform: translateY({{item.translateY}}rpx);">{{item.text}}</view>
+                </view> -->
+
+        <!-- top: {{(capsuleTop - statusBarHeight) * 2}}px; -->
+        <swiper wx:if="{{!swiperHidden && !searchValue}}" bind:tap="inputFoucs" class="rollInput" style="padding-left: 24rpx; padding-right: 24rpx;" vertical="{{true}}" autoplay="{{autoplay}}" circular="{{true}}" interval="3000" display-multiple-items='1'>
+          <block wx:for="{{rollList}}" wx:key="index">
+            <swiper-item>
+              <view class="rollInput_item">{{item.text}}</view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </view>
+  </view>
+  <!-- 占位 -->
+  <view style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px;" class="simulate"></view>
+  <view class="cityIndex_main" wx:if="{{searchListAsync.length ==  0}}" style="height: calc(100% - {{(statusBarHeight + navBarHeight)}}px);">
+    <!-- 当前定位/刷新定位 -->
+    <view class="currentLocation">
+      <view class="left">
+        <image src="{{baseImageUrl}}/locationIcon.png" mode="" />
+        <text>当前选择：{{currentAddress}}</text>
+      </view>
+      <view class="right" bind:tap="refreshAddress">
+        <image src="{{baseImageUrl}}/refreshIcon.png" mode="" />
+        <text>刷新定位</text>
+      </view>
+    </view>
+
+    <view class="historyAddress">
+      <view class="historyAddress_title">
+        <view class="left">历史地址</view>
+        <view class="right" bind:tap="gotoAddressList">
+          全部
+          <van-icon name="arrow" style="margin-top: 2rpx;" color="#999" size="24rpx" />
+        </view>
+      </view>
+      <!-- 地址列表 -->
+      <view class="historyAddress_list" wx:if="{{seekerCollectAddressList.length > 0}}">
+        <view class="historyAddress_item" bind:tap="selectAddress" data-item="{{item}}" wx:for="{{seekerCollectAddressList}}" wx:key="index">{{item.title}}</view>
+      </view>
+      <view class="historyAddress_list" wx:else>
+        <view class="no_data">
+          <view class="no_data_center">
+            <view class="no_data_img">
+              <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+            </view>
+            <view class="no_data_text">暂无地址</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="province">
+      <view class="province_title">
+        <view class="left">选择省份</view>
+      </view>
+
+      <view class="provinceList">
+        <view class="provinceItem" data-item="{{item}}" bind:tap="gotoCity" wx:for="{{provinceList}}" wx:key="index">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="cityIndex_main" style="height: calc(100% - {{(statusBarHeight + navBarHeight)}}px);" wx:if="{{searchListAsync.length > 0}}">
+    <!-- 搜索结构 -->
+    <view class="select">
+      <view class="selectItem" wx:for="{{searchListAsync}}" data-item="{{item}}" wx:key="index" bindtap="hotSearch">
+        <view class="countent">
+          <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+          <rich-text nodes="{{ item.highlightedResult }}"></rich-text>
+        </view>
+        <view class="line"></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 求职状态 (step为1是单选/反之为多选)-->
+<van-popup show="{{ cityShow }}" closeable round position="bottom" custom-style="height: 70%;padding-bottom: 0px" bind:close="onClosecityShow" z-index="999">
+  <perfectestCity-Popup wx:if="{{province}}" currentAddId="{{currentAddId}}" province="{{province}}" bind:backRenovate="backRenovate"></perfectestCity-Popup>
+  <!-- <city-popup cityType="{{cityType}}" currentAddId="{{currentAddId}}"  wx:if="{{cityItem}}" city="{{cityItem}}" bind:backRenovate="backRenovate"></city-popup> -->
+</van-popup>

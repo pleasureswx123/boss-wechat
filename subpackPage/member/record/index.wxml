@@ -1,0 +1,29 @@
+<view class="box">
+    <view class="title">
+        <view wx:for="{{ tabList }}" wx:key="index" bindtap="changeTab" data-idx="{{item.type}}"><span class="{{activeIdx==item.type?'selected':''}}">{{item.name}}</span></view>
+    </view>
+    <view class="list">
+      <scroll-view
+        style="height: calc(100vh - 60px);"
+        scroll-y
+        bindscrolltolower="getRecord"
+      >
+         <block wx:if="{{recordList.length>0}}">
+            <view class="cardItem" wx:for="{{recordList}}" wx:key="index">
+                <view class="iconBox">
+                  <image src="{{baseImageUrl + '/member/record3.png'}}" mode="aspectFill" class="recordImg" wx:if="{{item.status===0}}"/>
+                  <image src="{{baseImageUrl + '/member/record2.png'}}" mode="aspectFill" class="recordImg" wx:elif="{{item.status==2}}"/>
+                  <image src="{{baseImageUrl + '/member/record1.png'}}" mode="aspectFill" class="recordImg"  wx:else/>
+                  <span class="iconFont" wx:if="{{item.status==0}}">待生效</span>
+                  <span class="iconFont" wx:if="{{item.status==1}}">生效中</span>
+                  <span class="iconFont" wx:if="{{item.status==2}}">已过期</span>
+                </view>
+                <view class="name"><span>{{item.name}}</span><span style="display: flex;flex-direction: column;font-size: 24rpx;">实付：¥{{item.totalFee || 0}}<span style="color:#666;font-size: 22rpx;" wx:if="{{item.totalDou}}">优豆支付:{{item.totalDou}}</span></span></view>
+                <view class="time1" wx:if="{{item.status!==0}}">有效期：{{item.startExpireTime}}-{{item.endExpireTime}}</view>
+                <view class="time2">购买时间：{{item.paymentTime}}</view>
+            </view>
+         </block>
+         <noData wx:else></noData>
+      </scroll-view>
+    </view>
+</view>

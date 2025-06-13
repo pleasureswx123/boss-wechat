@@ -1,0 +1,277 @@
+<!-- //首次添加管理求职期望 -->
+<view class="jobManage_box" style="background-image: url('{{baseImageUrl}}/versions/dise.png');">
+  <view class="jobManage_box-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="height:{{globalData.navBarHeight}}px;"></view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{globalData.navBarHeight}}px;"></view>
+  </view>
+
+  <view class="jobManage_box-content">
+    <view class="jobManage_box-title"><image src="{{baseImageUrl}}/newImg/sbfont2.png" mode="" /></view>
+
+    <view class="jobManage_box-postBox">
+      <!-- 求职期望 -->
+      <view class="postBox-left item" bind:tap="addPost">
+        <view class="postName" wx:if="{{postListName != ''}}">
+          {{postListName}}
+        </view>
+        <view class="postName" wx:else>请选择</view>
+        <view class="tip">想做什么</view>
+      </view>
+      <!-- 期望薪资 -->
+      <view class="postBox-right item" bind:tap="selectedMoney">
+        <view class="salary" wx:if="{{userInfo.lowestMoney>0}}">
+          <text>
+            <text wx:if="{{userInfo.lowestMoney > 0 && userInfo.maximumMoney < 10}}">{{userInfo.lowestMoney}}千-{{userInfo.maximumMoney}}千</text>
+            <text wx:else>{{userInfo.lowestMoney / 10}}万-{{userInfo.maximumMoney / 10}}万</text>
+          </text>
+        </view>
+        <view class="salary" wx:elif="{{userInfo.expectedMoneyStatus===0}}">面议</view>
+        <view class="salary" wx:else>请选择</view>
+        <view class="tip">期望薪资</view>
+      </view>
+    </view>
+
+    <!-- 用户信息 -->
+    <view class="userInfo_box">
+      <!-- 头像 -->
+      <view class="cell-item avatar" bind:tap="avatarTap">
+        <view class="cell-item_left">头像</view>
+        <view class="cell-item_right">
+          <image src="{{userInfo.avatar}}" wx:if="{{userInfo.avatar}}" mode="" />
+          <image src="{{imageUrl}}/default-avatar.png" wx:else mode=""/>
+        </view>
+      </view>
+      <view class="cell-item workExperience">
+        <view class="cell-item_left">姓名</view>
+        <input type="text" cursor-color="#FE0201" value="{{userInfo.nickName || ''}}" placeholder="请输入姓名" bindinput="confirmValue" maxlength="15" style="text-align: right;font-size: 28rpx;"/>
+        <!-- <view class="cell-item_content textEllipsis">{{userInfo.nickName || '请输入'}}</view> 
+        <view class="cell-item_right">
+          <van-icon name="arrow" color="#666" size="14px" />
+        </view>-->
+      </view>
+      <!-- 性别 -->
+      <view class="cell-item sex" bind:tap="openSet">
+        <view class="cell-item_left">性别</view>
+        <!-- <view class="cell-item_right">
+          <view class="sex_item {{userInfo.sex == 0 ? 'active' : ''}}" data-value="0" bind:tap="bindSexChange" style="margin-right: 12px;">男</view>
+          <view class="sex_item {{userInfo.sex == 1 ? 'active' : ''}}" data-value="1" bind:tap="bindSexChange">女</view>
+        </view> -->
+         <view class="cell-item_content">
+              <view class="picker">
+                  {{sexArr[userInfo.sex].name || '请选择'}}
+              </view>
+          </view>
+          <view class="cell-item_right">
+              <van-icon name="arrow" color="#666" size="14px" />
+            </view>
+      </view>
+      <!-- 出生年月 -->
+      <picker mode="date" value="{{birsthday}}" bindchange="bindBirsdayChange">
+        <view class="cell-item birth">
+              <view class="cell-item_left">选择出生年月日</view>
+              <view class="cell-item_content">
+                  <view class="picker">{{ userInfo.birthday || "未填写" }}</view>
+              </view>
+              <view class="cell-item_right">
+                <van-icon name="arrow" color="#666" size="14px" />
+              </view>
+        </view>
+      </picker>
+      <!-- 工作年限 -->
+      <picker bindchange="bindPickerChange" value="{{userInfo.workDay}}" range="{{workingYears}}">
+        <view class="cell-item workingYears">
+          <view class="cell-item_left">选择工作年限</view>
+          <view class="cell-item_content">
+              <view class="picker" wx:if="{{userInfo.workDay > 0 || userInfo.workDay === 0}}">{{workingYears[userInfo.workDay]}}</view>
+              <view class="picker" wx:else>请选择</view>
+          </view>
+          <view class="cell-item_right">
+            <van-icon name="arrow" color="#666" size="14px" />
+          </view>
+        </view>
+      </picker>
+      <!-- 学历 -->
+      <picker mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" bindchange="bindMultiPickerChange">
+        <view class="cell-item background">
+          <view class="cell-item_left">选择学历</view>
+          <view class="cell-item_content">
+              <view class="picker">
+                <text wx:if="{{userInfo.maxBackground && userInfo.maxBackground >= 0}}">{{multiArray[0][userInfo.maxBackground-1]}}</text>
+                <text wx:else class="grey">请选择</text>
+              </view>
+          </view>
+          <view class="cell-item_right">
+            <van-icon name="arrow" color="#666" size="14px" />
+          </view>
+        </view>
+      </picker>
+      <!-- 联系方式 -->
+      <view class="cell-item contactWay" bind:tap="changeContact">
+        <view class="cell-item_left">电话助手<view class="jyopen">建议开启</view></view>
+        <view class="cell-item_content">
+            <text wx:if="{{selectIndex}}">已开启</text>
+            <text wx:else>去开启</text>
+        </view>
+        <view class="cell-item_right">
+          <van-icon name="arrow" color="#666" size="14px" />
+        </view>
+      </view>
+      <!-- 工作经历 -->
+      <!-- <view class="cell-item workExperience" bind:tap="goOtherPage" data-type="workContent" data-val="{{userInfo.workedJob}}">
+        <view class="cell-item_left">做过什么</view>
+        <view class="cell-item_content textEllipsis">{{userInfo.workedJob || '请输入'}}</view>
+        <view class="cell-item_right">
+          <van-icon name="arrow" color="#666" size="14px" />
+        </view>
+      </view> -->
+    </view>
+  </view>
+  <!-- 底部按钮区域 -->
+  <view class="jobManage_box-footer">
+    <view class="cancalButton button" bind:tap="gotoUserInfo">完善简历</view>
+    <view class="confirmButton button" bind:tap="gotoChat">保存先逛逛</view>
+  </view>
+</view>
+
+
+
+<!-- 不是首次登录展示 -->
+<van-popup show="{{ show }}" round position="bottom" class="pop" bind:close="onClose" custom-style="background: transparent;width:702rpx;margin-left:24rpx;">
+  <view class="uploadAvatar">
+    <image src="{{imageUrl}}/my/avatar.png" mode="" />
+  </view>
+  <view class="popBg">
+    <view class="pop_item" bindtap="goToAvatar">平台头像</view>
+    <view class="pop_item" bindtap="uploadImage1">拍照</view>
+    <view class="pop_item fot_item" bindtap="uploadImage">从手机相册选择</view>
+    <view class="pop_item noborder" bindtap="onClose" style="padding-bottom: {{globalBottom}}px;">取消</view>
+  </view>
+  <!-- last_item -->
+</van-popup>
+<!-- 首次登录展示 -->
+<van-popup closeable close-icon="close" round show="{{ showAvatar }}" round position="bottom" class="pop" bind:close="onClose">
+  <view class="selectAvatar">
+    <view class="selectAvatar_title">平台头像</view>
+    <van-radio-group value="{{ radio }}" direction="horizontal">
+      <view class="Avatar">
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar1.png">
+          <image src="{{imageUrl}}/avatar1.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar1.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar2.png">
+          <image src="{{imageUrl}}/avatar2.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar2.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar3.png">
+          <image src="{{imageUrl}}/avatar3.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar3.png"></van-radio>
+          </view>
+        </view>
+        <view class="image" bindtap="onChange" data-imageUrl="{{imageUrl}}/avatar4.png">
+          <image src="{{imageUrl}}/avatar4.png" mode="" />
+          <view class="radio">
+            <van-radio checked-color="#FE0201" icon-size="24rpx" name="{{imageUrl}}/avatar4.png"></van-radio>
+          </view>
+        </view>
+      </view>
+    </van-radio-group>
+    <view class="text">不想用真实信息？快来试试平台推荐的头像吧</view>
+
+    <view class="plus" bindtap="phoneAvatar">
+      <view class="add">
+        <view class="position">
+          <view>+</view>
+        </view>
+      </view>
+    </view>
+    <view bindtap="pitchAvatar" class="button">确定</view>
+  </view>
+</van-popup>
+
+<!-- 期望薪资选择 -->
+<van-popup position="bottom" round show="{{ showXz }}" bind:close="onClose">
+  <view class="header">
+    <text class="cancel" bindtap="onClose">取消</text>
+    <text class="confirm" bindtap="confirm">确认</text>
+  </view>
+  <!-- <view class="tipFont">期望薪资(月薪 单位：元)</view> -->
+  <view class="tipFont">请选择月薪</view>
+  <!-- value="{{selectedValues}}" -->
+  <!-- immediate-change="{{true}}" -->
+  <picker-view indicator-class="selecetedIndicator" value="{{selectedValues}}" class="picker-view" bindchange="changeData">
+    <picker-view-column>
+      <view data-id="{{item.label}}" wx:for="{{list}}" wx:key="vlaue" class="columnStyle leftPay {{wagesIndex == index ? 'activeSize' :''}}">
+        {{ item.label }}
+        <text wx:if="{{item.value!='面议'}}"></text>
+      </view>
+    </picker-view-column>
+    <picker-view-column wx:if="{{middle}}">
+      <view class="columnStyle">-</view>
+    </picker-view-column>
+    <picker-view-column wx:else>
+      <view class="columnStyle"></view>
+    </picker-view-column>
+    <picker-view-column wx:if="{{list[wagesIndex]}}">
+      <view wx:for="{{list[wagesIndex].children}}" class="columnStyle rightPay {{wagesIndex2 == index ? 'activeSize' :''}}" wx:key="value">{{ item.label }}<text wx:if="{{ item.value }}"></text></view>
+    </picker-view-column>
+  </picker-view>
+</van-popup>
+<!-- 性别 -->
+<!-- <van-popup show="{{ isShowSex }}" round position="bottom"  bind:close="onCloseSex">
+  <view class="popupSex">
+      <view class="popupSex_title">
+        <image src="{{imageUrl}}/newImg/sexBg.png" mode="aspectFill" class="sexBg"/>
+      <view class="sexTitle">性别选择</view>
+      <view class="confirmBtn" bind:tap="bindSexSave">确定</view>
+      </view>
+      
+      <view class="popupSex_main">
+          <view bind:tap="bindSexChange" data-value="0" class="popupSex_main_item">
+            <image src="{{imageUrl}}/newImg/bman.png" class="bimage manImg" mode="aspectFill" wx:if="{{sexArr[userInfo.sex].code == 0}}"/>
+            <image src="{{imageUrl}}/newImg/sman.png" class="simage" mode="aspectFill" wx:else/>
+            <view class="imgView bview {{sexArr[userInfo.sex].code == 0 ? 'borderActive1' : ''}}">男生</view>
+          </view>
+          <view bind:tap="bindSexChange" data-value="1" class="popupSex_main_item">
+            <view class="imgView gview {{sexArr[userInfo.sex].code == 1 ? 'borderActive' : ''}}">女生</view>
+            <image src="{{imageUrl}}/newImg/bgirl.png" class="bimage girlImg" mode="aspectFill" wx:if="{{sexArr[userInfo.sex].code == 1}}"/>
+            <image src="{{imageUrl}}/newImg/sgirl.png" class="simage" mode="aspectFill" wx:else/>
+          </view>
+      </view>
+  </view>
+</van-popup> -->
+
+<van-popup show="{{ isShowSex }}" round position="bottom" bind:close="onCloseSex">
+  <view class="popupSex">
+    <view class="popupSex_title">
+      <image src="{{imageUrl}}/newImg/sexBg.png" mode="aspectFill" class="sexBg" />
+      <view class="sexTitle">性别选择</view>
+      <view class="confirmBtn" bind:tap="bindSexSave">确定</view>
+    </view>
+    <view class="popupSex_main">
+      <view bind:tap="bindSexChange" data-value="0" style="margin-right: 27rpx;" class="popupSex_main_item {{sexArr[userInfo.sex].code == 0 ? 'borderActive1' : ''}}">
+        <view class="itemTitle ">男</view>
+        <view class="itemBox">
+          <image class="itemBox_image" src="{{imageUrl}}/versions/nan.png" mode=""/>
+          <image class="selectHoverImg" wx:if="{{sexArr[userInfo.sex].code == 0}}" src="{{imageUrl}}/versions/selectHover.png" mode=""/>
+        </view>
+      </view>
+      <view bind:tap="bindSexChange" data-value="1"  style="margin-left: 27rpx;" class="popupSex_main_item {{sexArr[userInfo.sex].code == 1 ? 'borderActive' : ''}}">
+        <view class="itemTitle">女</view>
+        <view class="itemBox">
+          <image class="itemBox_image" src="{{imageUrl}}/versions/nv.png" mode=""/>
+          <image class="selectHoverImg" wx:if="{{sexArr[userInfo.sex].code == 1}}" src="{{imageUrl}}/versions/selectHover.png" mode=""/>
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 开启虚拟电话 -->
+<xnPhone isShowContact="{{isShowContact}}" contactStatus="{{selectIndex}}" bind:close="onjobClose"></xnPhone>

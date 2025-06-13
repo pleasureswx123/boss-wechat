@@ -1,0 +1,40 @@
+<!--components/lookAppPopup/lookAppPopup.wxml-->
+<view class="lookAppPopupBox">
+  <!-- 头部区域 -->
+  <view class="lookAppPopupBox-head">
+    <!-- 自定义顶部栏 -->
+    <!-- height:{{capsuleData.navBarHeight}}px; -->
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="cross" color="#fff" size="20px" bind:click="back" />
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+  <!-- 内容区域 -->
+  <view class="lookAppPopupBox-content">
+    <!-- 顶部区域 -->
+    <view class="content-top">
+      <view class="changeTabBox">
+        <view class="changeTabTestBack">
+          <view wx:for="{{list}}" wx:key="index" class="tab-item {{active==item.type?'selected':''}}" bind:tap="changeTab" data-type="{{item.type}}">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <!-- 轮播图 -->
+    <view class="swiperImg">
+      <view class="swiperItems">
+        <!-- next-margin="90px" -->
+        <swiper class="swiper" bindchange="monitorCurrent" current="{{current}}" autoplay="{{autoplay}}" circular="{{false}}" next-margin="164rpx" previous-margin="0px">
+          <swiper-item class="item"  wx:for="{{imgUrls}}"  wx:key="index" wx:if="{{active == 1}}">
+            <image src="{{baseImageUrl + item.name}}" mode="aspectFit" class="{{current!==index ?'zoom-out':'zoom-in'}}" />
+          </swiper-item>
+          <swiper-item class="item" wx:for="{{imgUrls2}}" wx:if="{{active == 2}}" wx:key="index">
+            <image src="{{baseImageUrl + item.name}}" mode="aspectFit" class="{{current!==index ?'zoom-out':'zoom-in'}}" />
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,70 @@
+<!--subpackPage/index/qiyeWx/index.wxml-->
+<!-- <view class="qiye-wx">
+  <view class="indexBox_head">
+    <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+      <view class="topNav" style="height: {{capsuleData.menuHeight}}px;margin-left: {{capsuleData.menuRight}}px;">
+        <view class="topNav_left" bindtap="navigateBack">
+          <van-icon name="arrow-left" color="#212121" size="23px" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="qiye-wx-bg">
+    <image mode="widthFix" src="{{baseImageUrl}}/qiwei-bg.png" />
+    <view class="qiye-face">
+      <image mode="aspectFit" src="{{baseImageUrl}}/qiwei-face.png" />
+    </view>
+  </view>
+  <view class="btns">
+    <view class="btn btn1">
+      <text>加入灵活用工群</text>
+      <cell bind:startmessage='startmessage1' bind:completemessage="completemessage1" url='{{url1}}' iconUrl="" contactTextBlod="" iconBorderRadius="" paddingStyle="120" contactText="" class="qw-btn" />
+    </view>
+    <view class="btn">
+      <text>加入全职群</text>
+      <cell bind:startmessage='startmessage' bind:completemessage="completemessage" url='{{url2}}' iconUrl="" contactTextBlod="" iconBorderRadius="" paddingStyle="120" contactText="" class="qw-btn" />
+    </view>
+  </view>
+</view> -->
+
+<view class="ocean-wrapper">
+  <view class="qiye-wx-container column">
+    <view class="qiye-wx-container_header">
+      <view class="indexBox_head">
+        <!-- 自定义导航栏 -->
+        <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+          <view class="topNav" style="height: {{capsuleData.menuHeight}}px;margin-left: {{capsuleData.menuRight}}px;">
+            <view class="topNav_left" bindtap="navigateBack">
+              <van-icon name="arrow-left" color="#212121" size="23px" />
+            </view>
+          </view>
+        </view>
+        <!-- <view class="banner" style="padding-top:{{capsuleData.menuTop}}px;height:{{capsuleData.menuHeight}}px">
+        </view> -->
+      </view>
+    </view>
+    <!-- 内容区域 -->
+    <view class="qiye-wx-container_content column">
+      <image mode="widthFix" src="{{baseImageUrl}}/qiye-wx_bg2.png" class="qiye-wx_bg" />
+      <!-- <image mode="widthFix" src="{{baseImageUrl}}/qiwei-bg.png" /> -->
+    </view>
+
+    <!-- 底部导航 -->
+    <view class="qiye-wx-container_footer" style="padding-bottom: {{globalBottom}}px;">
+      <!-- <view class="qiye-face">
+        <image mode="widthFix" src="{{baseImageUrl}}/qiwei-face.png" />
+      </view> -->
+      <view class="btns">
+        <view class="btn btn1">
+          <text>加入灵活用工群</text>
+          <cell bind:startmessage='startmessage1' bind:completemessage="completemessage1" url='{{url1}}' iconUrl="" contactTextBlod="" iconBorderRadius="" paddingStyle="120" contactText="" class="qw-btn" />
+        </view>
+        <view class="btn">
+          <text>加入全职群</text>
+          <cell bind:startmessage='startmessage' bind:completemessage="completemessage" url='{{url2}}' iconUrl="" contactTextBlod="" iconBorderRadius="" paddingStyle="120" contactText="" class="qw-btn" />
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

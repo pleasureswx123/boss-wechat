@@ -1,0 +1,16 @@
+{
+    "usingComponents": {
+        "van-icon": "@vant/weapp/icon/index",
+        "companyList": "/components/company/company",
+        "notdata": "/components/nodata/nodata",
+        "positionType": "/components/positionType/positionType",
+        "screenCondition": "/components/screenCondition/screenCondition",
+        "component-info": "/components/infomationList/infomationList",
+        "pull-refresh-view":"/components/pull-refresh-view/index",
+        "skeletonList": "/components/skeletonList/skeletonList",
+        "versionsCity-prop": "/components/versionsCity-prop/versionsCity-prop",
+        "compIndustry": "/components/industry/industry"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText":""
+}

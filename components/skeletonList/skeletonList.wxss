@@ -1,0 +1,98 @@
+/* components/skeletonList/skeletonList.wxss */
+.skeletonBox {
+  height: 100%;
+  overflow: hidden;
+}
+
+.skeletonBox .box1 {
+  height: 100%;
+}
+
+
+
+.skeletonBox .box2 {
+  height: 100%;
+}
+
+.skeletonBox .box2 .row{
+  background-color: #e4e4e4 !important;
+}
+
+.skeletonBox .box2 .imitateSkeleton_avatar{
+  background-color: #e4e4e4 !important;
+}
+
+.skeletonBox .box2 .item{
+  margin-bottom: 28rpx;
+  margin-top: 0;
+}
+
+.skeletonBox .box2 .item:last-child{
+  margin-bottom: 0rpx;
+}
+
+.item {
+  border-radius: 16rpx;
+  /* padding: 36rpx; */
+  padding: 32rpx 36rpx 0rpx 36rpx;
+  box-sizing: border-box;
+  margin-top: 28rpx;
+  background: #FFFFFF;
+  /* background: #000; */
+  border-image: linear-gradient(139deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.92)) 2 2;
+  position: relative;
+  z-index: 2;
+  height: 300rpx;
+  width: 100%;
+}
+
+.classicsItem{
+  margin: 0 0 28rpx;
+}
+
+.skeleton-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.imitateSkeleton {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  /* padding: var(--skeleton-padding, 0 16px); */
+  width: 100%;
+}
+
+.imitateSkeleton_content {
+  flex: 1;
+}
+
+
+.row:not(:first-child) {
+  margin-top: 12px;
+}
+
+.row {
+  background-color: #f2f3f5;
+  height: 14px;
+  border-radius: 6rpx;
+}
+
+.imitateSkeleton_avatar{
+  border-radius: 100%;
+  background-color: #f2f3f5;
+  margin-right: 32rpx;
+  flex-shrink: 0;
+}
+
+.imitateSkeleton-animate {
+  animation: van-skeleton-blink 1.2s ease-in-out infinite
+}
+
+@keyframes van-skeleton-blink {
+  50% {
+    opacity: .6
+  }
+}

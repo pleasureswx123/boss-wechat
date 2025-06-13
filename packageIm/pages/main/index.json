@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "消息",
+  "usingComponents": {
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "component-tab": "/components/tab/tab",
+    "component-list": "./conlist/conlist",
+    "component-info": "/components/infomationList/infomationList",
+    "noData": "/components/nodata/nodata",
+    "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+    "van-popup": "@vant/weapp/popup/index",
+    "vltPrompt": "/components/vltPrompt/index",
+    "collectGuide": "/components/collectGuide/collectGuide",
+    "component-tab_classics": "/components/tab_classics/tab_classics"
+  },
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black"
+}

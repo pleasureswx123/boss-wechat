@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-overlay": "@vant/weapp/overlay/index"
+    },
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom",
+    "navigationBarBackgroundColor": "#F32E2E",
+    "navigationBarTitleText":"帮助与客服"
+}

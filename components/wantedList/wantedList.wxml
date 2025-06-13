@@ -1,0 +1,120 @@
+<!--components/infomationList/infomationList.wxml-->
+<view style="border-radius: 16rpx; ">
+  <view class="item {{item.isH == 1 ? 'hotBack' : ''}}" wx:for="{{dataList}}" wx:key="index" data-item="{{item}}" bindtap="jump">
+    <view class="title">
+      <view class="name" wx:if="{{ tab==1 }}">
+        <!-- <span wx:if="{{item.num}}" class="position">{{item.num}}</span> -->
+        <span>{{item.title}}</span>
+        <!-- 红包 -->
+        <!-- <image wx:if="{{item.redPacket == 1}}" class="hongICon" src="/images/index_img/hongbao.png"> -->
+        <!-- <image class="hongICon" src="{{baseImageUrl + '/index_img/hongbao.png'}}" /> -->
+        <view class="awaitsign await_ok" wx:if="{{item.signStatus == 1}}">待签到</view>
+        <view class="awaitsign await" wx:if="{{item.signStatus == 2}}">待确认</view>
+        <view class="awaitsign ok" wx:if="{{item.signStatus == 3}}">已完成</view>
+        <view class="awaitsign footerRightBtn1" wx:if="{{item.signStatus == 4}}">已取消</view>
+      </view>
+      <view class="name" wx:if="{{ tab==2 }}">
+        <span>{{item.title}}</span>
+        <!-- <view class="awaitsign await_ok" wx:if="{{item.signStatus == 1}}">待签到</view>
+                <view class="awaitsign footerRightBtn1" wx:if="{{item.signStatus == 4}}">已取消</view>
+                <view class="awaitsign await" wx:if="{{item.signStatus != 1 && item.signStatus != 4 && item.takeStatus === 0}}">待确认</view>
+                <view class="awaitsign ok" wx:if="{{item.signStatus != 1 && item.signStatus != 4 && (item.takeStatus ===1 || item.takeStatus ===2)}}">已完成</view> -->
+        <view class="awaitsign await_ok" wx:if="{{item.subsidyStatus == 1}}">待签到</view>
+        <view class="awaitsign footerRightBtn1" wx:if="{{item.subsidyStatus == 2}}">待审核</view>
+        <view class="awaitsign ok" wx:if="{{item.subsidyStatus == 3}}">已完成</view>
+      </view>
+      <view class="pay">
+        <view class="compensation" wx:if="{{item.moneyType == 1}}">面议</view>
+        <view class="compensation font28" wx:else>
+          <view wx:if="{{item.type==1 || item.type==3}}">
+            <text class="content_job_right_money">{{item.lowestMoney}}-{{item.maximumMoney}}{{clearing[item.settlementUnit-1] || '元/时'}}</text>
+          </view>
+          <view wx:else>
+            <text wx:if="{{versions == 1}}">
+              <text class="content_job_right_money">{{item.lowestMoney}}-{{item.maximumMoney}}K</text>
+            </text>
+            <!-- 经典版 -->
+            <text wx:if="{{versions == 2}}">
+              <text class="content_job_right_money" wx:if="{{item.lowestMoney > 0 && item.maximumMoney < 10}}">{{item.lowestMoney}}-{{item.maximumMoney}}千</text>
+              <text class="content_job_right_money" wx:else>{{item.lowestMoney / 10}}-{{item.maximumMoney / 10}}万</text>
+            </text>
+            <!-- {{item.lowestMoney}}-{{item.maximumMoney}}K  "-->
+            <span class="content_job_right_money" wx:if="{{item.monthMoney > 12}}"> · {{item.monthMoney}}薪</span>
+          </view>
+          <!-- <view>
+                        {{item.lowestMoney}}-{{item.maximumMoney}}K
+                        <span wx:if="{{item.monthMoney > 12}}">{{item.monthMoney}}薪</span>
+                    </view> -->
+        </view>
+        <view>
+        </view>
+      </view>
+    </view>
+    <!-- 公司信息 -->
+    <view class="introduce">
+      <text class="span">{{item.corporationName}}</text>
+
+      <text class="span" wx:if="{{financingList[item.financeStage]!='不限'}}">{{financingList[item.financeStage]}}</text>
+      <text class="span" wx:if="{{scaleList[item.scale]!='不限'}}">{{scaleList[item.scale]}}</text>
+    </view>
+
+    <!-- 标签 -->
+    <view class="category">
+      <span class="tag" wx:if="{{experienceList[item.experience]!='不限'}}">{{experienceList[item.experience]}}</span>
+      <span class="tag" wx:for="{{item.tag}}" wx:key="index" wx:for-item="itemName">{{itemName}}</span>
+    </view>
+
+    <!-- 招聘者 -->
+    <view class="footer" wx:if="{{type == 1}}">
+      <view class="header">
+        <image src="{{item.avatar}}" class="headerIcon" mode="" />{{item.outName}} · {{item.outPost}}
+      </view>
+      <view class="distance">
+        <text wx:if="{{item.province}}">{{item.province}}</text>
+        <text wx:if="{{item.city}}">·{{item.city}}</text>
+      </view>
+    </view>
+    <view class="footer" wx:else>
+      <view class="footerlfet" wx:if="{{tab==1}}">
+        <!-- <image class="hongICon" src="{{baseImageUrl + '/index_img/hongbao.png'}}" /> -->
+        <text wx:if="{{item.signStatus !== 1 && item.redEnvelopeCount}}" class="redMoney">¥{{item.redEnvelopeCount}}</text>
+        <text wx:if="{{item.signStatus == 1}}" class="redText">签到后领取神秘红包</text>
+        <text wx:if="{{item.signStatus == 2}}" class="redText">企业确认后，可自动转入钱包</text>
+        <text wx:if="{{item.signStatus == 3}}" class="redText">红包已发放至您的钱包</text>
+        <text wx:if="{{item.signStatus == 4}}" class="redText">红包不可再领取</text>
+        <text wx:if="{{item.signStatus == 5}}" class="redText">
+          <text wx:if="{{item.appealStatus==0}}">您被标记实际未面试，红包自动退回</text>
+          <text wx:if="{{item.appealStatus==1}}">您被标记实际未面试，红包自动退回</text>
+          <text wx:if="{{item.appealStatus==2}}">经核实，未面试情况不属实，红包已发放到您的账户</text>
+          <text wx:if="{{item.appealStatus==3}}">经核实，实际未面试情况属实，红包已退回</text>
+        </text>
+      </view>
+      <view class="footerlfet" wx:if="{{tab==2}}">
+        <text wx:if="{{item.amount}}" class="redMoney">¥{{item.amount}}</text>
+        <text wx:if="{{item.signStatus == 1}}" class="redText">签到后领取神秘红包</text>
+        <text wx:if="{{item.signStatus == 4}}" class="redText">红包不可再领取</text>
+        <text wx:if="{{item.signStatus != 1 && item.signStatus != 4 && item.takeStatus === 0}}" class="redText">平台面试路费补贴待平台审核</text>
+        <text wx:if="{{item.signStatus != 1 && item.signStatus != 4 && item.takeStatus === 1}}" class="redText">平台面试路费补贴已发放到您的钱包</text>
+        <text wx:if="{{item.signStatus != 1 && item.signStatus != 4 && item.takeStatus === 2}}" class="redText">平台面试路费补贴存在异常行为，已终止发放</text>
+      </view>
+      <view class="footerRight" wx:if="{{item.signStatus == 1}}" catchtap="sendMsg" data-type="{{item}}">
+        <view class="footerRightBtn">面试签到</view>
+      </view>
+      <view class="footerRight2" wx:elif="{{item.signStatus == 5}}" catchtap="goSs" data-type="{{item}}">
+        <view class="footerRightBtn2" wx:if="{{item.appealStatus==1}}">已申诉</view>
+        <view class="footerRightBtn2" wx:if="{{item.appealStatus==0}}">申诉</view>
+      </view>
+      <view class="footerRight" wx:else>
+        <view class="footerRightBtn1" wx:if="{{item.signStatus == 4 && !item.signTnType}}">未签到</view>
+      </view>
+      <!-- <view class="footerRight" wx:if="{{item.signStatus == 3}}">
+                <view class="footerRightBtn">面试签到</view>
+            </view> -->
+    </view>
+
+    <!-- <view class="qiandao_btn" wx:if="{{item.signStatus == 0}}">
+            <text wx:if="{{item.interviewTime}}">{{item.interviewTime}}</text>
+            <view class="_btn">确认签到</view>
+        </view> -->
+  </view>
+</view>

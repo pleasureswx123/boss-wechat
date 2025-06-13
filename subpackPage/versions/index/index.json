@@ -1,0 +1,25 @@
+{
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index",
+    "pull-refresh-view": "/components/pull-refresh-view/index",
+    "screenCondition": "/components/screenCondition/screenCondition",
+    "component-info": "/components/infomationList/infomationList",
+    "me-waterfall": "/components/lib/waterfall/index",
+    "me-waterfall-item": "/components/lib/waterfall-item/index",
+    "noData": "/components/nodata/nodata",
+    "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+    "component-tab": "/components/tab/tab",
+    "member-prop": "/components/member_prop/member_prop",
+    "van-sticky": "@vant/weapp/sticky/index",
+    "versionList": "/components/versionList/versionList",
+    "skeletonList": "/components/skeletonList/skeletonList",
+    "collectGuide": "/components/collectGuide/collectGuide",
+    "component-tab_classics": "/components/tab_classics/tab_classics",
+    "van-transition": "@vant/weapp/transition/index"
+  },
+  "navigationStyle": "custom",
+  "onReachBottomDistance": 100,
+  "navigationBarTitleText": "",
+  "navigationBarTextStyle": "white",
+  "disableScroll": true
+}

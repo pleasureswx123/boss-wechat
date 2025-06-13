@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "wantedList":"/components/wantedList/wantedList",
+        "noData":"/components/nodata/nodata",
+        "van-overlay": "@vant/weapp/overlay/index",
+        "van-action-sheet": "@vant/weapp/action-sheet/index"
+    },
+    "navigationBarTitleText": "求职福利",
+    "navigationBarBackgroundColor": "#f5f5f5",
+    "navigationBarTextStyle": "black"
+}

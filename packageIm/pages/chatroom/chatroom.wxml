@@ -1,0 +1,165 @@
+<view class="chatBox">
+  <!-- 自定义头部 -->
+  <view class="header">
+    <view class="list">
+      <view class="item" wx:for="{{ topList }}" wx:for-item="item" bindtap="sendCustom" data-item="{{item}}" wx:key="index">
+        <image src="{{imageUrl}}/yp/{{item.name}}.png" class="hIcon"></image>
+        <text class="grid-text">
+          <text>{{item.title}}</text>
+        </text>
+      </view>
+    </view>
+    <topTip statusResult="{{statusResult}}" userInfo="{{ userInfo }}" follow='{{follow}}'></topTip>
+  </view>
+  <!-- 会话渲染 -->
+  <scroll-view class="msgList" scroll-y='true' scroll-into-view="{{bottomId}}" refresher-enabled="true" refresher-threshold="{{100}}" refresher-default-style="black" refresher-background="white" refresher-triggered="{{triggered}}" bindrefresherrefresh="onScrollRefresh" bindscrolltolower="bindscrolltolowerFn" bindtap="closeFun" data-istrigger="{{true}}">
+    <msgItem chatMsg="{{chatMsg}}" statusResult="{{statusResult}}" username="{{userInfo}}" bind:sendMsgRecall="sendMsgRecall"></msgItem>
+    <view id="bottomView"></view>
+    <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+    <view class="loading" hidden="{{!searchLoadingComplete}}">已加载全部</view>
+  </scroll-view>
+  <chat-suit-audio id="chat-suit-audio" userInfo="{{ userInfo }}" bind:sendMsg="sendMsg"></chat-suit-audio>
+  <!-- 消息发送底部 -->
+  <!-- style="bottom: {{KeyBoardHeight}}px;" -->
+  <view class="footer" style="padding-bottom: {{KeyBoardHeight}}px;">
+    <view class="intervalRes" wx:if="{{msResultStatus===0 || msResultStatus}}" bind:tap="openIntervalRes">查看面试结果</view>
+
+    <view class="room_bar">
+      <view style="width: 100%;">
+        <chat-suit-main id="chat-suit-main" data-istrigger="{{false}}" userInfo="{{ userInfo }}" bind:closeFun="closeFun" bind:changeStatus="changeStatus" bind:sendMsg="sendMsg" bind:changeJp="changeJp" bind:scrollBottom="scrollBottom" bind:KeyBoardHeight="KeyBoardHeight" bind:blur="blur"></chat-suit-main>
+        <chat-suit-image id="chat-suit-image" userInfo="{{ userInfo }}" bind:sendMsg="sendMsg"></chat-suit-image>
+      </view>
+    </view>
+    <view class="useful" style="border-top: 1rpx solid #ededed;" wx:if="{{showEmoji}}">
+      <chat-suit-emoji id="chat-suit-emoji" bind:newEmojiStr="emojiAction"></chat-suit-emoji>
+    </view>
+    <view class="useful" wx:if="{{isShowUse}}">
+      <scroll-view scroll-y="true" style="max-height:300rpx">
+        <view wx:for="{{useFulList}}" wx:key="index" class="userfulItem" bindtap="sendUseful" data-use="{{item.content}}">
+          {{item.content}}
+        </view>
+      </scroll-view>
+      <view class="cyyBtns">
+        <view bindtap="goPage" data-val="1">
+          <image src='{{imageUrl}}/yp/useEdit.png' />添加
+        </view>
+        <view bindtap="goPage" data-val="2">
+          <image src='{{imageUrl}}/yp/useMg.png' />管理
+        </view>
+      </view>
+    </view>
+    <view class="cameraBox" wx:if="{{!isShowAdd}}">
+      <view class="sendImage" bind:tap="sendImage">
+        <span class="icon">
+          <image src="{{imageUrl}}/yp/pic.png" style="width: 46rpx;height: 44rpx;" />
+        </span>
+        <span class="title">相册</span>
+      </view>
+      <view class="sendImage" bind:tap="openCamera">
+        <span class="icon">
+          <image src="{{imageUrl}}/yp/pic1.png" style="width: 46rpx;height: 38rpx;" />
+        </span>
+        <span class="title">拍摄</span>
+      </view>
+      <view class="sendImage" bind:tap="toggleRecordModal">
+        <span class="icon">
+          <image src="{{imageUrl}}/yp/voice.png" style="width: 34rpx;height: 48rpx;" />
+        </span>
+        <span class="title">发送语音</span>
+      </view>
+    </view>
+  </view>
+  <van-popup round show="{{ jlShow }}" position="bottom" custom-style="height: 40%" closeable bind:close="onClose">
+    <view class="gui-flex gui-column share-item">
+      <view class="getFile">
+        <view class="title">选择要发送的附件</view>
+        <view class="content" wx:for="{{jlList}}" wx:key="index" bindtap="sendFile" data-item="{{item}}">
+          <image src="{{baseImgUrl}}/my/resumeAnnex.png" mode="" />
+          <view style="flex:1">
+            <view class="fileName">{{item.fileName}}</view>
+            <view class="size">{{item.size+ " MB"}} 更新于{{item.updateTime}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+  <!-- 面试结果弹框 -->
+  <van-popup round show="{{(msResultStatus===0 || msResultStatus) && isShowMsResultStatus}}" position="bottom" custom-style="height: 554rpx" closeable bind:close="onClose">
+    <view class="gui-flex gui-column share-item">
+      <view class="title1">面试结果</view>
+      <view class="content1">
+        <view class="iconBox">
+          <image src="{{imageUrl}}/yp/msWtg.png" mode="" class="icon" wx:if="{{ msResultStatus==2 }}" />
+          <image src="{{imageUrl}}/yp/msKlz.png" mode="" class="icon" wx:if="{{ msResultStatus==0 }}" />
+          <image src="{{imageUrl}}/yp/msTg.png" mode="" class="icon" wx:if="{{ msResultStatus==1 }}" />
+          <view class="msText" wx:if="{{ msResultStatus==1 }}">面试通过</view>
+          <view class="msText" wx:if="{{ msResultStatus==0 }}">正在考虑中</view>
+          <view class="msText" wx:if="{{ msResultStatus==2 }}">面试未通过</view>
+        </view>
+        <view class="btn" bindtap="goInterviewPage" data-item="{{statusResult.interviewRecordId}}">查看面试详情</view>
+      </view>
+    </view>
+  </van-popup>
+  <!-- 面邀弹框 redPack添加一个字短-->
+  <view class="msYq" wx:if="{{ statusResult.interviewDetails && !userInfo.changePositionId }}">
+    <view class="msCont">
+      <image src="{{imageUrl}}/yp/myMs1.png" mode="" class="myMs" wx:if="{{statusResult.interviewDetails.redEnvelopeType}}" />
+      <image src="{{imageUrl}}/yp/myMs.png" mode="" class="myMs" wx:else />
+      <view class="content">
+        <view class="box1" style="margin-top:{{statusResult.interviewDetails.redEnvelopeType?'70rpx':''}};">
+          <image src="{{statusResult.interviewDetails.logo}}" mode="aspectFill" class="logo" wx:if="{{statusResult.interviewDetails.logo}}" />
+          <image src="{{baseImgUrl}}/newImg/companyHead.svg" mode="aspectFill" class="logo" wx:else></image>
+          <view class="msYpname">{{statusResult.interviewDetails.corporationName}}</view>
+        </view>
+        <view class="box2">
+          <view class="tit" wx:if="{{statusResult.interviewDetails.alertType==1}}">线下面试邀请函</view>
+          <view class="tit" wx:if="{{statusResult.interviewDetails.alertType==2}}">即将开始面试，快去签到吧</view>
+          <view class="tit" wx:if="{{statusResult.interviewDetails.alertType==3}}">面试已开始，不要忘记签到</view>
+          <view class="tit" wx:if="{{statusResult.interviewDetails.alertType==4}}">面试信息修改</view>
+          <view class="tit" wx:if="{{statusResult.interviewDetails.alertType==5}}">面试已经结束，快去签到吧</view>
+          <!-- 报销路费 -->
+          <view class="qicheBox" wx:if="{{statusResult.interviewDetails.activitySubsidy==1}}">
+            <image src="{{baseImgUrl}}/versions/xqiche.png" mode="aspectFill" class="qiche"></image>
+          </view>
+          <!-- Boss 修改成面试官 ghy 2023-10-18 修改 -->
+          <view class="info"><text>面试官：</text>{{statusResult.interviewDetails.outName}}·{{statusResult.interviewDetails.outPost}}</view>
+          <view class="info"><text>职位：</text>{{statusResult.interviewDetails.postName}}
+            <text wx:if="{{statusResult.interviewDetails.moneyType==1}}">面议</text>
+            <text wx:else>{{statusResult.interviewDetails.lowestMoney}}-{{statusResult.interviewDetails.maximumMoney}}K</text>
+            <!-- 汽车活动图标 -->
+            <image src="{{baseImgUrl}}/index_img/car.png" mode="" style="width: 32rpx;height: 24rpx;margin-left: 12rpx;" wx:if="{{statusResult.interviewDetails.activitySubsidy==1}}" />
+          </view>
+          <view class="info"><text>时间：</text>{{statusResult.interviewDetails.interviewTime}}</view>
+        </view>
+        <view class="box3_1" bindtap="goInterviewPage" data-item="{{statusResult.interviewDetails.interviewRecordId}}" wx:if="{{statusResult.interviewDetails.redEnvelopeType}}">
+          <image src="{{imageUrl}}/yp/myMsBtn.png" mode="" class="myMsbtn" />
+        </view>
+        <view class="box3" bindtap="goInterviewPage" data-item="{{statusResult.interviewDetails.interviewRecordId}}" wx:else>立即查看</view>
+      </view>
+    </view>
+  </view>
+  <!-- offer弹框 -->
+  <view class="msYq" wx:if="{{statusResult.offerRecordId && !statusResult.offerStatus && offerShow}}">
+    <view class="msCont">
+      <image src="{{imageUrl}}/yp/myMs.png" mode="" class="myMs" />
+      <view class="content">
+        <image src="{{baseImgUrl}}/newImg/closeIcon.svg" mode="aspectFill" class="closePng" bindtap="closeOffer"></image>
+        <view class="box1">
+          <image src="{{userInfo.targetAvatar}}" mode="aspectFill" class="logo" wx:if="{{userInfo.targetAvatar}}" />
+          <image src="{{baseImgUrl}}/newImg/companyHead.svg" mode="aspectFill" class="logo" wx:else></image>
+          <view class="offerYpname">{{userInfo.targetCompany}}</view>
+        </view>
+        <view class="box2" style="height: 140rpx;">
+          <view class="tit">{{userInfo.targetName}}发来邀约，待接受</view>
+        </view>
+        <view class="box4" bindtap="goofferPage" data-item="{{statusResult.offerRecordId}}" data-status="{{statusResult.offerStatus}}">立即查看</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- <van-popup show="{{true}}">
+    <chat-suit-audio id="chat-suit-audio" userInfo="{{ userInfo }}" bind:sendMsg="sendMsg"></chat-suit-audio>
+  </van-popup> -->
+  <!-- 申诉 -->
+  <redAppeal isShensu="{{isShensu}}" interviewRecordId="{{msId}}"></redAppeal>
+</view>

@@ -1,0 +1,165 @@
+<!-- <view class="pageContent" style="background-image: url({{baseImageUrl}}/jinqiu/jqbg.png);">
+  <view class="backIcon" bindtap="goBack" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+    <van-icon name="arrow-left" color="#000000" size="20px" />
+  </view>
+  <image src="{{baseImageUrl}}/jinqiu/jqbg.png" mode="aspectFill" class="jqbg"></image>
+
+
+  <view class="row column between" style="height: 100%;width: 100%;overflow: hidden;">
+    <view class="contentBox" >
+      <view class="itemBox1" style="padding-top: {{statusBarHeight + 44}}px;">
+        <view class="itemBox1_1">
+          <view class="jq1">
+            <image src="{{baseImageUrl}}/jinqiu/jq1.png" mode="aspectFit" class="jq1_1"></image>
+          </view>
+          <image src="{{baseImageUrl}}/jinqiu/piaodai.png" mode="aspectFill" class="piaodai"></image>
+        </view>
+        <view class="itemBox1_1">
+          <image src="{{baseImageUrl}}/jinqiu/person1.png" mode="aspectFill" class="person"></image>
+        </view>
+      </view>
+      <view class="itemBox2">
+        <image src="{{baseImageUrl}}/jinqiu/jq5.png" mode="aspectFill" class="jq5"></image>
+        <view class="djCont" wx:for="{{activityEquityList}}" wx:key="index">
+          <image src="{{baseImageUrl}}/jinqiu/jq4.png" mode="aspectFill" class="jq4"></image>
+          <view class="djCont_cont">
+            <view class="jqwx" wx:if="{{!isReceive}}">
+              <text class="f48" style="color: #fff;">{{item.times}}</text>
+              <view class="mt10" style="color: #fff;">次</view>
+            </view>
+            <view class="jqwx" wx:if="{{isReceive}}" style="align-items: flex-end;margin-bottom: 14rpx;">
+              <text class="f48" style="color: #fff;line-height: 48rpx;margin-right: 2rpx;">{{item.usedTimes}}</text>
+              <text style="color: #fff;line-height: 48rpx">/</text>
+              <text class="mt10" style="color: #fff;line-height: 40rpx">{{item.times}}</text>
+            </view>
+            <view>
+              <view class="font1">{{item.name}}</view>
+              <view class="font2">{{item.describe || ''}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="djCont">
+          <image src="{{baseImageUrl}}/jinqiu/jq3.png" mode="aspectFill" class="jq4"></image>
+          <view class="djCont_cont">
+            <image src="{{baseImageUrl}}/jinqiu/jqwx.png" mode="aspectFit" class="jqwx"></image>
+            <view>
+              <view class="font3">每日查看企业数量</view>
+              <view class="font4">查看企业数量</view>
+            </view>
+          </view>
+        </view>
+        <view class="djCont">
+          <image src="{{baseImageUrl}}/jinqiu/jq3.png" mode="aspectFill" class="jq4"></image>
+          <view class="djCont_cont">
+            <image src="{{baseImageUrl}}/jinqiu/jqwx.png" mode="aspectFit" class="jqwx"></image>
+            <view>
+              <view class="font3">每日沟通数量</view>
+              <view class="font4">无忧沟通企业HR</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="bottomBtn" wx:if="{{!isReceive}}">
+      <image bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/jqbtn.png" mode="aspectFit" class="jqbtn"></image>
+      <image bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/activeHover.png" mode="aspectFit" class="activeHover_btn"/>
+    </view>
+  </view>
+</view> -->
+
+<view class="JQ_wrap" style="background-image: url({{baseImageUrl}}/jinqiu/jqbg.png);">
+  <!-- 返回icon -->
+  <view class="backIcon" bindtap="goBack" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+    <van-icon name="arrow-left" color="#000000" size="20px" />
+  </view>
+
+
+  <view class="JQ_wrap-content row column">
+    <view class="content-top" style="padding-top: {{statusBarHeight + 44}}px;">
+      <!-- 图片 -->
+      <view class="imageBox">
+        <image src="{{baseImageUrl}}/jinqiu/jq1.png" mode="aspectFit" class="jq1_1"></image>
+
+        <image src="{{baseImageUrl}}/jinqiu/piaodai.png" mode="aspectFill" class="piaodai"></image>
+
+        <image src="{{baseImageUrl}}/jinqiu/person1.png" mode="aspectFill" class="person"></image>
+      </view>
+      <!-- 奖励 -->
+      <view class="reward column">
+        <view class="reward_title">
+          <image src="{{baseImageUrl}}/jinqiu/jq5.png" mode="aspectFill" class="title_bg"></image>
+        </view>
+        <!-- 奖励内容 -->
+        <view class="reward_content">
+          <view wx:for="{{activityEquityList}}" wx:key="index" class="activityRewards-item prop-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq4.png);">
+            <view class="activityRewards-item_left" wx:if="{{!isReceive}}">
+              <text class="num1">{{item.times}}</text>
+              <text class="unit-txt">次</text>
+            </view>
+            <view class="activityRewards-item_left" wx:if="{{isReceive}}">
+              <text class="num1">{{item.usedTimes}}</text>
+              <text style="color: #fff;font-size: 30rpx;font-weight: 600;margin: 0 2rpx;">/</text>
+              <text class="unit-txt">{{item.times}}</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">{{item.name}}</view>
+              <text class="dict-txt">{{item.describe || ''}}</text>
+            </view>
+          </view>
+          <view class="activityRewards-item Equity-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq3.png);">
+            <view class="activityRewards-item_left row">
+              <text class="num1">无限</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">每日查看企业数量</view>
+              <text class="dict-txt">查看企业数量</text>
+            </view>
+          </view>
+          <view class="activityRewards-item Equity-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq3.png);">
+            <view class="activityRewards-item_left row">
+              <text class="num1">无限</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">每日沟通数量</view>
+              <text class="dict-txt">无忧沟通企业HR</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 规则说明 -->
+      <view class="rule-explain column">
+        <view class="rule-explain_title">
+          <!-- 标题图片 -->
+          <image class="title_bg" src="{{baseImageUrl}}/jinqiu/jq6.png" mode="aspectFill"/>
+          <!-- icon -->
+          <image src="{{baseImageUrl}}/jinqiu/jq2.png" mode="aspectFill" class="title_icon"></image>
+        </view>
+        <!-- 规则内容 -->
+        <view class="rule-explain_content">
+          <view class="item">
+            <view class="num">1</view>知城优聘为回馈新老客户，特推出限时宠粉活动；
+          </view>
+          <view class="item">
+            <view class="num">2</view>每日首次登录可领取“双节大礼包”；
+          </view>
+          <view class="item">
+            <view class="num">3</view>“双节大礼包”包含<text style="color: #FD0000;">无限沟通</text>和<text style="color: #FD0000;">每日虚拟电话</text>；
+          </view>
+          <view class="item">
+            <view class="num">4</view>活动时间：{{activitystartTime}}-{{activityendTime}}。
+          </view>
+
+          <text class="row txt">最终解释权归知城优聘所有</text>
+        </view>
+      </view>
+    </view>
+    <!-- 按钮区域-领取 -->
+    <view class="bottomBtn" wx:if="{{!isReceive}}">
+      <image bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/jqbtn.png" mode="aspectFit" class="jqbtn"></image>
+      <image bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/activeHover.png" mode="aspectFit" class="activeHover_btn"/>
+    </view>
+  </view>
+
+  <!-- 雪花飘落 -->
+  <canvas id="demoCanvas" type="2d" style="width: 100%; height: calc(100% - 222rpx);position: absolute;top:0px;left: 0;"></canvas>
+</view>

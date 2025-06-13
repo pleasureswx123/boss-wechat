@@ -1,0 +1,81 @@
+/* subpackPage/index/search/index.wxss */
+page {
+    background-color: #fff;
+    height: 100%;
+    overflow: hidden;
+}
+
+.search {
+    height: 100%;
+    background: #F5F5F5;
+}
+
+.searchInput {
+    padding: 38rpx 32rpx 0;
+}
+
+.van-search {
+    padding: 0px;
+}
+
+.input-class {
+    /* background: #FFF; */
+    margin-left: 4rpx;
+}
+
+.searchTitle {
+    padding: 0 32rpx;
+}
+.selectBg{
+  background: linear-gradient( 308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  height: 80rpx;
+  width: 530rpx;
+  color: #fff;
+  line-height: 80rpx;
+  border-radius: 60rpx;
+  font-size: 28rpx;
+  text-align: center;
+  position: absolute;
+  bottom: 150rpx;
+  left: 75rpx;
+}
+
+.padding-top_18{
+    padding-top: 18rpx;
+}
+
+.hotList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hotList .text {
+    margin-right: 16rpx;
+    margin-bottom: 20rpx;
+    background: #fff;
+    border-radius: 8rpx;
+    text-align: center;
+}
+
+.textColor {
+    display: inline-block;
+    padding: 8rpx 28rpx;
+    font-size: 26rpx;
+    
+    font-weight: 400;
+    color: #1D2129;
+    vertical-align: middle
+}
+
+.countent{
+    height: 166rpx;
+    background: #FFFFFF;
+    border-radius: 24rpx;
+    text-align: center;
+    line-height: 166rpx;
+    font-size: 32rpx;
+    
+    font-weight: 400;
+    color: #1D2129;
+    letter-spacing: 2px;
+}

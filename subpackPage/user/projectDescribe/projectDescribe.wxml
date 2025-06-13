@@ -1,0 +1,12 @@
+<view class="box">
+    <scroll-view scroll-y="true" style="height: 100vh;">
+        <view class="textarea">
+            <textarea value="{{name}}" placeholder="请描述该项目，向招聘官展示您的项目经验" maxlength="1600" bindinput="changeText"/>
+            <view class="num">
+                {{name.length}}/1600
+            </view>
+        </view>
+        <view class="submit_btn" bindtap="goBack" wx:if="{{ name!== ''}}">保存</view>
+        <view class="default_btn" wx:else>保存</view>
+    </scroll-view>
+</view>

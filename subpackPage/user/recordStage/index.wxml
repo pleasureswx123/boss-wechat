@@ -1,0 +1,60 @@
+<view class="box">
+    <van-sticky>
+        <view class="top_tabs">
+            <!-- <van-tabs active="{{ active }}" swipeable="{{true}}" lazy-render="{{false}}" duration="0.2" bind:change="changeTabs" title-active-color="#FE0201" color="#FE0201"> -->
+                <view wx:if="{{active==1}}">
+                    <view style="height: {{windowHeight}}px;box-sizing: border-box;">
+                        <scroll-view style="height: calc(100vh - 100rpx)" scroll-y bindscrolltolower="positionCollect">
+                            <block wx:if="{{propList.length>0}}">
+                                <view class="no_use_box">
+                                    <view class="no_use_item" wx:for="{{propList}}" wx:key="index">
+                                      <view style="display: flex;flex-direction: row;justify-content: space-between;">
+                                          <view class="items_left">
+                                              <view class="items_left_left_top">{{item.title || '无'}}<text style="color:#999;font-size: 24rpx;margin-left: 8rpx;" wx:if="{{item.remark}}">{{item.remark}}</text><text wx:if="{{item.num>1}}">*{{item.num}}</text></view>
+                                              <view class="items_left_zddk" wx:if="{{item.deductDou>0}}">知豆抵扣：{{item.deductDou}}</view>
+                                          </view>
+                                          <view class="items_right addColor">
+                                              <span>¥</span>
+                                              <text>{{item.pay}}</text>
+                                          </view>
+                                        </view>
+                                        <view class="items_left_left_bot">{{item.createTime}}</view>
+                                    </view>
+                                </view>
+                            </block>
+                            <noData wx:else></noData>
+                        </scroll-view>
+                    </view>
+                </view>
+                <view wx:if="{{active==2}}">
+                    <view style="height: {{windowHeight}}px;box-sizing: border-box;">
+                      <view class="s_tabs">
+                            <view class="s_item {{sActive==index?'selected' : ''}}" wx:for="{{tabList}}" wx:key="index" bindtap="changeLab" data-index="{{index}}">
+                                {{item.name}}
+                            </view>
+                        </view>
+                        <scroll-view style="height: calc(100vh - 100rpx)" scroll-y bindscrolltolower="positionCollect">
+                            <block wx:if="{{tempList.length>0}}">
+                                <view class="no_use_box">
+                                  <view class="no_use_item" wx:for="{{tempList}}" wx:key="index">
+                                      <view style="display: flex;flex-direction: row;justify-content: space-between;">
+                                          <view class="items_left">
+                                              <view class="items_left_left_top">{{consumeDescribeList[item.consumeDescribe]}}</view>
+                                          </view>
+                                          <view class="items_right  {{item.handleType == 1 ? 'addColor' : 'reduce'}}">
+                                            <span>{{ item.handleType == 1 ? '+' : "-"}}</span>
+                                              <text>{{item.num}}</text>
+                                          </view>
+                                        </view>
+                                        <view class="items_left_left_bot">{{item.updateTime}}</view>
+                                    </view>
+                                </view>
+                            </block>
+                            <noData wx:else></noData>
+                        </scroll-view>
+                    </view>
+                </view>
+            <!-- </van-tabs> -->
+        </view>
+    </van-sticky>
+</view>

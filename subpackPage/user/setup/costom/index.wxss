@@ -1,0 +1,47 @@
+/* subpackPage/user/setup/costom/index.wxss */
+.textarea {
+    position: relative;
+    width: 654rpx;
+    height: 698rpx;
+    border-radius: 20rpx;
+    opacity: 0.5;
+    border: 1rpx solid #979797;
+    padding: 40rpx;
+    box-sizing: border-box;
+    margin: 20rpx auto 0 auto;
+}
+.textarea textarea {
+    width: 100%;
+    height: 100%;
+}
+.num {
+    position: absolute;
+    bottom: 40rpx;
+    right: 40rpx;
+}
+.box{
+    background: #fff;
+}
+
+.default_btn{
+    position: fixed;
+    bottom: 70rpx;
+    left: 50%;
+    z-index: 9999;
+    transform: translateX(-50%);
+    width: 654rpx;
+    height: 80rpx;
+    background: linear-gradient(270deg, #ECECEC 0%, #D9D9D9 100%);
+    border-radius: 12rpx;
+    text-align: center;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+.submit_btn{
+    /* background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+    background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+}

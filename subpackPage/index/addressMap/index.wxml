@@ -1,0 +1,80 @@
+<view class="addressMapBox">
+    <view class="addressMapMain">
+        <view class="{{searchListAsync.length > 0 ? 'searchWarp' : ''}}" style="height: 64rpx;margin-bottom: 26rpx;">
+            <!-- 搜索框 -->
+            <view class="selectHeight">
+                <view class="searchInput" style="padding-left: 24rpx; padding-right: 24rpx;">
+                    <!-- 搜索图标 -->
+                    <image class="searchIcon" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+                    <!-- 搜索框 -->
+                    <input type="text" 
+                    maxlength="{{maxlength}}" 
+                    placeholder="请输入办公大楼,例: XX大厦" 
+                    model:value="{{searchValue}}" 
+                    style="background: #f5f5f5;" 
+                    class="input-class" 
+                    placeholder-style="font-size: 26rpx" 
+                    cursor-color="#FE0201"
+                    confirm-type="done" 
+                    adjust-position="{{true}}" 
+                    bindconfirm="confirm" 
+                    bindinput="input" />
+                    <!-- 清除控件 -->
+                    <span class="clearIcon" bindtap="clearKeyWord" wx:if="{{searchValue !== '' && clearable}}">
+                        <image bindtap="clearKeyWord" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+                    </span>
+                </view>
+                <!-- 搜索结构 -->
+                <view class="select" wx:if="{{searchListAsync.length > 0}}">
+                    <view class="selectItem" wx:for="{{searchListAsync}}" data-item="{{item}}" wx:key="index" bindtap="hotSearch">
+                        <view class="countent">
+                            <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+                            <rich-text nodes="{{ item.highlightedResult }}"></rich-text>
+                        </view>
+                        <view class="line"></view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <!-- markers="{{markers}}" -->
+        <view class="map" hidden="{{searchListAsync.length !== 0}}">
+            <map class="mapContent" 
+            longitude="{{longitude}}" 
+            latitude="{{latitude}}" 
+            enable-auto-max-overlooking="{{true}}" 
+            enable-overlooking="{{true}}" 
+            show-scale="{{true}}" 
+            show-location="{{false}}" 
+            enable-3D="{{true}}" 
+            enable-poi="{{true}}" 
+            enable-traffic="{{true}}"
+            enable-satellite="{{false}}"
+            bindregionchange="bindregionchange"
+            id="myMap"
+            markers="{{markers}}"
+            />
+            <!-- 图标 -->
+            <!-- <image src="{{baseImageUrl}}/newImg/markerImg.png" mode=""/> -->
+        </view>
+        <!-- 附近地址 -->
+        <view class="nearbyAddress" hidden="{{searchListAsync.length !== 0}}" style="height: calc(100% - 398rpx - 64rpx - 26rpx - 38rpx);">
+            <view class="nearbyAddress_title">附近地址</view>
+            <view class="nearbyAddress_list">
+                <view class="nearbyAddress_item" data-item="{{item}}" bind:tap="changeSelect" wx:for="{{maparoundList}}" wx:key="index">
+                    <view class="left">
+                        <view class="address_name {{activeDistance == item.distance ? 'active' : ''}}">{{item.name}}</view>
+                        <view class="address_details">{{item.address}}</view>
+                    </view>
+
+                    <view class="right" wx:if="{{item.select}}">
+                        <van-icon  name="success" color="#FE0201" size="20px"/>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="footer">
+            <view class="addBtn" bind:tap="backCofirm">完成</view>
+        </view>
+    </view>
+</view>

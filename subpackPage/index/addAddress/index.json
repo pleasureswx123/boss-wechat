@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "ocean-search": "/components/ocean-search/index"
+    },
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

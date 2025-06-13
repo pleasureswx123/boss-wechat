@@ -1,0 +1,39 @@
+<!--components/member_prop/member_prop.wxml-->
+<!-- 会员过期弹窗 -->
+<view class="modal" wx:if="{{show}}">
+        <view class="modal-overlay"></view>
+        <view class="discAnimation backImage">
+            <image class="member_modelBack" src="{{imageUrl + '/member/member_modelBack.png'}}" mode=""/>
+        </view>
+        <view class="modal-content">
+            <!-- 弹出层内容 -->
+            <view class="member_modelBox">
+                <!-- 上半部分 -->
+                <view class="box_top" wx:if="{{show.type==1}}">
+                    <image src="{{imageUrl + '/member/member_model.png'}}" mode=""/>
+                    <view class="box_top-text">
+                        <view class="member_Title" wx:if="{{show.discountPrice}}">续费立享折扣，折后{{show.discountPrice}}元</view>
+                        <view class="member_Title" wx:else>您的VIP会员即将到期</view>
+                        <view class="member_Text">您的会员将于 {{show.expire}} 到期，相关权益即将失效，赶紧续费吧！</view>
+                    </view>
+                </view>
+                <view class="box_top" wx:if="{{show.type==2}}">
+                    <image src="{{imageUrl + '/member/member_model.png'}}" mode=""/>
+                    <view class="box_top-text">
+                        <view class="member_Title">您的VIP会员已到期</view>
+                        <view class="member_Text">您的会员已于 {{show.expire}}到期，相关权益已失效，赶紧续费吧！</view>
+                    </view>
+                </view>
+                <!-- 下半部分 -->
+                <view class="box_buttom">
+                    <view class="box_content" bind:tap="onClose" data-type="1">
+                        <view class="btn">立即续费</view>
+                        <view class="text">享受更多会员权益</view>
+                    </view>
+                </view>
+            </view>
+            <view class="closeIcon" bind:tap="onClose" data-type="2">
+              <van-icon name="close" size="24px" color="#fff"/>
+            </view>
+        </view>
+    </view>

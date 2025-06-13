@@ -1,0 +1,70 @@
+<view class="box">
+  <view class="top_input">
+    <view class="searchInput height-class">
+      <!-- 搜索图标 -->
+      <image class="searchIcon" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+      <!-- 搜索框 -->
+      <input type="text" cursor-color="#FE0201" maxlength="{{maxlength}}" placeholder="搜索职位名称" value="{{keyWord}}" class="input-class" placeholder-style="font-size: 26rpx" placeholder-class="input-placeholder" confirm-type="search" adjust-position="{{true}}" bindconfirm="confirm" bindfocus="focus" bindinput="input" />
+      <!-- 清除控件 -->
+      <span class="clearIcon" bindtap="clearKeyWord" wx:if="{{keyWord !== ''}}">
+        <image bindtap="clearKeyWord" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+      </span>
+    </view>
+  </view>
+
+  <!-- 中间部分 -->
+  <view class="bot_box" wx:if="{{selectList.length == 0}}">
+    <scroll-view scroll-y="true" class="leftScrollBox">
+      <view class="left_list">
+        <view class="list_item {{active == index ? 'selected' : ''}}" wx:for="{{leftList}}" wx:key="index" bindtap="changeItem" data-index="{{index}}" wx:if="{{item.select || item.select == undefined}}">
+        <view class="list_item-title">{{item.name}}</view>
+        <view class="list_item-selectNum" wx:if="{{item.selectNum}}">{{item.selectNum}}</view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="middle_line"></view>
+    <scroll-view scroll-y="true" class="right_scroll">
+      <view wx:for="{{rightList}}" wx:key="index" data-index="{{index}}">
+        <view class="xqName">{{item.name}}</view>
+        <view class="sitemBox">
+          <view class="sitem {{sitem.select ? 'active' : ''}}" wx:for="{{item.subList}}" wx:key="index" data-item="{{sitem}}" data-index="{{index}}" data-code="{{sitem.code}}" wx:for-item="sitem" bindtap="selectedItem">
+            {{ sitem.name }}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 搜索结构 -->
+  <view class="bot_box1" wx:if="{{selectList.length > 0}}">
+    <scroll-view class="selectList" scroll-y="true">
+      <view class="selectItem" bindtap="searchTap" wx:for="{{selectList}}" data-item="{{item}}" wx:key="index">
+        <view class="countent">
+          <rich-text class="countent_postName" nodes="{{item.highlightedResult}}"></rich-text>
+          <text class="countent_index">{{item.clevel1Name}}/{{item.clevel2Name}} - {{item.clevel3Name}}</text>
+        </view>
+        <view class="line"></view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部区域 -->
+  <view class="footer" wx:if="{{selectList.length == 0}}">
+    <view class="title">
+      已选： <text style="color: #FE0201;">{{selectPostList.length}}</text>/3
+    </view>
+    <view class="postBox" wx:if="{{selectPostList.length > 0}}">
+      <block wx:for="{{selectPostList}}" wx:key="index">
+        <view class="postBoxItem">
+          <text>{{item.name}}</text>
+          <van-icon bind:click="deleteCurrent" data-index="{{index}}" data-item="{{item}}" data-code="{{item.code}}" name="cross" size="24rpx" color="#FE0201" />
+        </view>
+      </block>
+    </view>
+
+    <view class="btn">
+      <view class="cancelBtn" bind:tap="cancelFn">清除</view>
+      <view class="confirmBtn" bind:tap="confirmSave">确认</view>
+    </view>
+  </view>
+</view>

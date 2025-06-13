@@ -1,0 +1,137 @@
+<!--消息类型-->
+<span>
+    <text wx:if="{{lastMessageVo.msgType == 'txt'}}">{{lastMessageVo.msgText}}</text>
+    <text wx:if="{{lastMessageVo.msgType == 'img'}}">[图片]</text>
+    <text wx:if="{{lastMessageVo.msgType == 'audio'}}">[语音]</text>
+    <text wx:if="{{lastMessageVo.msgType == 'file'}}">[附件]</text>
+    <text wx:if="{{lastMessageVo.msgType == 'video'}}">[视频]</text>
+    <text wx:if="{{lastMessageVo.msgType == 'custom'}}">
+        <!-- 交换电话 -->
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'exchange_phone_initiator'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">请求交换电话已发送</text>
+            <text wx:else>我想要和您交换联系方式，您是否同意</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'exchange_phone_agree'}}">
+            <text>同意交换联系方式</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'exchange_phone_refuse'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您已经成功拒绝了对方交换联系方式请求</text>
+            <text wx:else>对方拒绝了您的交换联系方式请求</text>
+        </text>
+        <!-- 交换微信 -->
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'exchange_wechat_initiator'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">请求交换微信已发送</text>
+            <text wx:else>我想要和您交换微信，您是否同意</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'exchange_wechat_agree'}}">
+            <text>同意交换微信</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'exchange_wechat_refuse'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">拒绝了对方交换微信请求</text>
+            <text wx:else>对方拒绝了您的交换微信请求</text>
+        </text>
+        <!-- 请求简历 -->
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'request_resume_initiator'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">简历请求已发送</text>
+            <text wx:else>对方想要一份您的附件简历，您是否同意</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'request_resume_agree'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您的附件简历已发送</text>
+            <text wx:else>收到对方附件简历</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'request_resume_refuse'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您已拒绝向对方发送简历</text>
+            <text wx:else>对方拒绝向您发送附件简历</text>
+        </text>
+        <!-- 发送简历 -->
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_resume_initiator'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">发送附件简历</text>
+            <text wx:else>对方想发送附件简历给您，您是否同意</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_resume_agree'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">已收到附件简历</text>
+            <text wx:else>对方已同意接收您的简历</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_resume_refuse'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您已成功拒绝了对方的发送请求</text>
+            <text wx:else>对方拒绝您的发送请求</text>
+        </text>
+            <!-- 发起面试 -->
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_initiator'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">发送了面试邀请</text>
+            <text wx:else>对方向您发出面试邀请,点击查看</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_agree'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您接受了面试邀请 </text>
+            <text wx:else>对方接受了面试邀请</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_refuse'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">拒绝了面试邀请</text>
+            <text wx:else>对方拒绝了您的发送请求</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_cancel'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您已成功取消面试邀请</text>
+            <text wx:else>对方取消了面试邀请</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'offer_initiator'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">收到录用通知</text>
+            <text wx:else>发送了录用通知</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_sign_in'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">已到达面试地点</text>
+            <text wx:else>已到达面试地点</text>
+        </text>
+            <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_request_result'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">询问了面试结果</text>
+            <text wx:else>对方询问了面试结果</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'message_recall'}}">
+
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您撤回了一条消息</text>
+            <text wx:else>对方您撤回了一条消息</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'change_job'}}">
+            <text wx:if="{{lastMessageVo.msgFromUserId == hxUserName}}">您更换了沟通职位</text>
+            <text wx:else>对方更换了沟通职位</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'card_work_address'}}">
+            <text>对方发送了公司地址</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_call_cancel'}}">
+            <text>[语音通话已取消]</text>
+        </text>
+          <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_call_refuse'}}">
+            <text>[语音通话已拒绝]</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_call_unaccept'}}">
+            <text>[语音通话无人接听]</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_call_over'}}">
+            <text>[语音通话已结束]</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'offer_agree'}}">
+            <text>[接受了录用通知]</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'offer_refuse'}}">
+            <text>拒绝了录用通知</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'send_resume_deliver'}}">
+            <text>一键投递简历已发送</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'card_exchange_wechat'}}">
+            <text>[交换微信]</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'card_exchange_phone'}}">
+            <text>[交换电话]</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'greet_job_info'}}">
+            <text>您正在与招聘者沟通</text>
+        </text>
+        <text wx:if="{{lastMessageVo.msgCustomEvent == 'interview_red'}}">
+            <text><text style="color:#F42F2F">[岗位红包]</text>岗位红包已发放到您的账户</text>
+        </text>
+        <!-- <text wx:else>
+            <text>{{lastMessageVo.msgCustomEvent}}</text>
+        </text> -->
+    </text>
+</span>

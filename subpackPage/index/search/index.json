@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "van-search": "@vant/weapp/search/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "title_list": "/components/title_list/title_list",
+        "ocean-search":"/components/ocean-search/index",
+        "van-dialog": "@vant/weapp/dialog/index"
+    },
+    "navigationBarTitleText": "职位搜索",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

@@ -1,0 +1,84 @@
+<view class="cityBox" style="background-image: url('{{baseImageUrl}}/versions/dise.png');">
+  <!-- 头部区域 -->
+  <view class="cityBox_main-head">
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" bind:tap="back" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" size="24px" wx:if="{{step != 1}}" />
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+  <!-- 标题 -->
+  <view class="cityTitle">
+    <image src="{{baseImageUrl}}/newImg/sbfont1.png" mode="" />
+  </view>
+  <view class="cityIndex_main" wx:if="{{searchListAsync.length ==  0}}">
+    <!-- 当前定位/刷新定位 -->
+    <view class="currentLocation" wx:if="{{step!=1  && step != 2}}">
+      <view class="left">
+        <image src="{{baseImageUrl}}/locationIcon.png" mode="" />
+        <text>当前定位：{{currentAddress}}</text>
+      </view>
+      <view class="right" bind:tap="refreshAddress">
+        <image src="{{baseImageUrl}}/refreshIcon.png" mode="" />
+        <text>刷新定位</text>
+      </view>
+    </view>
+
+
+    <view class="historyAddress" wx:if="{{step!=1  && step != 2}}">
+      <view class="historyAddress_title">
+        <view class="left">
+          <text>目标上班地址</text>
+        </view>
+        <view class="right" bind:tap="editAddress" wx:if="{{seekerCollectAddressList.length > 0}}">编辑</view>
+      </view>
+      <!-- 地址列表 -->
+      <view class="historyAddress_list" wx:if="{{seekerCollectAddressList.length > 0}}">
+        <view class="historyAddress_item" bind:tap="onChange" data-index="{{index}}" data-item="{{item}}" wx:for="{{seekerCollectAddressList}}" wx:key="index">
+          <view class="item-title">
+            <view>{{item.title}}</view>
+          </view>
+          <van-icon wx:if="{{item.checked}}" name="success" color="#FE0201" size="40rpx" />
+        </view>
+      </view>
+      <!-- 添加上班地址 （最多四个，超过四个隐藏） -->
+      <view class="increaseAddress {{seekerCollectAddressList.length == 0 ? 'martop-60' : ''}}" bind:tap="gotoAddressList" wx:if="{{seekerCollectAddressList.length < 4}}">
+        <image src="{{baseImageUrl}}/newImg/add.png" mode="" style="width: 26rpx;height: 26rpx;margin-right: 3px;margin-bottom: 2rpx;" />
+        <text>添加上班地址</text>
+      </view>
+    </view>
+
+    <view class="province">
+      <view class="province_title">
+        <view class="left" wx:if="{{step!=1  && step != 2}}">
+          <text>查看其他区域工作机会</text>
+        </view>
+        <view class="left" wx:else>
+          <text>选择已开放区域</text>
+        </view>
+      </view>
+      <view class="provinceList">
+        <view class="provinceItem" data-item="{{item}}" bind:tap="gotoCity" wx:for="{{provinceOpenList}}" wx:key="index">
+          <image src="{{baseImageUrl}}/versions/hotCity.png" mode="" wx:if="{{item.streetId == '30897'}}" />
+          <view class="provinceItem-text {{item.streetId == '30897' ? 'hotCity' : ''}}">{{item.showName}}</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="prompt" wx:if="{{step != 2}}">更多区域正在陆续开通中···</view>
+    <view class="prompt" bind:tap="goMoreAddr" wx:else>点击查看更多区域</view>
+  </view>
+
+  <van-dialog use-slot width="300" show="{{ dialogShow }}" show-cancel-button bind:cancel="onClose" bind:confirm="confirm">
+    <view class="dialogText">删除后无法恢复，是否删除</view>
+  </van-dialog>
+</view>
+
+
+<!-- 求职状态 (step为1是单选/反之为多选)-->
+<van-popup show="{{ cityShow }}" closeable round position="bottom" custom-style="height: 70%;padding-bottom: 0px" bind:close="onClosecityShow">
+  <city_popup cityType="{{cityType}}" step="{{step}}" currentAddId="{{currentAddId}}" wx:if="{{cityItem}}" city="{{cityItem}}" storageType="{{storageType}}" bind:backRenovate="backRenovate"></city_popup>
+</van-popup>

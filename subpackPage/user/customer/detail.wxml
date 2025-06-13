@@ -1,0 +1,11 @@
+<!--subpackPage/user/customer/detail.wxml-->
+<view class="content" wx:if="{{!about}}">
+    <view class="top">{{item.question}}</view>
+    <view class="bot">{{item.answer}}</view>
+</view>
+
+<view class="content" wx:if="{{ about &&  content.contentType == 'txt' }}">
+    <view class="bot" wx:if="{{content.contentType == 'txt' }}" >{{content.content}}</view>
+</view>
+
+<image wx:if="{{ about && content.contentType == 'imgUrl' }}" class="img" src="{{content.content}}" mode=""/>

@@ -1,0 +1,251 @@
+<view class="box">
+  <!-- 头部 -->
+  <view class="box-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="background-image: url({{baseImageUrl}}/user/reseau.png);">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px;width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#FFF" size="50rpx" bind:click="goBack" />
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+  <!-- 内容部分 -->
+  <view class="box-content">
+    <scroll-view scroll-y="true" class="box-contentScrollView">
+      <view style="height: 100%; display: flex; flex-direction: column;" wx:if="{{type == 5}}">
+        <!-- 上半部分 -->
+        <view class="contentScrollView-top">
+          <!-- 置顶卡 -->
+          <view class="stickTopBox">
+            <view class="title">
+              <view class="name">简历置顶</view>
+              <view class="desp">简历置顶展示，让企业快速发现你</view>
+            </view>
+            <view class="stickTopImg">
+              <image src="{{baseImageUrl}}/user/stickTop.png" mode="" />
+            </view>
+          </view>
+          <!-- 置顶卡 -->
+          <view class="stickCardBox">
+            <view class="stickCardBox-title">简历置顶</view>
+            <image class="stickCardBox-image" src="https://imgcdn.guochuanyoupin.com/resource/wechat/prop_top.gif " mode="aspectFit" />
+          </view>
+        </view>
+        <!-- 内容部分 -->
+        <view class="contentScrollView-content">
+          <!-- 置顶卡折扣套餐 -->
+          <!-- style="height: calc(100vh - 900rpx);" -->
+          <view class="discountBox" >
+            <view class="discountBox-meal">
+              <view class="discountBox-meal_top">
+                <view class="meal_top-left">折扣套餐</view>
+                <view class="meal_top-right">知豆余额<text>{{ balance }}</text></view>
+                <image src="{{baseImageUrl}}/user/stick_line.png" mode="" />
+              </view>
+              <!-- 套餐列表 -->
+              <view class="discountBox-meal_button">
+                <!-- 置顶卡 -->
+                <scroll-view scroll-x class="tabs_container">
+                  <view class="tabs_item" wx:for="{{info}}" wx:key="index">
+                    <view wx:for="{{item.relation}}" wx:key="id" wx:for-index="id" wx:for-item="itemName" class="box2 {{index==active?'selected':''}}" bindtap="selTab" data-index="{{index}}">
+                      <view>{{ itemName.card.propName }}</view>
+                      <view>{{ item.originalPrice }}知豆</view>
+                      <!-- 立减 -->
+                      <view class="activeIcon" wx:if="{{item.preferential == 1}}">
+                        <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/my/member_activebg.png" mode="" />
+                        <span>立减{{item.discount}}元</span>
+                      </view>
+                    </view>
+                  </view>
+                </scroll-view>
+              </view>
+            </view>
+            <view class="discountExplain" style="margin-top:30rpx;">
+              <view>* 简历曝光度越高，企业更容易发现您；</view>
+              <view>* 置顶卡属于时效产品，购买后立即生效，使用后24小时后失效；</view>
+              <view>* 该产品属于数字化商品，不支持七天无理由退款；</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="height: 100%; display: flex; flex-direction: column;" wx:elif="{{type == 9}}">
+        <!-- 上半部分 -->
+        <view class="contentScrollView-top" style="padding-bottom: 0;">
+          <!-- 虚拟电话 -->
+          <view class="stickTopBox">
+            <view class="title">
+              <view class="name">虚拟电话</view>
+              <view class="desp">保护个人隐私安全，沟通有保障</view>
+            </view>
+          </view>
+        </view>
+        <!-- 内容部分 -->
+        <view class="contentScrollView-content">
+          <!-- 虚拟电话折扣套餐 -->
+          <view class="discountBox" style="height: 100%;">
+            <view class="stickTopImg1">
+                <image src="{{baseImageUrl}}/user/dunpai.png" mode="" />
+              </view>
+            <view class="discountBox-meal">
+              <view class="discountBox-meal_top">
+                <view class="meal_top-left">折扣套餐</view>
+                <view class="meal_top-right">知豆余额<text>{{ balance }}</text></view>
+                <image src="{{baseImageUrl}}/user/stick_line.png" mode="" />
+              </view>
+              <!-- 套餐列表 -->
+              <view class="discountBox-meal_button">
+                <!-- 置顶卡 -->
+                <scroll-view scroll-x class="tabs_container">
+                  <view class="tabs_item" wx:for="{{info}}" wx:key="index">
+                    <view wx:for="{{item.relation}}" wx:key="id" wx:for-index="id" wx:for-item="itemName" class="box2 {{index==active?'selected':''}}" bindtap="selTab" data-index="{{index}}">
+                      <view style="line-height: 32rpx;"><text class="fontStyle">{{ itemName.card.times }}</text><text class="fontStyle1">次<text wx:if="{{itemName.card.useMode==2}}">/天</text></text></view>
+                      <view style="color: #999;font-size: 24rpx;">有效期{{ itemName.card.usedExpire }}{{itemName.card.usedExpireUnitName}}</view>
+                      <view style="margin-top: 10rpx;">{{ item.originalPrice }}知豆</view>
+                      <!-- 立减 -->
+                      <view class="activeIcon" wx:if="{{item.preferential == 1}}">
+                        <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/my/member_activebg.png" mode="" />
+                        <span>立减{{item.discount}}元</span>
+                      </view>
+                    </view>
+                  </view>
+                </scroll-view>
+              </view>
+            </view>
+              <view class="discountExplain" style="margin-top: 30rpx;">
+                <!-- <view>*开启虚拟电话，方便HR直接电话联系您，让好机会一个不落；</view> -->
+                <view>*使用虚拟电话可以直接拨打招聘者电话，更快入职；</view>
+                <!-- <view>*拨打电话以加密形式展示，不暴露展示号码；</view>
+                <view>*HR不会在休息时间打扰您；</view> -->
+                <view>*该产品属于数字化商品，不支持7天无理由退货。</view>
+              </view>
+          </view>
+        </view>
+      </view>
+      <view style="height: 100%; display: flex; flex-direction: column;" wx:elif="{{type == 7}}">
+        <!-- 上半部分 -->
+        <view class="contentScrollView-top" style="padding-bottom: 0;">
+          <!-- 智能AI -->
+          <view class="stickTopBox">
+            <view class="title">
+              <view class="name">AI帮写</view>
+              <view class="desp">自动完善信息，为求职加速</view>
+            </view>
+          </view>
+        </view>
+        <!-- 内容部分 -->
+        <view class="contentScrollView-content">
+          <!-- 智能AI折扣套餐 -->
+          <view class="discountBox" style="height: 100%;">
+            <view class="stickTopImg1">
+                <image src="{{baseImageUrl}}/user/dunpai.png" mode="" />
+              </view>
+            <view class="discountBox-meal">
+              <view class="discountBox-meal_top">
+                <view class="meal_top-left">折扣套餐</view>
+                <view class="meal_top-right">知豆余额<text>{{ balance }}</text></view>
+                <image src="{{baseImageUrl}}/user/stick_line.png" mode="" />
+              </view>
+              <!-- 套餐列表 -->
+              <view class="discountBox-meal_button">
+                <!-- 智能AI -->
+                <scroll-view scroll-x class="tabs_container">
+                  <view class="tabs_item" wx:for="{{info}}" wx:key="index">
+                    <view wx:for="{{item.relation}}" wx:key="id" wx:for-index="id" wx:for-item="itemName" class="box2 {{index==active?'selected':''}}" bindtap="selTab" data-index="{{index}}">
+                      <view style="line-height: 32rpx;"><text class="fontStyle">{{ itemName.card.times }}</text><text class="fontStyle1">次<text wx:if="{{itemName.card.useMode==2}}">/天</text></text></view>
+                      <view style="color: #999;font-size: 24rpx;">有效期{{ itemName.card.usedExpire }}{{itemName.card.usedExpireUnitName}}</view>
+                      <view style="margin-top: 10rpx;">{{ item.originalPrice }}知豆</view>
+                      <!-- 立减 -->
+                      <view class="activeIcon" wx:if="{{item.preferential == 1}}">
+                        <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/my/member_activebg.png" mode="" />
+                        <span>立减{{item.discount}}元</span>
+                      </view>
+                    </view>
+                  </view>
+                </scroll-view>
+              </view>
+              <view class="discountExplain" style="margin-top: 40rpx;">
+                <view>*该产品属于数字化商品，不支持7天无理由退货。</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="height: 100%; display: flex; flex-direction: column;" wx:else>
+        <!-- 上半部分 -->
+        <view class="contentScrollView-top">
+          <!-- 简历刷新卡 -->
+          <view class="stickTopBox">
+            <view class="title">
+              <view class="name">简历刷新</view>
+              <view class="desp">刷新后简历优先展示，曝光率翻倍</view>
+            </view>
+            <view class="stickTopImg renovateImg">
+              <image src="{{baseImageUrl}}/newImg/renovate1.png" mode=""/>
+            </view>
+          </view>
+          <!-- 置顶卡 -->
+          <view class="stickCardBox renovateCardBox">
+            <image src="{{baseImageUrl}}/newImg/renovateGif.png" mode=""/>
+          </view>
+        </view>
+        <!-- 内容部分 -->
+        <view class="contentScrollView-content">
+          <!-- 置顶卡折扣套餐 -->
+          <!-- style="height: calc(100vh - 780rpx);" -->
+          <view class="discountBox" >
+            <view class="discountBox-meal">
+              <view class="discountBox-meal_top">
+                <view class="meal_top-left">折扣套餐</view>
+                <view class="meal_top-right">知豆余额<text>{{ balance }}</text></view>
+                <image src="{{baseImageUrl}}/user/stick_line.png" mode="" />
+              </view>
+              <!-- 套餐列表 -->
+              <view class="discountBox-meal_button">
+                <!-- 置顶卡 -->
+                <scroll-view scroll-x class="tabs_container">
+                  <view class="tabs_item" wx:for="{{info}}" wx:key="index">
+                    <view wx:for="{{item.relation}}" wx:key="id" wx:for-index="id" wx:for-item="itemName" class="box2 {{index==active?'selected':''}}" bindtap="selTab" data-index="{{index}}">
+                      <view class="box2_title">
+                        <text class="box2_title-num">{{itemName.num}}<text class="unit">次</text></text>
+                        <text class="box2_title-tip">刷新次数</text>
+                      </view>
+                      <!-- <view>{{ itemName.card.propName }}</view> -->
+                      <view>{{ item.originalPrice }} 知豆</view>
+                      <!-- 立减 -->
+                      <view class="activeIcon" wx:if="{{item.preferential == 1}}">
+                        <image src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/my/member_activebg.png" mode="" />
+                        <span>立减{{item.discount}}元</span>
+                      </view>
+                    </view>
+                  </view>
+                </scroll-view>
+              </view>
+            </view>
+            <view class="discountExplain" style="padding-top: 40rpx;">
+              <view>* 简历曝光度越高，简历会获得更多曝光；</view>
+              <view>* 用户每天仅可刷新简历1次；</view>
+              <view>* 道具激活有效期为购买后365天（不含购买当天），过期未激活道具失效；激活后道具有效期为365天（不含激活当天），过期未使用权益失效；</view>
+              <view>* 不同城市/期望职类下的可曝光职位数不同，实际简历刷新带来的曝光效果会存在波动。</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 底部区域 -->
+  <view class="box-footer">
+    <view class="btns">
+      <view class="gouse" style="width: 100rpx;flex:1" bindtap="goUse" wx:if="{{count>0}}">
+        <view class="goUse">去使用（{{count}}次）</view>
+      </view>
+      <view class="gobuy" style="flex:2" bindtap="goPage">
+        <view class="goBuy">立即购买</view>
+      </view>
+    </view>
+  </view>
+  <!-- 导航栏 -->
+  <!-- <view class="nav" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+        <van-icon name="arrow-left" size="50rpx" color="#ffffff" bindtap="goBack" />
+    </view> -->
+</view>

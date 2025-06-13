@@ -1,0 +1,37 @@
+<!--subpackPage/index/addAddress/index.wxml-->
+<!-- <text>subpackPage/index/addAddress/index.wxml</text> -->
+<view class="addAddress">
+  <view class="addAddress-head">
+    <view class="addressTitle">
+      <text>添加住址，查看职位距离</text>
+    </view>
+
+    <view class="addressDetail">
+      <text>只能添加当前城市地点，我们将展示出每个职位和您填写住址的准确距离</text>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class="searchInput">
+      <!-- 当前位置 -->
+      <!-- <view class="left">
+            <view class="location">{{locationAddress}}</view>
+        </view>
+        <view style="height: 38rpx;border: 2rpx solid #999999; opacity: 0.1;"></view> -->
+      <!-- 搜索框 -->
+      <ocean-search placeholder="输入并选择您当前的地址" width="60vw" isShowlistImg="{{false}}" clearable="{{clearable}}" value="{{searchAddress}}" bind:focus="focus" bind:input="input"></ocean-search>
+    </view>
+  </view>
+  <!-- bindscroll="handleScroll" -->
+  <view class="addAddress-content">
+    <scroll-view style="height: 100%;" scroll-y class="scroll" bindscrolltolower="scrolltolower" lower-threshold="2">
+    <view class="select" wx:if="{{addressList.length > 0}}">
+      <view class="selectItem" wx:for="{{addressList}}" wx:key="index" data-addressItem="{{item}}" bindtap="addressItem">
+        <view class="countent">
+          <text>{{item.name}} ( {{item.cityname}} )</text>
+        </view>
+        <view class="line"></view>
+      </view>
+    </view>
+  </scroll-view>
+  </view>
+</view>

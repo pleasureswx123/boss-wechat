@@ -1,0 +1,106 @@
+<view class="chat_box {{sessionList.length>0 && active==0?'wBg':''}}">
+  <view class="headTop" style="height:{{navBarHeight+104}}px;width: 100%;"><image src="{{baseImageUrl}}/index_img/messageTopScroll3.png" mode="aspectFill" style="height:{{navBarHeight+104}}px;width: 100%;"/></view>
+  <view class="chat_box-head">
+    <view class="contain" style="padding-top:{{statusBarHeight+3}}px;height:{{navBarHeight+15}}px;padding-bottom: {{active==2?20:0}}px;">
+      <view class="bigTab">
+        <!-- <view bindtap="onChange" data-type="{{item.type}}" class="bigFont {{item.type == active ? 'changeSel':''}}" wx:for="{{bigTabs}}" wx:key="{{item.type}}">{{item.name}}</view> -->
+        <scroll-view class="scroll-view" scroll-x="true" scroll-y="false" show-scrollbar="false" style="flex:1;white-space: nowrap;display: inline-flex;overflow: hidden;">
+          <!-- <block wx:for="{{postList}}" wx:key="{{index}}"> -->
+          <view bindtap="onChange" data-type="{{item.type}}" class="bigFont {{item.type == active ? 'changeSel':''}}  {{item.num > 0 ? 'newMsg':''}}" wx:for="{{bigTabs}}" wx:key="index">
+            {{item.name}}
+          </view>
+          <!-- </block> -->
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{active==0}}" class="msgCont">
+    <view style="height: 100%;" wx:if="{{!token}}">
+      <view style="height: 700rpx;"><noData stitle="{{title}}"></noData></view>
+      <view class="ljbtn" bindtap="goLogin">立即登录</view>
+    </view>
+    <view class="navTab" wx:if="{{token}}">
+      <!-- <view>
+          <span catchtap="changeTerm" data-val="1" class="{{tabVal==1?'active':''}}">全部</span>
+          <span catchtap="changeTerm" data-val="2" class="{{tabVal==2?'active jiaobiao':'jiaobiao'}}">{{termVal}}</span>
+          <view class="mask" bindtap="close_mask" wx:if="{{show_mask}}"></view>
+            <view class="termBox" wx:if="{{tabVal==2 && termShow}}">
+                <view wx:for="{{navData}}" wx:key="index" bindtap="navClick" data-item="{{item}}" class="{{item.value==termId?'active item':'item'}}">
+                    {{item.label}}
+                </view>
+            </view>
+        </view>  -->
+      <!-- 2023-10-19 ghy修改 -->
+      <scroll-view scroll-x="true" enable-flex>
+        <view class="changeTermList">
+          <view class="changeTermItem {{tabVal==1?'active':''}}" data-val="1" bindtap="changeTerm">全部</view>
+          <view class="changeTermItem {{item.value==termId? 'active' : ''}}" wx:for="{{navData}}" wx:key="index" bindtap="navClick" data-item="{{item}}">
+            {{item.label}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <!-- <scroll-view class="screen" scroll-x="true">
+        <view class="screen">
+             <view bindtap="changeTab" data-type="{{item.type}}" class="tabFont {{item.type == sActive ? 'selected':''}}" wx:for="{{tabs}}" wx:key="index">{{item.name}}</view>
+        </view>
+    </scroll-view> -->
+    <view wx:if="{{token}}">
+      <view class="pushBox row" wx:if="{{showPushBox}}" bind:tap="gotoPushDetail">
+        <image class="pushImg" src="{{baseImageUrl}}/my/push.png" mode="aspectFill"/>
+        <image catch:tap="push_close" class="push_close" src="{{baseImageUrl}}/my/push_close.png" mode=""/>
+      </view>
+      <scroll-view scroll-y class="scrollView" bindscrolltolower="loadMore" wx:if="{{sessionList.length>0 || topSessionList.length>0}}" style="height:calc(100vh - {{statusBarHeight+navBarHeight+globalBottom}}px - 90rpx - 114rpx - 10px - {{showPushBox ? 152 : 12}}rpx);border-top: {{showPushBox ? 0 : 2}}rpx solid #f5f5f5;">
+        <view class="borderLine" wx:if="{{topSessionList.length>0}}">
+          <component-list bind:getData="getData" bind:clearRead="setReadNum" datalist="{{topSessionList}}"></component-list>
+        </view>
+        <component-list bind:getData="getData" bind:clearRead="setReadNum" bind:changePage="changePage" datalist="{{sessionList}}" wx:if="{{sessionList.length>0}}"></component-list>
+      </scroll-view>
+      <view wx:else class="noDataDiv"><noData stitle="{{title}}"></noData></view>
+    </view>
+  </view>
+  <!-- 2023-10-18 ghy 添加 -->
+  <view class="postList" wx:if="{{active==1}}">
+    <scroll-view class="scroll-view" scroll-x="true" scroll-y="false" show-scrollbar="false" style="flex:1;white-space: nowrap;display: inline-flex;overflow: hidden;">
+    <view wx:for="{{postList}}" bindtap="changePost" data-postId="{{item.postId}}" data-id="{{item.id}}" wx:key="index" class="postItem bigFont">
+      <text class="{{postActive == item.id ? 'active' : ''}}">{{item.postName}}</text>
+      <text class="addressLabel" wx:if="{{item.baseCityName}}">{{item.baseCityName}}</text>
+      <!-- {{item.postName}} nosame去掉了，原来逻辑是同岗位不同地区才显示-->
+    </view>
+    </scroll-view>
+  </view>
+  <!-- 2023-12-28 ghy 修改 -->
+  <!-- style="background: #f5f5f5;padding: 0 30rpx;" -->
+  <view wx:if="{{active>0}}" style="background: #f5f5f5;padding: 0 30rpx;">
+    <scroll-view class="scrollView" scroll-y wx:if="{{dataList.length>0}}" style="height:calc(100vh - {{statusBarHeight+navBarHeight+globalBottom}}px - {{active==1?90:0}}rpx - 114rpx - 10px);">
+      <component-info dataList="{{dataList}}"></component-info>
+    </scroll-view>
+    <view wx:else class="noDataDiv"><noData></noData></view>
+  </view>
+  <view class="loadingBox" wx:if="{{showLoading && token}}">
+    <image src="{{baseImageUrl + '/loading1.gif'}}" style="width: 40rpx;height: 40rpx;"></image>
+  </view>
+  <!-- <view class="chat_box-footer"> -->
+    <!-- 至臻版底部 -->
+    <block wx:if="{{versions == 1}}">
+      <component-tab num-prop="3" count="{{count}}" />
+    </block>
+    <!-- 经典版底部 -->
+    <block wx:elif="{{versions == 2}}">
+      <component-tab_classics num-prop="4" count="{{count}}" />
+    </block>
+  <!-- </view> -->
+  <!-- 新职位 -->
+
+  <view class="newPostYd" wx:if="{{isFirstlook && active==1}}" bind:tap="closeYd">
+    <image src="{{baseImageUrl + '/newImg/newPostTip.png'}}" style="width: 100%;height: 356rpx;margin-top: {{statusBarHeight+10}}px;"></image>
+  </view>
+</view>
+<weixinLogin_prop show="{{loginShow}}" bind:onClose="weixinOnClose"></weixinLogin_prop>
+
+
+<!-- 简历有问题 -->
+<vltPrompt isShowContact="{{ isShowContact }}" closeable="{{false}}" bind:close="onClose" infoObj="{{jlShInfo}}"></vltPrompt>
+
+<!-- 收藏 -->
+<collectGuide collectGuideY="{{capsuleData.navBarHeight}}" isShow="{{collectGuide}}" bind:closeCollectGuide="closeCollectGuide"></collectGuide>

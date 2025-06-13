@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText": "消息通知",
+    "navigationBarBackgroundColor": "#F5F5F5",
+    "disableScroll": true
+}

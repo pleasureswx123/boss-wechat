@@ -1,0 +1,57 @@
+<view class="positionTypeBox">
+  <!-- 头部区域 -->
+  <view class="positionTypeBox_head">
+    <view class="nav-bar" style="background-image: url('{{imageUrl}}/newImg/positionType_topBack.png');">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#000" size="25px" bind:click="goBack" />
+      </view>
+    </view>
+
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+  <!-- 内容区域 -->
+  <view class="positionTypeBox_content">
+    <!-- 内容区域上半部分 -->
+    <view class="content-top">
+      <view class="title1">选择期望职位，为您推 荐专属职位</view>
+      <view class="top_input">
+        <view class="icons">
+          <van-icon name="search" color="#999999" />
+        </view>
+        <input type="text" cursor-color="#FE0201" value="{{industrySech}}" bindinput="searchChange" placeholder="搜索职位" />
+      </view>
+
+    </view>
+    <!-- 内容区域下半部分 -->
+    <view class="content-buttom">
+      <view class="postList" wx:if="{{industrySech && postList.length>0}}">
+        <view class="item" wx:for="{{postList}}" wx:key="index" data-item="{{item}}" wx:for-item="item" bindtap="selectedItem1">
+          <view class="textName">{{item.textName}}</view>
+          <view class="levelName">{{item.level1Name}}-{{item.level2Name}}- {{item.level3Name}}</view>
+        </view>
+      </view>
+      <view class="bot_box" style="height: 100%;">
+        <view class="left_scroll" style="height: 100%;overflow: auto;">
+          <scroll-view scroll-y="true" style="height: 100%;">
+            <view class="left_list" style="height: 100%;">
+              <view class="list_item {{active == index ? 'selected' : ''}}" wx:for="{{leftList}}" wx:key="index" bindtap="changeItem" data-index="{{index}}" wx:if="{{item.select || item.select == undefined}}">{{item.name}}</view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="middle_line"></view>
+        <view class="right_scroll" style="height: 100%;">
+            <scroll-view scroll-y="true" style="height: 100%;">
+                <view wx:for="{{rightList}}" wx:key="index"  data-index="{{index}}">
+                    <view class="xqName">{{item.name}}</view>
+                    <view class="sitemBox"><view class="sitem" wx:for="{{item.subList}}" wx:key="index" data-item="{{sitem}}" wx:for-item="sitem" bindtap="selectedItem">
+                    {{ sitem.name }}</view></view>
+                </view>
+            </scroll-view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 占位，高度与顶部栏一样 -->

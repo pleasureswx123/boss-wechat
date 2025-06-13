@@ -1,0 +1,57 @@
+<!--subpackPage/user/setup/privacy/index.wxml-->
+<view class="privacy_Box">
+  <view class="item_Box">
+    <!-- <view class="head">简历相关</view> -->
+    <view class="content" bindtap="goToShield">
+      <view class="img_box img_box2">
+        <image class="big_img2" src="{{imageUrl}}/privacy_company.png" mode="" />
+      </view>
+      <view class="right">
+        <view class="rig_text">
+          <text>屏蔽公司</text>
+          <view>已屏蔽公司看不到你的简历, 也不会向你推荐该公司职位</view>
+        </view>
+        <van-icon style="padding-top: 10rpx;" name="arrow" color="#999" size="18px" />
+      </view>
+    </view>
+    <view class="content" bindtap="goToBoss">
+      <view class="img_box img_box2">
+        <image class="big_img2" src="{{imageUrl}}/privacy_boss.png" mode="" />
+      </view>
+      <view class="right" style="width: 100%;">
+        <view class="rig_text">
+          <text>招聘方查看权限</text>
+          <view>可以设置隐藏简历、设置在线活跃度</view>
+        </view>
+        <van-icon style="padding-top: 8rpx;" name="arrow" color="#999" size="18px" />
+      </view>
+    </view>
+    <view class="content" bindtap="goAccredit">
+      <view class="img_box img_box2">
+        <image class="big_img3" src="{{imageUrl}}/xnPhone.png" mode="" />
+      </view>
+      <view class="right" style="width: 100%;">
+        <view class="rig_text">
+          <text>开启虚拟电话</text>
+          <view>开启虚拟电话，方便HR直接电话联系您，让好机会一个不落</view>
+        </view>
+        <van-icon style="padding-top: 8rpx;" name="arrow" color="#999" size="18px" />
+      </view>
+    </view>
+  </view>
+
+  <!-- <view class="item_Box">
+    <view class="top">
+      <view class="top_left">联系方式</view>
+      <view class="top_right">*HR联系你的方式</view>
+    </view>
+    <view class="contactWay">
+      <view class="contactWay_item" wx:for="{{contactWay}}" wx:key="index" bind:tap="itemSelect" data-selectIndex="{{item.selectIndex}}">
+        <view class="contactWay_itemText">{{item.text}}</view>
+        <view class="contactWay_itemSelectImg" wx:if="{{selectIndex == item.selectIndex}}">
+          <image src="/image/versions/selectImg.png" mode=""/>
+        </view>
+      </view>
+    </view>
+  </view> -->
+</view>

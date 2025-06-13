@@ -1,0 +1,84 @@
+<!--简历评分-->
+<view class="fBox">
+  <!-- 导航和title -->
+  <view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px;" bindtap="goBack">
+    <van-icon name="arrow-left" color="white" size="26px" />
+  </view>
+  <view class="top_bg">
+    <image src="{{imageUrl}}/user/my_bg.png" mode="" />
+  </view>
+  <view class="box">
+    <view class="font1"><text class="num">{{score}}</text><text style="margin-left: 8rpx;">分</text></view>
+    <view class="font2">
+      <text wx:if="{{resData.score<60}}">简历有待优化</text>
+      <text wx:if="{{resData.score>=60 && resData.score<=80}}">简历优化后，推荐工作更加丝滑</text>
+      <text wx:if="{{resData.score>80 && resData.score<=99}}">简历优化后，招聘官能更快了解你</text>
+      <text wx:if="{{resData.score==100}}">您的简历太精彩了，祝您早日找到满意工作</text>
+    </view>
+    <view class="jdLine">
+      <view class="selectedLine" style="width: {{scoreWidth}}rpx;"></view>
+      <view class="lineBox">
+        <view class="iconBox1 font selected {{currentScore >= 0 && currentScore < 60 ? 'current add' : ''}}">
+          待优化
+        </view>
+        <view class="iconBox2 font  {{resData.score>=60?'selected':''}} {{currentScore >= 60 && currentScore < 80 ? 'current add' : ''}}">
+          一般
+        </view>
+        <view class="iconBox3 font {{resData.score<=100 && resData.score>=80?'selected':''}} {{currentScore >= 80 && currentScore < 100 ? 'current add' : ''}}">
+          中等
+        </view>
+        <view class="iconBox4 font  {{resData.score>=100?'selected current add':''}}">
+          完美
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="box2" wx:if="{{resData.yhcount}}">
+  <span class="dyhBox">
+    <image src="{{imageUrl}}/my/pf_1.png" mode="" class="pf_1" />
+    <image src="{{imageUrl}}/my/pf_2.png" mode="" class="pf_2" />
+  </span>
+  <span>待优化 {{resData.yhcount}} 项</span>
+</view>
+<view style="position: relative;padding: 0 24rpx;">
+  <view class="box3" wx:for="{{list}}" wx:key="index" wx:if="{{item.count<=0}}" bindtap="goPage" data-url="{{item.url}}" data-name="{{item.name}}">
+    <view class="name">
+      <view>{{item.name}}</view>
+      <view class="redColor">去优化
+        <van-icon name="arrow" color="#C9C9C9" style="margin-left: 10rpx;" />
+      </view>
+    </view>
+    <view class="desp">{{item.content}}</view>
+  </view>
+  <image src="{{imageUrl}}/my/pf_3.png" mode="" class="pf_3" />
+</view>
+<view class="goQz" wx:if="{{resData.score==100}}" bindtap="goOtherPage">去求职</view>
+
+<!-- 弹窗 -->
+<view class="modal" wx:if="{{resData.score==100}}">
+  <view class="modal-overlay"></view>
+  <view class="modal-content">
+    <!-- 弹出层内容 -->
+    <image class="paopao" src="{{imageUrl}}/newImg/paopao.png" mode="" />
+    <view class="position">
+      <image class="scatter" src="{{imageUrl}}/newImg/scatter.png" animation="{{flowerAnimation}}" mode="" />
+    </view>
+    <view class="inviteFriend">
+      <image class="paopao1" src="{{imageUrl}}/newImg/paopao1.png" animation="{{bubbleAnimation}}" mode="" />
+      <image class="paopao2" src="{{imageUrl}}/newImg/paopao2.png" animation="{{bubbleAnimationA}}" mode="" />
+      <view class="limian">
+        <image class="congratulation" src="{{imageUrl}}/newImg/congratulation.png" mode="" />
+        <view class="perfect">
+          <text>您的简历完善的太好了，祝</text>
+          <text class="suojin">您早日找到满意工作</text>
+        </view>
+        <view class="button_cast" bindtap="cast">
+          <image src="{{imageUrl + '/helpButton.png'}}" mode="" />
+          <!-- <image src="imageUrl/image/button_cast.png" mode=""/> -->
+          <text>去投简历</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

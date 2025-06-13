@@ -1,0 +1,17 @@
+<view class="logo">
+  <image src="{{imageUrl}}/zc_logo2.png" mode="" />
+  <text>知城优聘</text>
+</view>
+<view class="cell">
+  <view wx:for="{{list}}" data-myWallet="{{item.typeStr}}" data-typeIndex="{{index}}" data-index="{{item.type}}" wx:key="index" bindtap="goToDetail">
+    <!-- <van-cell title="{{item.name}}" is-link title-class="titleStyle"/> -->
+    <van-cell is-link title-class="titleStyle">
+      <view slot="title" class="titleBox">
+        <view class="van-cell-text">{{item.name}}</view>
+        <view class="newTagBox" wx:if="{{item.flag}}">
+          <view class="newTag"></view>
+        </view>
+      </view>
+    </van-cell>
+  </view>
+</view>

@@ -1,0 +1,47 @@
+<!-- 优化求职期望 -->
+<view class="pageBox">
+  <view class="addJobBox">
+    <image src="{{imageUrl}}/newImg/sexBg.png" class="headbg"></image>
+    <scroll-view scroll-y="true" class="scrollView">
+      <view class="add_job_box">
+        <view class="itemBox">
+            <view class="itemName">求职类型</view>
+            <view class="qzStatus">
+                <view class="qzItem {{selectedType==item.code?'selectedType':''}}" wx:key="index" wx:for="{{qzArray}}" bind:tap="selectedType" data-value="{{item.code}}">{{item.name}}</view>
+            </view>
+        </view>
+        <view class="itemBox" wx:if="{{selectedType || selectedType===0}}">
+            <view class="itemName">期望行业</view>
+            <view class="itemCont" bindtap="goDesireindustry" data-businessId="{{dataInfo.businessId}}">
+                {{ dataInfo.businessName ? dataInfo.businessName : '请选择行业' }}
+            </view>
+        </view>
+        <view class="itemBox" wx:if="{{(selectedType || selectedType===0) && dataInfo.businessName}}">
+            <view class="itemName">期望工作城市</view>
+            <view class="itemCont"  bindtap="selectedCity">
+              {{ dataInfo.jobCityName || '请选择工作城市' }}
+            </view>
+        </view>
+        <view class="itemBox" wx:if="{{(selectedType || selectedType===0) && dataInfo.jobCityName}}">
+            <view class="itemName">薪资要求</view>
+            <view class="selecetedIndicatorBox">
+              <picker-view indicator-class="selecetedIndicator" value="{{selectedValues}}" class="picker-view" bindchange="changeData">
+                <picker-view-column>
+                  <view data-id="{{item.label}}" wx:for="{{list}}" wx:key="vlaue" class="columnStyle leftPay {{wagesIndex == index ? 'activeSize' :''}}">
+                    {{ item.label }}
+                    <text wx:if="{{item.value!='面议'}}"></text>
+                  </view>
+                </picker-view-column>
+                <picker-view-column wx:if="{{list[wagesIndex]}}">
+                  <view wx:for="{{list[wagesIndex].children}}" class="columnStyle rightPay {{wagesIndex2 == index ? 'activeSize' :''}}" wx:key="value">{{ item.label }}<text wx:if="{{ item.value }}"></text></view>
+                </picker-view-column>
+              </picker-view>
+            </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="selectedBtn" bind:tap="submitPost" wx:if="{{selectedType || selectedType===0}}">
+      下一步
+      </view>
+  </view>
+</view>

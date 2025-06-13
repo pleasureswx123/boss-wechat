@@ -1,0 +1,144 @@
+<view class="locality_box" style="background-image: url('{{baseImageUrl}}/bdmqTop.png');">
+
+  <view class="locality_box-head">
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#000" size="22px" bind:click="back" />
+        <view class="tit">本地名企</view>
+      </view>
+    </view>
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+
+  <view class="locality_box-content column">
+    <!-- 顶部广告位展示 -->
+    <view class="locality_box_1">
+      <view class="locality_box-advertisement" style="background: url({{baseImageUrl}}/bdmqIcon1.png);background-size: 100% 100%;">
+        <view class="advertisementTop" bind:tap="gotoAdvertisement">
+          <!-- <view class="left"> -->
+            <!-- <image src="{{baseImageUrl}}/newImg/dpIcon2.png" mode="" style="width: 36rpx;height: 34rpx;" /> -->
+            <image src="{{baseImageUrl}}/bdmqTitle.png" mode="aspectFit" style="width: 266rpx;height: 40rpx;margin-left: 30rpx;margin-top: 14rpx;" />
+          <!-- </view> -->
+          <!-- <view class="rightBox">
+            <view class="rightName"><text class="font36">{{carouselImgList.count}}</text> 个在招岗位</view>
+            <van-icon name="arrow" size="15px" color="#666" />
+          </view> -->
+        </view>
+        <view class="swiperBox">
+          <!-- autoplay -->
+          <swiper layout-type="transformer" autoplay transformer-type="accordion" class="swiper" bindchange="monitorCurrent" indicator-active-color="#FE0201" indicator-color="#D8D8D8" interval="6000" circular>
+            <swiper-item wx:for="{{carouselImgList.carousel}}" wx:key="index" class="swiper_item">
+              <view class="advertising_list">
+                <view class="advertising_item1" wx:for="{{item.coms}}" wx:key="index" wx:for-item="itemCompany" bind:tap="gotoCompanyDetail" data-id="{{itemCompany.corporationId}}">
+                  <view class="advertising_item">
+                    <image class="logoImage" wx:if="{{itemCompany.logo}}" src="{{itemCompany.logo}}" mode="scaleToFill" style="border-radius: 8rpx;" />
+                    <image wx:else class="logoImage" src="{{baseImageUrl}}/newImg/companyHead1.png" mode="scaleToFill" />
+                    <!-- <image class="labelimg" src="{{baseImageUrl}}/versions/swiperLabel.png" mode="aspectFill" /> -->
+                  </view>
+                  <view class="advertisingName">{{itemCompany.abbreviation}}</view>
+                </view>
+              </view>
+            </swiper-item>
+          </swiper>
+          <!-- 自定义轮播图进度点 -->
+          <view class="dots" wx:if="{{carouselImgList.carousel[0].coms.length > 0}}">
+            <block wx:for="{{carouselImgList.carousel}}" wx:for-index="index" wx:key="index">
+              <view class="{{current==index?'active':''}}"></view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view>
+        <view class="zchyBox">
+          <view>
+            <view class="zchyBox_name">
+            知城核验
+            <view style="background: #FFEBD8;display: inline-block;border-radius: 8rpx;"><image class="bdmqIcon2" src="{{baseImageUrl}}/bdmqIcon2.png" mode="aspectFill" /></view>
+            </view>
+            <view class="zchyBox_desp">平台实地考察企业</view>
+          </view>
+          <view><van-icon name="arrow" color="#666666"/></view>
+        </view>
+        <view class="zbqyBox">
+          <view class="zbqy">
+            <view class="zbqy_name">直播企业</view>
+            <view class="zbqy_num">在线888人</view>
+          </view>
+          <view class="zbqyBoxItem">
+            <image class="companyHead1" src="{{baseImageUrl}}/newImg/companyHead1.png" mode="scaleToFill" />
+            <view class="lineBox">
+              <view></view>
+              直播中
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="scrollView">
+      <!-- 名企高薪岗位 -->
+      <view class="companyGw">
+        <view class="gxBox">
+          <view class="name">名企高薪岗位</view>
+          <view class="gxNum"><text class="gxNum_1">{{currentTab+1}}</text>/{{carouselImgList.postList.length}}</view>
+        </view>
+        <view class="swiperBox1">
+          <!-- 轮播图 -->
+          <swiper class="swiper" current="{{currentTab}}" next-margin="24rpx" previous-margin="24rpx" bindchange="switchTab" style="width: 100%;height:338rpx;position: absolute;top:0rpx;left: 0;z-index: 999;">
+            <block wx:for="{{carouselImgList.postList}}" wx:key="index">
+              <swiper-item item-id="{{index}}" data-item-id="{{index}}" bindtap='clickChange'>
+                <view class='li'>
+                  <view class="vipImg">
+                    <versionObj catch:nowCommunicate="nowCommunicate" item="{{item}}"></versionObj>
+                  </view>
+                </view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+      </view>
+      <!-- 名企探访 -->
+      <view class="locality_box-scroll">
+        <view class="tabs">
+          <view wx:for="{{tabsList}}" wx:key="index" class="tabs-item {{item.select ? 'tabs-active' : ''}}" bindtap="changeTab" data-index="{{index}}">{{item.text}}</view>
+        </view>
+        <view class="tabs_content">
+          <view class="tabs_track" style="transition-duration: 0.3s;transform: translate3d({{distance + '%'}}, 0px, 0px);">
+            <view class="tab_pane-wrapper {{item.select ? '' : 'tab_pane-wrapper-inactive'}}" wx:for="{{tabsList}}" wx:key="index" aria-hidden="{{!item.select}}">
+              <view class="tab_pane">
+                <view class="videoList" wx:if="{{visitList.length > 0}}">
+                  <view class="videoItem" wx:for="{{visitList}}" wx:key="index">
+                    <image src="{{item.url}}" mode="" bindtap="playVideo" data-type="{{item.type}}" data-playUrl="{{item.videoUrl}}" mode="aspectFill" />
+                    <!-- 蒙层 -->
+                    <view class="videoItem-image-mask" wx:if="{{item.type == 2}}" bindtap="playVideo" data-type="{{item.type}}" data-playUrl="{{item.videoUrl}}">
+                      <image class="playIcon" src="{{baseImageUrl}}/index_img/play1.png" mode="aspectFit" />
+                    </view>
+                    <!-- 等时长 -->
+                    <!-- <view class="filterbg" wx:if="{{item.type == 2}}">
+                      05:10
+                    </view> -->
+                    <view class="videoItem-text" bind:tap="gotoCompanyDetail" data-id="{{item.corporationId}}">
+                      <view style="display: flex;"><view class="abbreviation">{{item.abbreviation}}</view> <text style="color: #FE0201;">{{item.postNum}}</text>个职位</view>
+                      <view>
+                        <van-icon name="arrow" size="15px" color="#666" />
+                      </view>
+                    </view>
+                  </view>
+                </view>
+                <!-- 无数据时展示 -->
+                <view class="notData_box" wx:else>
+                  <view class="notData_box_img">
+                    <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+                    <view class="notData_box_text">暂无企业数据</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

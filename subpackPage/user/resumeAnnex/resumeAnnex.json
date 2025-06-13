@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "van-overlay": "@vant/weapp/overlay/index",
+        "van-dialog": "@vant/weapp/dialog/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText": "管理附件",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationStyle": "custom"
+}

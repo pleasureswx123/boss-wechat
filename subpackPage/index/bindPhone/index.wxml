@@ -1,0 +1,25 @@
+<!--subpackPage/index/bindPhone/index.wxml-->
+<!-- 请输入手机号码与当前所选微信进行绑定「提审微信打回，微信不让用」 -->
+<view class="head">绑定手机号</view>
+<view class="head_text">请输入手机号码与当前账号进行绑定</view>
+
+<view class="form">
+    <input type="text" cursor-color="#FE0201" value="{{phoneValue}}" maxlength="11" type="number" bindinput="handleInput" placeholder="请输入手机号"/>
+    <view class="line"></view>
+    <input type="text" cursor-color="#FE0201" type="number" bindinput="handleCodeInput" placeholder="请输入手机验证码" style="width:calc(100% - 200rpx);" maxlength="6"/>
+    <view class="code" wx:if="{{gainShow}}" bindtap="testCode">获取验证码</view>
+    <view class="code" wx:else>还剩{{ second }}s</view>
+    <view class="code" wx:if="{{second == null }}" bindtap="testCode">重新发送</view>
+</view>
+<view class="identify"  wx:if="{{codeShow}}" >
+    <image class="image"  src="{{baseImageUrl}}/red_tanhao.png" mode=""/>请输入正确的验证码
+</view>
+<view class="identify" wx:if="{{phoneShow}}">
+    <image class="image"  src="{{baseImageUrl}}/red_tanhao.png" mode=""/>请输入11位手机号码
+</view>
+
+<view class="btnsBox">
+  <!-- <button class="jjbtn btn" bindtap="goBack">拒绝</button> -->
+  <button class="btn" bindtap="getCheckCode" wx:if="{{phoneValue && smscode}}">确定</button>
+  <button class="btn greyBtn" wx:else>确定</button>
+</view>

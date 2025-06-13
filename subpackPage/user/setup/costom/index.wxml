@@ -1,0 +1,11 @@
+<view class="box">
+    <scroll-view scroll-y="true" style="height: 100vh;">
+        <view class="textarea">
+            <textarea value="{{greetText}}" placeholder="请输入打招呼语…" maxlength="100" bindinput="changeText"/>
+            <view class="num">
+                {{greetText.length}}/100
+            </view>
+        </view>
+        <view class="default_btn {{greetText !== '' ? 'submit_btn' : ''}}"  bindtap="goBack">保存</view>
+    </scroll-view>
+</view>

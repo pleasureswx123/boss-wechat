@@ -1,0 +1,325 @@
+<view>
+  <!-- 交换电话发起／同意／拒绝 -->
+  <view wx:if="{{itemObj.msg.customEvent=='exchange_phone_initiator'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">请求交换电话已发送</view>
+    <view class="msg" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" catch:tap="gotoDetail" data-type="2" />
+      <tipBox type="phone" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='exchange_phone_agree' || itemObj.msg.customEvent=='card_exchange_phone'}}">
+    <view class="msg">
+      <image src="{{hhInfo.targetAvatar}}" catch:tap="gotoDetail" data-type="2" />
+      <tipBox type="phone" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='exchange_phone_refuse'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">您已经成功拒绝了对方交换联系方式请求</view>
+    <view class="customTip" wx:else>
+      对方拒绝了您的交换联系方式请求
+    </view>
+  </view>
+  <!-- 交换微信发起／同意／拒绝 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='exchange_wechat_initiator'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">请求交换微信已发送</view>
+    <view class="msg" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" catch:tap="gotoDetail" data-type="2" />
+      <tipBox type="chat" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='exchange_wechat_agree' || itemObj.msg.customEvent=='card_exchange_wechat'}}">
+    <view class="msg">
+      <image src="{{hhInfo.targetAvatar}}" catch:tap="gotoDetail" data-type="2" />
+      <tipBox type="chat" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='exchange_wechat_refuse'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">您已经成功拒绝了对方交换微信请求</view>
+    <view class="customTip" wx:else>
+      对方拒绝了您的交换微信请求
+    </view>
+  </view>
+  <!-- 求简历发起／同意／拒绝 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='request_resume_initiator'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">求附件简历的请求已发送</view>
+    <view class="msg" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" catch:tap="gotoDetail" data-type="2" />
+      <tipBox type="file" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='request_resume_agree'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">对方已经接收了您的简历</view>
+    <view class="msg" wx:else>
+      <!-- 添加发送简历逻辑 -->
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="file" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='request_resume_refuse'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">您已经拒绝向对方发送简历</view>
+    <view class="customTip" wx:else>
+      对方拒绝向您发送附件简历
+    </view>
+  </view>
+  <!-- 一键投递 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='send_resume_deliver'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">一键投递简历已发送</view>
+  </view>
+  <!-- 发简历发起／同意／拒绝 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='send_resume_initiator'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">简历请求已发送</view>
+    <view class="msg" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="file" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='send_resume_agree'}}">
+    <view class="msg" wx:if="{{itemObj.style=='self'}}">
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="file" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+    <view class="customTip" wx:else>对方查看了你的简历</view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='send_resume_refuse'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">您已经拒绝对方的发送请求</view>
+    <view class="customTip" wx:else>
+      对方拒绝了您的发送请求
+    </view>
+  </view>
+  <!-- 撤回了消息 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='message_recall'}}">
+    <view class="customTip" wx:if="{{itemObj.style=='self'}}">您撤回了一条消息<view class="resetEdit" bind:tap="resetEdit" data-text="{{itemObj.msg.customExts.msgText}}" wx:if="{{itemObj.msg.customExts.msgType=='txt' && !itemObj.showReset}}">重新编辑</view>
+    </view>
+    <view class="customTip" wx:else>
+      对方撤回了一条消息
+    </view>
+  </view>
+  <!-- 工作地点 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='card_work_address'}}">
+    <view class="msg {{itemObj.style=='borderL'?'borderR':''}}">
+      <image src="{{hhInfo.targetAvatar}}" wx:if="itemObj.style!='self'" />
+      <tipBox type="card_work_address" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+  </view>
+  <!--换岗位 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='change_job'}}">
+    <view class="msg" wx:if="{{itemObj.style!='self'}}">
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="change_job" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+    <view class="msg gui-flex gui-justify-content-end" wx:else>
+      <tipBox type="change_job" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+      <image src="{{avatar}}" style="margin:0 0 0 10rpx;" />
+    </view>
+  </view>
+  <!-- 打招呼 -->
+  <block wx:elif="{{itemObj.msg.customEvent=='greet_job_info'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <tipBox style="width: 100%;" type="greet_job_info" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+      <!-- <image src="{{avatar}}" style="margin:0 0 0 10rpx;" /> -->
+    </view>
+    <view class="msg" wx:else catch:tap="gotoDetail" data-type="2">
+      <!-- <image class="abc" src="{{hhInfo.targetAvatar}}" /> -->
+      <tipBox style="width: 100%;" type="greet_job_info" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </block>
+  <!-- 面邀发起 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_initiator'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>发送了面试邀请</view>
+        <image src="{{imageUrl}}/yp/ms_fs.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" wx:if="{{itemObj.style!='self'}}" />
+      <tipBox type="initiator" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_refuse'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>拒绝了面试邀请</view>
+        <image src="{{imageUrl}}/yp/ms_jujue.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>拒绝了面试邀请</view>
+        <image src="{{imageUrl}}/yp/ms_jujue.png" />
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_agree'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>接受了面试邀请</view>
+        <image src="{{imageUrl}}/yp/ms_jieshou.png" style="margin-right: 0;" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>接受了面试邀请</view>
+        <image src="{{imageUrl}}/yp/ms_jieshou.png" />
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_cancel'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>取消了面试邀请
+          <text wx:if="itemObj.msg.customExts.interviewCancelReason">:{{itemObj.msg.customExts.interviewCancelReason}}</text>
+        </view>
+        <image src="{{imageUrl}}/yp/ms_jujue.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookInterView" style="position: relative;padding-right: 60rpx;">
+        <view>取消了面试邀请<text wx:if="itemObj.msg.customExts.interviewCancelReason">:{{itemObj.msg.customExts.interviewCancelReason}}</text></view>
+        <image src="{{imageUrl}}/yp/ms_jujue.png" style="position: absolute;right: 10rpx;top: 20rpx;" />
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_sign_in'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="itemObj.style=='self'">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>到达面试现场
+        </view>
+        <image src="{{imageUrl}}/yp/ms_daoda.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>到达面试现场</view>
+        <image src="{{imageUrl}}/yp/ms_daoda.png" />
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_request_result'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>询问面试结果
+        </view>
+        <image src="{{imageUrl}}/yp/ms_wen.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>询问面试结果</view>
+        <image src="{{imageUrl}}/yp/ms_wen.png" />
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_send_result' && itemObj.msg.customExts.interviewResult!=3}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <view>发送了面试结果
+        </view>
+        <image src="{{imageUrl}}/yp/ms_fs.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookInterView">
+        <image src="{{imageUrl}}/yp/ms_fs.png" style="margin-right:10rpx" />
+        <view>发送了面试结果</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 对方已标记实际未面试 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='interview_send_result' && itemObj.msg.customExts.interviewResult==3}}">
+    <view class="msg gui-flex gui-justify-content-start">
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="redPacket" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}" wx:if="{{itemObj.msg.customExts.jobRedEnvelope==1}}"></tipBox>
+      <view class="customInter gui-flex" bindtap="lookInterView" wx:else>
+        <image src="{{imageUrl}}/yp/imClose.png" style="margin-right: 10rpx;" />
+        <view>对方已标记实际未面试</view>
+      </view>
+    </view>
+  </view>
+  <!-- 录用发起 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='offer_initiator'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <tipBox type="offer" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" wx:if="{{itemObj.style!='self'}}" />
+      <tipBox type="offer" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='offer_refuse'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookLy">
+        <view>拒绝了录用通知</view>
+        <image src="{{imageUrl}}/yp/ms_jujue.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookLy">
+        <view>拒绝了录用通知</view>
+        <image src="{{imageUrl}}/yp/ms_jujue.png" />
+      </view>
+    </view>
+  </view>
+  <view wx:elif="{{itemObj.msg.customEvent=='offer_agree'}}">
+    <view class="msg gui-flex gui-justify-content-end" wx:if="{{itemObj.style=='self'}}">
+      <view class="customInter gui-flex" bindtap="lookLy">
+        <view>接受了录用通知</view>
+        <image src="{{imageUrl}}/yp/ms_jieshou.png" />
+      </view>
+      <image src="{{avatar}}" wx:if="{{itemObj.style == 'self'}}" style="margin:0 0 0 10rpx;" />
+    </view>
+    <view class="msg gui-flex gui-justify-content-start" wx:else>
+      <image src="{{hhInfo.targetAvatar}}" />
+      <view class="customInter gui-flex" bindtap="lookLy">
+        <view>接受了录用通知</view>
+        <image src="{{imageUrl}}/yp/ms_jieshou.png" />
+      </view>
+    </view>
+  </view>
+  <!-- 红包发放通知 -->
+  <view class="redAccout" wx:elif="{{itemObj.msg.customEvent=='interview_red'}}">
+    <view class="msg">
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="redPacket" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <!-- 自定义临时消息电话 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='phone'}}">
+    <view class="msg">
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="phone" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <!-- 自定义临时消息微信 -->
+  <view wx:elif="{{itemObj.msg.customEvent=='chat'}}">
+    <view class="msg">
+      <image src="{{hhInfo.targetAvatar}}" />
+      <tipBox type="chat" itemObj="{{itemObj}}" statusResult="{{statusResult}}" hhInfo="{{hhInfo}}"></tipBox>
+    </view>
+  </view>
+  <view style="display: none;" class="customTip" wx:elif="{{itemObj.msg.customEvent=='send_call_over' || itemObj.msg.customEvent=='send_call_cancel' || itemObj.msg.customEvent=='send_call_refuse' || itemObj.msg.customEvent=='send_call_unaccept' || itemObj.msg.customEvent=='send_call_accept'}}">
+    <!-- 语音其他消息不做处理 -->
+  </view>
+  <view class="customTip" wx:elif="{{itemObj.msg.customEvent=='send_call_initiator'}}">收到语音通话，请登陆APP端查看</view>
+  <view class="customTip" wx:else>{{itemObj.msg.customEvent}}测试自定义消息类型</view>
+</view>

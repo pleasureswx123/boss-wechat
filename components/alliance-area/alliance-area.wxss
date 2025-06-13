@@ -1,0 +1,255 @@
+.row {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+}
+.between {
+  justify-content: space-between !important;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user-account-info {
+  border-radius: 32rpx;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  min-height: 412rpx;
+  /* padding: 0 32rpx; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20rpx 40rpx 0rpx;
+}
+
+.alliance-area {
+  display: flex !important;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 22rpx 32rpx;
+  border-radius: 32rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.area-back {
+  width: 100%;
+  min-height: 412rpx;
+  position: absolute;
+  left: 0;
+  z-index: -1;
+}
+
+.info-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10rpx;
+}
+
+.info-head-title {
+  /* width: 120rpx; */
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  font-size: 30rpx;
+  color: #262626;
+  line-height: 30rpx;
+  text-align: left;
+  font-style: normal;
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.info-head-title-icon {
+  width: 32rpx;
+  height: 28rpx;
+  margin-right: 10rpx;
+}
+
+.info-head-tip {
+  height: 34rpx;
+  font-family: DingTalk, DingTalk;
+  font-weight: 400;
+  font-size: 28rpx !important;
+  color: #fff;
+  line-height: 26rpx !important;
+  text-align: center;
+  font-style: normal;
+  margin-top: -4rpx;
+}
+
+.operate-aera {
+  /* flex-wrap: wrap; */
+  width: 100%;
+  margin-top: 30rpx;
+}
+
+.operate-item {
+  /* flex:1; */
+  display: flex;
+  flex-direction: column;
+  width: calc(50% - 9rpx);
+  background: #FFF2EB;
+  border-radius: 16rpx;
+  /* padding: 22rpx 24rpx; */
+  /* margin-bottom: 16rpx; */
+  /* height: 212rpx; */
+  position: relative;
+  padding: 0 10rpx 20rpx 20rpx;
+  /* padding-left: 20rpx; */
+  overflow: hidden;
+}
+.operate-item:nth-child(1) {
+  margin-right: 9rpx;
+}
+.operate-item:nth-child(2) {
+  margin-left: 9rpx;
+}
+
+/* .operate-item1,
+.operate-item3 {
+  margin-left: 9rpx;
+  margin-right: 0rpx;
+} */
+
+.operate-item-content {
+  width: 100%;
+  /* margin-right: 24rpx; */
+  margin-top: 20rpx;
+}
+
+
+.operate-item-tit {
+  font-weight: 600;
+  font-size: 28rpx;
+  color: #1D2129;
+}
+
+.operate-item-txt {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #7A7A7A;
+  white-space: nowrap;
+}
+
+.operate-item-img {
+  width: 73rpx;
+  height: 82rpx;
+  margin-top: 30rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.operate-item-img-back {
+  position: absolute;
+  right: -20%;
+  top: -20%;
+  width: 168rpx;
+  height: 168rpx;
+}
+
+.operate-item-img-back_big {
+  position: absolute;
+  width: 168rpx;
+  height: 168rpx;
+  background: radial-gradient( 0% 100% at 37% 29%, #FFFFFF 0%, #FF3737 100%);
+  opacity: 0.04;
+  border-radius: 50%;
+}
+
+.operate-item-img-back_small {
+  position: absolute;
+  width: 64rpx;
+  height: 64rpx;
+  background: radial-gradient( 0% 100% at 37% 29%, #FFFFFF 0%, #FF3737 100%);
+  opacity: 0.04;
+  left: -14rpx;
+  bottom: -8rpx;
+  border-radius: 50%;
+}
+
+.swiper-container {
+  position: relative;
+}
+
+.swiper-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.swiper-tip {
+  height: 40rpx;
+}
+
+
+
+/* 新版 */
+
+.new-operate-aera {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 122rpx 122rpx;
+  grid-column-gap: 18rpx;
+  grid-row-gap: 20rpx;
+}
+
+.new-operate-item {
+  /* width: 290rpx; */
+  /* height: 122rpx; */
+  position: relative;
+  z-index: 1;
+}
+
+.new-operate-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.new-swiper-container {
+  position: absolute;
+  left: 16rpx;
+  bottom: 16rpx;
+  width: 100%;
+}
+
+/* .new-swiper-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+} */
+
+.new-swiper-tip {
+  height: 40rpx;
+}
+
+.new-operate-item-txt {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #7A7A7A;
+  white-space: nowrap;
+  display: flex;
+}
+
+
+image {
+  width: 100%;
+  height: 100%;
+}

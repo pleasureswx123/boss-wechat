@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "van-switch": "@vant/weapp/switch/index"
+    },
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#fff"
+}

@@ -1,0 +1,19 @@
+<view class="selecetedIndicatorBox">
+  <picker-view indicator-class="selecetedIndicator" value="{{selectedValues}}" class="picker-view" bindchange="changeData">
+      <!-- 年份 -->
+      <picker-view-column>
+        <view data-id="{{item}}" wx:for="{{list}}" wx:key="vlaue" class="columnStyle leftPay {{wagesIndex == index ? 'activeSize' :''}}">
+          {{ item.label }}
+        </view>
+      </picker-view-column>
+     <!-- 月份 -->
+     <picker-view-column>
+        <view wx:for="{{list[wagesIndex].children}}" class="columnStyle rightPay {{wagesIndex2 == index ? 'activeSize' :''}}" wx:key="value">{{ item.label }}</view>
+      </picker-view-column>
+    <!-- 具体日期 -->
+    <picker-view-column wx:if="{{monthPopupTitleActive == 1}}">
+        <!-- <view class="columnStyle">-</view> -->
+        <view wx:for="{{list[wagesIndex].children[wagesIndex2].children}}" class="columnStyle rightPay" wx:key="value">{{ item.label }}</view>
+      </picker-view-column>
+  </picker-view>
+</view>

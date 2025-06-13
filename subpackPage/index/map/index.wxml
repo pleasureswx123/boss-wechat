@@ -1,0 +1,19 @@
+<!--subpackPage/index/map/index.wxml-->
+<!-- <text>subpackPage/index/map/index.wxml</text> -->
+<view class="gcMap">
+  <view class="map">
+    <map id="gcMap" show-location="{{false}}" style="width: 100%; height: 100vh;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-poi scale="14" enable-3D="{{true}}" enable-overlooking="{{true}}" enable-auto-max-overlooking="{{true}}" enable-traffic="{{true}}"></map>
+  </view>
+
+  <view class="buttonNavigation" bindtap="openMapApp">
+    <view class="box1" wx:if="{{type == 1}}">
+      <view class="name">{{info.postAddress}}</view>
+      <view class="addr">{{addressObj.provinceName || ''}}{{addressObj.cityName || ''}}{{addressObj.districtName || ''}}{{addressObj.streetName || ''}}{{info.postAddress}}</view>
+    </view>
+    <view class="box1" wx:else>
+      <!-- <view class="name">{{info.postAddress}}</view> -->
+      <view class="name">{{addressObj.provinceName || ''}}{{addressObj.cityName || ''}}{{addressObj.districtName || ''}}{{addressObj.streetName || ''}}{{info.postAddress}}</view>
+    </view>
+    <image src="{{baseImageUrl + '/index_img/dh.png'}}" class="dh"></image>
+  </view>
+</view>

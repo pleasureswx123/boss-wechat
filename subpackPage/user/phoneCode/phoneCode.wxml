@@ -1,0 +1,26 @@
+<!--subpackPage/user/phoneCode/phoneCode.wxml-->
+<view class="phoneCode">
+    <view class="title">请输入短信验证码</view>
+    <view class="sub-title">已向您的手机{{ phone }}发送验证码</view>
+    <!-- 验证码框 -->
+    <view class="register_photocode">
+        <!-- <input type="number" class="register_photocode_input" maxlength="6" bindinput="bindPhotoCode" adjust-position="{{false}}" bindfocus="inputFocus" value="{{phoneCode}}" focus="{{cursorVisible}}"></input>
+
+        <view class="register_photocode_ul">
+            <view class="register_photocode_li {{smsnumber_arr[index]?'has':''}}" wx:for="{{6}}" wx:key="index">
+                <view wx:if="{{smsnumber_arr.length===index}}" class="register_photocode_cursor {{cursorVisible ? 'blink' : ''}}"></view>
+                <text>{{smsnumber_arr[index]}}</text>
+            </view>
+        </view> -->
+
+        <view class="phoneCode-input">
+          <input type="number" cursor-color="#FE0201" placeholder="请输入验证码" class="" value="{{phoneCode}}" maxlength="6" bindinput="bindPhotoCode" adjust-position="{{false}}" bindfocus="inputFocus" focus="{{cursorVisible}}"/>
+        </view>
+    </view>
+
+    <view class="re-get" bindtap="getPhoneCode">
+        <!-- :class="{ 'blue': second <= 0 }" -->
+        <text style="color: #FE0201;">重新发送</text>
+        <text class="time" wx:if="{{second > 0}}">({{ second }}s)</text>
+    </view>
+</view>

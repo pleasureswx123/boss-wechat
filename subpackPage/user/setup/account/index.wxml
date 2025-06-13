@@ -1,0 +1,11 @@
+<view class="item" bindtap="goToPhone">
+    <text>手机号</text>
+    <!-- <view>{{firstPhone}}****{{lastPhone}}</view> -->
+    <view>{{phone}}</view>
+    <text style="font-size: 24rpx;margin-left: 10rpx;color: #999999;">修改</text>
+    <image src="{{baseImageUrl + '/index_img/goToPage.png'}}" mode=""></image>
+</view>
+
+<view class="Phone_footer-btn">
+  <button class="btn" bindtap="goZx">注销账号</button>
+</view>

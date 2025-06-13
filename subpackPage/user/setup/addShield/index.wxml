@@ -1,0 +1,31 @@
+<view class="shieId">
+  <view class="input">
+    <van-search bind:change="change" value="{{ value }}" use-right-icon-slot background="#fff" placeholder="搜索公司、邮箱后缀" custom-class="inputSearch" clear-icon="cross"/>
+  </view>
+
+  <view wx:if="{{list.length == 0}}" style="padding: 0 48rpx; box-sizing: border-box;">
+    <view class="head">通过以下方式搜索公司</view>
+    <view class="text selectLabel">
+      <view>公司全称：如“品如科技技术有限公司”</view>
+      <view>公司简称：如“知城招聘”</view>
+      <view>企业邮箱后缀：如“zhichen.com</view>
+    </view>
+  </view>
+
+  <view class="list" wx:if="{{list.length > 0}}">
+    <scroll-view scroll-y="{{true}}" style="height: 100%;">
+      <view class="item" wx:for="{{list}}" wx:key="index">
+        <van-checkbox data-index="{{index}}" label-class="selectLabel" value="{{ item.checked}}" icon-size="24rpx" checked-color="#FE0201" bind:change="onChange">{{item.name}}</van-checkbox>
+      </view>
+    </scroll-view>
+    <!-- 底部按钮区域 -->
+    
+  </view>
+  <view class="manage"  wx:if="{{list.length > 0}}">
+      <van-checkbox label-class="label-class" custom-class="van_checked" value="{{ allChecked }}" icon-size="24rpx" checked-color="#FE0201" bind:change="allOnChange">全选所有 [ {{value}} ] 相关的公司</van-checkbox>
+      <view class="man_btn {{isCheckedOrAll ? '' : 'opacityBtn'}}">
+        <button data-type="typeList" bindtap="relieveCompany">屏蔽所选公司</button>
+      </view>
+    </view>
+
+</view>

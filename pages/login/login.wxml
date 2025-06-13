@@ -1,0 +1,36 @@
+<!--pages/login/login.wxml-->
+<view class="head">
+    <image class="logo" src="{{imageUrl}}/zc_logo.png" mode=""/>
+    <view> 知城优聘</view>
+</view>
+
+<view class="form">
+    <input type="text" cursor-color="#FE0201" value="{{phoneValue}}" maxlength="11" type="number" bindinput="handleInput" placeholder="请输入手机号"  placeholder-class="phcolor"/>
+    <view class="line"></view>
+    <input type="text" cursor-color="#FE0201" type="number" bindinput="handleCodeInput" placeholder="请输入手机验证码"  placeholder-class="phcolor"/>
+    <view class="code" wx:if="{{gainShow}}" bindtap="testCode">获取验证码</view>
+    <view class="code" wx:if="{{!gainShow}}">还剩{{ second }}s</view>
+    <view class="code" wx:if="{{second == null }}" bindtap="testCode">重新发送</view>
+</view>
+<view class="identify"  wx:if="{{codeShow}}" >
+    <!-- <image src="../../images/red_tanhao.png" mode=""/>请输入正确的验证码 -->
+    <image src="{{imageUrl}}/red_tanhao.png" mode=""/>
+</view>
+<view class="identify" wx:if="{{phoneShow}}">
+    <image src="{{imageUrl}}/red_tanhao.png" mode=""/>请输入11位手机号码
+</view>
+
+<button class="btn" bindtap="getCheckCode">确定</button>
+
+<view class="check">
+    <view wx:if="{{!checked}}" class="checkbox-icon" bindtap="checkedTap"></view>
+    <view wx:else class="checked_active" bindtap="cenalCheckedTap">
+        <image src="{{imageUrl}}/white_gou.png" mode=""/>
+    </view> 
+    <view>已阅读并同意 <span bindtap="goAgreePage" data-type="1">《知城优聘用户协议》</span> 与 <span bindtap="goAgreePage" data-type="2">《知城优聘隐私协议》</span> </view>
+</view>
+<!-- bindtap="goToWxLogin" --> 
+
+<button class="fot_btn" bindtap="goToBindPhone">
+    <image src="{{imageUrl}}/green_wx.png" mode=""/> 微信登录
+</button>

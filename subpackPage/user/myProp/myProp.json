@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-sticky": "@vant/weapp/sticky/index",
+        "noData":"/components/nodata/nodata",
+        "modelPopup": "/components/modelPopup/modelPopup"
+    },
+    "navigationBarTitleText": "我的道具",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

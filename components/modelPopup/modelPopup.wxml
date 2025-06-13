@@ -1,0 +1,15 @@
+<!--components/modelPopup/modelPopup.wxml-->
+<van-popup show="{{ show }}" round z-index="{{zIndex}}" custom-style="{{customStyle}}">
+  <!-- 默认样式 -->
+  <view class="pop_box" style="background: {{popupBackground}};" wx:if="{{refresherType == 'default'}}">
+    <view class="pop_box_middle" style="text-align: {{isTextContent}};">{{releaseText}}</view>
+    <view class="pop_box_bot">
+      <view class="pop_box_bot_left" style="color: {{cancelColor}};" bindtap="cancel">{{cancelText 
+      || '取消'}}</view>
+      <view class="pop_box_bot_right" style="color: {{confirmColor}};" bindtap="confirm">{{sureText 
+      || '确定'}}</view>
+    </view>
+  </view>
+  <!-- 自定义插槽 -->
+  <slot name="custom"></slot>
+</van-popup>

@@ -1,0 +1,219 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/match/index",
+        "pages/login/login",
+        "pages/user/index"
+    ],
+    "subpackages": [
+        {
+            "root": "subpackPage/index",
+            "pages": [
+                "bindPhone/index",
+                "search/index",
+                "searchResult/index",
+                "job_detail/index",
+                "setAddress/index",
+                "post_detail/index",
+                "corporation_detail/index",
+                "photo_detail/index",
+                "addAddress/index",
+                "map/index",
+                "freeProp/index",
+                "appUpload/index",
+                "webFile/index",
+                "city/index",
+                "cityIndex/index",
+                "cityIndexEdition/index",
+                "addressList/index",
+                "addressDetail/index",
+                "addressMap/index",
+                "qiyeWx/index"
+            ]
+        },
+        {
+            "root": "subpackPage/user",
+            "pages": [
+                "about/index",
+                "customer/index",
+                "customer/detail",
+                "personalInfo/personalInfo",
+                "personalInfoNew/step1",
+                "personalInfoNew/step2",
+                "personalInfoNew/step3",
+                "positionTypeNew/positionType",
+                "setName/setName",
+                "setEmail/setEmail",
+                "setWxNumber/setWxNumber",
+                "communicate/communicate",
+                "collect/collect",
+                "interview/interview",
+                "resume/resume",
+                "advantage/advantage",
+                "jpbStatement/jpbStatement",
+                "jobManage/jobManage",
+                "editJobExp/editJobExp",
+                "editJobExpStep2/editJobExp",
+                "editJobExpOld/editJobExp",
+                "positionType/positionType",
+                "certificate/certificate",
+                "feedback/index",
+                "feedback/myFeedback",
+                "setup/index",
+                "setup/account/index",
+                "setup/account/phone",
+                "setup/account/logoff",
+                "setup/notice/index",
+                "setup/noticeDetail/index",
+                "setup/privacy/index",
+                "setup/shield/index",
+                "setup/addShield/index",
+                "setup/greet/index",
+                "setup/boss/index",
+                "setup/costom/index",
+                "desireIndustry/desireIndustry",
+                "possessSkills/possessSkills",
+                "addWorkExper/addWorkExper",
+                "componyName/componyName",
+                "schoolName/schoolName",
+                "workContent/workContent",
+                "workPerformance/workPerformance",
+                "addProjectExper/addProjectExper",
+                "projectDescribe/projectDescribe",
+                "projectPerformance/projectPerformance",
+                "projectName/projectName",
+                "takeRoles/takeRoles",
+                "education/education",
+                "speciality/speciality",
+                "resumeAnnex/resumeAnnex",
+                "resetName/resetName",
+                "myProp/myProp",
+                "wanted/index",
+                "wantedDetail/wantedDetail",
+                "avatar/avatar",
+                "preview/index",
+                "mall/mall",
+                "recharge/index",
+                "stageBuy/index",
+                "stageBuy/detail",
+                "recordStage/index",
+                "recordStage1/index",
+                "recordStageDetail/index",
+                "pay/index",
+                "pay/detail",
+                "shareZp/index",
+                "phoneCode/phoneCode",
+                "score/score",
+                "bindEwm/index",
+                "setPhone/setPhone",
+                "resumeRefresh/resumeRefresh",
+                "previewResume/previewResume",
+                "createResume/createResume",
+                "selectUploadWay/selectUploadWay",
+                "customPost/customPost",
+                "goldActivity/index"
+            ]
+        },
+        {
+            "root": "packageIm/pages",
+            "pages": [
+                "main/index",
+                "chatroom/chatroom",
+                "interview/interview",
+                "offer/offer",
+                "report/index",
+                "report/report_detail",
+                "report/note_detail",
+                "useful/useful",
+                "useful/addUseful",
+                "setChat/setChat",
+                "system/system",
+                "system/detail",
+                "notInterested/index"
+            ]
+        },
+        {
+            "root": "subpackPage/member",
+            "pages": [
+                "memberBuy/index",
+                "equities/index",
+                "record/index"
+            ]
+        },
+        {
+            "root": "subpackPage/versions",
+            "pages": [
+                "index/index",
+                "postAll/postAll",
+                "postHot/postHot",
+                "component/component",
+                "webview/webview",
+                "sclectPost/sclectPost",
+                "locality/locality",
+                "localityEnterprise/localityEnterprise",
+                "jobManage/jobManage",
+                "allJobManage/allJobManage",
+                "classicsPostType/classicsPostType",
+                "indexAI/indexAI",
+                "hotPost/index",
+                "partTime/index"
+            ]
+        },
+        {
+            "root": "subpackPage/playVideo",
+            "pages": [
+                "index/index"
+            ]
+        }
+    ],
+    "darkmode": false,
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "管理系统",
+        "navigationBarTextStyle": "black"
+    },
+    "useExtendedLib": {
+        "weui": true
+    },
+    "plugins": {
+        "materialPlugin": {
+            "version": "1.0.5",
+            "provider": "wx4d2deeab3aed6e5a"
+        }
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将用于导航信息"
+        },
+        "scope.userInfo": {
+            "desc": "获取您的用户信息用于登录"
+        },
+        "scope.address": {
+            "desc": "获取您的用户信息用于登录111"
+        }
+    },
+    "usingComponents": {
+        "van-button": "@vant/weapp/button/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "van-cell": "@vant/weapp/cell/index",
+        "van-cell-group": "@vant/weapp/cell-group/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "van-toast": "@vant/weapp/toast/index",
+        "van-field": "@vant/weapp/field/index",
+        "van-picker": "@vant/weapp/picker/index",
+        "van-uploader": "@vant/weapp/uploader/index",
+        "van-switch": "@vant/weapp/switch/index",
+        "van-dialog": "@vant/weapp/dialog/index",
+        "pickerDate": "/components/pickerDate/pickerDate",
+        "van-loading": "@vant/weapp/loading/index",
+        "versions-prop": "/components/versions-prop/versions-prop"
+    },
+    "requiredPrivateInfos": [
+        "getLocation",
+        "startLocationUpdateBackground"
+    ],
+    "sitemapLocation": "sitemap.json",
+    "navigationBarTextStyle": "white",
+    "lazyCodeLoading": "requiredComponents"
+}

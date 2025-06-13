@@ -1,0 +1,54 @@
+<!--packageIm/pages/report/report_note.wxml-->
+<view class="content">
+    <!-- <view class="text textAC">等待回复</view> -->
+    <!-- <view class="text">查看回复</view> -->
+    <view class="head">
+        <!-- <view class="head_top">{{info.typeName}}</view>
+        <view class="head_text">违法/违规行为-政治敏感</view> -->
+        <view class="img_box">
+            <image src="{{info.respondentAvatar}}" mode="" />
+            <view class="right">
+                <view>{{info.corporationName}}</view>
+                <text class="head_text">{{info.respondentName}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="report_Detail">
+        <view class="item-cell">
+            <view class="label_text">举报时间：</view>
+            <view class="item_conent">{{info.createTime}}</view>
+        </view>
+        <view class="item-cell">
+            <view class="label_text">举报类型：</view>
+            <view class="item_conent">{{info.typeName}}</view>
+        </view>
+        <!-- <view class="item-cell">
+            <text>具体情况: </text>
+            <text>{{info.createTime}}</text>
+        </view> -->
+        <view class="item-cell">
+            <view class="label_text">举报内容：</view>
+            <view class="item_conent">{{info.reasonContent}}</view>
+        </view>
+    </view>
+
+    <view class="screenshot">
+        <view class="label_text">证据截图：</view>
+        <view class="item_conent">
+            <image src="{{item}}" mode="" wx:for="{{info.imgUrls}}"/>
+        </view>
+    </view>
+</view>
+
+<view class="footer">
+    <text>处理结果：</text>
+    <!-- 审核通过或者驳回 -->
+    <view wx:if="{{info.status !== 0}}">
+        <view class="text">{{info.auditResultDesc || ''}}</view>
+        <view class="time">处理时间：{{info.updateTime}}</view>
+    </view>
+    <!-- 审核中 -->
+    <view wx:else>
+        <van-steps custom-class="detailClass" steps="{{ steps }}" active="{{ active }}" direction="vertical" active-color="#ee0a24" />
+    </view>
+</view>

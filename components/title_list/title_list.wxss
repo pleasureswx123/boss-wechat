@@ -1,0 +1,19 @@
+/* components/title_list/title_list.wxss */
+
+.iconPic{
+    vertical-align: sub;
+    margin-left: 20rpx;
+    width: 24rpx;
+    height: 34rpx;
+}
+.titleMaring{
+    margin: 30rpx 0 24rpx;
+    display: flex;
+    justify-content: space-between;
+}
+
+.titleMaring image{
+    /* font-size: 30rpx; */
+    width: 118rpx;
+    height: 30rpx;
+}

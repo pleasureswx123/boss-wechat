@@ -1,0 +1,26 @@
+<view class="box">
+  <image src="{{imageUrl}}/newImg/customPost.png" class="headbg"></image>
+  <view class="backIcon" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+      <view class="van-nav-bar__left" style="padding-top:{{statusBarHeight}}px; height:{{navBarHeight}}px" bindtap="back">
+          <van-icon name="arrow-left" color="#000000" size="22px" />
+      </view>
+  </view>
+  <view class="contentBox">
+    <view class="headBox">
+        <view>
+          <view class="title">定制职位推荐</view>
+          <view class="desp">合理选择，择优推荐，专属职位</view>
+        </view>
+        <image src="{{imageUrl}}/newImg/customPost1.png" class="customPost"></image>
+    </view>
+    <view class="cont">
+      <view class="name1">你更关注哪些信息？(多选)</view>
+      <view class="labelBox">
+        <view class="label {{item.selected?'active':''}}" wx:for="{{list}}" wx:key="index" data-code="{{item.code}}" bind:tap="goBind">{{item.name}}</view>
+      </view>
+    </view>
+    <view class="btnsBox" bind:tap="goSearch">
+      <view class="btns">查看定制推荐</view>
+    </view>
+  </view>
+</view>

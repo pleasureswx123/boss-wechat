@@ -1,0 +1,22 @@
+<view class="birthday" bindtap="showBirthday">
+  <text wx:if="{{selectDate !== ''}}">{{selectDate}}</text>
+  <text class="ph-class" wx:else>{{placeholder}}</text>
+</view>
+
+<view class="birthday-mask" hidden="{{!pickerDateshow}}"></view>
+<view class="birthday-box {{pickerDateshow?'birthday-show':''}}">
+  <view class="picker-header">
+    <view class="picker-btn" data-index="{{index}}" wx:key="index" wx:for="{{picker_btn}}" bindtap="selectBirthday">{{item}}</view>
+  </view>
+  <picker-view class="birthday-picker" indicator-class="birthday-indicator" value="{{value}}" bindchange="bindChange">
+    <picker-view-column wx:if="{{fields === 'year' || fields === 'month' || fields === 'day'}}">
+      <view wx:for="{{years}}" wx:key="index">{{item === '至今' ? item : item + '年'}}</view>
+    </picker-view-column>
+    <picker-view-column wx:if="{{fields === 'month' || fields === 'day'}}" hidden="{{year === '至今'}}">
+      <view wx:for="{{months}}" wx:key="index">{{item}}月</view>
+    </picker-view-column>
+    <picker-view-column wx:if="{{fields === 'day'}}" hidden="{{year === '至今'}}">
+      <view wx:for="{{days}}" wx:key="index">{{item}}日</view>
+    </picker-view-column>
+  </picker-view>
+</view>

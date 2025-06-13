@@ -1,0 +1,9 @@
+<view class="tab-box" style="padding-bottom: {{globalBottom}}px;">
+  <view bindtap='tabTapFun' data-sortnum="{{item.sortnum}}" class="{{item.sortnum===num?'tab active':'tab'}} {{item.className}}" wx:for="{{navigationList}}" wx:key="sortnum">
+    <image class='image' src="{{item.sortnum===num ? item.acIcon : item.icon}}"></image>
+    <!-- 2024-12-19 ghy 修改 -->
+    <!-- <image class="image" src="{{item.icon}}" mode=""/> -->
+    <view class="text">{{navigationList[item.sortnum-1].title}}</view>
+    <view class="icon" wx:if="{{item.sortnum === 3 && count > 0}}">{{count < 99 ? count : '99+'}}</view>
+  </view>
+</view>

@@ -1,0 +1,108 @@
+/* components/selectIdentity/selectIdentity.wxss */
+.selectIdentityBox {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.nav-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  color: #fff;
+  height: 908rpx;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nav-bar .search {
+  color: #1D2129;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar_title {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 600;
+  font-size: 36rpx;
+  color: #1D2129;
+}
+
+.selectIdentityBox-content {
+  flex: 1;
+  padding-top: 50rpx;
+  box-sizing: border-box;
+}
+
+.content_title {
+  width: 100%;
+  text-align: center;
+}
+
+.content_title image {
+  height: 46rpx;
+  margin-bottom: 36rpx;
+}
+
+.content_mainImg {
+  width: 100%;
+
+}
+
+.content_mainImg .Identity1_back {
+  height: 684rpx;
+}
+
+.content_mainImg .Identity2_back {
+  height: 764rpx;
+}
+
+
+.content_title .Identity1 {
+  width: 350rpx;
+}
+
+.content_title .Identity2 {
+  width: 302rpx;
+}
+
+.selectIdentityBox-footer {
+  height: 280rpx;
+}
+
+.footer_tips {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 40rpx;
+}
+
+.footer_tips text {
+  font-weight: 400;
+  font-size: 32rpx;
+  color: #747679;
+}
+
+.footer_btn {
+  width: 100%;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.footer_btn .button {
+  height: 80rpx;
+  background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-weight: 500;
+  font-size: 36rpx;
+  color: #FFFFFF;
+}

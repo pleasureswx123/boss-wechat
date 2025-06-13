@@ -1,0 +1,43 @@
+<!--subpackPage/versions/sclectPost/sclectPost.wxml-->
+<view class="sclectPost-box" style="background-image: url('{{baseImageUrl}}/versions/dise.png');">
+  <view class="head">
+    <!-- 自定义导航栏 -->
+    <view style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px"></view>
+
+    <view class="head_content">
+      <view class="title"><image src="{{baseImageUrl}}/newImg/worktit1.png" mode="" style="width: 550rpx;height: 46rpx;"/></view>
+      <text class="desp">选择后，您将被推荐给招聘企业</text>
+    </view>
+  </view>
+  <view class="content">
+    <view class="content_view">
+      <view class="img">
+        <image src="{{baseImageUrl}}/newImg/worktit2.png" mode="" />
+      </view>
+      <view class="list">
+        <block wx:for="{{hotPostList}}" wx:key="index" >
+          <view class="item {{item.select ? 'active' : ''}}" data-postId="{{item.id}}" bind:tap="selectItem">{{item.name}}</view>
+        </block>
+      </view>
+      <view class="footer_text" bind:tap="gotoClassicsPostType">更多推荐</view>
+    </view>
+  </view>
+  <view class="footer" wx:if="{{selectPostList.length > 0}}">
+    <view class="title">
+      已选： <text style="color: #FE0201;">{{selectPostList.length}}</text>/{{maxLength}}
+    </view>
+    <view class="postBox" wx:if="{{selectPostList.length > 0}}">
+      <block wx:for="{{selectPostList}}" wx:key="index">
+        <view class="postBoxItem">
+          <text>{{item.name}}</text>
+          <van-icon bind:click="deleteCurrent" data-index="{{index}}" data-postId="{{item.postId}}" name="cross" size="24rpx" color="#FE0201" />
+        </view>
+      </block>
+    </view>
+
+    <view class="btn">
+      <view class="cancelBtn" bind:tap="cancelFn">清除</view>
+      <view class="confirmBtn" bind:tap="confirmSave">确认</view>
+    </view>
+  </view>
+</view>

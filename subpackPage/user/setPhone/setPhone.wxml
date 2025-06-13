@@ -1,0 +1,27 @@
+<view class="item">
+    <view class="top">
+        允许HR直接电话联系我
+    </view>
+    <van-switch inactive-color="#D9D9D9" checked="{{ checked }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="chatNotify" bind:change="Chenge" />
+</view>
+<view class="item" bind:tap="goEdit">
+    <view class="top">
+        <view>修改手机号</view>
+    </view>
+    <view class="font1"><text class="mr24">{{firstPhone}}****{{lastPhone}}</text><van-icon name="arrow" color="#999" size="30rpx"/></view>
+</view>
+<picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="name">
+<view class="item">
+    <view class="top">
+        <view>方便虚拟电话联系时间</view>
+    </view>
+    <view class="font1"><text class="mr24">{{multiArray[0][multiIndex[0]].name}}~{{multiArray[1][multiIndex[1]].name}}</text><van-icon name="arrow" color="#999" size="30rpx"/></view>
+</view>
+</picker>
+<view class="tipBox">
+  <!-- <view class="tipCont">1.开启虚拟电话，方便HR直接电话联系您，让好机会一个不落；</view> -->
+  <view class="tipCont">1.开启虚拟电话，招聘者可通过虚拟电话直接联系到您，您也可以直接拨打招聘者电话，让好机会一个不落，更快入职；</view>
+  <view class="tipCont">2.拨打虚拟电话需与注册手机号保持一致；</view>
+  <view class="tipCont">3.拨打虚拟电话将不暴露真实手机号码；</view>
+  <view class="tipCont">4.HR只会在{{multiObject.startTime}}～{{multiObject.endTime}}联系您。</view>
+</view>

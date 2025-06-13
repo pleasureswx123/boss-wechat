@@ -1,0 +1,50 @@
+<view class="postHotBox">
+  <!-- 自定义导航栏 -->
+  <view class="backIcon " style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+    <view class="van-nav-bar__left" style="height: {{navBarHeight}}px;line-height: {{navBarHeight}}px;" bindtap="back">
+      <van-icon name="arrow-left" color="#000" size="22px" />
+    </view>
+    <view class="van-nav-bar__title">{{navberText}}</view>
+  </view>
+  <!-- 占位 -->
+  <view style="height: {{statusBarHeight + navBarHeight}}px;"></view>
+
+  <view class="postHotBox_content" style="height: calc(100% - {{statusBarHeight + navBarHeight}}px)">
+    <view class="content-box column">
+      <!-- 热门岗位使用 -->
+      <view class="box_title" wx:if="{{type == 'hot'}}">
+        <text class="line1"></text>
+        <text class="text">精准推荐</text>
+        <text class="line1"></text>
+      </view>
+      <!-- 严选兼职页面使用 -->
+      <view class="box_title" wx:else>
+        <scroll-view scroll-x="true" enable-flex>
+          <view class="hotIndustryList">
+            <view class="hotIndustryItem {{active == index ? 'active' : ''}}" bindtap="changeAgileActive" data-index="{{index}}" wx:for="{{industryList}}" wx:key="index">
+              <image src="{{imageUrl}}/index_img/line.png" mode="" />
+              {{item.name}}
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+
+      <view style="flex: 1;overflow: auto;padding-bottom: 40rpx;" wx:if="{{tabsList.length>0}}">
+        <view class="box_hotList">
+          <view class="box_hotList-item" wx:for="{{tabsList}}" data-item="{{item}}" bindtap="searchCurrentPost" wx:key="index">
+            <view class="item_content">
+              <view class="hotTitle">
+                <text>{{item.name}}</text>
+                <view class="background_color" style="background: {{colorList[index]}};"></view>
+              </view>
+              <!-- <text class="postNum">共计{{0}}+</text> -->
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else>
+        <noData></noData>
+      </view>
+    </view>
+  </view>
+</view>

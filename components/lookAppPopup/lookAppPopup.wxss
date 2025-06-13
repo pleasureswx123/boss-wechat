@@ -1,0 +1,144 @@
+/* components/lookAppPopup/lookAppPopup.wxss */
+.lookAppPopupBox {
+  height: 100%;
+  background: #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.nav-bar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nav-bar .search {
+  color: #1D2129;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.lookAppPopupBox-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-top {
+  /* height: ; */
+  display: flex;
+  justify-content: center;
+  padding-top: 50rpx;
+}
+
+/* .content-top .changeTabBox::after{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  content: "";
+  border-radius: 14rpx;
+  width: 326rpx;
+  height: 43rpx;
+  border-radius: 8rpx;
+  background: linear-gradient(-58deg, #FEBD41, #F67238);
+} */
+
+.content-top .changeTabBox {
+  /* width: 345rpx; */
+  width: 400rpx;
+  height: 80rpx;
+  background: #BF3A17;
+  border-radius: 14rpx;
+  /* background: linear-gradient(-58deg, #FEBD41, #F67238); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* width: 326rpx;
+  height: 43rpx;
+  border-radius: 8rpx; */
+  position: relative;
+}
+
+.content-top .changeTabBox .tab-item {
+  width: 50%;
+  /* height: 100%; */
+  font-weight: 500;
+  font-size: 24rpx;
+  color: #FFFFFF;
+}
+
+.changeTabTestBack {
+  width: 381rpx;
+  /* width: 326rpx; */
+  height: 70rpx;
+  border-radius: 8rpx;
+  background: linear-gradient(-58deg, #FEBD41, #F67238);
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.changeTabTestBack .selected {
+  background: linear-gradient(-58deg, #FA7971, #D53F18);
+  margin-left: 2rpx;
+  width: 50%;
+  height: calc(100% - 2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  border: 1px solid #FBC176;
+}
+
+
+.swiperImg {
+  width: 100%;
+  flex: 1;
+  position: relative;
+}
+
+.swiperItems {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  flex-direction: row-reverse;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.activeImg {
+  transform: scale(0.9) !important;
+}
+
+.swiper .item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.swiper .item image,
+.swiper .item1 image {
+  width: 504rpx;
+}
+
+
+.zoom-out {
+  transform: scale(0.9);
+  transition: all 0.5s ease-out 0s;
+}
+
+.zoom-in {
+  transform: scale(1);
+  transition: all 0.5s ease-in 0s;
+}

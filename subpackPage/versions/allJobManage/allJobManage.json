@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "city-popup": "/components/cityPopup/cityPopup"
+  },
+  "navigationBarTitleText":"求职意向",
+  "navigationBarBackgroundColor": "#fff"
+}

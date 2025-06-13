@@ -1,0 +1,12 @@
+{
+    "usingComponents": {
+        "van-cell": "@vant/weapp/cell/index",
+        "van-cell-group": "@vant/weapp/cell-group/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "van-action-sheet": "@vant/weapp/action-sheet/index",
+        "weixinLogin_prop": "/components/weixinLogin_prop/weixinLogin_prop",
+        "vltPrompt": "/components/vltPrompt/index",
+        "modelPopup": "/components/modelPopup/modelPopup"
+    },
+    "navigationBarTitleText": "职位详情"
+}

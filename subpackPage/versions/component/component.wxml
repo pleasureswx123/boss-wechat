@@ -1,0 +1,92 @@
+<view class="componentBox column">
+  <view class="componentBox_head">
+    <!-- 自定义导航栏 -->
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#000" size="23px" bind:click="navigateBack" />
+        <block wx:if="{{type == 5 || type == 6}}">
+          <view class="tit" wx:if="{{type == 5}}">宝妈专区</view>
+          <view class="tit" wx:if="{{type == 6}}">日结专区</view>
+        </block>
+      </view>
+    </view>
+
+    <block wx:if="{{type != 5 && type != 6}}">
+      <view class="banner">
+        <swiper class="swiper" bindchange="monitorCurrent" indicator-dots="{{false}}" indicator-color="white" autoplay="{{false}}" interval="2000" duration="500">
+          <block wx:for="{{navBerBack}}" wx:key="*this">
+            <swiper-item>
+              <image src="{{item.image}}" mode="" />
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </block>
+
+    <block wx:else>
+      <!-- 占位，高度与顶部栏一样 -->
+      <view style="height:{{capsuleData.navBarHeight}}px;background-color: #fff;"></view>
+    </block>
+  </view>
+  <!-- 头部区域 -->
+  <view class="componentBox_top">
+    <!-- 应届 / 助残帮扶 / 急聘专区 / 附近面试 -->
+    <view class="top_content row" wx:if="{{type != 2}}">
+      <view class="top_content-left row" bindtap="changeStatus" data-type="isOpenAddress" data-icon="arrowIcon">
+        <view class="contName">{{locationAddress}}</view>
+        <van-icon name="{{arrowIcon}}" size="12px" />
+      </view>
+      <view class="top_content-content row" bindtap="changeStatus" data-type="isSeletePost" data-icon="arrowIcon1">
+        <view class="contName">{{postName}}</view>
+        <van-icon name="{{arrowIcon1}}" size="12px" />
+      </view>
+      <view class="top_content-right" bindtap="openScreen">筛选<span wx:if="{{sxNum>0}}">*{{sxNum}}</span><van-icon name="{{arrowIcon1}}" size="12px" style="margin-left: 6rpx;"/></view>
+    </view>
+    <!-- 企业榜单 -->
+    <view class="top_content row" wx:else>
+      <view class="top_content-left row">
+        <text>公司</text>
+      </view>
+      <view class="top_content-right" bindtap="openIndustry">{{gsName}}</view>
+    </view>
+  </view>
+  <!-- 骨架屏效果 -->
+  <view class="componentBox_content" wx:if="{{showLoading}}">
+    <skeletonList type="1" button="{{false}}"></skeletonList>
+  </view>
+  <!-- 列表区域 -->
+  <view class="componentBox_content" wx:if="{{!showLoading}}">
+    <!-- 学生专区 / 助残帮扶 / 急聘专区 / 附近岗位 -->
+    <pull-refresh-view class="list-container" wx:if="{{dataList.length>0 && type != 2}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish}}" pullText="下拉刷新" releaseText="释放更新" refreshText="加载中" refresherType="default" loadType="default" loadmoreText="努力加载中~">
+      <component-info nearBy="{{nearBy}}" dataList="{{dataList}}" bind:showLogin="showLogin"></component-info>
+    </pull-refresh-view>
+    <!-- 无数据展示 -->
+    <view class="no_data_center" wx:if="{{dataList.length == 0}}">
+      <view class="no_data_img">
+        <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+      </view>
+      <view class="no_data_text">暂无岗位推荐</view>
+    </view>
+  </view>
+</view>
+
+<!-- 地址选择 -->
+<van-popup root-portal="{{true}}" lock-scroll round show="{{isOpenAddress}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight - statusBarHeight - navBarHeight}}px">
+  <!-- areaId="{{areaId}}" -->
+  <versionsCity-prop areaId="{{areaIds[0]}}" bind:onClose="onClose" bind:comfirmCity="comfirmCity" versionsCityHeight="{{popupHeight - statusBarHeight - navBarHeight - globalBottom}}"></versionsCity-prop>
+</van-popup>
+
+<!-- 全部职位弹出层 -->
+<van-popup safe-area-inset-bottom="{{false}}" show="{{ isSeletePost }}" round position="bottom" custom-style="height: {{popupHeight - statusBarHeight - navBarHeight}}px;" bind:close="onClose">
+  <positionType bind:onClose="onClose" bind:onClick="selectedPost" positionTypeHeight="{{popupHeight - statusBarHeight - navBarHeight}}"></positionType>
+</van-popup>
+
+<!-- 筛选弹窗 -->
+<van-popup root-portal="{{true}}" lock-scroll round show="{{isShow}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight - statusBarHeight - navBarHeight}}px">
+  <screenCondition bind:screenEvent="screenEvent" show="{{isShow}}" bind:screenNum="screenNum" bind:onClose="onClose" height="{{popupHeight - statusBarHeight - navBarHeight}}" jobType="{{jobType}}" isSave="{{true}}" pageType="{{pageType}}"></screenCondition>
+</van-popup>
+
+<!-- 筛选行业 -->
+<van-popup root-portal="{{true}}" lock-scroll round show="{{isShowIndustry}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight - statusBarHeight - navBarHeight}}px">
+  <compIndustry bind:onClose="onClose" bind:onSelected="searchIndustry"></compIndustry>
+</van-popup>

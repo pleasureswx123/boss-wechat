@@ -1,0 +1,132 @@
+<!-- 筛选弹框 -->
+<view class="screenCondition">
+  <scroll-view scroll-y="true">
+    <view>
+      <view class="shaixuan" style="position:fixed; width: {{windowWidth}}px;">
+        <!-- <van-icon class="icon" name="cross" size="20px" cplor="#F5F5F5"/> -->
+        <view class="closeIcon" bindtap="close">
+          <!-- <image src="{{baseImageUrl}}/index_img/sxClose.png"  mode=""/> -->
+          <image src="{{baseImageUrl}}/newImg/closeIcon.svg" mode="" />
+        </view>
+        <text class="shaixuanText">筛选</text>
+      </view>
+      <view style="height: 120rpx; width: 100%;"></view>
+      <!-- 结算方式 -->
+      <view class="screenConditionItem" wx:if="{{jobType==1 || pageType == 'partTime'}}">
+        <view class="title">
+          <view class="">
+            <text class="">结算方式</text>
+          </view>
+        </view>
+        <!-- 筛选列表数据 -->
+        <view class="screenList">
+          <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{jsList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="jsList" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 期望薪资 -->
+      <view class="screenConditionItem" wx:if="{{jobType != 1 && pageType == 'all'}}">
+        <view class="title">
+          <view class="">
+            <text class="">期望薪资</text>
+          </view>
+        </view>
+        <!-- 筛选列表数据 -->
+        <view class="screenList">
+          <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{textData}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="textData" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 行业/领域 -->
+      <view class="screenConditionItem">
+        <view class="title">
+          <view class="" style="display: flex; justify-content: space-between; align-items: center;">
+            <text class="">行业/领域 (根据期望为您推荐)</text>
+            <text class="more" data-type="shaixuan" bindtap="seeIndustry">查看更多</text>
+          </view>
+        </view>
+        <view class="screenList">
+          <view bindtap="multiple" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{industryList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="industryList" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 经验 -->
+      <view class="screenConditionItem">
+        <view class="title">
+          <view class="">
+            <text class="">经验</text>
+          </view>
+        </view>
+        <view class="screenList">
+          <!-- sufferList -->
+          <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{sufferList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="sufferList" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 公司规模 -->
+      <view class="screenConditionItem" wx:if="{{pageType == 'all'}}">
+        <view class="title">
+          <view class="">
+            <text class="">公司规模</text>
+          </view>
+        </view>
+        <view class="screenList">
+          <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{scaleList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="scaleList" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 融资 -->
+      <view class="screenConditionItem" wx:if="{{pageType == 'all'}}">
+        <view class="title">
+          <view class="">
+            <text class="">融资</text>
+          </view>
+        </view>
+        <view class="screenList">
+          <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{financingList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="financingList" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 学历 -->
+      <view class="screenConditionItem">
+        <view class="title">
+          <view class="">
+            <text class="">学历</text>
+          </view>
+        </view>
+        <view class="screenList">
+          <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{educationList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="educationList" wx:key="index">
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+      <!-- 企业性质 -->
+      <!-- <view class="screenConditionItem">
+                <view class="title">
+                    <view class="">
+                        <text class="">企业性质</text>
+                    </view>
+                </view>
+                <view class="screenList">
+                    <view bindtap="radio" class="textColor {{item.isActive ? 'textNo' : ''}}" wx:for="{{natureList}}" data-item="{{item}}" data-code="{{item.code}}" data-distinctionName="natureList" wx:key="index">
+                        {{item.name}}
+                    </view>
+                </view>
+            </view> -->
+      <!-- 底部重置和确定按钮 -->
+      <view class="popup-button">
+        <view class="button_screen">
+          <view class="reset" bindtap="reset">重置</view>
+          <view class="comfirm" bindtap="comfirmScreening">确定</view>
+        </view>
+      </view>
+      <view class="" style="height: 130rpx;"></view>
+    </view>
+  </scroll-view>
+</view>

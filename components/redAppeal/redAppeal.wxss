@@ -1,0 +1,218 @@
+
+.circulate_popup-head {
+  width: 100%;
+  height: 480rpx;
+  position: absolute;
+  background: url(https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/versions/circulateBack1.png);
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  background-size: 100% 100%;
+  /* padding: 0 48rpx 20rpx; */
+  box-sizing: border-box;
+  top:0;
+  left:0;
+  z-index: 1;
+}
+.circulate_popup-body{
+  z-index: 2;
+  position: relative;
+  margin: 68rpx 48rpx 48rpx;
+}
+.sstitle{
+  font-size: 44rpx;
+  color: #333333;
+  line-height: 60rpx;
+  font-weight: 600;
+}
+.ssTime{
+  margin-top: 40rpx;
+}
+.ssTime .s1{
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #666666;
+}
+.ssTime .s2{
+  font-weight: 500;
+  font-size: 34rpx;
+  color: #333333;
+  line-height: 60rpx;
+}
+.input-placeholder {
+  font-size: 28rpx;
+  color: #333333;
+}
+.ssdesp{
+  margin-top: 60rpx;
+}
+.ssImg{
+  margin-top: 60rpx;
+}
+.btns{
+  display: flex;
+  justify-content: space-between;
+}
+.cancel{
+  width: 180rpx;
+  height: 80rpx;
+  background: #F1F1F1 !important;
+  border-radius: 12rpx;
+  font-weight: 400;
+  font-size: 32rpx;
+  color: #666666 !important;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.sure{
+  width: 452rpx;
+  height: 80rpx;
+  background: linear-gradient( 308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 12rpx;
+  font-weight: 500;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.desp2{
+  /* width: 654rpx; */
+  /* height: 178rpx; */
+  background: #F5F5F5;
+  border-radius: 8rpx;
+  border: 1rpx solid #D5D5D5;
+  margin-top: 28rpx;
+  padding: 28rpx 28rpx 0 28rpx;
+  position: relative;
+}
+.desp2 .num{
+  position: absolute;
+  right: 28rpx;
+  bottom: 28rpx;
+  font-size: 22rpx;
+}
+.add{
+  width: 40rpx;
+  height: 40rpx;
+}
+.uploadImg{
+  width: 180rpx;
+  height: 180rpx;
+  background: #F5F5F5;
+  border-radius: 8rpx;
+  /* margin: 28rpx 0 50rpx; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.txMoney{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+.red{
+  color: #F42F2F;
+}
+.img_item{
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 8rpx;
+  color: #999999;
+  text-align: center;
+  line-height: 180rpx;
+  font-size: 30px;
+  margin-left: 30rpx;
+  position: relative;
+}
+.cont_img{
+  margin: 40rpx 0 80rpx;
+  display: flex;
+  justify-content: start;
+}
+.img1{
+  width:100%;
+  height: 100%;
+  border-radius: 8rpx;
+  margin-right: 16rpx;
+}
+.img1:last-child{
+  margin-right: 0 !important;
+}
+.clone{
+  width: 30rpx;
+  height: 30rpx;
+  background: #3D3D3D;
+  color: #fff;
+  text-align: center;
+  line-height: 26rpx;
+  border-radius: 15rpx;
+  font-size: 25rpx;
+  position: absolute;
+  top: -6rpx;
+  right: -6rpx;
+}
+.withDrawView{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  background: rgba(0,0,0,0.5);
+}
+.withDrawContBox{
+  width: 100%;
+  height: 100%;
+  animation: scaleAnimation 1s;
+}
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.withDrawCont{
+  width: 750rpx;height: 860rpx;position: absolute;top:20%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.font1{
+  font-size: 44rpx;
+  color: #FFFFFF;
+  line-height: 60rpx;
+  margin-top: 20rpx;
+}
+.font2{
+  font-weight: 600;
+  font-size: 36rpx;
+  color: #FFFFFF;
+  line-height: 66rpx;
+  margin-top:40rpx;
+}
+.font3{
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #FFFFFF;
+}
+.font4{
+ width: 306rpx;
+  height: 88rpx;
+  margin-top: 48rpx;
+  margin-bottom: 18rpx;
+}
+.font5{
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #FDDF8F;
+}
+
+.mingxiText{
+  position: absolute;
+  top: 0;
+  right: 0rpx;
+  height: 50rpx;
+  width: 150rpx;
+}

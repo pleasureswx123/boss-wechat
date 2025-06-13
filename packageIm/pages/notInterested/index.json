@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText": "不感兴趣的HR",
+    "usingComponents": {
+      "component-list": "../main/conlist/conlist",
+      "noData":"/components/nodata/nodata"
+    }
+}

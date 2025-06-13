@@ -1,0 +1,16 @@
+{
+	"navigationBarTitleText":"",
+	"backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false,
+    "backgroundColor": "#fff",
+	"usingComponents": {
+        "chat-suit-emoji": "suit/emoji/emoji",
+        "chat-suit-image": "suit/image/image",
+		    "chat-suit-audio": "suit/audio/audio",
+        "chat-suit-main": "suit/main/main",
+        "msgItem": "suit/msgItem/msgItem",
+        "topTip":"suit/topTip/topTip",
+        "van-popup": "@vant/weapp/popup/index",
+        "redAppeal":"/components/redAppeal/redAppeal"
+	}
+}

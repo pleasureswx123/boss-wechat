@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "perfectest-city": "/components/perfectestCity/index"
+    },
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#ffffff"
+}

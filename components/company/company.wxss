@@ -1,0 +1,137 @@
+/* components/company/company.wxss */
+.content_corporation_left image {
+    height: 92rpx;
+    width: 92rpx;
+    margin-right: 12rpx;
+    border-radius: 24rpx;
+}
+
+.content_corporation_center {
+    font-size: 22rpx;
+    flex: 1;
+}
+
+.content_corporation_center_top {
+    font-size: 30rpx;
+    font-weight: bold;
+    margin-bottom: 16rpx;
+}
+
+.content_corporation_center_bottom {
+    display: flex;
+    color: #999999;
+}
+
+/* .view:last-child {
+    flex: 1;
+} */
+
+.content_corporation {
+    display: flex;
+    margin: 0 auto;
+    padding: 32rpx 4rpx 30rpx 22rpx;
+}
+
+.content_corporation_right {
+    margin-top: 22rpx;
+    height: 36rpx;
+    width: 36rpx;
+}
+
+.content_corporation_right .imgae-size {
+    height: 36rpx;
+    width: 36rpx;
+}
+
+.bot_line {
+    padding-right: 14rpx;
+}
+
+
+.company {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 26rpx 0rpx 12rpx;
+}
+
+.company .company-left {
+    margin-right: 28rpx;
+}
+
+.company .company-left .ranking {
+    width: 56rpx;
+    height: 60rpx;
+    font-size: 32rpx;
+    font-family: 'OPPOSans B';
+    font-weight: normal;
+    color: #999999;
+    text-align: center;
+}
+
+.company .company-left image {
+    width: 56rpx;
+    height: 60rpx;
+}
+
+.company .company-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.companyAvatar {
+    margin-right: 22rpx;
+}
+
+.companyAvatar image {
+    width: 93rpx;
+    height: 93rpx;
+    border-radius: 24rpx;
+}
+
+.companyBaseInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.companyBaseInfo .companyName {
+    font-size: 30rpx;
+    font-weight: 400;
+    color: #1D2129;
+    padding-bottom: 8rpx;
+}
+
+/* 公司规模 */
+.companyBaseInfo .companyfinanceStage {
+    display: flex;
+    align-items: center;
+    padding-bottom: 16rpx;
+}
+
+.companyfinanceStage text {
+    display: inline-block;
+    color: #999;
+    font-size: 24rpx;
+    
+    font-weight: 400;
+    position: relative;
+}
+
+.companyfinanceStage .line {
+    height: 22rpx;
+    width: 2rpx;
+    background-color: #999;
+    margin: 0 10rpx;
+}
+
+.company-right image {
+    height: 36rpx;
+    width: 36rpx;
+}
+
+.xian {
+    height: 2rpx;
+    opacity: 0.2;
+    border-top: 1rpx solid #979797;
+}

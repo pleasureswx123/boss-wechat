@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "van-steps": "@vant/weapp/steps/index"
+    },
+    "navigationBarTitleText": "我的举报记录",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

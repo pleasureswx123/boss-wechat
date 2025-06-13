@@ -1,0 +1,83 @@
+<view class="mall">
+  <scroll-view scroll-y="{{true}}" class="scrollView">
+    <image src="{{ baseImageUrl}}/daoju/dj_1.png" mode="aspectFill" class="daojuBg" />
+    <view class="gcMallMain">
+      <view class="djtjBox">
+        <image src="{{ baseImageUrl}}/daoju/dj_2.png" mode="aspectFill" class="jrtjBg" />
+        <image src="{{ baseImageUrl}}/daoju/dj_3.png" mode="aspectFill" class="ss1" />
+        <image src="{{ baseImageUrl}}/daoju/dj_3.png" mode="aspectFill" class="ss2" />
+        <view class="light"></view>
+        <view class="gcYouDou">
+          <view class="youdouList" style="padding-top: 60rpx;">
+            <view class="youdouItem" wx:for="{{list}}" wx:key="index">
+              <!-- 左 -->
+              <view class="left">
+                <image src="{{ baseImageUrl + item.image}}" mode="" />
+              </view>
+              <!-- 中 -->
+              <view class="center">
+                <text>{{item.title}}</text>
+                <view wx:if="{{item.title == '知豆'}}">剩余知豆 <text style="color: #FE0201;">{{info.dou}}</text> 颗</view>
+                <view wx:else>{{item.describe}}</view>
+              </view>
+              <!-- 右 -->
+              <view class="right" bindtap="rechargeOrstageBuy" data-index="{{item.index}}">
+                <image src="{{ baseImageUrl}}/daoju/dj_6.png" mode="aspectFit" class="gmbtn" />
+                <text>{{item.rightText}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 知豆/简历刷新 -->
+      <view class="gcYouDou">
+        <view class="ydBg"></view>
+        <view class="youdouList">
+          <view class="youdouItem" wx:for="{{list1}}" wx:key="index">
+            <!-- 左 -->
+            <view class="left">
+              <image src="{{ baseImageUrl + item.image}}" mode="aspectFill" style="width: 52rpx;height: 48rpx;margin-top: 15rpx;margin-left: 10rpx;" />
+            </view>
+            <!-- 中 -->
+            <view class="center">
+              <text>{{item.title}}</text>
+              <view>剩余知豆 <text style="color: #FE0201; font-size: 22rpx;">{{info.dou}}</text> 颗</view>
+            </view>
+            <!-- 右 -->
+            <view class="right" bindtap="rechargeOrstageBuy" data-index="{{index}}">
+              <image src="{{ baseImageUrl}}/daoju/dj_6.png" mode="aspectFit" class="gmbtn" />
+              <text>{{item.rightText}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- wx:if="{{count+count1>0}}" -->
+      <view class="myProp">
+        <view class="myPropTitle">
+          <view>我的道具</view>
+          <view bindtap="recordStage">购买明细</view>
+        </view>
+        <view class="myPropdetail">
+          <view class="myPropdetail_useNum">
+            <text class="num">{{count}}</text>
+            <text class="degree">未使用道具</text>
+          </view>
+          <view class="lookMyProp" bindtap="gotoMyProp">
+            <text class="text">查看道具</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <view class="before"></view> -->
+  </scroll-view>
+  <view class="footer" style="height: calc(100vh - {{statusBarHeight + navBarHeight}}px - 780rpx);"></view>
+</view>
+
+<!-- 客服咨询 -->
+<movable-area>
+  <movable-view x='375' y='600' direction="all" style="pointer-events: auto;">
+    <view class="kf" bind:tap="gotoUrl">
+      <image src="{{baseImageUrl}}/service_icon.gif" mode="" />
+    </view>
+  </movable-view>
+</movable-area>

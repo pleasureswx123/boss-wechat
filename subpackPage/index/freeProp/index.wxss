@@ -1,0 +1,606 @@
+/* subpackPage/index/freeProp/index.wxss */
+
+page {
+  background: #f3d5d1;
+}
+
+.freeProp {
+  width: 100%;
+  height: 100vh;
+  height: 1872rpx;
+  position: relative;
+}
+
+.backIcon {
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  align-items: center;
+  /* padding-top: 20px; */
+  padding-left: 20rpx;
+  /* height: 40px; */
+}
+
+.rocketBoy {
+  padding: 0 -60rpx;
+  width: 200rpx;
+  height: 272rpx;
+  position: absolute;
+  top: 175rpx;
+  right: 62rpx;
+  animation: swing 8s infinite;
+  z-index: 100;
+}
+
+.headBg {
+  width: 100%;
+  height: 1006rpx;
+  position: absolute;
+}
+
+/* 定义动画关键帧 */
+@keyframes swing {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-30rpx);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+/* 定义动画关键帧 缩放 */
+@keyframes clickAnimation {
+
+  5%,
+  50% {
+    transform: scale(0.85);
+  }
+
+  15% {
+    transform: scale(0.95);
+  }
+
+  20% {
+    transform: scale(0.95) rotate(-1deg);
+  }
+
+  25% {
+    transform: scale(0.95) rotate(1deg);
+  }
+
+  30% {
+    transform: scale(0.95) rotate(-2deg);
+  }
+
+  35% {
+    transform: scale(0.95) rotate(0deg);
+  }
+
+  40% {
+    transform: scale(0.95) rotate(0);
+  }
+}
+
+.button {
+  animation: clickAnimation -.75s ease 4s infinite alternate;
+  position: relative;
+}
+
+.button image {
+  width: 100%;
+  height: 106rpx;
+  /* position: absolute; */
+}
+
+.button text {
+  position: absolute;
+  top: 0%;
+  left: 30%;
+  line-height: 100rpx;
+  transform: translateX(-15%);
+  font-size: 32rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+.button1 text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* .finger {
+    width: 80rpx;
+    height: 94rpx;
+    animation: clickAnimation 1.1s infinite;
+    transition: opacity 0.3s, top 0.3s, left 0.3s;
+} */
+
+/* .clicked {
+    animation: clickAnimation 1.2s infinite;
+    opacity: 0.5;
+    top: 56rpx;
+    right: -4rpx;
+  } */
+
+.zhanwei {
+  height: 120rpx;
+  width: 100%;
+  padding-top: 260rpx;
+}
+
+.free2 {
+  width: 22rpx;
+  height: 132rpx;
+  position: absolute;
+}
+
+.free2_1 {
+  left: 28px;
+  top: -28px;
+}
+
+.free2_2 {
+  right: 28px;
+  top: -28px;
+}
+
+.free2_3 {
+  right: 28px;
+  bottom: -28px;
+}
+
+.free2_4 {
+  left: 28px;
+  bottom: -28px;
+}
+
+.help {
+  margin: 0 auto;
+  width: 630rpx;
+  height: 420rpx;
+  position: relative;
+  margin-top: 35rpx;
+  /* background: #FFFFFF;
+    box-shadow: inset 2rpx 0rpx 12rpx 12rpx #FDD4D8;
+    border-radius: 24rpx;
+    border: 6rpx solid #FF7DA2; */
+  /* position: relative;
+    z-index: 999; */
+}
+
+.friend {
+  display: flex;
+  padding: 50rpx 136rpx 44rpx 134rpx;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friend_lfet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.friend_middle {
+  height: 28rpx;
+  font-size: 28rpx;
+  /* font-family: JSaoEr; */
+  font-weight: 600;
+  color: #B0250C;
+  line-height: 28rpx;
+}
+
+.friend_right {
+  display: flex;
+  align-items: center;
+}
+
+.xian {
+  width: 36rpx;
+  height: 4rpx;
+  background: linear-gradient(270deg, #E86C55 0%, #FFFFFF 100%);
+  /* margin-left: 10rpx; */
+}
+
+.xianA {
+  width: 36rpx;
+  height: 4rpx;
+  background: linear-gradient(270deg, #ffffff 0%, #E86C55 100%);
+}
+
+.yuan {
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #B0250C;
+  transform: rotate(45deg);
+  margin-left: 10rpx;
+}
+
+.yuanA {
+  width: 15rpx;
+  height: 15rpx;
+  border-radius: 8rpx;
+  border: 2rpx solid #B0250C;
+  transform: rotate(45deg);
+  margin-right: 10rpx;
+}
+
+.inviteList {
+  width: 100%;
+  display: flex;
+}
+
+.inviteAvatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.invite {
+  width: 92rpx;
+  height: 92rpx;
+  background: #FFE7E0;
+  border-radius: 12rpx;
+  border: 2rpx dashed #D47F6E;
+  margin-right: 122rpx;
+  box-sizing: border-box;
+}
+
+.left {
+  margin-left: 172rpx;
+  border-radius: 50%;
+  border: 2rpx solid #F42F2F;
+  background: #F42F2F !important;
+  position: relative;
+}
+
+.right {
+  margin-right: 152rpx;
+  border-radius: 50%;
+  /* border: 2rpx dashed #F42F2F; */
+  color: #B0250C;
+  text-align: center;
+  font-size: 28px;
+  line-height: 80rpx;
+}
+
+.img_item {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 8rpx;
+  color: #B0250C;
+  text-align: center;
+  font-size: 50px;
+  margin: auto;
+}
+
+.identity {
+  width: 100%;
+  height: 24rpx;
+  /* background: #FF4742; */
+  position: absolute;
+  bottom: 10rpx;
+  border-radius: 0 0 32rpx 32rpx;
+}
+
+.identity view {
+  font-size: 16rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #fff;
+  line-height: 24rpx;
+  text-align: center;
+}
+
+.inviteChuli {
+  position: relative;
+  width: 488rpx;
+  margin: 36rpx auto 0;
+}
+
+.inviteImage {
+  height: 106rpx;
+}
+
+.inviteImage button {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 100;
+  background: transparent;
+}
+
+.inviteImage button text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fingerView {
+  width: 80rpx;
+  height: 94rpx;
+  position: absolute;
+  top: 56rpx;
+  right: -4rpx;
+}
+
+.flow {
+  width: 638rpx;
+  height: 226rpx;
+  margin: 0 auto;
+  padding: 20rpx 0 20rpx;
+  z-index: 100;
+  position: relative;
+}
+
+.regulation {
+  width: 638rpx;
+  height: 590rpx;
+  margin: 0 auto 40rpx;
+  position: relative;
+}
+
+
+/* wxss文件 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  animation: modal-show 0.3s ease-in-out;
+  /* 其他样式属性 */
+}
+
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.inviteFriend {
+  width: 474rpx;
+  height: 530rpx;
+  background: linear-gradient(180deg, #FFF4DD 0%, #FFFFFF 100%);
+  border-radius: 70rpx;
+  position: relative;
+  z-index: 1001;
+}
+
+.inviteFriendTitle {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 90rpx 44rpx;
+  box-sizing: border-box
+}
+
+.inviteFriendTitle image {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+}
+
+.inviteFriendTitle text {
+  /* width: 144rpx; */
+  height: 34rpx;
+  font-size: 24rpx;
+
+  font-weight: 400;
+  color: #FE0201;
+  line-height: 34rpx;
+  padding-left: 24rpx;
+}
+
+.helpText {
+  display: inline-block;
+  /* width: 240rpx; */
+  width: 100vw;
+  height: 56rpx;
+  font-size: 40rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  /* margin: auto; */
+  line-height: 56rpx;
+  padding: 0 116rpx 0 118rpx;
+}
+
+.prop {
+  width: 392rpx;
+  height: 120rpx;
+  background: #FFFFFF;
+  box-shadow: 0rpx 4rpx 8rpx 0rpx #FFDFA3;
+  border-radius: 16rpx;
+  margin: 32rpx auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prop view {
+  height: 36rpx;
+  font-size: 26rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  line-height: 36rpx;
+  padding: 24rpx 0 6rpx;
+}
+
+.prop text {
+  height: 32rpx;
+  font-size: 22rpx;
+
+  font-weight: 400;
+  color: #999999;
+  line-height: 32rpx;
+}
+
+.nowHelp {
+  position: relative;
+  width: 414rpx;
+  height: 96rpx;
+  margin: 36rpx auto;
+}
+
+.nowHelp image {
+  width: 414rpx;
+  height: 96rpx;
+}
+
+.nowHelp view {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 32rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.hidden {
+  overflow: hidden;
+}
+
+.close {
+  width: 52rpx;
+  height: 52rpx;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 1002;
+  margin-top: 56rpx;
+}
+
+.inviteFriend .succeeIcon {
+  width: 100%;
+  text-align: center;
+  padding: 60rpx 0 46rpx;
+}
+
+.inviteFriend .succeeIcon image {
+  width: 76rpx;
+  height: 76rpx;
+}
+
+.inviteFriend .succeeText {
+  height: 50rpx;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  line-height: 50rpx;
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.inviteFriend .succeeSpan {
+  padding: 0 36rpx 0 38rpx;
+  font-size: 24rpx;
+
+  font-weight: 400;
+  color: #1D2129;
+  text-align: center;
+}
+
+.inviteFriend .closeText {
+  position: absolute;
+  bottom: 40rpx;
+  width: 100%;
+  text-align: center;
+}
+
+.inviteFriend .closeText text {
+  display: inline-block;
+  width: 100%;
+  font-size: 28rpx;
+
+  font-weight: 400;
+  color: #1D2129;
+  position: relative;
+}
+
+.inviteFriend .closeText text::before {
+  position: absolute;
+  top: -40rpx;
+  width: 100%;
+  height: 2rpx;
+  left: 0%;
+  background: #EDEDED;
+  content: "";
+}
+
+.hdgzCont {
+  position: absolute;
+  z-index: 100;
+  top: 55rpx;
+  font-size: 24rpx;
+  margin: 0 60rpx;
+  color: #666666;
+}
+
+.hdgzCont .title {
+  font-weight: 600;
+  font-size: 36rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+  position: relative;
+}
+
+.hdgz {
+  z-index: 10;
+  position: relative;
+}
+
+.hdgz text {
+  color: #F42F2F;
+}
+
+.smDesp {
+  font-size: 24rpx;
+  color: #DEA772;
+  text-align: center;
+  padding-bottom: 40rpx;
+}
+
+.titbg {
+  width: 164rpx;
+  height: 22rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "compData":"/components/compData/index"
+  },
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationStyle":"custom"
+}

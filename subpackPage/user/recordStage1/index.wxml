@@ -1,0 +1,153 @@
+<view class="recordStageBox">
+  <!-- 头部区域 -->
+  <view class="recordStageBox-head" style="background-image: url({{baseImageUrl}}/my/recordStageHeadBack.png);">
+    <!-- 上半部分 -->
+    <view class="head_top">
+      <view class="head_top-title">账户可用余额（豆）</view>
+      <view class="head_top-num">{{walletInfo.balance}}</view>
+    </view>
+    <!-- 下半部分 -->
+    <view class="head_button">
+      <!-- 已充值 -->
+      <view class="head_button-item">
+        <view class="title">已充值(豆)</view>
+        <view class="num">{{walletInfo.total}}</view>
+      </view>
+      <!-- 已消费 -->
+      <view class="head_button-item consume">
+        <view class="title">已消费(豆)</view>
+        <view class="num">{{walletInfo.consume}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 内容区域 -->
+  <view class="recordStageBox-content">
+    <view class="content_top">
+      <view class="content_top-month" bind:tap="openMonthPopup">
+        <view class="month_num" wx:if="{{showTextType == 0}}">{{initMonth}}<text>月</text></view>
+        <view class="month_num" wx:if="{{showTextType == 1}}">{{initYear}}<text>年</text>{{initMonth}}<text>月</text></view>
+        <!-- 开始时间和结束时间必须有值 且 弹窗筛选项得是1 -->
+        <view class="month_num year_month_day" wx:if="{{showTextType == 2}}">{{copySelectStartDate}} <text>至</text> {{copySelectEndDate}}</view>
+        <view class="month_num year_month_day" wx:if="{{showTextType == 3}}">{{copySelectStartDate}}</view>
+        <view class="month_icon">
+          <image src="{{baseImageUrl}}/my/screeIcon.png" mode="" />
+        </view>
+      </view>
+      <view class="content_top-tags">
+        <view class="tags-item {{tagActive == index ? 'active' : ''}}" wx:for="{{tagsList}}" wx:key="index" bind:tap="changeTag" data-index="{{index}}">{{item.name}}</view>
+      </view>
+
+      <image class="recordStageContent_img" src="{{baseImageUrl}}/my/recordStageContent_img.png" mode="" />
+    </view>
+    <view class="content_main" wx:if="{{recordList.length > 0}}">
+      <scroll-view scroll-y="{{true}}" class="contentScrollView">
+        <view class="contentScrollView-list">
+          <view class="contentScrollView-item" data-detailId="{{item.id}}" bind:tap="gotoDetail" wx:for="{{recordList}}" wx:key="index">
+            <!-- 类型图片 -->
+            <view class="item_left">
+              <!-- 充值 -->
+              <image src="{{baseImageUrl}}/my/rechargeType.png" mode="" wx:if="{{item.handle == 0}}" />
+              <!-- 购买道具 -->
+              <image src="{{baseImageUrl}}/my/buyPropType.png" mode="" wx:if="{{item.handle == 1}}" />
+              <!-- 发布岗位红包 -->
+              <image src="{{baseImageUrl}}/my/publishPostType.png" mode="" wx:if="{{item.handle == 2}}" />
+              <!-- 红包退回 -->
+              <image src="{{baseImageUrl}}/my/hotType.png" mode="" wx:if="{{item.handle == 3}}" />
+              <!-- 转让管理员 -->
+              <image src="{{baseImageUrl}}/my/changeType.png" mode="" wx:if="{{item.handle == 4}}" />
+              <!-- 购买会员 -->
+              <image src="{{baseImageUrl}}/my/buyMemberType.png" mode="" wx:if="{{item.handle == 6}}" />
+              <!-- 会员订单超时 -->
+              <image src="{{baseImageUrl}}/my/overtimeType.png" mode="" wx:if="{{item.handle == 7}}" />
+              <!-- 发送红包给求职者 -->
+              <image src="{{baseImageUrl}}/my/overtimeType.png" mode="" wx:if="{{item.handle == 8}}" />
+            </view>
+            <!-- 具体信息 -->
+            <view class="item_right">
+              <view class="item_right-top">
+                <view class="left" wx:if="{{item.handle == 0}}">充值</view>
+                <view class="left" wx:if="{{item.handle == 1}}">购买道具</view>
+                <view class="left" wx:if="{{item.handle == 2}}">发布岗位红包</view>
+                <view class="left" wx:if="{{item.handle == 3}}">红包已退回</view>
+                <view class="left" wx:if="{{item.handle == 4}}">转让管理员</view>
+                <view class="left" wx:if="{{item.handle == 6}}">购买会员</view>
+                <view class="left" wx:if="{{item.handle == 7}}">会员订单超时</view>
+                <view class="left" wx:if="{{item.handle == 8}}">发送红包给求职者</view>
+                <view class="right">{{item.createTime}}</view>
+              </view>
+              <!-- <text wx:if="{{item.handle == 1 || item.handle == 2 || item.handle == 4 || item.handle == 6 || item.handle == 8}}">-</text><text wx:else>+</text> -->
+              <view class="item_right-button">
+                <view class="left">{{item.remark}}</view>
+                <view class="right">
+                  {{item.dou}}
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="content_main" wx:else>
+      <view class="no_data_center">
+        <view class="no_data_img">
+          <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+        </view>
+        <view class="no_data_text">暂无明细</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 占位 -->
+  <view class="recordStageBox-footer"></view>
+</view>
+<!-- 时间选择 -->
+<!-- <image bindtap="clearKeyWord" src="{{baseImageUrl}}/newImg/close.png" mode="" /> -->
+<!-- custom-style="height: 856rpx;" -->
+<van-popup show="{{ monthShow }}" custom-style="padding-bottom:0rpx" position="bottom" round bind:close="closeMonthPopup" close-on-click-overlay="{{false}}">
+  <view class="monthPopup">
+    <view class="monthPopup-head">
+      <!-- 背景 -->
+      <view class="monthPopup-head_back" style="background-image: url({{baseImageUrl}}/my/monthPopup_back.png);"></view>
+      <!-- 占位 -->
+      <view class="monthPopup-head_title">
+        <view class="title-item {{monthPopupTitleActive == 0 ? 'monthPopupTitleActive' : ''}}" bind:tap="changeTab" data-index="0">按月份</view>
+        <view class="title-item {{monthPopupTitleActive == 1 ? 'monthPopupTitleActive' : ''}}" bind:tap="changeTab" data-index="1">自定义时间</view>
+
+        <image bindtap="closeMonthPopup" src="{{baseImageUrl}}/newImg/closeIcon.svg" mode="" /> 
+      </view>
+      <!-- 自定义时间 -->
+      <view class="monthPopup-head_customTime" wx:if="{{monthPopupTitleActive == 1}}">
+        <view class="customTime-item {{customTimeActive == 0 ? 'customTimeActive' : ''}}" bind:tap="changeCustomTime" data-index="0">{{selectStartDate}}</view>
+        <view class="customTime_content">至</view>
+        <view class="customTime-item {{customTimeActive == 1 ? 'customTimeActive' : ''}}" bind:tap="changeCustomTime" data-index="1">{{selectEndDate}}</view>
+      </view>
+    </view>
+    <view class="monthPopup-content">
+      <view style="height: 100%; background: #F6F6F6;position: absolute;width: 100%;">
+        <picker-view indicator-class="selecetedIndicator" value="{{selectedValues}}" class="picker-view" bindchange="changeData">
+          <!-- 年份 -->
+          <picker-view-column>
+            <view data-id="{{item}}" wx:for="{{list}}" wx:key="vlaue" class="columnStyle leftPay {{wagesIndex == index ? 'activeSize' :''}}">
+              {{ item.label }}
+            </view>
+          </picker-view-column>
+          <!-- 月份 -->
+          <picker-view-column>
+            <view wx:for="{{list[wagesIndex].children}}" class="columnStyle rightPay {{wagesIndex2 == index ? 'activeSize' :''}}" wx:key="value">{{ item.label }}</view>
+          </picker-view-column>
+          <!-- 具体日期 -->
+          <picker-view-column wx:if="{{monthPopupTitleActive == 1}}">
+            <!-- <view class="columnStyle">-</view> -->
+            <view wx:for="{{list[wagesIndex].children[wagesIndex2].children}}" class="columnStyle rightPay" wx:key="value">{{ item.label }}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+    </view>
+
+    <view class="monthPopup-footer">
+      <view class="button cancelButton" bind:tap="closeMonthPopup">取消</view>
+      <view class="button confirmButton" bind:tap="confirm">确定</view>
+    </view>
+  </view>
+</van-popup>

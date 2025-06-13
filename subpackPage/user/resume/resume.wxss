@@ -1,0 +1,533 @@
+page {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.resumeBox {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.resumeBox-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.resumeBox-footer {
+  height: 200rpx;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
+.resumeBox-footer .button {
+  height: 80rpx;
+  border-radius: 12rpx;
+  text-align: center;
+  line-height: 80rpx;
+  margin-top: 30rpx;
+}
+
+.resumeBox-footer .previewButton {
+  width: 180rpx;
+  background: #F1F1F1;
+  font-weight: 400;
+  font-size: 36rpx;
+  color: #666666;
+}
+
+.createButton {
+  width: 452rpx;
+  background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  font-weight: 500;
+  font-size: 36rpx;
+  color: #FFFFFF;
+}
+
+.personal_info_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 47rpx 40rpx 47rpx;
+  box-sizing: border-box;
+}
+
+.personal_info_box_left_top {
+  height: 38px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.personal_info_box_left_top_right {
+  width: 30rpx;
+  /* height: 30rpx; */
+  margin-left: 24rpx;
+}
+
+.personal_info_box_left_top_right image {
+  width: 30rpx;
+  height: 30rpx;
+  display: inline-block;
+}
+
+.personal_info_box_left_top_left {
+  max-width: 400rpx;
+  font-size: 48rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  height: 77rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  /* width: 0rpx; */
+  /* flex: 1; */
+  text-overflow: ellipsis;
+}
+
+.wgmgBox {
+  /* width: 100%; */
+  background: #FFE9DE;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 20rpx;
+}
+
+.boxName {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #FF5A00;
+}
+
+.wgbd {
+  background: rgba(216, 216, 216, 0);
+  border: 2rpx dashed #FE0201;
+  margin-top: 36rpx !important;
+}
+
+.wgbd .gzjlCont {
+  padding: 10rpx 20rpx;
+}
+
+.wgbd .wgmgCont {
+  padding: 20rpx 30rpx;
+  font-weight: 400;
+  font-size: 30rpx;
+  color: #666666;
+}
+
+.boxBtn {
+  width: 90rpx;
+  height: 36rpx;
+  background: #FF5A00;
+  border-radius: 18rpx;
+  border: 1rpx solid #FF5A00;
+  font-weight: 500;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.personal_info_box_left_bot {
+  font-size: 30rpx;
+  line-height: 42rpx;
+
+  font-weight: 400;
+  color: #666666;
+}
+
+.personal_info_box_left_bot text {
+  margin-right: 15rpx;
+}
+
+.personal_info_box_right {
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 36rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #1D2129;
+  line-height: 50rpx;
+}
+
+.other_box {
+  padding: 56rpx 47rpx;
+  box-sizing: border-box;
+}
+
+.right_icon {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.good_personal {
+  padding: 40rpx 48rpx 40rpx 48rpx;
+  box-sizing: border-box;
+}
+
+.good_personal_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.good_personal_bot {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #666666;
+  line-height: 52rpx;
+}
+
+.center {
+  text-align: center;
+}
+
+.job_exp_top {
+  display: flex;
+  height: 44rpx;
+  justify-content: space-between;
+}
+
+.job_exp_top_left {
+  display: flex;
+  align-items: center;
+}
+
+.titile_ques {
+  margin-left: 16rpx;
+}
+
+.job_exp_bot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15rpx;
+}
+
+.job_exp_bot_left_top {
+  font-size: 30rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  line-height: 42rpx;
+  margin-top: 10rpx;
+}
+
+.job_exp_bot_left_bot {
+  font-size: 26rpx;
+
+  font-weight: 400;
+  color: #666666;
+  line-height: 40rpx;
+  margin-top: 5rpx;
+}
+
+.other_box_item {
+  margin-top: 40rpx;
+}
+
+.item_top {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 34rpx;
+}
+
+.item_top_left {
+  /* width: 400rpx; */
+  font-size: 30rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 40rpx;
+}
+
+.item_top_right {
+  display: flex;
+  align-items: center;
+  width: 332rpx;
+  justify-content: flex-end;
+}
+
+.item_top_right_left {
+  font-size: 24rpx;
+
+  font-weight: 400;
+  color: #666666;
+  line-height: 34rpx;
+}
+
+.item_top_right_left {
+  margin-right: 15rpx;
+}
+
+.item_middle {
+  font-size: 26rpx;
+
+  font-weight: 400;
+  color: #666666;
+  margin-bottom: 20rpx;
+  margin-top: 8rpx;
+  line-height: 50rpx;
+}
+
+.item_bot {
+  font-size: 26rpx;
+
+  font-weight: 400;
+  color: #666666;
+  line-height: 42rpx;
+  /* margin-bottom: 20rpx; */
+}
+
+.bot_tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  /* margin-right: 20rpx; */
+}
+
+.tag {
+  margin-right: 20rpx;
+  padding: 10rpx 25rpx;
+  background: #EAEAEA;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+
+  font-weight: 400;
+  color: #666666;
+  margin-top: 16rpx;
+}
+
+.mart {
+  margin-top: 8rpx;
+}
+
+.exp_type_right_left {
+  font-size: 26rpx;
+
+  font-weight: 400;
+  color: #1D2129;
+  line-height: 36rpx;
+  margin-right: 24rpx;
+}
+
+.exp_type_right {
+  display: flex;
+  align-items: center;
+}
+
+.exp_type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pop_box {
+  padding: 64rpx 48rpx;
+  box-sizing: border-box;
+}
+
+.pop_box_title {
+  font-size: 44rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+}
+
+.pop_box_discribe {
+  font-size: 28rpx;
+  font-family: PingFangSC-Light, PingFang SC;
+  font-weight: 300;
+  color: #666666;
+  margin-bottom: 22rpx;
+}
+
+.job_expt_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0 30rpx;
+  box-sizing: border-box;
+  padding-left: 0;
+}
+
+.job_expt_item_left {
+  display: flex;
+  align-items: center;
+}
+
+.job_expt_item_right {
+  width: 48rpx;
+  height: 34rpx;
+}
+
+.job_expt_item_left_title {
+  font-size: 28rpx;
+
+  font-weight: 400;
+  color: #1D2129;
+  margin-right: 24rpx;
+}
+
+.job_expt_item_left_discribe {
+  width: 105rpx;
+  height: 38rpx;
+  background: #fdeaea;
+  border-radius: 4rpx;
+  font-size: 22rpx;
+
+  font-weight: 400;
+  color: #FE0201;
+  line-height: 38rpx;
+  text-align: center;
+}
+
+.selected {
+  color: #FE0201 !important;
+}
+
+.bot_tags_box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.resultBtn {
+  width: 343px;
+  height: 42px;
+  border: 2rpx solid #FE0201;
+  background: #fff;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 28rpx;
+  color: #FE0201;
+  line-height: 42px;
+  margin: 0 auto 60rpx;
+}
+
+.red {
+  color: #FE0201;
+  margin-right: 5rpx;
+}
+
+.line {
+  border-bottom: 2rpx solid #f5f5f5;
+  height: 0;
+}
+
+.userPhone_wx {
+  display: flex;
+  align-items: center;
+  padding: 0 47rpx 38rpx;
+}
+
+.userPhone_wx .phone,
+.userPhone_wx .wx {
+  display: flex;
+  align-items: center;
+}
+
+.userPhone_wx .phone image {
+  width: 28rpx;
+  height: 36rpx;
+}
+
+.userPhone_wx .phone text {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 24rpx;
+  color: #1D2129;
+  padding-left: 12rpx;
+}
+
+.userPhone_wx .wx image {
+  width: 34rpx;
+  height: 28rpx;
+}
+
+.userPhone_wx .wx text {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 500;
+  font-size: 24rpx;
+  color: #1D2129;
+  padding-left: 12rpx;
+}
+
+.marRight-40 {
+  margin-right: 40rpx;
+}
+
+.userPhone_wx .wxQrcode image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.userPhone_wx .addWx {
+  width: 148rpx;
+  height: 50rpx;
+  background: rgba(216, 216, 216, 0.4);
+  border-radius: 26rpx;
+  border: 1rpx solid #BCBCBC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userPhone_wx .addWx span {
+  font-size: 24rpx;
+  margin-right: 6rpx;
+  line-height: 50rpx;
+  color: #666666;
+}
+
+.userPhone_wx .addWx text {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: #666666;
+  line-height: 50rpx;
+}
+
+.previewMyResume {
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  background: #f5f5f5;
+}
+
+.newTagBox{
+  flex: 1;
+  width: 50rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+  /* justify-content: center; */
+}
+
+.newTag{
+  width: 16rpx;
+  height: 16rpx;
+  background: #F32E2E;
+  border-radius: 50%;
+}

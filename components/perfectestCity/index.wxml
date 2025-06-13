@@ -1,0 +1,125 @@
+<van-popup show="{{cityShow}}" round position="bottom" custom-style="height: 80%">
+  <view class="city">
+    <view class="city_head">
+      <!-- 标题 -->
+      <view class="title">
+        <view class="headline">位置选择</view>
+        <view class="image" bindtap="back">
+          <van-icon name="cross" size="21px" color="#000" />
+        </view>
+      </view>
+      <!-- 搜索框 -->
+      <view class="searchInputWarp {{searchListAsync.length > 0 ? 'searchHeight': ''}}">
+        <view class="selectHeight">
+          <view class="searchInput" style="background: #fff; padding-left: 24rpx; padding-right: 24rpx;">
+            <!-- 搜索图标 -->
+            <image class="searchIcon" src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+            <!-- 搜索框 -->
+            <input type="text" cursor-color="#FE0201" maxlength="{{maxlength}}" placeholder="请输入区域" model:value="{{searchValue}}" style="background: #fff;" class="input-class" placeholder-style="font-size: 26rpx" confirm-type="search" adjust-position="{{true}}" bindconfirm="confirm" bindinput="input" />
+            <!-- 清除控件 -->
+            <span class="clearIcon" bindtap="clearKeyWord" wx:if="{{searchValue !== '' && clearable}}">
+              <image bindtap="clearKeyWord" src="{{baseImageUrl}}/newImg/close.png" mode="" />
+            </span>
+          </view>
+          <!-- 搜索结构 -->
+          <view class="select" wx:if="{{searchListAsync.length > 0}}">
+            <view class="selectItem" wx:for="{{searchListAsync}}" data-item="{{item}}" wx:key="index" bindtap="hotSearch">
+              <view class="countent">
+                <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/searchIcon2.png" mode="" />
+                <rich-text nodes="{{ item.highlightedResult }}"></rich-text>
+              </view>
+              <view class="line"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="gc_line" style="opacity: 0.2;" wx:if="{{searchListAsync.length == 0}}"></view>
+    </view>
+    <!-- 内容 -->
+    <view class="gcCity_List" wx:if="{{searchListAsync.length == 0}}" id="middleContent">
+      <view class="gcCity_List_box">
+        <view class="left">
+          <scroll-view class="left_scrollView" scroll-into-view="scroll-{{nowindex}}" scroll-with-animation="true" scroll-y="true">
+            <view id="scroll-{{ item.type }}" wx:for="{{leftTitle}}" wx:key="index" class="gcIndustry_list_item" bindtap="cutCity" data-index="{{index}}" data-id="{{item.id}}" data-type="{{item.type}}">
+              <text class="gcIndustry_name {{nowindex == item.type ? 'active' : ''}}">{{item.name}}</text>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="line" style="border-bottom: none;"></view>
+        <view class="right">
+          <scroll-view class="right_scrollView" id="scrollMenu" scroll-y="true" scroll-into-view="{{tabIndex}}" scroll-with-animation="true" style="height: 100%;">
+            <!-- 省 -->
+            <view id="scroll-province" wx:for-item="item_list" class="safeList" wx:for="{{provinceList}}" wx:key="index" wx:if="{{id == 'scroll-province'}}">
+              <view class="IndustryListHead">{{item_list.py}}</view>
+              <view class="IndustryList">
+                <view class="IndustryList_item" wx:for="{{item_list.subList}}" wx:key="index" wx:for-index="idx" wx:for-item="itemName">
+                  <view class="IndustryList_itembg  {{itemName.radio ? 'activeCity' : ''}}" data-item="{{itemName}}" data-index="0" data-nexttype="city" data-currentType="{{itemName.type}}" data-list="{{provinceList}}" bindtap="SELECTED">
+                    <text class="">{{itemName.name}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- 市 -->
+            <view id="scroll-city" wx:for-item="item_list" class="safeList" wx:for="{{cityList}}" wx:key="index" wx:if="{{id == 'scroll-city'}}">
+              <view class="IndustryListHead">{{item_list.py}}</view>
+              <view class="IndustryList">
+                <view class="IndustryList_item" wx:for="{{item_list.subList}}" wx:key="index" wx:for-index="idx" wx:for-item="itemName">
+                  <view class="IndustryList_itembg  {{itemName.radio ? 'activeCity' : ''}}" data-item="{{itemName}}" data-index="1" data-nexttype="district" data-currentType="{{itemName.type}}" data-list="{{cityList}}" bindtap="SELECTED">
+                    <text class="">{{itemName.name}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- 县/区 -->
+            <view id="scroll-district" wx:for-item="item_list" class="safeList" wx:for="{{districtList}}" wx:key="index" wx:if="{{id == 'scroll-district'}}">
+              <view class="IndustryListHead">{{item_list.py}}</view>
+              <view class="IndustryList">
+                <view class="IndustryList_item" wx:for="{{item_list.subList}}" wx:key="index" wx:for-index="idx" wx:for-item="itemName">
+                  <view class="IndustryList_itembg  {{itemName.radio ? 'activeCity' : ''}}" data-item="{{itemName}}" data-index="2" data-nexttype="street" data-currentType="{{itemName.type}}" data-list="{{districtList}}" bindtap="SELECTED">
+                    <text class="">{{itemName.name}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <!-- 镇/乡/街道 -->
+            <view id="scroll-street" wx:for-item="item_list" class="safeList" wx:for="{{streetList}}" wx:key="index" wx:if="{{id == 'scroll-street'}}">
+              <view class="IndustryListHead">{{item_list.py}}</view>
+              <view class="IndustryList">
+                <view class="IndustryList_item" wx:for="{{item_list.subList}}" wx:key="index" wx:for-index="idx" wx:for-item="itemName">
+                  <view class="IndustryList_itembg  {{itemName.radio ? 'activeCity' : ''}}" data-item="{{itemName}}" data-index="3" data-nexttype="0" data-currentType="{{itemName.type}}" data-list="{{streetList}}" bindtap="SELECTED">
+                    <text class="">{{itemName.name}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+    <!-- 底部固定区域 -->
+    <view class="cityFliter" wx:if="{{searchListAsync.length == 0}}">
+      <!-- 选择 -->
+      <!-- wx:if="{{selectedList.length > 0}}" -->
+      <view class="cityMultiple">
+        <view class="selected">
+          <text>已选</text>
+        </view>
+        <scroll-view scroll-x="true" class="selectedScroll" enable-flex>
+          <view class="multipleList">
+            <view class="multipleItem" wx:for="{{selectedList}}" wx:key="index">
+              <view class="multipleItembg">
+                <text class="text {{item.type == 'province' ? 'padding0' : ''}}">{{item.name}}</text>
+                <van-icon name="cross" color="#FE0201" data-index="{{index}}" data-type="{{leftTitle[index].type}}" data-id="{{item.id}}" size="16" bind:click="delete" />
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <!-- 按钮 -->
+      <view class="popup-button" style="padding-bottom: {{globalBottom+10}}px;">
+        <view class="reset" bindtap="reset" data-type="province">清除</view>
+        <view class="comfirm" bindtap="comfirmScreening">确定</view>
+      </view>
+    </view>
+  </view>
+</van-popup>

@@ -1,0 +1,310 @@
+<view class="ocean-wrapper">
+  <!-- 头部区域 -->
+  <view class="indexBox_head {{userInfo.info.vip==1?'indexBox_head2':''}}" style="opacity: {{topOpacity}};">
+    <!-- 自定义导航栏 -->
+    <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+      <view class="topNav" style="height: {{capsuleData.menuHeight}}px;">
+        <view class="topNavBox row">
+          <image class="avatar" wx:if="{{userInfo.info.avatar}}" src="{{ userInfo.info.avatar}}" mode="aspectFill" />
+          <image wx:else class="avatar" src="{{imageUrl}}/default-avatar.png" mode="" />
+          <image class="sign" src="{{imageUrl + '/member/sign_gold.png'}}" mode="" wx:if="{{userInfo.info.vip==1}}" />
+
+          <block wx:if="{{isLogin}}">
+            <view class="nickName" wx:if="{{userInfo.info.nickName}}" bindtap="goOtherPage" data-type="personalInfo">{{userInfo.info.nickName}}</view>
+            <view class="nickName" wx:else bindtap="goOtherPage" data-type="personalInfo">待完善</view>
+          </block>
+
+          <block wx:else>
+            <view class="nickName">点击登录/注册</view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <!-- 占位 -->
+    <view class="banner" style="padding-top:{{capsuleData.menuTop}}px;height:{{capsuleData.menuHeight}}px">
+    </view>
+  </view>
+  <view class="top_bg {{userInfo.info.vip==1?'top_bg1':''}}">
+    <image src="{{imageUrl}}/user/my_bg_vip1.png" mode="" wx:if="{{userInfo.info.vip==1}}" />
+    <image src="{{imageUrl}}/user/my_bg.png" mode="" wx:else />
+  </view>
+  <view class="personal_box">
+    <view class="personal_box_left {{userInfo.info.vip==1?'yellowLine':''}}" bindtap="goOtherPage" data-type="personalInfo">
+      <image class="personal_box_left-avatar" wx:if="{{userInfo.info.avatar}}" src="{{ userInfo.info.avatar}}" mode="aspectFill" />
+      <image wx:else class="personal_box_left-avatar" src="{{imageUrl}}/default-avatar.png" mode="" />
+      <image class="sign" src="{{imageUrl + '/member/sign_gold.png'}}" mode="" wx:if="{{userInfo.info.vip==1}}" />
+    </view>
+    <view class="personal_box_right {{userInfo.info.vip==1?'personalCss':''}}" wx:if="{{isLogin}}">
+      <view class="personal_box_right_top" wx:if="{{userInfo.info.nickName}}" bindtap="goOtherPage" data-type="personalInfo">{{userInfo.info.nickName}}</view>
+      <view class="personal_box_right_top" wx:else bindtap="goOtherPage" data-type="personalInfo">待完善</view>
+      <view class="personal_box_right_bot">
+        <view class="personal_box_right_bot_left" bindtap="goOtherPage" data-type="score">简历评分 {{data.score.score}} 分<text wx:if="{{data.score.yhcount}}">,建议优化 {{data.score.yhcount}} 项</text></view>
+        <view class="personal_box_right_bot_right" bindtap="goOtherPage" data-type="score">
+          <image src="{{imageUrl}}/member/resume_grade1.png" mode="aspectFill" class="resumeGrade" wx:if="{{userInfo.info.vip==1}}" />
+          <image src="{{imageUrl}}/my/resume_grade.png" mode="aspectFill" class="resumeGrade" wx:else />
+        </view>
+      </view>
+      <!-- <view class="personalTip" wx:if="{{data.score.score<100}}">
+                <image src="{{imageUrl}}/my/yhBg.png" mode="aspectFit" />
+            </view> -->
+    </view>
+    <view class="personal_box_right" wx:else bindtap="login">
+      <view class="personal_box_right_top">点击登录/注册</view>
+      <view class="personal_box_right_bot">
+        <view class="personal_box_right_bot_left">可查看更多信息</view>
+      </view>
+    </view>
+  </view>
+  <!-- 会员 -->
+  <view class="gotobuyCont"></view>
+  <view bindtap="gotoMemberBuy" class="member_box {{isLogin && userInfo.info.vip==1 ? 'marginTop' : ''}}">
+    <!-- <image src="{{imageUrl + '/user/my_bg_guang.png'}}" mode="" class="my_bg_guang" wx:if="{{userInfo.info.vip==1}}" /> -->
+    <image class="member_box_back" src="{{imageUrl + '/mine_vip_bg.png'}}" mode="" />
+    <view class="left_memberIcon" wx:if="{{!userInfo.info.vip }}">
+      <text class="not_loginText grading">普通用户</text>
+      <!-- <image class="line1" src="/image/member/gold_member.png" mode="" /> -->
+      <image class="line" src="{{ imageUrl + '/member/line1.png'}}" mode="" />
+    </view>
+    <view class="content_memberGrading">
+      <view class="not_login" wx:if="{{!userInfo.info.vip }}">
+        <text class="not_loginText">充值即可享受会员权益</text>
+      </view>
+      <view class="not_login" wx:if="{{userInfo.info.vip==1 && userInfo.info.userVipId}}">
+        <text class="not_loginText">{{userInfo.info.vipName}}</text>
+        <text class="not_loginText">{{formattedExpirationDate}} 到期</text>
+      </view>
+    </view>
+
+    <view class="right_memberArrow" wx:if="{{isLogin}}">
+      <view wx:if="{{!userInfo.info.vip}}" class="arrowBtn">立即领取</view>
+      <!-- <van-icon name="arrow" color="rgb(221,196,165,0.5)" wx:if="{{!userInfo.info.vip}}" /> -->
+      <view class="member_btn" wx:else>
+        立即续费
+        <!-- <image src="{{imageUrl + '/user/my_bg_btn.png'}}" mode="" /> -->
+      </view>
+    </view>
+  </view>
+  <view class="top_info_box" style="background: url('{{userInfo.info.vip==1?imageUrl+'/user/myNumbg_vip.png':imageUrl+'/myNumbg.png'}}') no-repeat;background-size: cover;">
+    <view class="top_info_box_item" bindtap="goOtherPage" data-type="communicate">
+      <view class="top_info_box_item_top" wx:if="{{isLogin}}">{{data.chatCount}}</view>
+      <view class="top_info_box_item_top" wx:else>**</view>
+      <view class="top_info_box_item_bot">沟通过</view>
+    </view>
+    <view class="top_info_box_item" bindtap="goOtherPage" data-type="collect">
+      <view class="top_info_box_item_top" wx:if="{{isLogin}}">{{data.collectionCount}}</view>
+      <view class="top_info_box_item_top" wx:else>**</view>
+      <view class="top_info_box_item_bot">收藏</view>
+    </view>
+    <view class="top_info_box_item" bindtap="goOtherPage" data-type="interview">
+      <view class="top_info_box_item_top" wx:if="{{isLogin}}">{{data.waitInterviewCount}}</view>
+      <view class="top_info_box_item_top" wx:else>**</view>
+      <view class="top_info_box_item_bot">待面试</view>
+    </view>
+  </view>
+  <!-- wx:if="{{isLogin || !guide.guideMyShow}}" -->
+  <view style="position: relative;width: 100%;">
+  <!-- autoplay -->
+    <swiper class="userSwiper" bindchange="monitorCurrent"  circular interval="5000">
+      <swiper-item>
+        <view class="ppzw" bindtap="goQw" data-type="{{item.type}}">
+          <image mode="aspectFit" class="jqbtn" src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/qiwei-entry1.png" />
+        </view>
+      </swiper-item>
+      <!-- 检测是否有金秋活动 -->
+      <swiper-item wx:if="{{isReceive}}">
+        <view class="ppzw" bindtap="gohd" style="padding: 0;position: relative;">
+          <image src="{{imageUrl + '/jinqiu/jqIcon.png'}}" mode="" class="ppzwIcon jqIcon" />
+          <image src="{{imageUrl + '/jinqiu/jqbn1.png'}}" mode="aspectFill" class="jqbtn" />
+        </view>
+      </swiper-item>
+      <swiper-item wx:for="{{downAppList}}" wx:key="index">
+        <view class="ppzw" bindtap="goXq" data-type="{{item.type}}">
+          <image src="{{imageUrl + item.icon}}" mode="" class="ppzwIcon" />
+          <view style="flex: 1;">
+            <view class="font1">{{item.title}}</view>
+            <view class="font2">{{item.tip}}</view>
+          </view>
+          <view class="ppzwBtn">{{item.buttonText}}</view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <!-- 自定义轮播图进度点 -->
+    <!-- <view class="dots" >
+        <block wx:for="{{downAppList}}" wx:key="index">
+          <view class="{{current==index?'active':''}}"></view>
+        </block>
+      </view> -->
+  </view>
+  <view class="common_function">
+    <view class="title">常用功能</view>
+    <view class="common_fun">
+      <view class="common_fun_item" bindtap="goOtherPage" data-type="resume" data-myWallet="onlineResume">
+        <view class="common_fun_item_top">
+          <image src="{{imageUrl}}/my/onlineResume.png" mode="" style="width:76rpx;height:70rpx;" />
+        </view>
+        <view class="common_fun_item_middle">在线简历</view>
+        <view class="newTag" wx:if="{{newNoticeTagObj.onlineResume}}"></view>
+        <!-- <view class="common_fun_item_bot">{{hideResumeFromBoss == 1 ? '已隐藏' : '待优化'}}</view> -->
+      </view>
+      <view class="common_fun_item" bindtap="goOtherPage" data-type="resumeAnnex" data-myWallet="attachmentResume">
+        <view class="common_fun_item_top">
+          <image src="{{imageUrl}}/my/attachmentResume.png" mode="" style="width:78rpx;height:70rpx;" />
+        </view>
+        <view class="common_fun_item_middle">附件简历</view>
+        <view class="newTag" wx:if="{{newNoticeTagObj.attachmentResume}}"></view>
+        <!-- <view class="common_fun_item_bot">制作/上传</view> -->
+      </view>
+      <view class="common_fun_item" bindtap="goOtherPage" data-type="jobManage" data-myWallet="jobIntention">
+        <view class="common_fun_item_top">
+          <image src="{{imageUrl}}/my/jobIntention.png" mode="" style="width:64rpx;height:68rpx;" />
+        </view>
+        <view class="common_fun_item_middle">求职意向</view>
+        <view class="newTag" wx:if="{{newNoticeTagObj.jobIntention}}"></view>
+        <!-- <view class="common_fun_item_bot">{{jobName || '待优化'}}</view> -->
+      </view>
+      <view class="common_fun_item" bindtap="goOtherPage" data-type="mall" data-myWallet="toolsMall">
+        <view class="common_fun_item_top">
+          <image src="{{imageUrl}}/my/propMall.png" mode="" style="width:72rpx;height:66rpx;" />
+        </view>
+        <view class="common_fun_item_middle">我的道具</view>
+        <view class="newTag" wx:if="{{newNoticeTagObj.toolsMall}}"></view>
+        <!-- <view class="common_fun_item_bot">道具使用</view> -->
+      </view>
+    </view>
+  </view>
+  <view class="common_function">
+    <view class="title marb">其他功能</view>
+    <view class="other_fun_box">
+      <view class="other_fun_box_item qiuzhi" bindtap="goToWanted" bindtap="goOtherPageIdx" data-type="wanted" data-myWallet="jobRebate">
+        <view class="other_fun_box_item_top" style="width: 28px;height: 22px;">
+          <!-- <image src="{{imageUrl}}/my/redEnvelope.png" mode="" /> -->
+          <canvas id="demoCanvas" type="2d" style="width: 24px; height: 22px;"></canvas>
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.jobRebate}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">求职福利</view>
+      </view>
+      <view class="other_fun_box_item" bindtap="goTofreeProp" bindtap="goOtherPageIdx" data-type="freeProp" data-myWallet="resumeRefresh">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/index_img/free.png" mode="" />
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.resumeRefresh}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">简历刷新</view>
+      </view>
+      <!-- <view class="other_fun_box_item" bindtap="goToIndustry">
+                <view class="other_fun_box_item_top size"><image src="{{imageUrl}}/industry.png" mode=""/> </view>
+                <view class="other_fun_box_item_bot">行业图谱</view>
+            </view> -->
+      <view class="other_fun_box_item" bindtap="goOtherPageIdx" data-type="customer" data-myWallet="myService">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/my/afterSales.png" mode="" />
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.myService}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">我的客服</view>
+      </view>
+      <view class="other_fun_box_item" bindtap="goOtherPageIdx" data-type="feedback" data-myWallet="feedback">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/my/Feedback.png" mode="" />
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.feedback}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">意见反馈</view>
+      </view>
+      <view class="other_fun_box_item" bindtap="goOtherPageIdx" data-type="wallet" data-myWallet="myWallet">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/my/wallet.png" mode="aspectFit" style="width: 48rpx;" />
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.myWallet}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">我的钱包</view>
+      </view>
+      <view class="other_fun_box_item" bindtap="goOtherPageIdx" data-type="about" data-myWallet="about">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/my/about_us.png" mode="aspectFit" />
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.about}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">关于</view>
+      </view>
+      <view class="other_fun_box_item" bindtap="goOtherPageIdx" data-type="setup" data-myWallet="setting">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/my/setting.png" mode="aspectFit" />
+          <view class="newTag otherTag" wx:if="{{newNoticeTagObj.setting}}"></view>
+        </view>
+        <view class="other_fun_box_item_bot">设置</view>
+      </view>
+      <view class="other_fun_box_item banben" bindtap="changeBb">
+        <view class="other_fun_box_item_top">
+          <image src="{{imageUrl}}/my/qh.png" mode="aspectFit" />
+          <!-- <view class="newTag otherTag" wx:if="{{newNoticeTagObj.toolsMall}}"></view> -->
+        </view>
+        <view class="other_fun_box_item_bot">版本切换</view>
+      </view>
+    </view>
+  </view>
+  <!-- <image src="{{imageUrl}}/myCard/zhaopinIcon.png" mode="" class="ppzwIcon" /> -->
+  <!-- <view class="ppzw" bindtap="goXq">
+            <image src="{{imageUrl}}/loadApp.gif" mode="" class="ppzwIcon"/>
+            <view>
+                <view class="font1">3D地图求职快、面试实时提醒</view>
+                <view class="font2">功能强大丰富</view>
+            </view>
+            <view class="ppzwBtn">去下载</view>
+        </view> -->
+
+  <!-- <view style="position: relative;width: 100%;" wx:if="{{!isLogin && guide.guideMyShow}}">
+      <swiper class="userSwiper" bindchange="monitorCurrent" autoplay circular>
+        <swiper-item wx:for="{{downAppList}}" wx:key="index">
+          <view class="ppzw" bindtap="goXq" data-type="{{item.type}}">
+            <image src="{{imageUrl + item.icon}}" mode="" class="ppzwIcon" />
+            <view style="flex: 1;">
+              <view class="font1">{{item.title}}</view>
+              <view class="font2">{{item.tip}}</view>
+            </view>
+            <view class="ppzwBtn">{{item.buttonText}}</view>
+          </view>
+        </swiper-item>
+      </swiper>
+      <view class="dots" >
+        <block wx:for="{{downAppList}}" wx:key="index">
+          <view class="{{current==index?'active':''}}"></view>
+        </block>
+      </view>
+    </view> -->
+
+  <!-- 知城生态 -->
+  <alliance_area style="margin: 0 auto; margin-top: 0rpx;" />
+  <view class="desp" style="padding-bottom: calc({{globalBottom + 12 + 21}}px + 40rpx + 20rpx);">
+    <view>Copyright © 三河优聘人力资源服务有限公司版权所有，并保留所有权利</view>
+    <view>联系地址：河北省廊坊市三河市燕郊迎宾路口西京哈路北</view>
+    <view>《人力资源服务许可证》编号:(冀）人服证字 （2022）</view>
+    <view> 第1082002223 网站备案:冀ICP备2023009672号-2</view>
+  </view>
+  <!-- 至臻版底部 -->
+  <block wx:if="{{versions == 1}}">
+    <component-tab num-prop="4" count="{{count}}" />
+  </block>
+  <!-- 经典版底部 -->
+  <block wx:elif="{{versions == 2}}">
+    <component-tab_classics num-prop="5" count="{{count}}" />
+  </block>
+</view>
+
+<weixinLogin_prop show="{{loginShow}}" bind:onClose="weixinOnClose"></weixinLogin_prop>
+<versions-prop show="{{isVersions}}"></versions-prop>
+<!--我的引导页 -->
+<view class="guideBox" wx:if="{{guide.guideMyShow}}">
+  <view class="guideStep" wx:if="{{guide.guideStep1}}" bind:tap="goStep" data-step="2">
+    <image src="{{imageUrl}}/my/ydMy1.png" style="top:{{guide.top1}}px" mode="aspectFit" class="guideStep1" />
+  </view>
+  <view class="guideStep" wx:if="{{guide.guideStep2}}" bind:tap="goStep" data-step="3">
+    <image src="{{imageUrl}}/my/ydMy2-1.png" style="top:{{guide.top1-guide.top1/4 + 17}}px" mode="aspectFit" class="guideStep2" />
+  </view>
+  <!-- top:{{guide.top2-guide.top2/4}}px -->
+  <view class="guideStep" wx:if="{{guide.guideStep3}}" bind:tap="goStep" data-step="4">
+    <image src="{{imageUrl}}/my/ydMy3-1.png" style="top:{{guide.top2 - guide.top2/4 + 17}}px" mode="aspectFit" class="guideStep3" />
+  </view>
+  <view class="guideStep" wx:if="{{guide.guideStep4}}" bind:tap="goStep" data-step="1">
+    <image src="{{imageUrl}}/my/ydMy4.png" style="top:{{guide.top3-guide.top3/4}}px" mode="aspectFit" class="guideStep4" />
+  </view>
+</view>
+
+
+<!-- 收藏 -->
+<collectGuide collectGuideY="{{capsuleData.navBarHeight}}" isShow="{{collectGuide}}" bind:closeCollectGuide="closeCollectGuide"></collectGuide>

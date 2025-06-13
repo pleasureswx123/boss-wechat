@@ -1,0 +1,59 @@
+<!--subpackPage/index/search/index.wxml-->
+<view class="search">
+  <!-- 搜索框 -->
+  <view class="searchInput">
+    <ocean-search placeholder="{{searchType == 1 ? '搜索职位' : '搜索职位/公司'}}" value="{{searchValue}}" bind:confirm="confirm" bind:input="input" bind:clear="clear" selectList="{{searchListAsync}}" bind:searchitem="searchitem" maxlength="{{maxlength}}"></ocean-search>
+  </view>
+
+  <!-- 搜索无内容展示 -->
+  <view wx:if="{{searchListAsync.length == 0}}">
+    <!-- 历史记录列表（全职/经典版） -->
+    <view class="searchTitle" wx:if="{{historyList.length > 0 && storageType == 'history'}}">
+      <title_list title="历史搜索" isHot="false" widthImg="24rpx" heightImg="36rpx" bind:delefeEvent="delefeEvent"></title_list>
+      <view class="hotList">
+        <text class="text" data-item="{{item}}" data-type="history" bindtap="historyItem" wx:for="{{historyList}}" wx:key="index">
+          <text class="textColor">{{item.name}}</text>
+        </text>
+      </view>
+    </view>
+
+    <!-- 历史记录列表（兼职） -->
+    <view class="searchTitle" wx:if="{{historyList_partTime.length > 0 && storageType == 'history_partTime'}}">
+      <title_list title="历史搜索" isHot="false" widthImg="24rpx" heightImg="36rpx" bind:delefeEvent="delefeEvent"></title_list>
+      <view class="hotList">
+        <text class="text" data-item="{{item}}" data-type="history_partTime" bindtap="historyItem" wx:for="{{historyList_partTime}}" wx:key="index">
+          <text class="textColor">{{item.name}}</text>
+        </text>
+      </view>
+    </view>
+
+    <!-- 历史记录列表（热门岗位） -->
+    <view class="searchTitle" wx:if="{{historyList_hot.length > 0 && storageType == 'history_hot'}}">
+      <title_list title="历史搜索" isHot="false" widthImg="24rpx" heightImg="36rpx" bind:delefeEvent="delefeEvent"></title_list>
+      <view class="hotList">
+        <text class="text" data-item="{{item}}" data-type="history_hot" bindtap="historyItem" wx:for="{{historyList_hot}}" wx:key="index">
+          <text class="textColor">{{item.name}}</text>
+        </text>
+      </view>
+    </view>
+    <!-- 热门推荐列表 -->
+    <view class="searchTitle {{historyList.length <= 0 ? 'padding-top_18' : ''}}" wx:if="{{textData.length > 0}}">
+      <title_list widthImg="24rpx" heightImg="36rpx"></title_list>
+      <view class="hotList">
+        <text class="text" data-item="{{item}}" bindtap="hotRecommend" wx:for="{{textData}}" wx:key="index">
+          <text class="textColor">{{item.name}}</text>
+        </text>
+      </view>
+    </view>
+    <view class="searchTitle selectBg" style="margin-top: 100rpx;" bindtap="goCustom">
+      定制职位推荐
+    </view>
+  </view>
+  <!-- 删除历史记录弹窗 -->
+  <van-dialog use-slot show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm="deleteConfirm">
+    <view class="countent">
+      确定删除所有历史记录?
+    </view>
+  </van-dialog>
+
+</view>

@@ -1,0 +1,31 @@
+<view class="playVideo">
+  <view class="playVideo-head">
+    <!-- 自定义顶部栏 -->
+    <view class="nav-bar" style="height:{{globalData.navBarHeight}}px;">
+      <view class="search" bind:tap="gotoBack" style="height:{{globalData.menuHeight}}px; min-height:{{globalData.menuHeight}}px; line-height:{{globalData.menuHeight}}px; left:{{globalData.menuRight}}px; top:{{globalData.menuTop}}px;">
+        <van-icon name="arrow-left" color="#fff" size="18px" />
+      </view>
+    </view>
+
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{globalData.navBarHeight}}px;"></view>
+  </view>
+
+  <view class="playVideo-content">
+    <video 
+      class="myVideo"
+      id="myVideo" 
+      src="{{videoUrl}}" 
+      autoplay
+      binderror="videoErrorCallback" 
+      show-fullscreen-btn="{{false}}"
+      enable-auto-rotation="{{true}}"
+      show-center-play-btn='{{false}}' 
+      show-play-btn="{{true}}" 
+      controls
+      picture-in-picture-mode="{{['push', 'pop']}}"
+      bindenterpictureinpicture='bindVideoEnterPictureInPicture'
+      bindleavepictureinpicture='bindVideoLeavePictureInPicture'
+    ></video>
+  </view>
+</view>

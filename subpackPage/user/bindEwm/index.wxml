@@ -1,0 +1,14 @@
+<view class="box">
+   <scroll-view scroll-y="true" style="height: 100vh;">
+        <view class="top_input">
+            <input type="text" cursor-color="#FE0201" value="{{inviteCode || ''}}" placeholder="请输入邀请码" bindinput="confirmValue" maxlength="15" disabled="{{inviteCodeGD}}"/>
+        </view>
+        <view class="line" style="margin-bottom: 28rpx;"></view>
+        <view wx:if="{{!inviteCodeGD}}">
+          <view class="bot_btn" bindtap="setInviteCodeFun" wx:if="{{inviteCode}}">确认绑定</view>
+          <view class="bot_btn no_data" wx:else>确认绑定</view>
+        </view>
+    </scroll-view>
+    <!-- 未登录快速登录 -->
+    <weixinLogin_prop show="{{loginShow}}" bind:onClose="weixinOnClose"></weixinLogin_prop>
+</view>

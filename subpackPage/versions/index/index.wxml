@@ -1,0 +1,419 @@
+<view class="ocean-wrapper">
+  <!-- && !showLoading -->
+  <!-- scroll-y="{{partTime_ScrollY}}" enhanced="{{true}}" bounces="{{false}}" show-scrollbar="{{false}}" catchscrolltolower="containerscrolltolower" bindscroll="containerscroll" throttle="{{false}}" lower-threshold="0" -->
+  <view class="index-container column">
+    <!-- 背景 -->
+    <view class="headBn">
+      <!-- <image class="headbnImg" src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/bg_header.png" mode="" /> -->
+
+      <image class="headbnImg" src="https://gcjt-youpin-beijing.oss-cn-beijing.aliyuncs.com/resource/wechat/baseimages/home_bg1.png" mode="" />
+    </view>
+    <!-- 头部区域 登录状态下展示-->
+    <view class="indexBox_head" wx:if="{{token}}">
+      <!-- 自定义导航栏 -->
+      <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+        <view class="topNav" style="height: {{capsuleData.menuHeight}}px;">
+          <view class="topNav_left" bindtap="gotoCity">
+            <view class="location">{{locationAddress}}</view>
+            <van-icon name="arrow-down" color="#fff" size="13px" />
+          </view>
+        </view>
+      </view>
+      <!-- 占位 -->
+      <view class="banner" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight + 5}}px">
+      </view>
+    </view>
+    <!-- 头部区域 未登录状态下展示-->
+    <view class="indexBox_head" wx:else>
+      <view class="backIcon" style="padding-top:{{capsuleData.menuTop}}px;">
+        <view class="topNav newNav" style="height: {{capsuleData.menuHeight}}px;width: calc(100% - {{capsuleData.menuWidth + capsuleData.menuRight}}px - 64rpx);margin-top: 0;">
+          <view class="right" bindtap="gotoSearch">
+            <view class="input">
+              <!-- <image class="searchIcon" src="{{baseImageUrl}}/searchIcon2.png" mode="" /> -->
+              <swiper layout-type="transformer" autoplay vertical="true" transformer-type="accordion" class="swiper" interval="5000" circular>
+                <swiper-item class="swiper_item">
+                  <view class="row" style="width: 100%;height: 100%;">
+                    <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                    <text class="big">电话客服</text><text class="small">正在热搜</text>
+                  </view>
+                </swiper-item>
+                <swiper-item class="swiper_item">
+                  <view class="row" style="width: 100%;height: 100%;">
+                    <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                    <text class="big">搜索职位/公司</text>
+                  </view>
+                </swiper-item>
+              </swiper>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="banner" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight + 5}}px">
+      </view>
+    </view>
+    <!-- 搜索框 登录状态下展示-->
+    <view class="newNav_wrap" wx:if="{{token}}">
+      <view class="newNav" style="height: {{capsuleData.menuHeight}}px;">
+        <view class="right" bindtap="gotoSearch">
+          <view class="input">
+            <!-- <image class="searchIcon" src="{{baseImageUrl}}/avatar/hot.png" mode="" /> -->
+            <swiper layout-type="transformer" autoplay vertical="true" transformer-type="accordion" class="swiper" interval="5000" circular>
+              <swiper-item class="swiper_item">
+                <view class="row" style="width: 100%;height: 100%;">
+                  <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                  <text class="big">电话客服</text><text class="small">正在热搜</text>
+                </view>
+              </swiper-item>
+              <swiper-item class="swiper_item">
+                <view class="row" style="width: 100%;height: 100%;">
+                  <image class="hot" src="{{baseImageUrl}}/avatar/hot.png" mode="" />
+                  <text class="big">搜索职位/公司</text>
+                </view>
+              </swiper-item>
+            </swiper>
+          </view>
+          <view class="searchBtn">搜索</view>
+        </view>
+      </view>
+    </view>
+    <!-- 占位 - 搜索区域 -->
+    <view style="height: 10rpx;" wx:else></view>
+    <!-- 金刚区 -->
+    <view class="featured-entries">
+      <!-- 今日速配 -->
+      <view class="entries_item row column" bind:tap="gotoMatch">
+        <view style="position: relative;z-index: 100;" class="img-wrapper">
+          <image src="{{baseImageUrl}}/entries_speed1.png" mode="" />
+        </view>
+        <view class="txt">今日速配</view>
+        <!-- 泡泡外层 -->
+        <image src="{{baseImageUrl}}/papaw1.png" mode="" class="papaw1" />
+        <!-- 里层泡泡 -->
+        <view class="papaw2-container">
+          <image src="{{baseImageUrl}}/papaw2.png" mode="" class="papaw2 fireworks4" />
+        </view>
+      </view>
+      <!-- 急招专区 -->
+      <view class="entries_item row column" bindtap="gotoTab" data-type="0" data-path="component/component" data-module="2">
+        <view class="img-wrapper">
+          <image src="{{baseImageUrl}}/entries_impatient1.png" mode="" />
+        </view>
+        <view class="txt">急招专区</view>
+        <!-- 泡泡外层 -->
+        <image src="{{baseImageUrl}}/papaw1.png" mode="" class="papaw1" />
+        <!-- 里层泡泡 -->
+        <view class="papaw2-container">
+          <image src="{{baseImageUrl}}/papaw2.png" mode="" class="papaw2 fireworks5" />
+        </view>
+      </view>
+      <!-- 学生专区 -->
+      <view class="entries_item row column" bindtap="gotoTab" data-type="3" data-path="component/component" data-module="7">
+        <view class="img-wrapper">
+          <image src="{{baseImageUrl}}/entries_campus1.png" mode="" />
+        </view>
+        <view class="txt">学生专区</view>
+        <!-- 泡泡外层 -->
+        <image src="{{baseImageUrl}}/papaw1.png" mode="" class="papaw1" />
+        <!-- 里层泡泡 -->
+        <view class="papaw2-container">
+          <image src="{{baseImageUrl}}/papaw2.png" mode="" class="papaw2 fireworks6" />
+        </view>
+      </view>
+      <!-- 助残帮扶 -->
+      <view class="entries_item row column" bindtap="gotoTab" data-type="4" data-path="component/component" data-module="5">
+        <view class="img-wrapper">
+          <image src="{{baseImageUrl}}/icon_home_visit_list.png" mode="" />
+        </view>
+        <view class="txt">实探企业</view>
+        <!-- 泡泡外层 -->
+        <image src="{{baseImageUrl}}/papaw1.png" mode="" class="papaw1" />
+        <!-- 里层泡泡 -->
+        <view class="papaw2-container">
+          <image src="{{baseImageUrl}}/papaw2.png" mode="" class="papaw2 fireworks7" />
+        </view>
+      </view>
+      <!-- 本地名企 -->
+      <view class="entries_item row column" bindtap="gotoTab" data-type="2" data-path="locality/locality">
+        <view class="img-wrapper">
+          <image src="{{baseImageUrl}}/entries_enterprise1.png" mode="" />
+        </view>
+        <view class="txt">本地名企</view>
+        <!-- 泡泡外层 -->
+        <image src="{{baseImageUrl}}/papaw1.png" mode="" class="papaw1" />
+        <!-- 里层泡泡 -->
+        <view class="papaw2-container">
+          <image src="{{baseImageUrl}}/papaw2.png" mode="" class="papaw2 fireworks8" />
+        </view>
+      </view>
+    </view>
+    <!-- 内容区域 -->
+    <!-- 整体高度 - 顶部显示地址的区域 - 底部tab区域 -->
+    <!-- style="height: calc(100vh - {{statusBarHeight + navBarHeight + 5 + globalBottom + 57}}px);" -->
+    <view class="index-container_content column">
+      <!-- 岗位展示 -->
+      <view class="postandTab" wx:if="{{token}}">
+        <view class="post">
+          <view class="post_left">
+            <scroll-view class="scroll-view" scroll-x="true" scroll-y="false" style="flex:1;white-space: nowrap;display: inline-flex;">
+              <block wx:for="{{postList}}" wx:key="index">
+                <view class="post_item" bindtap="post_TabNav" id="{{index}}" data-job="{{item.postName}}" data-item="{{item}}">
+                  <text class="{{post_index == index ? 'post_itemActive' : ''}}">{{item.postName}}</text>
+                  <block wx:if="{{post_index == index}}">
+                    <image src="{{baseImageUrl}}/star_small.png" class="star_small fireworks1" mode="" />
+                    <image src="{{baseImageUrl}}/star_big.png" class="star_big fireworks2" mode="" />
+                    <image src="../../../image/post_line.png" class="post_line" mode="" />
+                  </block>
+                </view>
+              </block>
+            </scroll-view>
+          </view>
+
+          <view class="addPost" bindtap="addPost">
+            <image src="{{baseImageUrl}}/versions/addPostIcon1.png" mode="" />
+          </view>
+        </view>
+        <!-- 推荐/红包岗/附近/实探 -->
+        <view class="tabNav">
+          <view class="tabNav_left">
+            <view class="text {{currentTab.tab_name == '全部' ? 'searchNo' : ''}} " data-index="0" bindtap="searchTab" data-tab="全部">全部</view>
+            <view class="text {{currentTab.tab_name == '红包' ? 'searchNo' : ''}}" data-index="9" bindtap="searchTab" data-tab="红包">
+              <!-- <image src="{{baseImageUrl + '/index_img/hongbao.png'}}" mode="aspectFit" style="width:26rpx;height: 26rpx;margin-right: 5rpx;" /> -->
+              <swiper layout-type="transformer" autoplay vertical="true" transformer-type="accordion" interval="5000" circular style="width: 85rpx;height: 40rpx;">
+                <swiper-item class="swiper_item">
+                  <!-- <view class="row" style="width: 100%;height: 100%;"> -->
+                    <image src="{{baseImageUrl}}/subfilter_red_pockt.gif" mode="aspectFill"/>
+                </swiper-item>
+                <swiper-item class="swiper_item">
+                    <text>红包岗</text>
+                </swiper-item>
+              </swiper>
+            </view>
+            <view class="text {{currentTab.tab_name == '附近' ? 'searchNo' : ''}} " data-index="1" bindtap="searchTab" data-tab="附近">
+              <view>附近</view>
+              <view class="column itemBox arrow_sort">
+                <view class="column arraw_up">
+                  <view class="{{currentTab.tab_name === '附近' && currentTab.tab_val ? currentTab.tab_val === 'asc' ? 'arrawIcon' : 'arrawIcon_disabled' : 'arrawIcon_disabled'}}"></view>
+                </view>
+                <view class="column arraw_down">
+                  <view class="{{currentTab.tab_name === '附近' && currentTab.tab_val ? currentTab.tab_val === 'desc' ? 'arrawIcon' : 'arrawIcon_disabled' : 'arrawIcon_disabled'}}"></view>
+                </view>
+              </view>
+            </view>
+            <view class="text {{currentTab.tab_name == '实探' ? 'searchNo' : ''}}" data-index="2" bindtap="searchTab" data-tab="实探">实探</view>
+          </view>
+          <view class="screen" bindtap="openFilterPopup">
+            <!-- <image src="{{baseImageUrl}}/index_img/filter.png" mode="aspectFit" class="filterIcon" /> -->
+            <image src="../../../image/filter_icon.png" mode="aspectFit" class="filterIcon" />
+            筛选<span wx:if="{{sxNum>0}}">·{{sxNum}}</span>
+          </view>
+        </view>
+      </view>
+      <!-- 岗位展示 占位使用 -->
+      <view style="height: 28rpx;" wx:else></view>
+      <!-- 骨架屏 -->
+      <view class="waterfall_content" style="overflow: hidden;" wx:if="{{showLoading}}">
+        <skeletonList type="1" button="{{true}}"></skeletonList>
+      </view>
+
+      <!-- 瀑布流 -->
+      <view class="waterfall_content" wx:if="{{!showLoading}}">
+        <!-- scrollY="{{waterfall_ScrollY}}" -->
+        <!-- 登陆时 -->
+        <pull-refresh-view class="list-container" enhanced="{{true}}" wx:if="{{dataList.length>0 && token}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish && isUpload}}" loadType="default" loadmoreText="努力加载中~" refresherEnable="{{true}}" bindscroll="contentscroll" upperThreshold="45">
+          <versionList showLoading="{{showLoading}}" catch:nowCommunicate="nowCommunicate" dataList="{{dataList}}" bind:showLogin="showLogin" isUpload="{{isUpload}}" nearBy="{{nearBy}}"></versionList>
+        </pull-refresh-view>
+
+        <!-- 未登陆时 custom-->
+        <pull-refresh-view class="list-container" enhanced="{{true}}" wx:elif="{{dataList.length>0 && !token}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bind:loadmore="onLoadMore" nomore="{{isFinish && isUpload}}" loadType="default" loadmoreText="努力加载中~" refresherEnable="{{true}}" bindscroll="contentscroll" upperThreshold="45">
+          <versionList showLoading="{{showLoading}}" catch:nowCommunicate="nowCommunicate" dataList="{{dataList}}" bind:showLogin="showLogin" isUpload="{{isUpload}}" nearBy="{{nearBy}}"></versionList>
+        </pull-refresh-view>
+
+        <!-- 无数据时展示 -->
+        <view class="no_data" wx:if="{{dataList.length == 0 && showLoading == false}}">
+          <view class="no_data_center">
+            <view class="no_data_img">
+              <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+            </view>
+            <view class="no_data_text">暂无岗位推荐</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 底部导航 -->
+    <view class="index-container_footer" style="padding-bottom: {{globalBottom}}px;">
+      <component-tab_classics num-prop="1" count="{{count}}" />
+    </view>
+  </view>
+
+  <!-- 引导立即登陆 -->
+  <view class="loginBtn" style="bottom: {{globalBottom+ 58}}px;" wx:if="{{!token}}">
+    <view class="logoImgs">
+      <image src="{{baseImageUrl}}/my/loginLogo.png" mode="" class="loginLogo" />登录知城优聘查看更多好职位
+    </view>
+    <view class="logoBtn" bind:tap="showLogin">立即登录</view>
+  </view>
+  <!-- 动画过渡 -->
+  <!-- enter-class="van-enter-class"
+  enter-active-class="van-enter-active-class"
+  leave-active-class="van-leave-active-class"
+  leave-to-class="van-leave-to-class" -->
+  <!-- animation="{{animationData}}" -->
+  <!-- 提示 -->
+  <van-transition show="{{ showToastDom }}" duration="{{ { enter: 1000, leave: 1000 } }}">
+    <view class="showToastDom" style="bottom: {{globalBottom+ 58}}px;">
+      <view class="logoImgs">
+        暂未找到相关职位，为您推荐以下职位
+      </view>
+    </view>
+  </van-transition>
+</view>
+
+<!-- 未登录快速登录 -->
+<weixinLogin_prop show="{{loginShow}}" bind:onClose="onClose"></weixinLogin_prop>
+<!-- 会员即将过期 -->
+<member-prop show="{{memberProp}}" bind:onClose="closeProp"></member-prop>
+<!-- 收藏 -->
+<collectGuide collectGuideY="{{capsuleData.navBarHeight}}" isShow="{{collectGuide}}" bind:closeCollectGuide="closeCollectGuide"></collectGuide>
+<!-- 筛选弹窗 -->
+<van-popup root-portal="{{true}}" lock-scroll round show="{{isShow}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight - statusBarHeight}}px">
+  <screenCondition bind:screenEvent="screenEvent" show="{{isShow}}" bind:screenNum="screenNum" bind:onClose="onClose" height="{{popupHeight - statusBarHeight}}" isSave="{{false}}" jobType="{{jobType}}"></screenCondition>
+</van-popup>
+<!-- 询问弹窗 -->
+<van-popup closeable custom-style="height: 590rpx" root-portal="{{true}}" lock-scroll round show="{{circulateShow}}" position="bottom" bind:close="onCloseCirculate" z-index="1002">
+  <view class="circulate_popup">
+    <view class="circulate_popup-head">
+      <view class="title">你想找【装卸工】工作么？</view>
+      <view class="imgBox">
+        <image src="{{baseImageUrl}}/newImg/wgtip.png" mode="" />
+      </view>
+    </view>
+
+    <view class="circulate_popup-content">
+      <view class="back">
+        <view class="text">根据你的浏览记录，添加【装卸工】为你想找的工作，可以获取更多工作机会</view>
+      </view>
+    </view>
+
+    <view class="circulate_popup-button">
+      <view class="cancalButton button" bind:tap="onCloseCirculate">取消</view>
+      <view class="confirmButton button" bind:tap="onCloseCirculate">添加</view>
+    </view>
+  </view>
+</van-popup>
+<!-- 引导结构  guide.guideIdxShow-->
+<view class="guideBox" wx:if="{{guide.guideIdxShow}}">
+  <view class="guideStep" wx:if="{{guide.guideStep1}}" bind:tap="goStep" data-step="2">
+    <image style="top:{{guide.top1 - 5}}px" src="{{baseImageUrl}}/my/ydIndex1.png" mode="aspectFit" class="guideStep1" />
+  </view>
+  <view class="guideStep" wx:if="{{guide.guideStep2}}" bind:tap="goStep" data-step="3">
+    <image style="top:{{guide.top2-50}}px" src="{{baseImageUrl}}/my/ydIndex2.png" mode="aspectFit" class="guideStep2" />
+  </view>
+  <!-- <view class="guideStep" wx:if="{{guide.guideStep3}}" bind:tap="goStep" data-step="1">
+    <image style="bottom:{{globalBottom}}px" src="{{baseImageUrl}}/my/ydIndex3.png" mode="aspectFit" class="guideStep3" />
+  </view> -->
+  <view class="guideStep" wx:if="{{guide.guideStep3}}" bind:tap="goStep" data-step="1">
+    <image style="top:{{guide.top3}}px" src="{{baseImageUrl}}/my/ydIndex4.png" mode="aspectFit" class="guideStep4" />
+  </view>
+</view>
+<!-- 活动弹窗 -->
+<view class="modal" wx:if="{{activityPopUpShow}}">
+  <view class="modal-overlay" bind:tap="closeActivityProp"></view>
+  <view class="modal-content" wx:if="{{showType == 1 || showType == 3}}">
+    <!-- 弹出层内容 -->
+    <view class="member_modelBox">
+      <image src="{{activityUrl}}" mode="widthFix" bind:tap="activityDetail" />
+    </view>
+  </view>
+
+  <canvas id="demoCanvas" bind:tap="activityDetail" wx:if="{{showType == 2}}" type="2d" style="width: 680rpx; height: 50%;"></canvas>
+
+  <view class="closeIcon" bind:tap="closeActivityProp" style="top: calc(75% + 40rpx);">
+    <image src="https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/user/sign1_close.png"></image>
+  </view>
+</view>
+<!-- 活动弹窗 memberProp -->
+<view class="modal" wx:if="{{activityPopUpShow_JQ}}">
+  <view class="modal-overlay" bind:tap="closeActivityProp"></view>
+  <view class="modal-content" style="width: 100vw; display: flex;justify-content: center; position: fixed;z-index: 1000;">
+    <!-- 弹出层内容 -->
+    <view class="member_modelBox activity_JQ">
+      <view class="content-wrapper">
+        <!-- 活动背景 -->
+        <image src="{{baseImageUrl}}/jinqiu/activity-model.png" mode="widthFix" />
+        <!-- 底部树叶 -->
+        <image class="footerLeaf" src="{{baseImageUrl}}/jinqiu/img7.png" alt="aspectFill" />
+        <!-- 背景光 -->
+        <image class="bgImg" src="{{baseImageUrl}}/jinqiu/img_6.png" mode="aspectFill" />
+        <!-- 标题区域动画 -->
+        <view class="titleBox">
+          <!-- 标题背景 -->
+          <image class="titileBgImg" src="{{baseImageUrl}}/jinqiu/img_2.png" mode="aspectFill" />
+          <!-- 标题图片 -->
+          <image class="titleTxtImg" src="{{baseImageUrl}}/jinqiu/img_1.png" mode="aspectFill" />
+          <!-- 标题左边 -->
+          <view class="titleBox-left">
+            <image class="left-img1" src="{{baseImageUrl}}/jinqiu/img_4.png" alt="aspectFill" />
+            <image class="left-img2" src="{{baseImageUrl}}/jinqiu/img_3.png" alt="aspectFill" />
+          </view>
+          <!-- 标题右边 -->
+          <view class="titleBox-right">
+            <image class="right-img1" src="{{baseImageUrl}}/jinqiu/img_4.png" alt="aspectFill" />
+            <image class="right-img2" src="{{baseImageUrl}}/jinqiu/img_3.png" alt="aspectFill" />
+          </view>
+        </view>
+        <!-- 活动奖励 -->
+        <view class="activityRewards">
+          <view wx:for="{{activityEquityList}}" wx:key="index" class="activityRewards-item prop-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq4.png);">
+            <view class="activityRewards-item_left">
+              <text class="num">{{item.times}}</text>
+              <text class="unit-txt">次</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">{{item.name}}</view>
+              <text class="dict-txt">{{item.describe || ''}}</text>
+            </view>
+          </view>
+          <view class="activityRewards-item Equity-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq3.png);">
+            <view class="activityRewards-item_left row">
+              <text class="num">无限</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">每日查看企业数量</view>
+              <text class="dict-txt">查看企业数量</text>
+            </view>
+          </view>
+          <view class="activityRewards-item Equity-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq3.png);">
+            <view class="activityRewards-item_left row">
+              <text class="num">无限</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">每日沟通数量</view>
+              <text class="dict-txt">无忧沟通企业HR</text>
+            </view>
+          </view>
+        </view>
+        <!-- 立即领取和活动规则 -->
+        <view class="activityFooter row column">
+          <view bind:tap="gotoActivityDetail" class="activityRule-txt">查看活动规则</view>
+          <image bind:tap="getDrawInterestsFn" class="activityDraw-btn" src="{{baseImageUrl}}/jinqiu/activityDraw-btn.png" mode="aspectFill" />
+
+          <image bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/activeHover.png" mode="aspectFit" class="activeHover_btn" />
+        </view>
+        <!-- 活动节省金额 -->
+        <view class="economize-box row column" style="background-image: url({{baseImageUrl}}/jinqiu/economize-icon.png);">
+          <!-- 金额 -->
+          <view class="economize-money row column">
+            <view class="row">
+              <text class="unit">¥</text>
+              <text class="money">{{saveMoney}}</text>
+            </view>
+            <text class="economize-money-txt">节省</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 雪花飘落 -->
+  <canvas bind:tap="closeActivityProp" id="demoCanvas_JQ" type="2d" style="width: 100vw; height:100vh;position: absolute;top:0px;left: 0;"></canvas>
+</view>

@@ -1,0 +1,240 @@
+/* subpackPage/user/setup/notice/index.wxss */
+page{
+    background-color: #fff;
+    /* padding: 0 48rpx; */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.head{
+    font-size: 28rpx;
+    font-weight: 400;
+    color: #666666;
+    margin-top: 40rpx;
+    padding-left: 48rpx;
+}
+.item{
+    padding-top: 35rpx;box-sizing: border-box;
+    border-bottom: 16rpx solid #f5f5f5;
+}
+.mg48{
+  display: flex;
+  justify-content: space-between;
+  height: 160rpx;
+  margin: 0 48rpx;
+}
+.top view{
+    font-size: 32rpx;
+    
+    font-weight: 400;
+    color: #1D2129;
+}
+.top text{
+    font-size: 24rpx;
+    
+    font-weight: 400;
+    color: #666666;
+}
+
+.pop_box {
+    padding-top: 62rpx;
+    width: 576rpx;
+    background: #FFFFFF;
+}
+.pop_box_middle {
+    font-size: 26rpx;
+    
+    font-weight: 400;
+    color: #666666;
+    padding-left: 50rpx;
+    margin-bottom: 58rpx;
+}
+.pop_box_bot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pop_box_bot_left,.pop_box_bot_right{
+    width: 49%;
+    height: 102rpx;
+    line-height: 102rpx;
+    text-align: center;
+}
+.pop_box_bot {
+    border-top: 1rpx solid #f1f1f1;
+    opacity: 0.9;
+}
+.pop_box_bot_left {
+    border-right: 1rpx solid #f1f1f1;
+    font-size: 28rpx;
+    
+    font-weight: 400;
+    color: #666666;
+}
+.pop_box_bot_right {
+    font-size: 28rpx;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #037AFF;
+}
+
+.node-class {
+    /* height: 20px !important;
+    width: 20px !important; */
+    top: 4rpx !important;
+    left: 4rpx !important;
+}
+
+.van-switch {
+    border: none !important;
+    width: 92rpx !important;
+    height: 50rpx !important;
+}
+
+.van-switch__node{
+    top: 50% !important;
+    left: 10rpx !important;
+    height: 34rpx !important;
+    width: 34rpx !important;
+    transform: translateY(-50%) !important;
+    box-shadow: none !important;
+}
+
+.van-switch--on .van-switch__node{
+    left: 100% !important;
+    transform:translateY(-52%) translateX(-120%) !important;
+    box-shadow: none !important;
+}
+
+
+/* 询问弹窗 */
+.circulate_popup {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  /* border-radius: 48rpx 48rpx 0rpx 0rpx; */
+}
+
+.circulate_popup-head {
+  height: 238rpx;
+  position: relative;
+  background: url(https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/versions/circulateBack.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  background-position: 0rpx -10rpx;
+}
+
+.circulate_popup-head .title {
+  height: 60rpx;
+  font-size: 44rpx;
+  color: #1D2129;
+  line-height: 60rpx;
+  text-align: left;
+  font-style: normal;
+  padding-top: 54rpx;
+  font-weight: bold;
+}
+
+.circulate_popup-head .imgBox {
+  position: absolute;
+  right: -16rpx;
+  top: 30rpx;
+  width: 194rpx;
+  height: 186rpx;
+}
+
+.circulate_popup-content {
+  position: absolute;
+  top: 150rpx;
+  left: 0;
+  width: 100%;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.circulate_popup-content .back {
+  width: 100%;
+  height: 148rpx;
+  background: url(https://imgcdn.guochuanyoupin.com/resource/wechat/baseimages/versions/circulateMask.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: blur(2px);
+  /* box-shadow: 0 0 10px #fff; */
+}
+
+.circulate_popup-content .back .text {
+  height: 100%;
+  padding: 0rpx 42rpx 0 40rpx;
+  font-weight: 500;
+  font-size: 26rpx;
+  color: #1D2129;
+  text-align: left;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+}
+
+.circulate_popup-button {
+  position: absolute;
+  bottom: 120rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.circulate_popup-button .cancalButton {
+  width: 180rpx;
+  background: #F1F1F1;
+  font-weight: 400;
+  font-size: 36rpx;
+  color: #666666;
+}
+
+.circulate_popup-button .confirmButton {
+  width: 452rpx;
+  /* background: linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+  background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.circulate_popup-button .button {
+  border-radius: 12rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 36rpx;
+  font-style: normal;
+}
+
+.icon-class{
+  /* height: 20px !important; */
+  /* width: 20px !important; */
+  top: 4rpx !important;
+  left: 4rpx !important;
+  height: 100%;
+}
+
+.picker-time{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  margin: 30rpx 0;
+}
+
+.font1{
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.mr24{
+  margin-right: 24rpx;
+}

@@ -1,0 +1,16 @@
+<!-- 优化求职期望 -->
+<view class="addJobBox">
+  <image src="{{imageUrl}}/newImg/sexBg.png" class="headbg"></image>
+  <view class="add_job_box">
+    <view class="title">选择期望职位，为您推荐专属职位</view>
+    <view class="tjrg">  
+      推荐热岗
+    </view>
+    <view class="tjrgList">
+        <view class="sitem {{selectedIdx==item.id?'active':''}}" wx:for="{{textData}}" data-item="{{item}}" bind:tap="selectedItem">{{item.name}}</view>
+    </view>
+    <view class="selectedBtn" bind:tap="goSearch">
+      以上都不是，选择更多
+    </view>
+  </view>
+</view>

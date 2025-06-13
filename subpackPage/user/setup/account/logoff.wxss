@@ -1,0 +1,30 @@
+.head{
+    padding: 12rpx 32rpx 48rpx;
+    font-size: 40rpx;
+    font-weight: bold;
+}
+.head_bot{
+    padding: 0 32rpx 32rpx;
+    font-size: 28rpx;
+}
+.head_text{
+    font-size: 28rpx;
+    padding: 0 32rpx;
+    line-height: 44rpx;
+}
+.head_text text{
+    color:#F32E2E;
+    font-weight: 500;
+}
+.btn{
+    /* background: #FFFFFF linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+    /* background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%); */
+    background: #f5f5f5;
+    color: #999;
+    text-align: center;
+    line-height: 84rpx;
+    height: 84rpx;
+    margin: 56rpx 32rpx 0;
+    font-size: 28rpx;
+    border-radius: 16rpx;
+}

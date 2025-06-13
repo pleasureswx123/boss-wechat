@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+      "van-checkbox": "@vant/weapp/checkbox/index",
+      "van-popup": "@vant/weapp/popup/index"
+    },
+    "navigationBarTitleText": "微信号",
+    "navigationBarBackgroundColor": "#fff"
+}

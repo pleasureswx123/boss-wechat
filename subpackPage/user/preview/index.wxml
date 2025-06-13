@@ -1,0 +1,5 @@
+<!--subpackPage/user/preview/index.wxml-->
+<view class="" style="position: relative;">
+    <!-- <web-view src="https://www.gjtool.cn/{{url}}"></web-view> -->
+    <web-view src="{{baseUrl}}" bindmessage="h5Message"></web-view>
+</view>

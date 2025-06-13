@@ -1,0 +1,14 @@
+{
+    "usingComponents": {
+        "ocean-search":"/components/ocean-search/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "positionType": "/components/positionType/positionType",
+        "screenCondition": "/components/screenCondition/screenCondition",
+        "component-info": "/components/infomationList/infomationList",
+        "pull-refresh-view":"/components/pull-refresh-view/index",
+        "noData":"/components/nodata/nodata",
+        "skeletonList": "/components/skeletonList/skeletonList",
+        "versionsCity-prop": "/components/versionsCity-prop/versionsCity-prop"
+    },
+    "navigationBarTitleText":"全部岗位"
+}

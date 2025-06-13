@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "van-switch": "@vant/weapp/switch/index",
+        "van-popup": "@vant/weapp/popup/index"
+    },
+    "navigationBarTitleText": "通知与提醒",
+    "navigationBarBackgroundColor": "#ffffff"
+}

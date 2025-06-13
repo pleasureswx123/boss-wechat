@@ -1,0 +1,29 @@
+<!-- 录用邀约 -->
+<view>    
+    <view class="nav" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+        <van-icon name="arrow-left" size="50rpx" color="#ffffff" bindtap="goBack"/>
+    </view>
+    <image src="{{imImages}}/yp/offerbg.png" mode="aspectFill" class="offerbg"/>
+    <view class="content">
+        <view class="faceBox"><image src="{{imImages}}/yp/offer_1.png" mode="aspectFill" class="faceImg"/></view>
+        <view class="logo">
+            <image src="{{companyLogo}}" mode="aspectFill" wx:if="{{companyLogo}}"/>
+            <image src="{{baseImageUrl}}/newImg/companyHead.svg" mode="aspectFill" wx:else/>
+            <view class="name">{{companyName}}</view>
+        </view>
+        <view class="cont">
+            <view class="name">尊敬的 <text class="red">{{targetName}}</text>：</view>
+            <view class="contDiv"> 您好！经沟通，您符合 <text class="red">{{postName}}</text> 一职的要求，现准备邀请您加入我们，具体细节我们保持沟通。预祝您工作愉快！</view>
+            <view class="comp">
+                <image src="{{imImages}}/yp/chat_offer_agree.png" mode="aspectFill" class="resultPic"  wx:if="{{state==1}}"/>
+                <image src="{{imImages}}/yp/chat_offer_refuse.png" mode="aspectFill" class="resultPic"  wx:if="{{state==2}}"/>
+                <view class="compt">{{companyName}}</view>
+                <view class="compt">{{currentTime}}</view>
+            </view>
+        </view>
+        <view class="btns" wx:if="{{state==0}}">
+            <view class="refuse" bindtap="sendofferReject">拒绝</view>
+            <view class="accept" bindtap="sendofferAgree">接受</view>
+        </view>
+    </view>
+</view>

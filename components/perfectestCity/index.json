@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+      "ocean-search": "/components/ocean-search/index",
+      "van-popup": "@vant/weapp/popup/index",
+      "van-icon": "@vant/weapp/icon/index"
+    }
+}

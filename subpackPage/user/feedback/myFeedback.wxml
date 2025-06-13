@@ -1,0 +1,35 @@
+<!--subpackPage/user/feedback/myFeedback.wxml-->
+<view class="myFeedbackBox">
+  <scroll-view scroll-y="{{true}}" wx:if="{{dataList.length > 0}}" style="height: 100%;">
+    <view class="content" wx:for="{{dataList}}" wx:key="index">
+      <view class="head">
+        <text>反馈类型：{{typeList[item.type]}}</text>
+        <text>{{item.createTime}}</text>
+      </view>
+      <view class="head_con"> 反馈内容 </view>
+      <textarea class="con_area" disabled value="{{item.opinionText}}" />
+      <view class="img_list" wx:if="{{item.pictureUrl}}">
+        <view wx:for="{{item.pictureUrl}}" wx:for-item="items" wx:key="items">
+          <image class="img_item" src="{{items}}" mode="aspectFill" bindtap="previewImage" data-url="{{item.pictureUrl}}" data-current="{{items}}" />
+        </view>
+      </view>
+
+      <view wx:if="{{item.response}}">
+        <view class="reply">
+          <text>官方回复</text>
+          <text>{{item.responseTime ? item.responseTime : ''}}</text>
+        </view>
+        <textarea maxlength="500" value="{{item.response}}" disabled="{{disabled}}" class="rep_area">
+        <view class="number"> <span class="span">{{item.response.length ? item.response.length : 0}}</span> /500 </view>
+    </textarea>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 无数据时展示 -->
+  <view class="no_data_center" wx:if="{{dataList.length==0}}" >
+      <view class="no_data_img">
+        <image src="{{baseImgUrl}}/my/no_collect.png" mode="" />
+      </view>
+      <view class="no_data_text">暂无反馈数据</view>
+    </view>
+</view>

@@ -1,0 +1,50 @@
+<view class="cityBox">
+  <view class="cityBox_main">
+    <!-- 头部区域 -->
+    <view class="cityBox_main-head">
+      <view class="search">地址</view>
+      <view style="height:98rpx;"></view>
+    </view>
+
+    <!-- 选择地址区域 -->
+    <view class="selectCity_content">
+      <!-- 市 -->
+      <view class="cityList">
+        <view class="cityItem activeName" wx:for="{{cityList}}" wx:key="index">{{item.name}}</view>
+      </view>
+      <!-- 区县 (单选)-->
+      <scroll-view scroll-y="{{true}}" scroll-into-view="{{multipleDistrictToView}}" scroll-with-animation class="cityList" wx:if="{{cityType == 'select'}}">
+        <view data-item="{{item}}" id="{{'multipleDistrict' + item.id}}" data-currentLevel="district" data-nextLevel="street" bind:tap="selectItem" class="cityItem {{activeDistrictId == item.id ? 'activeName' : ''}}" wx:for="{{districtList}}" wx:key="index">{{item.name}}</view>
+      </scroll-view>
+      <!-- 街道 (单选)-->
+      <scroll-view scroll-y="{{true}}" scroll-into-view="{{multipleStreetToView}}" scroll-with-animation class="cityList" wx:if="{{cityType == 'select'}}">
+        <view id="{{'multipleStreet' + item.id}}" data-item="{{item}}" data-currentLevel="street" data-nextLevel="" bind:tap="selectItem" class="cityItem {{activeStreetId == item.id ? 'activeName' : ''}}" wx:for="{{streetList}}" wx:key="index">{{item.name}}</view>
+      </scroll-view>
+
+      <!-- 区县 (多选)-->
+      <scroll-view scroll-y="{{true}}" scroll-with-animation scroll-into-view="{{multipleDistrictToView}}" class="cityList cityMultipleList" wx:if="{{cityType == 'multiple'}}">
+        <view data-item="{{item}}" data-currentLevel="district" data-nextLevel="street" data-index="{{index}}" id="{{'multipleDistrict' + item.id}}" bind:tap="MultipleItem" class="cityItem {{activeDistrictId == item.id ? 'activeName' : ''}}" wx:for="{{districtList}}" wx:key="index">
+          <view class="cityMultipleText">{{item.name}}</view>
+          <view class="cityMultipleNum" wx:if="{{item.multipleNum}}">
+            <text>{{item.multipleNum}}</text>
+            <!-- <text>99</text> -->
+          </view>
+        </view>
+      </scroll-view>
+      <!-- 街道 (多选)-->
+      <scroll-view scroll-y="{{true}}" scroll-with-animation class="cityList" scroll-into-view="{{multipleStreetToView}}" wx:if="{{cityType == 'multiple'}}">
+        <view id="{{'multipleStreet' + item.id}}" data-item="{{item}}" data-index="{{index}}" data-currentLevel="street" data-nextLevel="" bind:tap="MultipleItem" class="cityItem {{item.streetSelect ? 'activeName' : ''}}" wx:for="{{streetList}}" wx:key="index">{{item.name}}</view>
+      </scroll-view>
+    </view>
+
+
+    <!-- 底部固定区域  -->
+    <view class="cityFliter">
+      <!-- 按钮 -->
+      <view class="popup-button" style="padding-bottom: {{globalBottom}}px;">
+        <view class="comfirm" wx:if="{{cityType == 'select'}}" bindtap="comfirmScreening">确定</view>
+        <view class="comfirm" wx:if="{{cityType == 'multiple'}}" bindtap="multipleComfirmScreening">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

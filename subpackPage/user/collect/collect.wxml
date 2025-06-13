@@ -1,0 +1,46 @@
+<view class="box">
+  <!-- <van-sticky>
+        <view class="top_tabs">
+            <van-tabs active="{{ active }}" bind:change="changeTabs" line-width="30px" title-active-color="#FE0201" color="#FE0201">
+                <van-tab title="职位收藏"></van-tab>
+                <van-tab title="公司收藏"></van-tab>
+            </van-tabs>
+        </view>
+    </van-sticky> -->
+  <swiper style="height: {{windowHeight}}px;padding-bottom: 40rpx;box-sizing: border-box;" bindchange="tabChange" current="{{active}}">
+    <swiper-item>
+      <scroll-view style="height: 100%;" scroll-y bindscrolltolower="positionCollect">
+        <block wx:if="{{datalist.length>0}}">
+          <view class="postList">
+            <component-info dataList="{{datalist}}"></component-info>
+          </view>
+          <view class="divider">仅展示一年内近 200 个收藏</view>
+        </block>
+        <noData wx:else></noData>
+      </scroll-view>
+    </swiper-item>
+    <!-- <swiper-item>
+      <scroll-view
+        style="height: 100%;"
+        scroll-y
+        bindscrolltolower="companyCollect"
+      >
+      <block wx:if="{{datalist.length>0}}">
+          <view class="compony_box" wx:for="{{datalist}}">
+             <view class="compony_item">
+                <view class="compony_box_left">
+                    <image src="{{ item.logo }}" mode=""/>
+                </view>
+                <view class="compony_box_right">
+                    <view class="compony_box_right_top">{{item.name}}</view>
+                    <view class="compony_box_right_bot">{{item.tradeName}} {{item.stage}} {{item.scale}} </view>
+                </view>
+             </view>
+             <view class="line"></view>
+          </view>
+         </block>
+         <noData wx:else></noData>
+      </scroll-view>
+    </swiper-item> -->
+  </swiper>
+</view>

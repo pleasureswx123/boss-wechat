@@ -1,0 +1,12 @@
+{
+    "usingComponents": {
+      "van-dialog": "@vant/weapp/dialog/index",
+      "wantedList":"/components/wantedList/wantedList",
+      "component-info": "/components/infomationList/infomationList",
+      "noData":"/components/nodata/nodata",
+      "van-tab": "@vant/weapp/tab/index",
+      "van-tabs": "@vant/weapp/tabs/index"
+    },
+    "navigationStyle": "custom",
+    "navigationBarTitleText":""
+  }

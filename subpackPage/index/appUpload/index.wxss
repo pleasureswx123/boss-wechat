@@ -1,0 +1,141 @@
+/* subpackPage/index/appUpload/index.wxss */
+page {
+  height: 100%;
+  background-color: #F5F5F5;
+}
+
+.appWxUpload {
+  height: 100%;
+}
+
+.appWxUpload_main {
+  padding: 0 42rpx;
+  box-sizing: border-box;
+  background-color: #F5F5F5;
+  /* height: 100vh; */
+}
+
+/* 自定义导航栏 */
+.backIcon {
+  background-size: cover;
+  background-position: center -100%;
+  width: 100vw;
+  display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  align-items: center;
+  background-color: #fff;
+}
+
+.van-nav-bar__left {
+  padding-left: 8px;
+  align-items: center;
+  display: flex;
+  position: absolute;
+}
+
+.van-nav-bar__left image {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.van-nav-bar__title {
+  margin: 0 auto;
+  font-size: 36rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000;
+  line-height: 50rpx;
+}
+
+
+.appWxUpload_main_title {
+  height: 56rpx;
+  font-size: 48rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #1D2129;
+  line-height: 66rpx;
+  /* margin-top: 76rpx; */
+  padding-top: 76rpx;
+  margin-bottom: 18rpx;
+}
+
+.appWxUpload_main_detail {
+  font-size: 26rpx;
+  font-weight: 400;
+  color: #1D2129;
+  line-height: 1.5;
+}
+
+.swiperImg {
+  width: 100%;
+  position: relative;
+  margin-top: 40rpx;
+}
+
+.swiper {
+  width: 100%;
+  height: 840rpx;
+}
+
+.swiper .item {
+  /* width: 654rpx;
+    height: 820rpx; */
+}
+
+.swiper .item img {
+  width: 100%;
+  height: 100%;
+}
+
+.dots {
+  /* position: absolute;
+    bottom: -28rpx; */
+  margin-top: 28rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.dots view {
+  width: 16rpx;
+  height: 16rpx;
+  margin: 0 6rpx;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.dots .active {
+  width: 16rpx;
+  background-color: #B8B8B8;
+}
+
+.bot_btn {
+  width: 100%;
+  height: 80rpx;
+  /* background: #FFFFFF linear-gradient(270deg, #FF7979 0%, #F32E2E 100%); */
+  background: linear-gradient(308deg, #FF7C44 0%, #FE0000 46%, #FF6E67 100%);
+  border-radius: 16rpx;
+  margin-top: 72rpx;
+  display: flex;
+  align-items: center;
+}
+
+/* .van-uploader{
+    width: 100%;
+} */
+
+.left_top_text {
+  /* width: 590rpx; */
+  text-align: center;
+  line-height: 80rpx;
+  /* height: 50rpx; */
+  font-size: 36rpx;
+  font-weight: 400;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+  width: calc(100vw - 84rpx);
+}

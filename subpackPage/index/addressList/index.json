@@ -1,0 +1,9 @@
+{
+    "usingComponents": {
+        "van-cell": "@vant/weapp/cell/index",
+        "van-cell-group": "@vant/weapp/cell-group/index",
+        "notdata":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText": "我的地址",
+    "navigationBarBackgroundColor": "#f5f5f5"
+}

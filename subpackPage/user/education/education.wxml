@@ -1,0 +1,102 @@
+<view class="box">
+  <view style="height: 100vh;overflow: auto;">
+    <view class="in_box">
+      <view class="item" bindtap="goOtherPage" data-type="schoolName" data-val="{{dataInfo.schoolName}}">
+        <view class="item_left">
+          <view class="item_left_top">
+            学校名称
+          </view>
+          <view class="item_left_bot">
+            <text wx:if="{{dataInfo.schoolName}}">{{dataInfo.schoolName}}</text>
+            <text wx:else class="grey">请输入学校</text>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item">
+        <view class="item_left" style="width: 100%;">
+          <view class="item_left_top">
+            学历
+          </view>
+          <view class="item_left_bot">
+            <view class="section">
+              <picker mode="multiSelector" value="{{multiIndex}}" range="{{multiArray}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange">
+                <view class="picker">
+                <!-- <text wx:if="{{ multiArray[1][dataInfo.fullTimeType]}}">{{ ','+ multiArray[1][dataInfo.fullTimeType]  }}</text> -->
+                  <!-- <view wx:if="{{dataInfo.background>=0}}">
+                  {{multiArray[0][dataInfo.background-1]}}<text wx:if="{{typeArray.length && dataInfo.fullTimeType >= 0}}">{{',' + typeArray[dataInfo.fullTimeType] }}</text>
+                  </view> -->
+                  <view wx:if="{{showBackground}}">{{showBackground}}</view>
+                  <text wx:else class="grey">请选择学历</text>
+                </view>
+              </picker>
+            </view>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="items">
+        <view class="item_left_top">
+          时间段
+        </view>
+        <view class="time_box">
+          <view class="time_left">
+            <pickerDate fields="month" selectDate="{{dataInfo.schoolStartTime}}" placeholder="请选择开始时间" bind:changeDate="changeStart" type="{{type}}"></pickerDate>
+          </view>
+          <view class="time_middle">-</view>
+          <view class="time_left">
+            <pickerDate fields="month" selectDate="{{dataInfo.schoolEndTime}}" placeholder="请选择毕业时间" bind:changeDate="changeEnd" type="{{type}}"></pickerDate>
+          </view>
+          <!-- <picker mode="multiSelector" data-type="start" bindchange="schoolChangePicker" bindcolumnchange="schoolPickerColumnChange" value="{{multiIndex1}}" range="{{multiArray1}}">
+            <view class="picker" wx:if="{{dataInfo.schoolStartTime && dataInfo.schoolEndTime}}">{{dataInfo.schoolStartTime}}-{{dataInfo.schoolEndTime}}</view>
+            <view style="width: 100%;" class="picker" wx:else>请选择</view>
+          </picker> -->
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goOtherPage" data-type="speciality" data-val="{{dataInfo.specialty}}">
+        <view class="item_left">
+          <view class="item_left_top">
+            专业
+          </view>
+          <view class="item_left_bot">
+            <text wx:if="{{dataInfo.specialty}}">{{dataInfo.specialty}}</text>
+            <text wx:else class="grey">请填写专业</text>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item" bindtap="goToPerformance">
+        <view class="item_left">
+          <view class="item_left_top">
+            在校经历
+          </view>
+          <view class="item_left_bot">
+            <view class="item_left_bot">
+              <view class="contnew" wx:if="{{dataInfo.schoolExperience}}">{{dataInfo.schoolExperience}}</view>
+              <view wx:else class="grey">请填写在校经历</view>
+            </view>
+          </view>
+        </view>
+        <view class="item_right">
+          <van-icon name="arrow" color="#999999" />
+        </view>
+      </view>
+      <view style="height: 180rpx;"></view>
+    </view>
+    <view wx:if="{{!isEdit}}" class="submit_btn" bindtap="subBtnHandel">保存</view>
+    <view wx:if="{{isEdit}}" class="editBtn">
+      <view class="delete_btn" bindtap="deletaEducation">删除</view>
+      <view class="submit_btn1" bindtap="subBtnHandel">保存</view>
+    </view>
+  </view>
+</view>

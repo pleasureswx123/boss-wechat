@@ -1,0 +1,78 @@
+<!--components/skeletonList/skeletonList.wxml-->
+<!-- 骨架屏组件 -->
+<view class="skeletonBox">
+  <!-- 至臻版骨架屏组件 -->
+  <view class="box1" wx:if="{{type == 1}}">
+    <block wx:for="{{skeletonList}}" wx:key="index">
+      <view class="item {{button ? 'classicsItem' : ''}}">
+        <view class="skeleton-title">
+          <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;">
+            <view class="imitateSkeleton_content">
+              <view class="row" style="height: 21px;"></view>
+            </view>
+          </view>
+          <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+            <view class="imitateSkeleton_content">
+              <view class="row" style="height: 18px;"></view>
+            </view>
+          </view>
+        </view>
+        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 65%;">
+          <view class="imitateSkeleton_content" style="margin-top: 40rpx;">
+            <view class="row"></view>
+          </view>
+        </view>
+        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 65%;">
+          <view class="imitateSkeleton_content" style="margin-top: 24rpx;">
+            <view class="row"></view>
+          </view>
+        </view>
+
+        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-top: 8px;">
+          <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+          <view class="imitateSkeleton_content">
+            <view class="row"></view>
+          </view>
+        </view>
+        <!-- <van-skeleton row="1" />
+      <van-skeleton row="1" />
+      <van-skeleton title row="0" title-width="60%"/> -->
+      </view>
+    </block>
+  </view>
+
+  <!-- 经典版骨架屏组件 -->
+  <view class="box2" wx:if="{{type == 2}}">
+    <view class="item">
+      <view class="skeleton-title">
+        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 55%;">
+          <view class="imitateSkeleton_content">
+            <view class="row" style="height: 21px;"></view>
+          </view>
+        </view>
+        <view class="imitateSkeleton imitateSkeleton-animate" style="width: 20%;">
+          <view class="imitateSkeleton_content">
+            <view class="row" style="height: 18px;"></view>
+          </view>
+        </view>
+      </view>
+      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 65%;">
+        <view class="imitateSkeleton_content" style="margin-top: 40rpx;">
+          <view class="row"></view>
+        </view>
+      </view>
+      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 65%;">
+        <view class="imitateSkeleton_content" style="margin-top: 24rpx;">
+          <view class="row"></view>
+        </view>
+      </view>
+
+      <view class="imitateSkeleton imitateSkeleton-animate" style="width: 100%;padding-top: 8px;">
+        <view style="width: 24px;height: 24px;" class="imitateSkeleton_avatar"></view>
+        <view class="imitateSkeleton_content">
+          <view class="row"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

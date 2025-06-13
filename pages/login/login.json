@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "component-tab": "/components/tab/tab"
+    },
+    "navigationStyle": "custom"
+  }

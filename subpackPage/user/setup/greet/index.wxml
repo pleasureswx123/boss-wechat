@@ -1,0 +1,80 @@
+<!--subpackPage/user/setup/greet/index.wxml-->
+<!-- <view class="head">当前打招呼语</view> -->
+
+<view class="greet">
+    <text wx:if="{{checked}}">{{contentText}}</text>
+    <text wx:else>打招呼语状态未开启</text>
+    <van-switch custom-class="custom-class" inactive-color="#D9D9D9" node-class="node-class" checked="{{ checked }}" size="40rpx" active-color="#FE0201" bind:change="chenge" />
+</view>
+<view class="line"></view>
+<!-- 未打开打招呼语 -->
+<view class="zhCont" wx:if="{{!checked}}">
+  <view class="headTit">
+    <view class="name">周先生</view>
+    <view class="post">知城优聘·招聘者</view>
+  </view>
+   <image src="{{imageUrl + '/my/setGreet.png'}}" style="width: 620rpx;height: 382rpx;margin-left: 35rpx;"></image>
+</view>
+<view class="head" wx:if="{{checked}}">
+  <view class="{{active == 0 ? 'active' : ''}}" data-index="0" bindtap="change">
+    <text>平台推荐语</text>
+  </view>
+  <view class="{{active == 1 ? 'active' : ''}}" data-index="1" bindtap="change">
+    <text>自定义打招呼语</text>
+  </view>
+</view>
+<scroll-view scroll-y="true" style="height: calc(100vh - 150rpx - 248rpx); padding: 0rpx 48rpx; box-sizing: border-box;" wx:if="{{checked}}">
+    <view class="list">
+        <van-radio-group wx:if="{{list.length > 0}}" value="{{ greeting }}" bind:change="switchGreen">
+            <van-radio custom-class="item" label-class="text" wx:for="{{list}}" checked-color="#FE0201" wx:key="index" name="{{item.id}}">
+                <view class="itemText">
+                    <text>{{item.content}}</text>
+                    <view class="itemTextIcon" catchtap="()=>{}" wx:if="{{active == 1}}">
+                        <image class="deleteIcon" catchtap="deleteFn" data-id="{{item.id}}" src="{{imageUrl}}/newImg/senior_delete.png" mode="" />
+                        <image class="editIcon" catchtap="editFn" data-id="{{item.id}}" src="{{imageUrl}}/newImg/senior_edit.png" mode="" />
+                    </view>
+                </view>
+            </van-radio>
+        </van-radio-group>
+        <nodata wx:if="{{list.length == 0}}"></nodata>
+        <!-- <view class="item" wx:for="{{list}}" wx:if="{{list.length > 0}}" wx:key="index" data-greet="{{item.id}}" bindtap="switchGreen"> -->
+        <!-- <view class="selected">
+                <image wx:if="{{item.id == greeting}}" src="{{imageUrl}}/red_gou.png" mode="" />
+            </view> -->
+        <!-- <text>{{item.content}}</text> -->
+        <!-- <image wx:if="{{item.id == greeting}}" src="{{imageUrl}}/red_gou.png" mode="" /> -->
+        <!-- </view> -->
+    </view>
+</scroll-view>
+
+<!-- 底部重置和确定按钮 -->
+<view class="popup-button">
+    <!-- <view wx:if="{{!checked}}">
+      <view class="button_flex">
+          <view class="comfirm" bindtap="keepHandelTap">保存设置</view>
+      </view>
+    </view> -->
+    <view wx:if="{{checked}}">
+      <view class="button_flex" wx:if="{{active}}">
+          <view class="custom" bindtap="gotoCustomkeepHandel" wx:if="{{active == 1}}">+自定义</view>
+          <view class="comfirm" bindtap="keepHandelTap">保存并使用</view>
+      </view>
+
+      <view class="button_flex" wx:else>
+          <view class="comfirm" bindtap="keepHandelTap">保存并使用</view>
+      </view>
+    </view>
+</view>
+<view class="" style="height: 172rpx;"></view>
+<!-- 删除弹窗 -->
+<van-popup show="{{ popShow }}" round z-index="200" >
+    <view class="pop_box">
+        <view class="pop_box_middle">
+            确定删除当前打招呼语吗?
+        </view>
+        <view class="pop_box_bot">
+            <view class="pop_box_bot_left" bindtap="cloneShow">取消</view>
+            <view class="pop_box_bot_right" data-type="chatNotify"  bindtap="identifyHandle">确定</view>
+        </view>
+    </view>
+</van-popup>

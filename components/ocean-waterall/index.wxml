@@ -1,0 +1,13 @@
+<view class="container flex justify-between align-start">
+  <block wx:for="{{column}}" wx:key="index">
+    <view id="cont_{{index + 1}}" class="cont-box flex flex-column" data-index="{{index}}">
+      <block wx:for="{{flowData['column_' + (index + 1)]}}" wx:key="j">
+        <view class="item-box">
+          <!-- 插槽内容需要根据实际需求手动处理 -->
+          <!-- 这里假设通过自定义组件或模板来实现slot的功能 -->
+          <slot name="component" data-info="{{item}}" data-index="{{item.index}}"></slot>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>

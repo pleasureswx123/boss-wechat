@@ -1,0 +1,23 @@
+{
+  "name": "youpin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.110.210:3000/xiaoxiao/boss-wechat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vant/weapp": "^1.10.19",
+    "crypto-js": "^4.1.1",
+    "lottie-miniprogram": "^1.0.12",
+    "miniprogram-sm-crypto": "^0.3.13",
+    "qrcode": "^1.5.3"
+  }
+}

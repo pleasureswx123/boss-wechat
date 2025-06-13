@@ -1,0 +1,11 @@
+{
+    "usingComponents": {
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-sticky": "@vant/weapp/sticky/index",
+        "component-info": "/components/infomationList/infomationList",
+        "noData":"/components/nodata/nodata"
+    },
+    "navigationBarTitleText": "职位收藏",
+    "navigationBarBackgroundColor": "#F5F5F5"
+}

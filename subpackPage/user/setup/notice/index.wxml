@@ -1,0 +1,88 @@
+<!--subpackPage/user/setup/notice/index.wxml-->
+<view class="head">免打扰设置</view>
+<view class="item">
+  <view class="mg48" style="height: {{checked4 ? 'auto' : '160rpx'}};">
+    <view class="top">
+      <view>消息免打扰</view>
+      <text>开启后，在指定时间内将不再接收消息推送</text>
+    </view>
+    <van-switch inactive-color="#D9D9D9" checked="{{ checked4 }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="allowMessageTimeFlag" bind:change="chatInfoChange" />
+  </view>
+  <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}" range-key="name">
+  <view class="picker-time" wx:if="{{checked4}}">
+    <view class="top">
+      <view>免打扰时间段</view>
+    </view>
+    <view class="font1"><text class="mr24">{{multiArray[0][multiIndex[0]].name}}~{{multiArray[1][multiIndex[1]].name}}</text>
+      <van-icon name="arrow" color="#999" size="30rpx" />
+    </view>
+  </view>
+</picker>
+</view>
+<view class="head">APP消息推送聊天消息推送</view>
+<view class="item">
+  <view class="mg48">
+    <view class="top">
+      <view>接收聊天通知</view>
+      <text>关闭后将不再向你推送聊天消息通知</text>
+    </view>
+    <van-switch inactive-color="#D9D9D9" checked="{{ checked }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="chatNotify" bind:change="Chenge" />
+  </view>
+</view>
+<!-- <view class="head">开启消息提醒</view>
+<view class="item">
+  <view class="mg48">
+    <view class="top">
+        <view>开启消息提醒</view>
+        <text>可在微信中及时收到招聘者回复</text>
+    </view>
+    <van-switch inactive-color="#D9D9D9" checked="{{ checked3 }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="wechat" bind:change="goOpen" />
+  </view>
+</view> -->
+<!-- bind:tap="gotoDetail" -->
+<view class="head">职位推荐</view>
+<view class="item" >
+  <view class="mg48">
+    <view class="top">
+      <view>向我推荐职位</view>
+      <text>关闭后将不再向你推送相关职位通知</text>
+    </view>
+    <van-switch inactive-color="#D9D9D9" checked="{{ checked2 }}" size="40rpx" node-class="node-class" active-color="#FE0201" data-type="recommendPosition" bind:change="Chenge" />
+    <!-- <van-icon name="arrow" custom-class="icon-class" color="#999" size="38rpx"/> -->
+  </view>
+</view>
+
+<!-- <view class="item" bind:tap="goAccredit">
+    <view class="top">
+        <view>电话助手授权</view>
+        <text>对您有意向的HR，可通过虚拟电话联系您</text>
+    </view>
+    <view style="margin-top: 26rpx;"><van-icon name="arrow" color="#999" size="30rpx"/></view>
+</view> -->
+
+
+
+<!-- 弹窗优化 -->
+<van-popup show="{{ checkedShow }}" round z-index="200" closeable custom-style="height: 590rpx" root-portal="{{true}}" lock-scroll round position="bottom" bind:close="cloneShow">
+  <view class="circulate_popup">
+    <view class="circulate_popup-head">
+      <view class="title" wx:if="{{showTextType == 'chatNotify'}}">接收聊天通知</view>
+      <view class="title" wx:if="{{showTextType == 'recommendPosition'}}">向我推荐职位</view>
+      <view class="title" wx:if="{{showTextType == 'allowMessageTimeFlag'}}">消息免打扰</view>
+      <view class="imgBox">
+        <image src="{{baseImageUrl}}/newImg/wgtip.png" mode="" />
+      </view>
+    </view>
+    <view class="circulate_popup-content">
+      <view class="back">
+        <view class="text" wx:if="{{showTextType == 'chatNotify'}}">关闭后将不再向你推送聊天消息通知</view>
+        <view class="text" wx:if="{{showTextType == 'recommendPosition'}}">关闭后将不再向你推送相关职位通知</view>
+        <view class="text" wx:if="{{showTextType == 'allowMessageTimeFlag'}}">开启后，在指定时间内将不再接收消息推送</view>
+      </view>
+    </view>
+    <view class="circulate_popup-button">
+      <view class="cancalButton button" bind:tap="cloneShow">取消</view>
+      <view class="confirmButton button" bind:tap="identifyHandle">确定</view>
+    </view>
+  </view>
+</van-popup>

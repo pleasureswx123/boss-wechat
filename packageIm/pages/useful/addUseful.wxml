@@ -1,0 +1,13 @@
+<!-- 新建常用语 -->
+<view class="box">
+    <scroll-view style="height: calc(100vh - 100px)">
+        <view class="textarea">
+            <textarea value="{{useful}}" placeholder="输入您的常用语回复，请不要填写 QQ、微信等联系方式或广告信息，否则系统将封禁您的账号..." maxlength="300" bindinput="changeText"/>
+            <view class="num">
+                {{useful.length}}/300
+            </view>
+        </view>
+        <view class="submit_btn" wx:if="{{ useful!== ''}}" bindtap="save">保存</view>
+        <view class="default_btn" wx:else>保存</view>
+    </scroll-view>
+</view>

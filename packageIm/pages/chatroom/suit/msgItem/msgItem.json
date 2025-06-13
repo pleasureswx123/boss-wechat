@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "showCustom": "../showCustom/showCustom",
+        "van-image": "@vant/weapp/image/index",
+        "audio-msg": "type/audio/audio"
+    }
+}

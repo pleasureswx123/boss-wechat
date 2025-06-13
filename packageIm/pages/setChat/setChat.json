@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+      "modelPopup": "/components/modelPopup/modelPopup"
+    },
+    "navigationBarTitleText": "聊天设置",
+    "navigationBarBackgroundColor": "#ffffff"
+}

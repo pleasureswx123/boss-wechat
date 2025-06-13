@@ -1,0 +1,40 @@
+<view class="box">
+    <scroll-view scroll-y="true" style="height: 100%;">
+        <view class="in_box">
+            <view class="title" wx:if="{{type=='jineng'}}">拥有技能</view>
+            <view class="title" wx:else>期望行业</view>
+            <view class="stitle">请选择行业，最多 {{num || 3}} 个</view>
+            <view class="item">
+                <scroll-view class="content" style="height: calc(100vh - 220px - 10rpx);" id="scrollMenu" scroll-y="true" scroll-into-view="{{tabIndex}}" scroll-with-animation="true">
+                    <view class="item_box" id="scroll-{{ index }}" wx:for="{{datalist}}" wx:key="index">
+                        <view class="item_top" bindtap="openBox" data-index="{{index}}" data-item="{{item}}">
+                            <view class="item_top_left">{{item.name}}</view>
+                            <view class="item_top_right">
+                                <view class="itemNum" wx:if="{{item.num>0}}">{{item.num}}</view>
+                                <van-icon name="arrow-up" wx:if="{{ item.selected || item.num>0}}" color="#999999" />
+                                <van-icon wx:else name="arrow-down" color="#999999" />
+                            </view>
+                        </view>
+
+                        <view class="item_tags" wx:if="{{item.selected || item.num>0}}">
+                            <view id="scroll-{{index}}" class="tags {{sitem.selected ? 'select_tags' : ''}}" wx:for="{{item.subList}}" wx:key="index" wx:for-item="sitem" wx:for-index="sindex" bindtap="selectTags" data-sindex="{{sindex}}" data-index="{{index}}" data-sitem="{{sitem}}">{{sitem.name}}</view>
+                        </view>
+                    </view>
+                </scroll-view>
+
+            </view>
+            <view class="bot_btn">
+                <scroll-view scroll-x="true" style="white-space:nowrap;padding:15px 0 0 15rpx;width: calc(100% - 30rpx);height: 90rpx;font-size:14px">
+                    已选:<view wx:for="{{selectTags}}" wx:key="index" bindtap="clearSingle" data-item="{{item}}" class="selView">{{item.name}}
+                        <image class="hy_close" src="{{imageUrl}}/hy_close.png" mode="" />
+                    </view>
+                </scroll-view>
+                <view class="btnsBox">
+                    <view class="qcbtn" bindtap="clearTab">清除</view>
+                    <view class="btns greyBtn" wx:if="{{selectTags.length==0}}">确定</view>
+                    <view class="btns" bindtap="goBack" wx:else>确定</view>
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+</view>

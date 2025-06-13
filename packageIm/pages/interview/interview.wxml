@@ -1,0 +1,260 @@
+<!-- 面试状态 -->
+<view class="box column">
+  <view class="top_bg">
+    <image src="{{imImages}}/yp/interview.png" mode="aspectFill" />
+  </view>
+  <view class="contain" style="flex: 1;height: 100%;">
+    <view class="backIcon" bindtap="goBack" style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+      <van-icon name="arrow-left" color="white" size="20px" />
+    </view>
+    <view class="title">
+      <view class="time">
+        <view wx:if="{{interviewStatus == 0}}" class="state">未邀请面试</view>
+        <view wx:if="{{interviewStatus == 1}}" class="state">面试待接受</view>
+        <view wx:if="{{interviewStatus == 2}}" class="state">面试超时未接受</view>
+        <view wx:if="{{interviewStatus == 3}}" class="state">面试已拒绝</view>
+        <view wx:if="{{interviewStatus == 4 && signInType==1}}" class="state">
+          面试已签到
+        </view>
+        <view wx:if="{{interviewStatus == 4 && signInType!=1}}" class="state">
+          <text wx:if="{{interviewTime=='0时0分'}}">即将</text><text wx:else>{{ interviewTime }}</text>面试
+        </view>
+        <view wx:if="{{interviewStatus == 5}}" class="state">面试已取消</view>
+        <view wx:if="{{interviewStatus == 6}}" class="state">面试待反馈</view>
+        <view wx:if="{{interviewStatus == 7}}" class="state">面试已完成</view>
+      </view>
+      <view class="desp">接受面试邀请后，会自动交换电话和附件简历</view>
+    </view>
+    <view class="redMoney" wx:if="{{((interviewRecordResult.redEnvelopeCount && interviewRecordResult.redEnvelopeType) || activitySubsidy==1) && showTip}}" bind:tap="closeTip">
+      <!-- <image class="hongICon" src="{{baseImgUrl + '/index_img/hongbao.png'}}"></image> -->
+      <image class="hongICon" src="https://imgcdn.guochuanyoupin.com/resource/wechat/imimages/yp/tip_redPacket.png" />
+      <swiper layout-type="transformer" autoplay vertical="true" transformer-type="accordion" class="swiper" interval="5000" circular>
+        <swiper-item class="swiper_item" wx:if="{{ interviewRecordResult.redEnvelopeCount && interviewRecordResult.redEnvelopeType }}">
+          <view><text>面试签到后，将获得{{interviewRecordResult.redEnvelopeCount}}元红包!</text></view>
+        </swiper-item>
+        <swiper-item class="swiper_item" wx:if="{{activitySubsidy==1}}">
+          <view><text>面试签到后，审核无误可获得平台{{subsidyMoney}}元路费补贴!</text></view>
+        </swiper-item>
+      </swiper>
+      <van-icon name="cross" size="12px" color="#FE0201" />
+    </view>
+    <view style="flex: 1;overflow: auto;">
+      <scroll-view scroll-y class="{{interviewStatus == 1 ? 'height192' : ''}}">
+        <view class="info">
+          <view class="infoItem1">
+            <image src="{{msInfo.recruiterInfoResult.companyLogo}}" mode="aspectFill" wx:if="{{msInfo.recruiterInfoResult.companyLogo}}"></image>
+            <image src="{{baseImgUrl+'/newImg/companyHead.svg'}}" wx:else></image>
+            <view class="company">
+              <view class="t1">{{msInfo.recruiterInfoResult.companyName}}</view>
+              <view class="t2" style="color: #666;">{{interviewRecordResult.contactName}}</view>
+            </view>
+          </view>
+          <view class="infoItem2">
+            <view class="cellCont">
+              <view class="t1">时间</view>
+              <view class="t2">{{interviewTimeFormat }}</view>
+            </view>
+            <view class="cellCont">
+              <view class="t1">职位</view>
+              <view class="t2">{{interviewRecordResult.positionName}}</view>
+            </view>
+            <view class="cellCont">
+              <view class="t1">联系人</view>
+              <view class="t2" catch:tap="makeCall" data-contact="{{ interviewRecordResult.contactPhone }}">{{interviewRecordResult.contactName}} <text style="color: #5f9cf8;" wx:if="{{interviewStatus != 1}}">{{interviewRecordResult.contactPhone}}</text> </view>
+            </view>
+            <!-- <view class="cellCont" wx:if="{{interviewRecordResult.redEnvelopeType}}">
+                      <view class="t1">签到红包</view>
+                      <view class="t2">￥{{interviewRecordResult.redEnvelopeCount}}<text class="red">(成功签到后可提现)</text></view>
+                  </view> -->
+            <view class="cellCont">
+              <view class="t1">地址</view>
+              <view class="t2">{{interviewRecordResult.workPlaceName}}{{interviewRecordResult.workPlaceAddress}}</view>
+            </view>
+          </view>
+        </view>
+        <block wx:if="{{msInfo.complaintNum>0}}">
+          <!-- <view class="infoLine" wx:if="{{msInfo.complaintNum<=0}}">
+          对方近期无不良面试记录
+        </view> -->
+          <view class="infoLine">
+            警告：TA 近三个月有 {{msInfo.complaintNum}} 条面试爽约
+          </view>
+        </block>
+
+        <view class="info schedule" wx:if="{{interviewStatus==4 || interviewStatus==6 || interviewStatus==7}}">
+          <view class="stitle">
+            <view class="sname">面试进度</view>
+            <view wx:if="{{signInType == 1}}" class="msbtn msSign">已签到</view>
+            <view wx:if="{{interviewStatus == 4 && !signInType}}" class="msbtn" bindtap="sendMsg" data-type="2">
+              面试签到
+            </view>
+            <!-- <view wx:if="{{interviewStatus == 6  && signInType == 2}}" class="msbtn msSign">签到超时</view> -->
+          </view>
+          <van-steps steps="{{ steps }}" active="{{ active }}" direction="vertical" active-color="#FE0201" inactive-color="#1D2129" desc-class="descClass" bind:click-step="goTots" custom-class="stepsCustom" />
+          <!-- !resultType -->
+          <view class="getResult grey" wx:if="{{active != 2 && resultType == null}}">获取面试结果</view>
+          <view class="getResult" bindtap="sendMsg" data-type="3" wx:if="{{active == 2 && askResult == 0 && resultType==null}}">获取面试结果</view>
+          <view class="getResult" wx:if="{{active == 2 && resultType == 0}}">正在考虑中</view>
+          <view class="getResult" wx:if="{{active == 2 && askResult == 1 && resultType==null}}">正在询问结果</view>
+          <view class="getResultDesp" wx:if="{{active == 2 && askResult == 1 && resultType == null}}">已向招聘官发出询问面试的结果，收到反馈后我们将通知您，请您耐心等候...</view>
+          <view class="getResult" wx:if="{{active == 3 && resultType == 2}}">
+            面试未通过
+          </view>
+          <view class="getResult" wx:if="{{active == 3 && resultType == 1}}">
+            面试通过
+          </view>
+          <view class="getResult" wx:if="{{active == 3 && resultType == 0}}">
+            考虑中
+          </view>
+          <view class="shensu">
+            <view class="getResult" wx:if="{{active == 3 && resultType == 3}}">
+              未面试
+            </view>
+            <view class="getResult1" bind:tap="goSs" wx:if="{{active == 3 && resultType == 3 && appealStatus!=1 && signInConfirm!=1 && interviewRecordResult.redEnvelopeType}}">
+              申诉
+            </view>
+            <view class="getResult1" wx:if="{{appealStatus == 1 && interviewRecordResult.redEnvelopeType}}">
+              已申诉
+            </view>
+          </view>
+        </view>
+        <view class="interviewCompany-warp">
+          <view class="interviewCompany-inner">
+            <view class="interviewCompany-title">
+              <text class="title-left">面试记录</text>
+              <view class="title-right" bind:tap="openPropModel">
+                查看更多
+                <text> {{interviewRecordList.length}}条</text>
+                <van-icon name="arrow" style="margin-left: 18rpx;" />
+              </view>
+            </view>
+            <view class="interviewCompany-list">
+              <block wx:for="{{showInterviewRecordList}}" wx:key="index">
+                <view class="interviewCompany-item">
+                  <view class="item_left">
+                    <image src="{{item.avatar}}" mode="" />
+                  </view>
+                  <view class="item_middle">
+                    <view class="item_middle_top">{{item.comName}}</view>
+                    <view class="item_middle_bottom">{{item.title}} · {{item.salary}}</view>
+                  </view>
+                  <view class="item_right">
+                    <view class="item_right_top">
+                      <text wx:if="{{item.interviewStatus == 0}}">未邀请面试</text>
+                      <text wx:if="{{item.interviewStatus == 1}}">面试待接受</text>
+                      <text wx:if="{{item.interviewStatus == 2}}">超时未接受</text>
+                      <text wx:if="{{item.interviewStatus == 3}}">面试已拒绝</text>
+                      <text wx:if="{{item.interviewStatus == 4}}">等待面试</text>
+                      <text wx:if="{{item.interviewStatus == 5}}">面试已取消</text>
+                      <text wx:if="{{item.interviewStatus == 6}}">面试时间到</text>
+                      <text wx:if="{{item.interviewStatus == 7}}">面试已完成</text>
+                    </view>
+                    <view class="item_right_bottom">{{item.interviewTimeHM}}</view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+
+        <block wx:if="{{interviewStatus==1}}">
+          <view class="bottomBtns">
+            <view class="refuse" bindtap="refuse">拒绝面试</view>
+            <view class="accept" bindtap="sendMsg" data-type="1">接受面试</view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+  <van-dialog confirm-button-color='#037AFF' id="van-dialog" />
+</view>
+<!-- 温馨提示上传凭证 -->
+<view class="friendBg" wx:if="{{showYq && interviewRecordResult.redEnvelopeType && signInType==1}}" bind:tap="closeShowYq">
+  <image src="{{baseImgUrl+'/user/sign1_bg2.png'}}" mode="widthFix" style="position: relative;"></image>
+  <image src="{{baseImgUrl+'/user/sign_star1.png'}}" class="ss1"></image>
+  <image src="{{baseImgUrl+'/user/sign_star.png'}}" class="ss2"></image>
+  <image src="{{baseImgUrl+'/user/sign_star.png'}}" class="ss3"></image>
+  <image src="{{baseImgUrl+'/user/sign_star.png'}}" class="ss4"></image>
+  <image src="{{baseImgUrl+'/user/sign_star.png'}}" class="ss5"></image>
+  <image src="{{baseImgUrl+'/user/sign_star1.png'}}" class="ss6"></image>
+  <!-- <image src="{{baseImgUrl+'/user/sign1_btn.png'}}" style="position: absolute;width: 260rpx;height: 68rpx;z-index: 1000;top: 1000rpx;right: 100rpx;"></image> -->
+  <image src="{{baseImgUrl+'/user/sign1_close.png'}}" class="ss7"></image>
+</view>
+
+<!-- 申诉框 -->
+<van-popup show="{{ isShenSu }}" closeable round position="bottom" custom-style="height: 82%;border-radius: 48rpx;" bind:close="onClose">
+  <view class="circulate_popup-head"></view>
+  <view class="circulate_popup-body">
+    <view class="sstitle">我要申诉</view>
+    <view class="ssTime">
+      <view class="s1">面试时间</view>
+      <view class="s2">{{interviewInfo.interviewTime || ''}}</view>
+    </view>
+    <view class="ssdesp">
+      <view class="desp1"><text class="red">*</text>具体情况说明</view>
+      <view class="desp2">
+        <textarea value="{{despText}}" placeholder="说点什么…" maxlength="50" bindinput="changeText" style="height:178rpx;width:100%" placeholder-class="input-placeholder" bindinput="textareaInput" />
+        <view class="num">
+          {{despText.length}}/50
+        </view>
+      </view>
+    </view>
+    <view class="ssImg">
+      <view><text class="red">*</text>图片证明（最多3张）</view>
+      <view class="cont_img">
+        <view class="uploadImg" bindtap="uploadImage" wx:if="{{ImageArr.length < 3}}">
+          <image src="{{baseImgUrl}}/versions/add.png" class="add" />
+        </view>
+        <view class="img_item" wx:for="{{ImageArr}}" wx:key="index">
+          <image class="img1" src="{{item}}" mode="aspectFill" />
+          <view class="clone" data-index="{{index}}" bindtap="removeImage">x</view>
+        </view>
+      </view>
+    </view>
+    <view class="btns">
+      <view class="cancel" bind:tap="onClose">取消</view>
+      <view class="sure" bind:tap="appealSave" wx:if="{{ImageArr.length>0 && despText}}">申诉</view>
+      <view class="sure cancel" wx:else>申诉</view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 面试记录 -->
+<van-popup show="{{ showInterviewRecord }}" round custom-style="height: 840rpx;" bind:close="onCloseInterviewRecord">
+  <view class="interviewRecord-Prop">
+    <view class="interviewRecord-Prop_head">
+      <view class="interviewCompany-title">
+        <text class="title-left">面试记录</text>
+        <view class="title-right" bind:tap="openPropModel">
+          内容<text>{{interviewRecordList.length}}条</text>
+        </view>
+      </view>
+    </view>
+    <view class="interviewRecord-Prop_scroll">
+      <scroll-view class="interviewRecord-Prop_list" scroll-y="true">
+        <view class="interviewCompany-item" wx:for="{{interviewRecordList}}" wx:key="index">
+          <view class="item_left">
+            <image src="{{item.avatar}}" mode="" />
+          </view>
+          <view class="item_middle">
+            <view class="item_middle_top">{{item.comName}}</view>
+            <view class="item_middle_bottom">{{item.title}} · {{item.salary}}</view>
+          </view>
+          <view class="item_right">
+            <view class="item_right_top">
+              <text wx:if="{{item.interviewStatus == 0}}">未邀请面试</text>
+              <text wx:if="{{item.interviewStatus == 1}}">面试待接受</text>
+              <text wx:if="{{item.interviewStatus == 2}}">超时未接受</text>
+              <text wx:if="{{item.interviewStatus == 3}}">面试已拒绝</text>
+              <text wx:if="{{item.interviewStatus == 4}}">等待面试</text>
+              <text wx:if="{{item.interviewStatus == 5}}">面试已取消</text>
+              <text wx:if="{{item.interviewStatus == 6}}">面试时间到</text>
+              <text wx:if="{{item.interviewStatus == 7}}">面试已完成</text>
+            </view>
+            <view class="item_right_bottom">{{item.interviewTimeHM}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</van-popup>

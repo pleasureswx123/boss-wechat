@@ -1,0 +1,123 @@
+<!--subpackPage/member/equities/index.wxml-->
+<scroll-view scroll-y="true" class="member_equitiesBox">
+    <view class="member_equitiesBox_content">
+        <!-- 自定义导航栏 -->
+        <view class="backIcon " style="padding-top:{{statusBarHeight}}px;height:{{navBarHeight}}px">
+            <view class="van-nav-bar__left" style="padding-top:{{statusBarHeight}}px; height:{{navBarHeight}}px" bindtap="back">
+                <van-icon name="arrow-left" color="#000000" size="22px" />
+            </view>
+        </view>
+
+        <!-- 主体内容 -->
+        <view class="member_equities">
+
+            <view class="equitiesBox">
+                <image class="background" src="{{baseImageUrl + '/member/member_equitiesBox.png'}}" mode="" />
+                <!-- 头部 -->
+                <view class="equitiesBox_top">
+                    <view class="top_content" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+                        <view class="left">
+                          <image class="background" src="{{baseImageUrl + '/member/gmvip1.png'}}" mode="aspectFit" style="width: 658rpx;height: 316rpx;" />
+                            <!-- <text class="text1">超值专享大特权</text>
+                            <text class="text2">效率多倍提升</text> -->
+                        </view>
+                        <!-- <view class="right">
+                            <image src="{{baseImageUrl + '/member/member_titleIcon.png'}}" mode="" />
+                        </view> -->
+                    </view>
+
+
+                    <!-- 权益以及购买会员 -->
+                    <view class="equitiesBox_content">
+                        <view class="member_detail_box">
+                            <!-- 权益 -->
+                            <view class="member_equities">
+                                <!-- 权益1 -->
+                                <view class="equities1">
+                                  <image src="{{baseImageUrl + '/member/member_member_back11.png'}}" mode="" />
+                                  <view class="equitiesBox equities1Box">
+                                    <scroll-view scroll-x="true" style="white-space: nowrap;">
+                                        <view class="item identification prop{{index>2?2:index}}" wx:for="{{vipInfo}}" wx:key="index">
+                                            <view class="identification_border prop{{index>2?2:index}}_border">
+                                                <text class="title">{{item.name || '自定义'}}</text>
+                                                <view class="equitiesText">
+                                                    <view class="equitiesline" style="background-color: #FF6264;"></view>
+                                                    <text wx:if="{{item.num=='免费'}}">{{item.num}}</text>
+                                                    <text wx:else>{{item.num}}次</text>
+                                                    <view class="equitiesline" style="background-color: #FC5B08;"></view>
+                                                </view>
+                                                <view class="equitiesPrice">{{item.price}}</view>
+                                                <view class="equitiesUnit">单买/元</view>
+                                            </view>
+                                        </view>
+                                      </scroll-view>
+                                    </view>
+                                </view>
+                                <!-- 权益2 -->
+                                <view class="equities2">
+                                    <image src="{{baseImageUrl + '/member/member_equities_back.png'}}" mode="aspectFit" />
+                                    <view class="equities2_back">
+                                        <view class="equityOne equity">
+                                            <image src="{{baseImageUrl + '/member/member_equities1.png'}}" mode="aspectFit" />
+                                            <image class="img" src="{{baseImageUrl + '/member/member_img.png'}}" mode="" />
+                                        </view>
+                                        <view class="equityTwo equity">
+                                            <image src="{{baseImageUrl + '/member/member_equities2.png'}}" mode="aspectFit" />
+                                        </view>
+                                        <view class="equityThree equity">
+                                            <image src="{{baseImageUrl + '/member/member_equities3.png'}}" mode="aspectFit" />
+                                        </view>
+                                    </view>
+                                </view>
+                                <view class="equities3" wx:if="{{vipObj.donations.length>0}}">
+                                  <image src="{{baseImageUrl + '/member/member_zs1.png'}}" mode="aspectFit" class="imgBg"/>
+                                  <view class="contBg">
+                                    <view class="sCont">
+                                      <view class="sitem" wx:for="{{vipObj.donations}}">
+                                        <image src="{{baseImageUrl + '/member/member_zs2.png'}}" mode="aspectFit" wx:if="{{item.donationType==1 && item.donationContent==1}}"/>
+                                        <image src="{{baseImageUrl + '/member/member_zs3.png'}}" mode="aspectFit" wx:if="{{item.donationType==1 && item.donationContent==5}}"/>
+                                        <image src="{{baseImageUrl + '/member/member_zs4.png'}}" mode="aspectFit" wx:if="{{item.donationType==2}}"/>
+                                        <text style="margin-top: 6rpx;">{{item.name}}*<text style="color: #FC5B08;">{{item.num}}</text></text>
+                                      </view>
+                                    </view>
+                                  </view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view style="height:150px"></view>
+                      <!-- 底部支付 -->
+                      <view class="scrollList" style="position: fixed;bottom: 200rpx;left:0;">
+                            <view class="scrollListContent">
+                                <!-- 背景色 -->
+                                <view class="swiperBack"></view>
+                                <swiper class="swiperWarp" vertical="{{true}}" autoplay="{{true}}" circular="{{true}}" interval="2000" display-multiple-items='1'>
+                                    <block wx:for="{{detail}}" wx:key="index">
+                                        <swiper-item>
+                                            <view class="swiperItem">
+                                                <image src="{{item.avatar}}" mode="aspectFill"/>
+                                                <text>{{item.name}}{{item.label}}</text>
+                                            </view>
+                                        </swiper-item>
+                                    </block>
+                                </swiper>
+                            </view>
+                        </view>
+                      <view class="member_fliter">
+                          <view class="member_openBtn" bindtap="gotoPay">
+                              <text class="buyPrice">限时 ¥<text>{{vipObj.nowPrice}}/</text>{{unitArr[vipObj.unit-1].name || '月'}}</text>
+                              <view class="cossView">
+                                <image src="{{baseImageUrl + '/member/member_payBuy.png'}}" mode="" />
+                                <view class="light"></view>
+                              </view>
+                              <!-- <view class="lightBg"></view> -->
+                              
+                              <text class="payBtn">立即开通</text>
+                          </view>
+                          <view class="text">*最终解释权归知城优聘所有</view>
+                      </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</scroll-view>

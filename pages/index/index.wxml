@@ -1,0 +1,281 @@
+<!-- 首页 -->
+<view id="index" class="gc_index">
+  <view class="contain">
+    <view class="gc_index_head">
+      <!-- 导航栏 -->
+      <view class="nav-bar" style="height: {{capsuleData.navBarHeight}}px;">
+        <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuWidth}}px - 40rpx - 14rpx - 20rpx - 10rpx);">
+          <view class="search-left" bindtap="gotoCity" wx:if="{{token}}">
+            <view class="location">{{locationAddress}}</view>
+            <van-icon name="arrow-down" color="#fff" size="13px" />
+          </view>
+          <view class="right" bindtap="gotoSearch">
+            <view class="input">
+              请输入职位/公司
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 占位，高度与顶部栏一样 -->
+      <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+      <!-- 首次登录 -->
+      <view style="position: relative;z-index: 10;" class="first" wx:if="{{!token}}" bindtap="addPost">
+        <view class="first_left">
+          <view>职位定制</view>
+          <view>填写准确职位信息，可更快获得面试机会</view>
+        </view>
+        <view class="first_right">添加意向</view>
+      </view>
+      <!-- 岗位和nav列表 -->
+      <view class="postandTab" wx:else>
+        <!-- 岗位 -->
+        <view class="post">
+          <view class="post_left">
+            <scroll-view class="scroll-view" scroll-x="true" scroll-y="false" style="flex:1;height: 70rpx;white-space: nowrap;display: inline-flex;overflow-x: hidden;width: calc(100vw - 150rpx);">
+              <block wx:for="{{postList}}" wx:key="index">
+                <view class="post_item" bindtap="post_TabNav" id="{{index}}" data-job="{{item.postName}}" data-item="{{item}}">
+                  <span class="{{post_index == index ? 'no' : ''}}">{{item.postName}}</span>
+                  <text class="addressLabel" wx:if="{{noSame && item.baseCityName}}">{{item.baseCityName}}</text>
+                </view>
+              </block>
+            </scroll-view>
+          </view>
+          <view class="addPost" bindtap="addPost">
+            <van-transition name="fade">
+              <van-icon name="plus" color="#fff" size="18px" custom-style="font-weight:bold" />
+            </van-transition>
+          </view>
+        </view>
+        <!-- 全部/附近/最新 -->
+        <view class="tabNav">
+          <view class="tabNav_left">
+            <view class="text {{currentTab.tab_name == '全部' ? 'searchNo' : ''}} " data-index="0" bindtap="searchTab" data-tab="全部">
+              <text>全部</text>
+            </view>
+            <view class="text {{currentTab.tab_name == '红包' ? 'searchNo' : ''}}" data-index="9" bindtap="searchTab" data-tab="红包">
+              <text>红包岗</text>
+            </view>
+            <view class="text {{currentTab.tab_name == '附近' ? 'searchNo' : ''}} " data-index="1" bindtap="searchTab" data-tab="附近">
+              <text>附近</text>
+              <view class="column arrow_sort">
+                <view class="column arraw_up">
+                  <view class="{{currentTab.tab_name === '附近' && currentTab.tab_val ? currentTab.tab_val === 'asc' ? 'arrawIcon' : 'arrawIcon_disabled' : 'arrawIcon_disabled'}}"></view>
+                </view>
+                <view class="column arraw_down">
+                  <view class="{{currentTab.tab_name === '附近' && currentTab.tab_val ? currentTab.tab_val === 'desc' ? 'arrawIcon' : 'arrawIcon_disabled' : 'arrawIcon_disabled'}}"></view>
+                </view>
+              </view>
+            </view>
+            <view class="text {{currentTab.tab_name == '最新' ? 'searchNo' : ''}}" data-index="2" bindtap="searchTab" data-tab="最新">
+              <text>最新</text>
+            </view>
+          </view>
+          <view class="screen" bindtap="shaixuan">筛选<span wx:if="{{sxNum>0}}">*{{sxNum}}</span>
+          </view>
+        </view>
+      </view>
+      <!-- 烟花1 -->
+      <!-- <image class="fireworks1" src="{{baseImageUrl}}/jinqiu/img_00.png" mode="aspectFill" /> -->
+      <!-- 烟花2 -->
+      <!-- <image class="fireworks2" src="{{baseImageUrl}}/jinqiu/img_00.png" mode="aspectFill" /> -->
+      <!-- 2025年新春lottie动画 -->
+      <!-- <canvas id="c0" type="2d" style="width: 100%; height: 280rpx;z-index: 1;"></canvas> -->
+    </view>
+    <!-- 骨架屏代替加载效果 -->
+    <view class="main" wx:if="{{showLoading}}">
+      <skeletonList type="1"></skeletonList>
+    </view>
+    <!-- 列表 -->
+    <view class="main" wx:if="{{!showLoading}}">
+      <!-- 登陆时 -->
+      <pull-refresh-view class="list-container" wx:if="{{dataList.length>0 && token}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish}}" pullText="下拉可以刷新" refresherType="custom" loadType="custom" bindonpulling="onPulling">
+        <!-- 自定义上拉样式  -->
+        <view slot="refresher" class="custom-pull-down">
+          <image src="{{baseImageUrl + '/loading1.gif'}}" wx:if="{{!isRefreshingText}}"></image>
+          <view class="loadingText" wx:if="{{isRefreshingText}}">推荐职位已更新</view>
+        </view>
+        <!-- 自定义下拉样式  -->
+        <view slot="loader" class="custom-loader-loading" wx:if="{{dataList.length>5 && !isFinish}}">
+          <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+          努力加载中~
+        </view>
+        <!-- dataList.length>5 -->
+        <view slot="loader" class="custom-loader" wx:if="{{isFinish && token & dataList.length>5}}">
+          没有更多数据了~
+        </view>
+        <component-info nearBy="{{nearBy}}" dataList="{{dataList}}" bind:showLogin="showLogin"></component-info>
+      </pull-refresh-view>
+      <!-- 未登陆时 -->
+      <pull-refresh-view class="list-container" wx:elif="{{dataList.length>0 && !token}}" bindonrefresh="onRefresh" refreshing="{{isRefreshing}}" bindloadmore="onLoadMore" nomore="{{isFinish}}" pullText="下拉可以刷新" refresherType="custom" loadType="custom" loadmoreText="加载中...">
+        <view slot="refresher" class="custom-pull-down">
+          <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+        </view>
+        <!-- 自定义下拉样式  -->
+        <view slot="loader" class="custom-loader-loading" wx:if="{{dataList.length>5 && !isFinish}}">
+          <image src="{{baseImageUrl + '/loading1.gif'}}"></image>
+          努力加载中~
+        </view>
+        <view slot="loader" class="custom-loader" wx:if="{{isFinish && dataList.length>5}}">
+          没有更多数据了~
+        </view>
+        <component-info nearBy="{{nearBy}}" dataList="{{dataList}}" bind:showLogin="showLogin"></component-info>
+      </pull-refresh-view>
+      <!-- 无数据时展示 -->
+      <view class="no_data" wx:else>
+        <view class="no_data_center">
+          <view class="no_data_img">
+            <image src="{{baseImageUrl}}/my/no_collect.png" mode="" />
+          </view>
+          <view class="no_data_text">暂无岗位推荐</view>
+        </view>
+      </view>
+    </view>
+    <!-- 底部导航 -->
+    <view class="index_footer" style="padding-bottom: {{globalBottom}}px;">
+      <component-tab num-prop="1" count="{{count}}" />
+    </view>
+  </view>
+  <!-- 引导立即登陆 -->
+  <view class="loginBtn" style="bottom: {{globalBottom+ 58}}px;" wx:if="{{!token}}">
+    <view class="logoImgs">
+      <image src="{{baseImageUrl}}/my/loginLogo.png" mode="" class="loginLogo" />登录知城优聘查看更多好职位
+    </view>
+    <view class="logoBtn" bind:tap="showLogin">立即登录</view>
+  </view>
+  <!-- 展示位置不同 -->
+  <!-- <view class="loginBtn" style="bottom: {{globalBottom+ 58}}px;" wx:if="{{isAddressModel}}">
+    <view class="logoImgs">
+      <image src="{{baseImageUrl}}/my/loginLogo.png" mode="" class="loginLogo" />当前位置不同
+    </view>
+    <view class="logoBtn" bind:tap="showLogin">立即登录</view>
+  </view> -->
+
+  <!-- 筛选 -->
+  <van-popup root-portal="{{true}}" lock-scroll round show="{{show}}" close-icon-position="top-left" position="bottom" bind:close="onClose" z-index="1001" custom-style="height: {{popupHeight}}px">
+    <screenCondition bind:screenEvent="screenEvent" show="{{show}}" bind:screenNum="screenNum" bind:onClose="onClose" height="{{popupHeight}}" jobType="{{jobType}}" isSave="{{false}}"></screenCondition>
+  </van-popup>
+  <!-- 未登录快速登录 -->
+  <weixinLogin_prop show="{{loginShow}}" bind:onClose="weixinOnClose"></weixinLogin_prop>
+  <!-- 登录之后选择版本 -->
+  <versions-prop show="{{isVersions}}" mustChoice="true"></versions-prop>
+  <!-- 会员即将过期 memberProp -->
+  <member-prop show="{{memberProp}}" bind:onClose="closeProp"></member-prop>
+  <!-- 收藏 -->
+  <collectGuide bind:closeCollectGuide="closeCollectGuide" collectGuideY="{{capsuleData.navBarHeight}}" isShow="{{collectGuide}}"></collectGuide>
+</view>
+<view class="guideBox" wx:if="{{guide.guideZzShow}}">
+  <view class="guideStep" wx:if="{{guide.guideStep1}}" bind:tap="goStep" data-step="2">
+    <image style="top:{{guide.top1-15}}px" src="{{baseImageUrl}}/my/ydzz1.png" mode="aspectFit" class="guideStep1" />
+  </view>
+  <view class="guideStep" wx:if="{{guide.guideStep2}}" bind:tap="goStep" data-step="3">
+    <image style="top:{{guide.top2-80}}px" src="{{baseImageUrl}}/my/ydzz2.png" mode="aspectFit" class="guideStep2" />
+  </view>
+  <view class="guideStep" wx:if="{{guide.guideStep3}}" bind:tap="goStep" data-step="1">
+    <image style="bottom:{{globalBottom}}px" src="{{baseImageUrl}}/my/ydzz3.png" mode="aspectFit" class="guideStep3" />
+  </view>
+</view>
+
+<!-- 活动弹窗 memberProp -->
+<view class="modal" wx:if="{{activityPopUpShow}}">
+  <view class="modal-overlay" bind:tap="closeActivityProp"></view>
+  <view class="modal-content" wx:if="{{showType == 1 || showType == 3}}">
+    <!-- 弹出层内容 -->
+    <view class="member_modelBox">
+      <image src="{{activityUrl}}" mode="widthFix" bind:tap="activityDetail" />
+    </view>
+  </view>
+
+  <canvas id="demoCanvas" bind:tap="activityDetail" wx:if="{{showType == 2}}" type="2d" style="width: 680rpx; height: 50%;"></canvas>
+
+
+  <view class="closeIcon" bind:tap="closeActivityProp" style="top: calc(75% + 40rpx);">
+    <image src="{{baseImageUrl+'/user/sign1_close.png'}}"></image>
+  </view>
+</view>
+
+
+<!-- 活动弹窗 金秋 -->
+<view class="modal" wx:if="{{activityPopUpShow_JQ}}">
+  <view class="modal-overlay" bind:tap="closeActivityProp"></view>
+  <view class="modal-content" style="width: 100vw; display: flex;justify-content: center; position: fixed;z-index: 1000;">
+    <!-- 弹出层内容 -->
+    <view class="member_modelBox activity_JQ">
+      <view class="content-wrapper">
+        <!-- 活动背景 -->
+        <image src="{{baseImageUrl}}/jinqiu/activity-model.png" mode="widthFix" />
+        <!-- 底部树叶 -->
+        <image class="footerLeaf" src="{{baseImageUrl}}/jinqiu/img7.png" alt="aspectFill" />
+        <!-- 背景光 -->
+        <image class="bgImg" src="{{baseImageUrl}}/jinqiu/img_6.png" mode="aspectFill" />
+        <!-- 标题区域动画 -->
+        <view class="titleBox">
+          <!-- 标题背景 -->
+          <image class="titileBgImg" src="{{baseImageUrl}}/jinqiu/img_2.png" mode="aspectFill" />
+          <!-- 标题图片 -->
+          <image class="titleTxtImg" src="{{baseImageUrl}}/jinqiu/img_1.png" mode="aspectFill" />
+          <!-- 标题左边 -->
+          <view class="titleBox-left">
+            <image class="left-img1" src="{{baseImageUrl}}/jinqiu/img_4.png" alt="aspectFill" />
+            <image class="left-img2" src="{{baseImageUrl}}/jinqiu/img_3.png" alt="aspectFill" />
+          </view>
+          <!-- 标题右边 -->
+          <view class="titleBox-right">
+            <image class="right-img1" src="{{baseImageUrl}}/jinqiu/img_4.png" alt="aspectFill" />
+            <image class="right-img2" src="{{baseImageUrl}}/jinqiu/img_3.png" alt="aspectFill" />
+          </view>
+        </view>
+        <!-- 活动奖励 -->
+        <view class="activityRewards">
+          <view wx:for="{{activityEquityList}}" wx:key="index" class="activityRewards-item prop-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq4.png);">
+            <view class="activityRewards-item_left">
+              <text class="num">{{item.times}}</text>
+              <text class="unit-txt">次</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">{{item.name}}</view>
+              <text class="dict-txt">{{item.describe || ''}}</text>
+            </view>
+          </view>
+          <view class="activityRewards-item Equity-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq3.png);">
+            <view class="activityRewards-item_left row">
+              <text class="num">无限</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">每日查看企业数量</view>
+              <text class="dict-txt">查看企业数量</text>
+            </view>
+          </view>
+          <view class="activityRewards-item Equity-color" style="background-image: url({{baseImageUrl}}/jinqiu/jq3.png);">
+            <view class="activityRewards-item_left row">
+              <text class="num">无限</text>
+            </view>
+            <view class="activityRewards-item_right column">
+              <view class="title">每日沟通数量</view>
+              <text class="dict-txt">无忧沟通企业HR</text>
+            </view>
+          </view>
+        </view>
+        <!-- 立即领取和活动规则 -->
+        <view class="activityFooter row column">
+          <view bind:tap="gotoActivityDetail" class="activityRule-txt">查看活动规则</view>
+          <image class="activityDraw-btn" bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/activityDraw-btn.png" mode="aspectFill" />
+          <image bind:tap="getDrawInterestsFn" src="{{baseImageUrl}}/jinqiu/activeHover.png" mode="aspectFit" class="activeHover_btn" />
+        </view>
+        <!-- 活动节省金额 -->
+        <view class="economize-box row column" style="background-image: url({{baseImageUrl}}/jinqiu/economize-icon.png);">
+          <!-- 金额 -->
+          <view class="economize-money row column">
+            <view class="row">
+              <text class="unit">¥</text>
+              <text class="money">{{saveMoney}}</text>
+            </view>
+            <text class="economize-money-txt">节省</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 雪花飘落 -->
+  <canvas bind:tap="closeActivityProp" id="demoCanvas_JQ" type="2d" style="width: 100vw; height:100vh;position: absolute;top:0px;left: 0;"></canvas>
+</view>

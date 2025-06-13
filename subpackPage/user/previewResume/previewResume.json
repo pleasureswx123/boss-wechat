@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+      "van-tab": "@vant/weapp/tab/index",
+      "van-tabs": "@vant/weapp/tabs/index"
+    },
+    "navigationBarTitleText":"简历预览",
+    "navigationBarBackgroundColor": "#fff"
+}

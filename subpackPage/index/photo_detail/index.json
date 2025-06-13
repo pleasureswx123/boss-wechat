@@ -1,0 +1,8 @@
+{
+    "usingComponents": {
+        "noData":"/components/nodata/nodata",
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index"
+    },
+    "navigationBarTitleText": "公司相册"
+}

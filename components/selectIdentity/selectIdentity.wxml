@@ -1,0 +1,40 @@
+<!--components/selectIdentity/selectIdentity.wxml-->
+<view class="selectIdentityBox">
+  <!-- 头部区域 -->
+  <view class="selectIdentityBox-head">
+    <!-- 自定义顶部栏 -->
+    <!-- height:{{capsuleData.navBarHeight}}px; -->
+    <view class="nav-bar" style="height:{{capsuleData.navBarHeight}}px;">
+      <view class="search" style="height:{{capsuleData.menuHeight}}px; min-height:{{capsuleData.menuHeight}}px; line-height:{{capsuleData.menuHeight}}px; left:{{capsuleData.menuRight}}px; top:{{capsuleData.menuTop}}px; width: calc(100% - {{capsuleData.menuRight * 2}}px);">
+        <van-icon name="arrow-left" color="#000" size="20px" bind:click="back" />
+      </view>
+    </view>
+
+    <!-- 占位，高度与顶部栏一样 -->
+    <view style="height:{{capsuleData.navBarHeight}}px;"></view>
+  </view>
+  <!-- 内容区域 -->
+  <view class="selectIdentityBox-content">
+    <view class="content_title">
+      <image class="Identity1" wx:if="{{IdentityType == 1}}" src="{{baseImageUrl}}/user/Identity1.png" mode=""/>
+      <image class="Identity2" wx:else src="{{baseImageUrl}}/user/Identity2.png" mode=""/>
+    </view>
+
+    <view class="content_mainImg">
+      <image class="Identity1_back" wx:if="{{IdentityType == 1}}" src="{{baseImageUrl}}/user/Identity1_back.png" mode=""/>
+      <image class="Identity2_back" wx:else src="{{baseImageUrl}}/user/Identity2_back.png" mode=""/>
+    </view>
+  </view>
+  <!-- 底部按钮 -->
+  <view class="selectIdentityBox-footer">
+    <view class="footer_tips">
+      <text class="Identity1" wx:if="{{IdentityType == 1}}">校招/实习工作</text>
+      <text class="Identity2" wx:else>我有正式工作经验</text>
+    </view>
+
+    <view class="footer_btn">
+      <view class="Identity1 button" wx:if="{{IdentityType == 1}}" bind:tap="changeBtn">切换为学生</view>
+      <view class="Identity2 button" wx:else bind:tap="changeBtn">切换为职场人</view>
+    </view>
+  </view>
+</view>

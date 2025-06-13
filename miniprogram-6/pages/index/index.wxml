@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+
+<button  bindtap="idingyu">授权</button>
+
+<button  bindtap="upfile">上传</button>
+</view>
