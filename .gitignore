@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+miniprogram_npm/
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# WeChat Dev Tools
+project.private.config.json
+
+packageIm/.DS_Store
+packageIm/.DS_Store
+utils/imUtils/.DS_Store
+packageIm/.DS_Store
+.DS_Store
